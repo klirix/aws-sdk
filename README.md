@@ -2,6 +2,14 @@
 
 WIP!!!
 
+TODO: 
+- [x] Turn Smithy JSON-AST into AST nodes
+- [x] Turn the AST nodes into Type structures with traits
+- [ ] Accurately parse traits according to types
+- [ ] Turn the Type structures into macros \ generate code via ECR
+- [ ] Some kind of generic client to inherit from
+- [ ] Specs and docs
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
