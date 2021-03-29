@@ -5,6 +5,13 @@ require "./json-ast"
 module Smithy
 
   abstract class AbstractType(T)
+
+    def ==(other : self)
+      @id == other.id
+    end
+
+    def_hash @id
+
     property id : String
     property traits : Hash(String, JSON::Any)?
     property namespace : Namespace
@@ -74,12 +81,13 @@ module Smithy
         shape = @namespace.shapes[member.target]
         @members[name] = new_data_type(@namespace, member.target, shape)
       end
+      @namespace.structures << self
     end
 
     def to_s(io)
       io << "Structure of: \n"
       @members.each do |name, dt|
-        io << "  #{name}: #{dt}\n"
+        io << "  #{name}: #{(dt.is_a? self)? "asdasds" : dt}\n"
       end
     end
   end
@@ -92,7 +100,7 @@ module Smithy
     end
 
     def to_s(io)
-      io << "List of #{member.to_s}"
+      io << "List of #{(member.is_a? StructureType) ? member.name : member}"
     end
   end
 
@@ -107,7 +115,7 @@ module Smithy
     end
 
     def to_s(io)
-      io << "Map of #{key.to_s} => #{value.to_s}"
+      io << "Map of #{key.to_s} => #{(value.is_a? StructureType) ? value.name : value}"
     end
   end
 
@@ -142,25 +150,24 @@ module Smithy
 
   class Namespace
     property shapes : Hash(String, Shape)
+    property structures : Set(StructureType) = Set(StructureType).new
+    getter service
 
     def initialize(filename)
-      @shapes = Hash(String, Smithy::Shape)
-        .from_json(File.read(filename))
-    end
-
-    def service : ServiceType
-      if rec = @shapes.find {|_, x| x.type == "service"}
-        id, node = rec
-        ServiceType.new(self, id, node.as(ASTNodeService))
-      else
-        raise "Lmao what even is this?"
-      end
+      @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename))
+      id, node = @shapes.find {|_, x| x.type == "service"}.not_nil!
+      @service = ServiceType.new(self, id, node.as(ASTNodeService))
     end
   end
 end
 
 appconfig = Smithy::Namespace.new("aws-models/appconfig.2019-10-09.json")
-appconfig.service.tap do |service|
+puts "Structures:"
+appconfig.structures.each do |str|
+  print str.name
+  puts " = #{str.to_s}"
+end
+appconfig.service.not_nil!.tap do |service|
   puts "Service #{service.name}"
   puts "Traits:"
   p service.traits
@@ -168,12 +175,12 @@ appconfig.service.tap do |service|
   service.operations.each do |op|
     puts "Operation #{op.name}"
     print "Input: "
-    puts op.input.to_s
-    print "oputput: "
-    puts op.output.to_s
+    puts op.input.try &.name
+    print "Output: "
+    puts op.output.try &.name
     print "errors: "
-    op.errors.each do |err|
-      puts err
-    end
+    p op.errors.map &.name
   end
 end
+
+

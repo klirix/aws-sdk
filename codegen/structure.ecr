@@ -1,0 +1,9 @@
+struct {{structure.name.id}}
+  include JSON::Serializable
+  {% for name, member in structure.members %}
+  [@JSON::Field(key: {{name.id}})]
+  property {{name.downcase.id}}: {{
+    
+  }}
+  {% end %}
+end
