@@ -14,6 +14,7 @@ module Smithy
     property traits : Hash(String, JSON::Any)?
     property namespace : Namespace
 
+
     def name : String
       @id.split('#')[1]
     end
@@ -161,7 +162,7 @@ module Smithy
   end
 end
 
-appconfig = Smithy::Namespace.new("aws-models/appconfig.2019-10-09.json")
+appconfig = Smithy::Namespace.new("aws-models/s3.json")
 puts "Structures:"
 appconfig.structures.each do |str|
   print str.name
