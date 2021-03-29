@@ -7,10 +7,13 @@ module Smithy
     use_json_discriminator "type", {
       service: ASTNodeService,
       structure: ASTNodeStructure,
+      union: ASTNodeUnion,
       list: ASTNodeList,
       string: ASTNodeString,
       float: ASTNodeFloat,
+      long: ASTNodeLong,
       blob: ASTNodeBlob,
+      boolean: ASTNodeBoolean,
       integer: ASTNodeInteger,
       timestamp: ASTNodeTimestamp,
       map: ASTNodeMap,
@@ -21,31 +24,23 @@ module Smithy
     property traits : Hash(String, JSON::Any)?
   end
 
+  PRIMITIVE_TYPENAMES = %w(String Float Blob Integer Timestamp Boolean Long)
+
+  {% for primitive in PRIMITIVE_TYPENAMES%}
+    class ASTNode{{primitive.id}} < Shape
+    end
+  {% end %}
+
   class ASTNodeMap < Shape
     property key : ShapeMember
     property value : ShapeMember
   end
 
-  class ASTNodeTimestamp < Shape
-  end
-
-  class ASTNodeInteger < Shape
-  end
-
-  class ASTNodeFloat < Shape
-  end
-
-  class ASTNodeOperation < Shape
-    property input : ShapeMember
-    property output : ShapeMember?
-    property errors : Array(ShapeMember)
-  end
-
-  class ASTNodeService < Shape
-    property operations : Array(ShapeMember)
-  end
-
   class ASTNodeStructure < Shape
+    property members : Hash(String, ShapeMember)
+  end
+
+  class ASTNodeUnion < Shape
     property members : Hash(String, ShapeMember)
   end
 
@@ -53,10 +48,14 @@ module Smithy
     property member : ShapeMember
   end
 
-  class ASTNodeString < Shape
+  class ASTNodeOperation < Shape
+    property input : ShapeMember?
+    property output : ShapeMember?
+    property errors : Array(ShapeMember)?
   end
 
-  class ASTNodeBlob < Shape
+  class ASTNodeService < Shape
+    property operations : Array(ShapeMember)
   end
 
   class ShapeMember

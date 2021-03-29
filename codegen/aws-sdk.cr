@@ -28,11 +28,12 @@ module Smithy
     def new_data_type(namespace, id, shape : Shape) : DataType
       {% begin %}
         case shape
-          {% for type in %w{Structure Map List Integer Float Blob String Timestamp}%}
+          {% for type in %w{Structure Map List Union}+PRIMITIVE_TYPENAMES%}
           when ASTNode{{type.id}}
             {{type.id}}Type.new(namespace, id, shape)
           {% end %}
         else
+          pp shape
           raise "What kind of type is that??"
         end
       {% end %}
@@ -55,22 +56,26 @@ module Smithy
   class OperationType < AbstractType(ASTNodeOperation)
     property input : DataType?
     property output : DataType?
-    property errors : Array(DataType)
+    property errors : Array(DataType)?
 
     def initialize(@namespace, @id, @node : ASTNodeOperation)
-      @input = new_data_type(@namespace, @node.input.target, @namespace.shapes[@node.input.target])
+      if input = @node.input
+        @input = new_data_type(@namespace, input.target, @namespace.shapes[input.target])
+      end
       if output = @node.output
         @output = new_data_type(@namespace, output.target, @namespace.shapes[output.target])
       end
-      @errors = @namespace.shapes
-        .select(@node.errors.map &.target)
-        .map do |id, shape|
-          new_data_type(@namespace, id, shape)
-        end
+      if errors = @node.errors
+        @errors = @namespace.shapes
+          .select(errors.map &.target)
+          .map do |id, shape|
+            new_data_type(@namespace, id, shape)
+          end
+      end
     end
   end
 
-  alias DataType = StructureType | MapType | ListType | IntegerType | FloatType | BlobType | StringType | TimestampType
+  alias DataType = UnionType | LongType | BooleanType | StructureType | MapType | ListType | IntegerType | FloatType | BlobType | StringType | TimestampType
 
   class StructureType < AbstractType(ASTNodeStructure)
     property members = Hash(String, DataType).new
@@ -85,7 +90,24 @@ module Smithy
     def to_s(io)
       io << "Structure of: \n"
       @members.each do |name, dt|
-        io << "  #{name}: #{(dt.is_a? self)? "asdasds" : dt}\n"
+        io << "  #{name}: #{(dt.is_a? self)? dt.name : dt}\n"
+      end
+    end
+  end
+
+  class UnionType < AbstractType(ASTNodeUnion)
+    property members = Hash(String, DataType).new
+    def initialize(@namespace, @id, @node : ASTNodeUnion)
+      @node.members.each do |name, member|
+        shape = @namespace.shapes[member.target]
+        @members[name] = new_data_type(@namespace, member.target, shape)
+      end
+    end
+
+    def to_s(io)
+      io << "Union of: "
+      @members.each do |name, dt|
+        io << "#{name}: #{(dt.is_a? StructureType)? dt.name : dt}, "
       end
     end
   end
@@ -117,34 +139,13 @@ module Smithy
     end
   end
 
-  {% for primitive in %w(Integer Float Blob String Timestamp) %}
+  {% for primitive in PRIMITIVE_TYPENAMES %}
     class {{primitive.id}}Type < AbstractType(ASTNode{{primitive.id}})
       def to_s(io)
         io << \{{@type.stringify.id}}
       end
     end
   {% end %}
-
-  DATA_TYPES = {
-    "structure" => StructureType,
-    "list" => ListType,
-    "map" => MapType,
-    "integer" => IntegerType,
-    "float" => FloatType,
-    "blob" => BlobType,
-    "string" => StringType,
-    "timestamp" => TimestampType
-  }
-  AST_TYPES = {
-    "structure" => ASTNodeStructure,
-    "list" => ASTNodeList,
-    "map" => ASTNodeMap,
-    "integer" => ASTNodeInteger,
-    "float" => ASTNodeFloat,
-    "blob" => ASTNodeBlob,
-    "string" => ASTNodeString,
-    "timestamp" => ASTNodeTimestamp
-  }
 
   class Namespace
     property shapes : Hash(String, Shape)
@@ -155,6 +156,7 @@ module Smithy
       @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename))
       id, node = @shapes.find {|_, x| x.type == "service"}.not_nil!
       @service = ServiceType.new(self, id, node.as(ASTNodeService))
+
     end
   end
 end
@@ -173,11 +175,11 @@ appconfig.service.not_nil!.tap do |service|
   service.operations.each do |op|
     puts "Operation #{op.name}"
     print "Input: "
-    puts op.input.try &.name
+    puts op.input.try &.name || "none"
     print "Output: "
-    puts op.output.try &.name
+    puts op.output.try &.name || "none"
     print "errors: "
-    p op.errors.map &.name
+    p op.errors.try &.map &.name
   end
 end
 
