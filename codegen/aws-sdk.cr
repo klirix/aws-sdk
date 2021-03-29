@@ -6,9 +6,7 @@ module Smithy
 
   abstract class AbstractType(T)
 
-    def ==(other : self)
-      @id == other.id
-    end
+    def_equals @id
 
     def_hash @id
 
