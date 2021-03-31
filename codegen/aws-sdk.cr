@@ -1,6 +1,7 @@
 # TODO: Write documentation for `Aws::Sdk`
 require "json"
 require "./json-ast"
+require "ecr"
 
 module Smithy
 
@@ -46,11 +47,21 @@ module Smithy
     property operations : Array(OperationType)
 
     def initialize(@namespace, @id, @node : ASTNodeService)
+      @traits = @node.traits
       @operations = @namespace.shapes
         .select(@node.operations.map &.target)
         .map do |id, node|
           OperationType.new(@namespace, id, node.as(ASTNodeOperation))
         end
+    end
+
+    def to_code(io)
+      io << "module AWSSdk::#{name}\n"
+      io << "HOST = \"#{@traits.not_nil!["aws.api#service"]["cloudTrailEventSource"]}\"\n"
+      @operations.each do |op|
+        op.to_code(io)
+      end
+      io << "end\n"
     end
   end
 
@@ -60,6 +71,7 @@ module Smithy
     property errors : Array(DataType)?
 
     def initialize(@namespace, @id, @node : ASTNodeOperation)
+      @traits = @node.traits
       if input = @node.input
         @input = new_data_type(@namespace, input.target, @namespace.shapes[input.target])
       end
@@ -73,6 +85,11 @@ module Smithy
             new_data_type(@namespace, id, shape)
           end
       end
+    end
+
+    def to_code(io)
+      traits = @traits.not_nil!
+      ECR.embed "codegen/operation.ecr", io
     end
   end
 
@@ -88,7 +105,7 @@ module Smithy
       @namespace.structures << self
     end
 
-    def to_s(io)
+    def to_s(io = IO::Memory.new)
       io << "Structure of: \n"
       @members.each do |name, dt|
         io << "  #{name}: #{(dt.is_a? self)? dt.name : dt}\n"
@@ -163,25 +180,36 @@ module Smithy
 end
 
 appconfig = Smithy::Namespace.new("aws-models/s3.json")
-puts "Structures:"
-appconfig.structures.each do |str|
-  print str.name
-  puts " = #{str.to_s}"
+# puts "Structures:"
+# appconfig.structures.each do |str|
+#   print str.name
+#   puts " = #{str.to_s}"
+# end
+# appconfig.service.not_nil!.tap do |service|
+#   puts "Service #{service.name}"
+#   puts "Traits:"
+#   p service.traits
+#   puts "Operations:"
+#   service.operations.each do |op|
+#     puts "Operation #{op.name}"
+#     print "Input: "
+#     puts op.input.try &.name || "none"
+#     print "Output: "
+#     puts op.output.try &.name || "none"
+#     print "errors: "
+#     p op.errors.try &.map &.name
+#   end
+# end
+begin
+  file = File.open("./s3.cr", "w")
+  appconfig.service.try &.to_code(file)
+rescue exception
+  puts "Failed to write to file"
+  pp exception
+ensure
+  file.close if file
 end
-appconfig.service.not_nil!.tap do |service|
-  puts "Service #{service.name}"
-  puts "Traits:"
-  p service.traits
-  puts "Operations:"
-  service.operations.each do |op|
-    puts "Operation #{op.name}"
-    print "Input: "
-    puts op.input.try &.name || "none"
-    print "Output: "
-    puts op.output.try &.name || "none"
-    print "errors: "
-    p op.errors.try &.map &.name
-  end
-end
+
+
 
 
