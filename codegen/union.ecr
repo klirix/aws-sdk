@@ -1,0 +1,15 @@
+struct <%= name %>Struct
+  <%- members.each do |name, member| -%>
+
+  property <%= name.underscore %> : <%= member.to_type %>?
+  <%- end -%>
+
+  <%- members.each do |name, _| -%>
+  def self.<%= name.underscore %>(<%= name.underscore %> __arg1)
+    new(<%= name.underscore %>: __arg1)
+  end
+  <%- end -%>
+
+  def initialize(<%= members.map {|name, _| "@#{name.underscore} = nil" }.join(", ") %>)
+  end
+end

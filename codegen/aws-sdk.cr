@@ -55,12 +55,10 @@ module Smithy
         end
     end
 
-    def to_code(io)
+    def to_code(io : IO)
       io << "module AWSSdk::#{name}\n"
       io << "HOST = \"#{@traits.not_nil!["aws.api#service"]["cloudTrailEventSource"]}\"\n"
-      @operations.each do |op|
-        op.to_code(io)
-      end
+      io.puts @operations.each &.to_code
       io << "end\n"
     end
   end
@@ -87,9 +85,9 @@ module Smithy
       end
     end
 
-    def to_code(io)
+    def to_code
       traits = @traits.not_nil!
-      ECR.embed "codegen/operation.ecr", io
+      ECR.render "codegen/operation.ecr"
     end
   end
 
@@ -150,6 +148,7 @@ module Smithy
         shape = @namespace.shapes[member.target]
         @members[name] = new_data_type(@namespace, member.target, shape)
       end
+      @namespace.unions << self
     end
 
     def to_s(io)
@@ -157,6 +156,10 @@ module Smithy
       @members.each do |name, dt|
         io << "#{name}: #{(dt.is_a? StructureType)? dt.name : dt}, "
       end
+    end
+
+    def to_code
+      ECR.render "codegen/union.ecr"
     end
 
     def to_type
@@ -253,6 +256,7 @@ module Smithy
   class Namespace
     property shapes : Hash(String, Shape)
     property structures : Set(StructureType) = Set(StructureType).new
+    property unions = Set(UnionType).new
     getter service
 
     def initialize(filename)
@@ -265,30 +269,11 @@ module Smithy
 end
 
 appconfig = Smithy::Namespace.new("aws-models/s3.json")
-# puts "Structures:"
-# appconfig.structures.each do |str|
-#   print str.name
-#   puts " = #{str.to_s}"
-# end
-# appconfig.service.not_nil!.tap do |service|
-#   puts "Service #{service.name}"
-#   puts "Traits:"
-#   p service.traits
-#   puts "Operations:"
-#   service.operations.each do |op|
-#     puts "Operation #{op.name}"
-#     print "Input: "
-#     puts op.input.try &.name || "none"
-#     print "Output: "
-#     puts op.output.try &.name || "none"
-#     print "errors: "
-#     p op.errors.try &.map &.name
-#   end
-# end
 begin
   file = File.open("./s3.cr", "w")
   appconfig.service.try &.to_code(file)
-  appconfig.structures.each do |str|
+  file.puts appconfig.structures.each &.to_code
+  appconfig.unions.each do |str|
     file.puts(str.to_code)
   end
 rescue exception
@@ -297,7 +282,3 @@ rescue exception
 ensure
   file.close if file
 end
-
-
-
-
