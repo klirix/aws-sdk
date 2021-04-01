@@ -2,13 +2,19 @@
 
 WIP!!!
 
-This is not as much as an AWS library itself, as much as a codegen for smithy json AST + simple general aws client.
+This is not as much as an AWS library itself, as much as a reverse-engeneered codegen for smithy json AST + simple general aws client.
+
+Smithy types are up to date with typescript aws sdk v3 library/
 
 TODO: 
 - [x] Turn Smithy JSON-AST into AST nodes
 - [x] Turn the AST nodes into Type structures with traits
 - [x] Accurately parse traits according to types
 - [x] Turn the Type --structures into macros-- generate code via ECR
+- [ ] Process request to set query vars
+- [ ] Process request to set headers
+- [ ] Process request to set xml body
+- [ ] Process request to set json
 - [ ] Some kind of generic client to inherit from
 - [ ] Specs and docs
 
