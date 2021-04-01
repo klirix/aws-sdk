@@ -1,9 +1,21 @@
-struct {{structure.name.id}}
-  include JSON::Serializable
-  {% for name, member in structure.members %}
-  [@JSON::Field(key: {{name.id}})]
-  property {{name.downcase.id}}: {{
-    
-  }}
-  {% end %}
+struct <%= scalar? ? "#{name}Struct" : name %>
+  <%- @members.each do |key, value| -%>
+  <%- traits = memberTraits.try &.[key] -%>
+  <%- if docs = @memberTraits.try &.[key].try &.["smithy.api#documentation"]?.to_s-%>
+  <%- docs.split('\n').each do |line| -%>
+  # <%= line.strip %>
+  <%- end -%>
+  <%- end -%>
+  property <%= key.underscore %> : <%= value.to_type %><%= traits.try &.["smithy.api#required"]? ? "" : '?' %>
+  <%- end -%>
+
+  def initialize(<%= @members.map do |key, value| 
+    base = "@#{key.underscore}" 
+    unless @memberTraits.try &.[key].try &.["smithy.api#required"]?
+      base = base + " = nil"
+    else
+      base 
+    end
+  end.sort_by {|x| x.includes?("= nil") ? 1 : 0}.join(", ")%>)
+  end
 end

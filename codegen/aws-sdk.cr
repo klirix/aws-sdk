@@ -97,10 +97,12 @@ module Smithy
 
   class StructureType < AbstractType(ASTNodeStructure)
     property members = Hash(String, DataType).new
+    property memberTraits = Hash(String, Hash(String, JSON::Any)?).new
     def initialize(@namespace, @id, @node : ASTNodeStructure)
       @node.members.each do |name, member|
         shape = @namespace.shapes[member.target]
         @members[name] = new_data_type(@namespace, member.target, shape)
+        @memberTraits[name] = member.traits
       end
       @namespace.structures << self
     end
@@ -111,7 +113,35 @@ module Smithy
         io << "  #{name}: #{(dt.is_a? self)? dt.name : dt}\n"
       end
     end
+
+    def input?
+      name.ends_with?("Request")
+    end
+
+    def output?
+      name.ends_with?("Response")
+    end
+
+    def exception?
+      name.ends_with?("Error")
+    end
+
+    def scalar?
+      !(input? || output? || exception?)
+    end
+
+    def to_code
+      io = IO::Memory.new
+      # traits = @traits.not_nil!
+      ECR.embed "codegen/structure.ecr", io
+      io.to_s
+    end
+
+    def to_type
+      scalar? ? "#{name}Struct" : name
+    end
   end
+
 
   class UnionType < AbstractType(ASTNodeUnion)
     property members = Hash(String, DataType).new
@@ -128,6 +158,10 @@ module Smithy
         io << "#{name}: #{(dt.is_a? StructureType)? dt.name : dt}, "
       end
     end
+
+    def to_type
+      "#{name}Struct"
+    end
   end
 
   class ListType < AbstractType(ASTNodeList)
@@ -139,6 +173,10 @@ module Smithy
 
     def to_s(io)
       io << "List of #{(member.is_a? StructureType) ? member.name : member}"
+    end
+
+    def to_type
+      "Array(#{member.to_type})"
     end
   end
 
@@ -155,6 +193,10 @@ module Smithy
     def to_s(io)
       io << "Map of #{key.to_s} => #{(value.is_a? StructureType) ? value.name : value}"
     end
+
+    def to_type
+      "Hash(#{key.to_type}, #{value.to_type})"
+    end
   end
 
   {% for primitive in PRIMITIVE_TYPENAMES %}
@@ -164,6 +206,49 @@ module Smithy
       end
     end
   {% end %}
+
+  class StringType
+    def to_type
+      "String"
+    end
+  end
+
+  class FloatType
+    def to_type
+      "Float"
+    end
+  end
+
+  class BlobType
+    def to_type
+      "Bytes"
+    end
+  end
+
+  class IntegerType
+    def to_type
+      "Int32"
+    end
+  end
+
+  class TimestampType
+    def to_type
+      "Time"
+    end
+  end
+
+  class BooleanType
+    def to_type
+      "Bool"
+    end
+  end
+
+  class LongType
+    def to_type
+      "Int64"
+    end
+  end
+
 
   class Namespace
     property shapes : Hash(String, Shape)
@@ -203,6 +288,9 @@ appconfig = Smithy::Namespace.new("aws-models/s3.json")
 begin
   file = File.open("./s3.cr", "w")
   appconfig.service.try &.to_code(file)
+  appconfig.structures.each do |str|
+    file.puts(str.to_code)
+  end
 rescue exception
   puts "Failed to write to file"
   pp exception
