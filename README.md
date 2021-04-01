@@ -2,11 +2,13 @@
 
 WIP!!!
 
+This is not as much as an AWS library itself, as much as a codegen for smithy json AST + simple general aws client.
+
 TODO: 
 - [x] Turn Smithy JSON-AST into AST nodes
 - [x] Turn the AST nodes into Type structures with traits
-- [ ] Accurately parse traits according to types
-- [ ] Turn the Type structures into macros \ generate code via ECR
+- [x] Accurately parse traits according to types
+- [x] Turn the Type --structures into macros-- generate code via ECR
 - [ ] Some kind of generic client to inherit from
 - [ ] Specs and docs
 
@@ -24,11 +26,9 @@ TODO:
 
 ## Usage
 
-```crystal
-require "aws-sdk"
-```
+## Do not
 
-TODO: Write usage instructions here
+Do not use it for now
 
 ## Development
 
