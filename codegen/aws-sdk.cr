@@ -129,10 +129,8 @@ module Smithy
     end
 
     def to_code
-      io = IO::Memory.new
       # traits = @traits.not_nil!
-      ECR.embed "codegen/structure.ecr", io
-      io.to_s
+      ECR.render "codegen/structure.ecr"
     end
 
     def to_type
@@ -272,7 +270,9 @@ appconfig = Smithy::Namespace.new("aws-models/s3.json")
 begin
   file = File.open("./s3.cr", "w")
   appconfig.service.try &.to_code(file)
-  file.puts appconfig.structures.each &.to_code
+  appconfig.structures.each do |x|
+    file.puts x.to_code
+  end
   appconfig.unions.each do |str|
     file.puts(str.to_code)
   end

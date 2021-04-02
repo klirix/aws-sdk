@@ -18,4 +18,19 @@ struct <%= scalar? ? "#{name}Struct" : name %>
     end
   end.sort_by {|x| x.includes?("= nil") ? 1 : 0}.join(", ")%>)
   end
+  
+  def process(input : HTTP::Request)
+    <%- @members.map {|k,_| {k, @memberTraits[k]} }.select {|_, x| !x.nil?}.each do |key, traits| -%>
+    <%- if traits.not_nil!.has_key? "smithy.api#httpQuery" -%>
+    if @<%= key.underscore %>
+      input.query_params["<%= traits.not_nil!["smithy.api#httpQuery"] %>"] = @<%= key.underscore %>
+    end
+    <%- elsif traits.not_nil!.has_key? "smithy.api#httpHeader" -%>
+    if @<%= key.underscore %>
+      input.headers["<%= traits.not_nil!["smithy.api#httpHeader"] %>"] = @<%= key.underscore %>
+    end
+    <%- end -%>
+    <%- end -%>
+    input
+  end
 end
