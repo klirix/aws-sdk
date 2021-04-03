@@ -1,4 +1,4 @@
-struct <%= scalar? ? "#{name}Struct" : name %>
+struct <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
   <%- @members.each do |key, value| -%>
   <%- traits = memberTraits.try &.[key] -%>
   <%- if docs = @memberTraits.try &.[key].try &.["smithy.api#documentation"]?.to_s-%>
@@ -19,6 +19,7 @@ struct <%= scalar? ? "#{name}Struct" : name %>
   end.sort_by {|x| x.includes?("= nil") ? 1 : 0}.join(", ")%>)
   end
   
+  <% if input? %>
   def process(input : HTTP::Request)
     <%- @members.map {|k,_| {k, @memberTraits[k]} }.select {|_, x| !x.nil?}.each do |key, traits| -%>
     <%- if traits.not_nil!.has_key? "smithy.api#httpQuery" -%>
@@ -33,4 +34,24 @@ struct <%= scalar? ? "#{name}Struct" : name %>
     <%- end -%>
     input
   end
+  <% end %>
+
+  <%- if output? -%>
+  def self.from_response(response : HTTP::Client::Response)
+    new(
+      <%- @members.map {|k,_| {k, @memberTraits[k]} }.select {|_, x| !x.nil?}.each do |k, traits| -%>
+      <%= k.underscore %>: <%- if traits.not_nil!.has_key? "smithy.api#httpHeader" -%>
+response.headers["<%= traits.not_nil!["smithy.api#httpHeader"] %>"]
+      <%- elsif @members[k].is_a? BlobType && traits.not_nil!.has_key? "smithy.api#httpPayload" -%>
+response.body_io.read_bytes(Int8)
+      <%- elsif traits.not_nil!.has_key? "smithy.api#httpPayload" -%>
+JSON.parse(response.body)["<%= k %>"]
+      <%- elsif traits.not_nil!.has_key? "smithy.api#httpPrefixHeaders" -%>
+response.headers.select {|k, _| k.starts_with? "<%= traits.not_nil!["smithy.api#httpPrefixHeaders"]  %>"}
+  .to_h {|k, v| {k.replace("<%= traits.not_nil!["smithy.api#httpPrefixHeaders"]  %>", ""), v} }
+      <%- end -%>
+      <%- end -%>
+    )
+  end
+  <%- end -%>
 end

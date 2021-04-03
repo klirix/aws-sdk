@@ -97,6 +97,7 @@ module Smithy
     property members = Hash(String, DataType).new
     property memberTraits = Hash(String, Hash(String, JSON::Any)?).new
     def initialize(@namespace, @id, @node : ASTNodeStructure)
+      @traits = @node.traits
       @node.members.each do |name, member|
         shape = @namespace.shapes[member.target]
         @members[name] = new_data_type(@namespace, member.target, shape)
@@ -117,11 +118,12 @@ module Smithy
     end
 
     def output?
-      name.ends_with?("Response")
+      name.ends_with?("Output")
     end
 
     def exception?
-      name.ends_with?("Error")
+
+      @traits.try &.has_key?("smithy.api#error")
     end
 
     def scalar?
@@ -276,9 +278,9 @@ begin
   appconfig.unions.each do |str|
     file.puts(str.to_code)
   end
-rescue exception
-  puts "Failed to write to file"
-  pp exception
+# rescue exception
+#   puts "Failed to write to file"
+#   pp exception
 ensure
   file.close if file
 end
