@@ -13,7 +13,9 @@ TODO:
 - [x] Turn the Type --structures into macros-- generate code via ECR
 - [x] Process request to set query vars
 - [x] Process request to set headers
-- [ ] Process request to set xml body
+- [ ] Make the scalar structures be both JSON and XML serializable
+- - [ ] Process request to set xml body
+- - [ ] Process response to parse xml
 - [ ] Process request to set json
 - [ ] Some kind of generic client to inherit from
 - [ ] Specs and docs
