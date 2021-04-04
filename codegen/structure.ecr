@@ -1,82 +1,26 @@
-struct <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
+class <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
   <%- @members.each do |key, value| -%>
-  <%- traits = memberTraits.try &.[key] -%>
-  <%- if docs = @memberTraits.try &.[key].try &.["smithy.api#documentation"]?.to_s-%>
+  <%- traits = @memberTraits[key] -%>
+  <%- if docs = @memberTraits[key].try &.["smithy.api#documentation"]?.to_s-%>
   <%- docs.split('\n').each do |line| -%>
   # <%= line.strip %>
   <%- end -%>
   <%- end -%>
+  @[Protocol::Field(<%-= 
+  case traits
+  when .has_key? "smithy.api#httpQuery"
+    "location: :query, name: \"#{traits["smithy.api#httpQuery"]?}\""
+  when .has_key? "smithy.api#httpLabel"
+    "location: :uri, name: \"#{key}\""
+  when .has_key? "smithy.api#httpHeader"
+    "location: :header, name: \"#{traits["smithy.api#httpHeader"]}\""
+  when .has_key? "smithy.api#httpPrefixHeaders"
+    "location: :header_prefix, name: \"#{traits["smithy.api#httpPrefixHeaders"]}\""
+  when .has_key? "smithy.api#httpPayload"
+    "location: :body_io"
+  else 
+    "location: :body, name: \"#{traits["smithy.api#xmlName"]? || key}\""
+  end%>, required: <%= traits.has_key? "smithy.api#required" %>)]
   property <%= key.underscore %> : <%= value.to_type %><%= traits.try &.["smithy.api#required"]? ? "" : '?' %>
-  <%- end -%>
-
-  def initialize(<%= @members.map do |key, value| 
-    base = "@#{key.underscore}" 
-    unless @memberTraits.try &.[key].try &.["smithy.api#required"]?
-      base = base + " = nil"
-    else
-      base 
-    end
-  end.sort_by {|x| x.includes?("= nil") ? 1 : 0}.join(", ")%>)
-  end
-  
-  <% if input? %>
-  def process(input : HTTP::Request)
-    <%- @members.map {|k,_| {k, @memberTraits[k]} }.select {|_, x| !x.nil?}.each do |key, traits| -%>
-    <%- if traits.not_nil!.has_key? "smithy.api#httpQuery" -%>
-    if @<%= key.underscore %>
-      input.query_params["<%= traits.not_nil!["smithy.api#httpQuery"] %>"] = @<%= key.underscore %>
-    end
-    <%- elsif traits.not_nil!.has_key? "smithy.api#httpHeader" -%>
-    if @<%= key.underscore %>
-      input.headers["<%= traits.not_nil!["smithy.api#httpHeader"] %>"] = @<%= key.underscore %>
-    end
-    <%- end -%>
-    <%- end -%>
-    input
-  end
-  <% end %>
-  <%- if output? -%>
-  def self.from_response(response : HTTP::Client::Response)
-    parsed_body = XML.parse(response.body)
-    new(
-      <%- @members.map {|k,_| {k, @memberTraits[k]} }.select {|_, x| !x.nil?}.each do |k, traits| -%>
-      <%= k.underscore %>: <%- if traits.not_nil!.has_key? "smithy.api#httpHeader" -%>
-response.headers["<%= traits.not_nil!["smithy.api#httpHeader"] %>"]
-      <%- elsif @members[k].is_a? BlobType && traits.not_nil!.has_key? "smithy.api#httpPayload" -%>
-response.body_io.read_bytes(Int8)
-      <%- elsif traits.not_nil!.has_key? "smithy.api#httpPayload" -%>
-JSON.parse(response.body)["<%= k %>"]
-      <%- elsif traits.not_nil!.has_key? "smithy.api#httpPrefixHeaders" -%>
-response.headers.select {|k, _| k.starts_with? "<%= traits.not_nil!["smithy.api#httpPrefixHeaders"]  %>"}
-      .to_h {|k, v| {k.replace("<%= traits.not_nil!["smithy.api#httpPrefixHeaders"]  %>", ""), v} }
-      <%- end -%>
-      <%- end -%>
-    )
-  end
-  <%- end -%>
-  <%- if scalar? -%>
-  def serialize(xml : XML::Builder)
-    <%- @members.each do |k, member| -%>
-    xml.element("<%= (member.is_a? ListType) ? k : (@memberTraits[k].try &.fetch("smithy.api#xmlName", k) || k) %>") do 
-      <%- if [StringType, FloatType, IntegerType].includes? member.class  -%>
-        xml.text @<%= k.underscore %>
-      <%- elsif member.is_a? TimestampType  -%>
-        xml.text @<%= k.underscore %>.to_s
-      <%- elsif member.is_a? StructureType -%>
-        <%= k.underscore %>.serialize(xml)
-      <%- elsif member.is_a? ListType -%>
-        @<%= k.underscore %>.each do |el|
-          xml.element("<%= @memberTraits[k].try &.fetch("smithy.api#xmlName", member.name)  %>") do
-            <%- if [StringType, FloatType, IntegerType].includes? member.member.class  -%>
-              xml.text @<%= k.underscore -%>
-            <%- elsif member.member.is_a? StructureType -%>
-              el.serialize(xml)
-            <%- end -%>
-          end
-        end
-      <%- end -%>
-    end
-    <%- end -%>
-  end
   <%- end -%>
 end
