@@ -45,6 +45,7 @@ module Smithy
 
   class ServiceType < AbstractType(ASTNodeService)
     property operations : Array(OperationType)
+    property traits : Hash(String, JSON::Any)?
 
     def initialize(@namespace, @id, @node : ASTNodeService)
       @traits = @node.traits
@@ -169,9 +170,11 @@ module Smithy
 
   class ListType < AbstractType(ASTNodeList)
     property member : DataType
+    property member_traits : Hash(String, JSON::Any)?
     def initialize(@namespace, @id, @node : ASTNodeList)
       shape = @namespace.shapes[@node.member.target]
       @member = new_data_type(@namespace, @node.member.target, shape)
+      @member_traits = @node.traits
     end
 
     def to_s(io)
@@ -263,8 +266,9 @@ module Smithy
       @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename))
       id, node = @shapes.find {|_, x| x.type == "service"}.not_nil!
       @service = ServiceType.new(self, id, node.as(ASTNodeService))
-
     end
+
+    
   end
 end
 
