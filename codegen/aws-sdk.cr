@@ -12,7 +12,7 @@ module Smithy
     def_hash @id
 
     property id : String
-    property traits : Hash(String, JSON::Any)?
+    property traits = Hash(String, JSON::Any).new
     property namespace : Namespace
 
 
@@ -45,7 +45,6 @@ module Smithy
 
   class ServiceType < AbstractType(ASTNodeService)
     property operations : Array(OperationType)
-    property traits : Hash(String, JSON::Any)?
 
     def initialize(@namespace, @id, @node : ASTNodeService)
       @traits = @node.traits
@@ -56,11 +55,34 @@ module Smithy
         end
     end
 
-    def to_code(io : IO)
-      io << "module AWSSdk::#{name}\n"
-      io << "HOST = \"#{@traits.not_nil!["aws.api#service"]["cloudTrailEventSource"]}\"\n"
-      io.puts @operations.each &.to_code
-      io << "end\n"
+    def protocol
+      case traits
+      when .has_key? "aws.protocols#restJson1"
+        :rest_json
+      when .has_key? "aws.protocols#restXml"
+        :rest_xml
+      when .has_key? "aws.protocols#awsJson1_1"
+        :json1_1
+      else
+        raise "Protocol unavailable"
+      end
+    end
+
+    def protocol_module
+      case traits
+      when .has_key? "aws.protocols#restJson1"
+        "RestJson"
+      when .has_key? "aws.protocols#restXml"
+        "RestXML"
+      when .has_key? "aws.protocols#awsJson1_1"
+        "JSON1_1"
+      else
+        raise "Protocol unavailable"
+      end
+    end
+
+    def to_code
+      ECR.render "codegen/service.ecr"
     end
   end
 
@@ -92,7 +114,7 @@ module Smithy
     end
   end
 
-  alias DataType = UnionType | LongType | BooleanType | StructureType | MapType | ListType | IntegerType | FloatType | BlobType | StringType | TimestampType
+  alias DataType = DoubleType | UnionType | LongType | BooleanType | StructureType | MapType | ListType | IntegerType | FloatType | BlobType | StringType | TimestampType
 
   class StructureType < AbstractType(ASTNodeStructure)
     property members = Hash(String, DataType).new
@@ -105,13 +127,6 @@ module Smithy
         @memberTraits[name] = member.traits
       end
       @namespace.structures << self
-    end
-
-    def to_s(io = IO::Memory.new)
-      io << "Structure of: \n"
-      @members.each do |name, dt|
-        io << "  #{name}: #{(dt.is_a? self)? dt.name : dt}\n"
-      end
     end
 
     def input?
@@ -152,13 +167,6 @@ module Smithy
       @namespace.unions << self
     end
 
-    def to_s(io)
-      io << "Union of: "
-      @members.each do |name, dt|
-        io << "#{name}: #{(dt.is_a? StructureType)? dt.name : dt}, "
-      end
-    end
-
     def to_code
       ECR.render "codegen/union.ecr"
     end
@@ -177,10 +185,6 @@ module Smithy
       @member_traits = @node.traits
     end
 
-    def to_s(io)
-      io << "List of #{(member.is_a? StructureType) ? member.name : member}"
-    end
-
     def to_type
       "Array(#{member.to_type})"
     end
@@ -196,10 +200,6 @@ module Smithy
       @value = new_data_type(@namespace, @node.value.target, shape)
     end
 
-    def to_s(io)
-      io << "Map of #{key.to_s} => #{(value.is_a? StructureType) ? value.name : value}"
-    end
-
     def to_type
       "Hash(#{key.to_type}, #{value.to_type})"
     end
@@ -207,9 +207,6 @@ module Smithy
 
   {% for primitive in PRIMITIVE_TYPENAMES %}
     class {{primitive.id}}Type < AbstractType(ASTNode{{primitive.id}})
-      def to_s(io)
-        io << \{{@type.stringify.id}}
-      end
     end
   {% end %}
 
@@ -221,7 +218,13 @@ module Smithy
 
   class FloatType
     def to_type
-      "Float"
+      "Float32"
+    end
+  end
+
+  class DoubleType
+    def to_type
+      "Float64"
     end
   end
 
@@ -260,28 +263,20 @@ module Smithy
     property shapes : Hash(String, Shape)
     property structures : Set(StructureType) = Set(StructureType).new
     property unions = Set(UnionType).new
-    getter service
+    getter service : ServiceType?
 
     def initialize(filename)
-      @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename))
+      @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename), "shapes")
       id, node = @shapes.find {|_, x| x.type == "service"}.not_nil!
       @service = ServiceType.new(self, id, node.as(ASTNodeService))
     end
-
-    
   end
 end
 
-appconfig = Smithy::Namespace.new("aws-models/s3.json")
+appconfig = Smithy::Namespace.new("aws-models/appconfig.json")
 begin
-  file = File.open("./s3.cr", "w")
-  appconfig.service.try &.to_code(file)
-  appconfig.structures.each do |x|
-    file.puts x.to_code
-  end
-  appconfig.unions.each do |str|
-    file.puts(str.to_code)
-  end
+  file = File.open("src/clients/appconfig.cr", "w")
+  file.puts appconfig.service.try &.to_code
 # rescue exception
 #   puts "Failed to write to file"
 #   pp exception

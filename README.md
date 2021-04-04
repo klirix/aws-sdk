@@ -21,7 +21,7 @@ TODO:
 - [ ] Process request to set json
 --- /OBSOLETE --- 
 
-- [ ] Place location data into annotations
+- [x] Place location data into annotations
 - [ ] Protocols
 - - [ ] XML Rest
 - - [ ] JSON Rest

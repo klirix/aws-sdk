@@ -1,4 +1,6 @@
 class <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
+  include <%= @namespace.service.try &.protocol_module %>
+
   <%- @members.each do |key, value| -%>
   <%- traits = @memberTraits[key] -%>
   <%- if docs = @memberTraits[key].try &.["smithy.api#documentation"]?.to_s-%>

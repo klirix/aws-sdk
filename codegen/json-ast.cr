@@ -12,6 +12,7 @@ module Smithy
       string: ASTNodeString,
       float: ASTNodeFloat,
       long: ASTNodeLong,
+      double: ASTNodeDouble,
       blob: ASTNodeBlob,
       boolean: ASTNodeBoolean,
       integer: ASTNodeInteger,
@@ -24,7 +25,7 @@ module Smithy
     property traits = {} of String => JSON::Any
   end
 
-  PRIMITIVE_TYPENAMES = %w(String Float Blob Integer Timestamp Boolean Long)
+  PRIMITIVE_TYPENAMES = %w(String Float Blob Integer Timestamp Boolean Long Double)
 
   {% for primitive in PRIMITIVE_TYPENAMES%}
     class ASTNode{{primitive.id}} < Shape

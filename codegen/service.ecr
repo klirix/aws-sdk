@@ -1,0 +1,22 @@
+<% if protocol == :rest_xml %>
+require "../protocols/rest_xml"
+<% elsif protocol == :rest_json %>
+require "../protocols/rest_json"
+<% elsif protocol == :json1_1 %>
+require "../protocols/json1_1"
+<% end %>
+module AWSSdk::<%= name %>
+  ENDPOINT_PREFIX = "<%= traits.not_nil!["aws.api#service"]["endpointPrefix"] %>"
+
+<% operations.each do |operation| %>
+  <%= operation.to_code %>
+<% end %>
+
+<% @namespace.structures.each do |structure| %>
+  <%= structure.to_code %>
+<% end %>
+<% @namespace.unions.each do |structure| %>
+  <%= structure.to_code %>
+<% end %>
+
+end
