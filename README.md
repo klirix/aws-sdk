@@ -11,12 +11,23 @@ TODO:
 - [x] Turn the AST nodes into Type structures with traits
 - [x] Accurately parse traits according to types
 - [x] Turn the Type --structures into macros-- generate code via ECR
+
+--- OBSOLETE ---
 - [x] Process request to set query vars
 - [x] Process request to set headers
 - [ ] Make the scalar structures be both JSON and XML serializable
 - - [ ] Process request to set xml body
 - - [ ] Process response to parse xml
 - [ ] Process request to set json
+--- /OBSOLETE --- 
+
+- [ ] Place location data into annotations
+- [ ] Protocols
+- - [ ] XML Rest
+- - [ ] JSON Rest
+- - [ ] JSON 1.1
+- - [ ] Query
+- - [ ] EC2
 - [ ] Some kind of generic client to inherit from
 - [ ] Specs and docs
 
