@@ -96,7 +96,7 @@ module Smithy
 
   class StructureType < AbstractType(ASTNodeStructure)
     property members = Hash(String, DataType).new
-    property memberTraits = Hash(String, Hash(String, JSON::Any)?).new
+    property memberTraits = Hash(String, Hash(String, JSON::Any)).new
     def initialize(@namespace, @id, @node : ASTNodeStructure)
       @traits = @node.traits
       @node.members.each do |name, member|

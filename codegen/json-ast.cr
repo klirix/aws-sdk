@@ -21,7 +21,7 @@ module Smithy
     }
 
     property type : String
-    property traits : Hash(String, JSON::Any)?
+    property traits = {} of String => JSON::Any
   end
 
   PRIMITIVE_TYPENAMES = %w(String Float Blob Integer Timestamp Boolean Long)
@@ -62,7 +62,7 @@ module Smithy
     include JSON::Serializable
 
     property target : String
-    property traits : Hash(String, JSON::Any)?
+    property traits : Hash(String, JSON::Any) = Hash(String, JSON::Any).new
   end
 
 end
