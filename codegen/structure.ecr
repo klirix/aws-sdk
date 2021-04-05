@@ -1,5 +1,5 @@
   class <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
-    include <%= @namespace.service.try &.protocol_module %>
+    include <%= @namespace.service.try &.protocol_module %>::Structure
 
     <%- @members.each do |key, value| -%>
     <%- traits = @memberTraits[key] -%>
@@ -22,7 +22,14 @@
       "location: :body_io"
     else 
       "location: :body, name: \"#{traits["smithy.api#xmlName"]? || key}\""
-    end%>, required: <%= traits.has_key? "smithy.api#required" %>)]
+    end%>, structure: <%= value.is_a? StructureType %>)]
     property <%= key.underscore %> : <%= value.to_type %><%= traits.try &.["smithy.api#required"]? ? "" : '?' %>
     <%- end -%>
+
+    def initialize(<%= @members.map do |key, value|
+      "@#{key.underscore}#{@memberTraits[key].has_key?("smithy.api#required") ? "" : " = nil "}"
+    end.sort do |a, b| 
+      a.includes?("nil").to_unsafe - b.includes?("nil").to_unsafe
+    end.join(", ")%>)
+    end
   end

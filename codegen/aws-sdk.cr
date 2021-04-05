@@ -99,16 +99,26 @@ module Smithy
     def initialize(@namespace, @id, @node : ASTNodeOperation)
       @traits = @node.traits
       if input = @node.input
-        @input = new_data_type(@namespace, input.target, @namespace.shapes[input.target])
+        @input = new_data_type(@namespace, input.target, @namespace.shapes[input.target]).as(StructureType)
+        if input = @input && input.is_a? StructureType
+          input.input = true
+        end
       end
       if output = @node.output
         @output = new_data_type(@namespace, output.target, @namespace.shapes[output.target])
+        if output = @output && output.is_a? StructureType
+          output.output = true
+        end
       end
       if errors = @node.errors
         @errors = @namespace.shapes
           .select(errors.map &.target)
           .map do |id, shape|
-            new_data_type(@namespace, id, shape)
+            err = new_data_type(@namespace, id, shape)
+            if err.is_a? StructureType
+              err.exception = true
+            end
+            err
           end
       end
     end
@@ -134,17 +144,18 @@ module Smithy
       @namespace.structures << self
     end
 
+    property input : Bool?, output : Bool?, exception : Bool?
+
     def input?
-      name.ends_with?("Request")
+      name.ends_with?("Request") || @input
     end
 
     def output?
-      name.ends_with?("Output")
+      name.ends_with?("Output") || @output
     end
 
     def exception?
-
-      @traits.try &.has_key?("smithy.api#error")
+      @traits.has_key?("smithy.api#error") || @exception
     end
 
     def scalar?
@@ -270,6 +281,14 @@ module Smithy
     property unions = Set(UnionType).new
     getter service : ServiceType?
     property datatypes = Hash(String, DataType).new
+
+    def protocol
+      @service.try &.protocol
+    end
+
+    def protocol_module
+      @service.try &.protocol_module
+    end
 
     def initialize(filename)
       @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename), "shapes")

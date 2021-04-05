@@ -283,7 +283,7 @@ module AWSSdk::Lightsail_20161128
 
 
       # <p>Creates an Amazon Lightsail container service.</p>
-  # 
+  #
   # <p>A Lightsail container service is a compute resource to which you can deploy containers.
   # For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-containers">Container services in Amazon Lightsail</a> in the <i>Lightsail Dev
   # Guide</i>.</p>
@@ -305,13 +305,13 @@ module AWSSdk::Lightsail_20161128
 
 
       # <p>Creates a deployment for your Amazon Lightsail container service.</p>
-  # 
+  #
   # <p>A deployment specifies the containers that will be launched on the container service and
   # their settings, such as the ports to open, the environment variables to apply, and the launch
   # command to run. It also specifies the container that will serve as the public endpoint of the
   # deployment and its settings, such as the HTTP or HTTPS port to use, and the health check
   # configuration.</p>
-  # 
+  #
   # <p>You can deploy containers to your container service using container images from a public
   # registry like Docker Hub, or from your local machine. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-container-images">Creating container images for your Amazon Lightsail container services</a> in the
   # <i>Lightsail Dev Guide</i>.</p>
@@ -343,17 +343,17 @@ module AWSSdk::Lightsail_20161128
   # account so that you can use them with your Lightsail container service. The log in
   # credentials expire 12 hours after they are created, at which point you will need to create a
   # new set of log in credentials.</p>
-  # 
+  #
   # <note>
   # <p>You can only push container images to the container service registry of your Lightsail
   # account. You cannot pull container images perform any other container image management
   # actions on the container service registry of your Lightsail account.</p>
   # </note>
-  # 
+  #
   # <p>After you push your container images to the container image registry of your Lightsail
   # account, use the <code>RegisterContainerImage</code> action to register the pushed images to a
   # specific Lightsail container service.</p>
-  # 
+  #
   # <note>
   # <p>This action is not required if you install and use the Lightsail Control
   # (lightsailctl) plugin to push container images to your Lightsail container service. For
@@ -443,7 +443,7 @@ module AWSSdk::Lightsail_20161128
   # when issuing the snapshot command, and a snapshot of the defined instance's system volume will
   # be created. After the snapshot is available, you can create a block storage disk from the
   # snapshot and attach it to a running instance to access the data on the disk.</p>
-  # 
+  #
   # <p>The <code>create disk snapshot</code> operation supports tag-based access control via
   # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
   def create_disk_snapshot(input : CreateDiskSnapshotRequest) : CreateDiskSnapshotResult
@@ -512,9 +512,9 @@ module AWSSdk::Lightsail_20161128
       # <p>Creates one of the following domain name system (DNS) records in a domain DNS zone:
   # Address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority
   # (SOA), service locator (SRV), or text (TXT).</p>
-  # 
-  # 
-  # 
+  #
+  #
+  #
   # <p>The <code>create domain entry</code> operation supports tag-based access control via
   # resource tags applied to the resource identified by <code>domain name</code>. For more
   # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
@@ -1590,7 +1590,7 @@ module AWSSdk::Lightsail_20161128
 
       # <p>Returns the container images that are registered to your Amazon Lightsail container
   # service.</p>
-  # 
+  #
   # <note>
   # <p>If you created a deployment on your Lightsail container service that uses container
   # images from a public registry like Docker Hub, those images are not returned as part of this
@@ -1619,11 +1619,11 @@ module AWSSdk::Lightsail_20161128
 
 
       # <p>Returns the log events of a container of your Amazon Lightsail container service.</p>
-  # 
+  #
   # <p>If your container service has more than one node (i.e., a scale greater than 1), then the
   # log events that are returned for the specified container are merged from all nodes on your
   # container service.</p>
-  # 
+  #
   # <note>
   # <p>Container logs are retained for a certain amount of time. For more information, see
   # <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
@@ -1657,13 +1657,13 @@ module AWSSdk::Lightsail_20161128
 
 
       # <p>Returns the deployments for your Amazon Lightsail container service</p>
-  # 
+  #
   # <p>A deployment specifies the settings, such as the ports and launch command, of containers
   # that are deployed to your container service.</p>
-  # 
+  #
   # <p>The deployments are ordered by version in ascending order. The newest version is listed at
   # the top of the response.</p>
-  # 
+  #
   # <note>
   # <p>A set number of deployments are kept before the oldest one is replaced with the newest
   # one. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
@@ -1693,7 +1693,7 @@ module AWSSdk::Lightsail_20161128
 
       # <p>Returns the data points of a specific metric of your Amazon Lightsail container
   # service.</p>
-  # 
+  #
   # <p>Metrics report the utilization of your resources. Monitor and collect metric data
   # regularly to maintain the reliability, availability, and performance of your resources.</p>
   def get_container_service_metric_data(input : GetContainerServiceMetricDataRequest) : GetContainerServiceMetricDataResult
@@ -1720,7 +1720,7 @@ module AWSSdk::Lightsail_20161128
 
       # <p>Returns the list of powers that can be specified for your Amazon Lightsail container
   # services.</p>
-  # 
+  #
   # <p>The power specifies the amount of memory, the number of vCPUs, and the base price of the
   # container service.</p>
   def get_container_service_powers(input : GetContainerServicePowersRequest) : GetContainerServicePowersResult
@@ -2856,7 +2856,7 @@ module AWSSdk::Lightsail_20161128
 
 
       # <p>Registers a container image to your Amazon Lightsail container service.</p>
-  # 
+  #
   # <note>
   # <p>This action is not required if you install and use the Lightsail Control
   # (lightsailctl) plugin to push container images to your Lightsail container service. For
@@ -3334,7 +3334,7 @@ module AWSSdk::Lightsail_20161128
 
 
 
-  class AllocateStaticIpRequest 
+  class AllocateStaticIpRequest
     include JSON1_1
 
     # <p>The name of the static IP address.</p>
@@ -3342,7 +3342,7 @@ module AWSSdk::Lightsail_20161128
     property static_ip_name : String
   end
 
-  class ResourceLocationStruct 
+  class ResourceLocationStruct
     include JSON1_1
 
     # <p>The Availability Zone. Follows the format <code>us-east-2a</code> (case-sensitive).</p>
@@ -3353,7 +3353,7 @@ module AWSSdk::Lightsail_20161128
     property region_name : String?
   end
 
-  class OperationStruct 
+  class OperationStruct
     include JSON1_1
 
     # <p>The ID of the operation.</p>
@@ -3395,7 +3395,7 @@ module AWSSdk::Lightsail_20161128
     property error_details : String?
   end
 
-  class AllocateStaticIpResultStruct 
+  class AllocateStaticIpResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -3407,16 +3407,16 @@ module AWSSdk::Lightsail_20161128
   class AccessDeniedException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
@@ -3424,16 +3424,16 @@ module AWSSdk::Lightsail_20161128
   class AccountSetupInProgressException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
@@ -3441,16 +3441,16 @@ module AWSSdk::Lightsail_20161128
   class InvalidInputException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
@@ -3458,16 +3458,16 @@ module AWSSdk::Lightsail_20161128
   class NotFoundException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
@@ -3475,16 +3475,16 @@ module AWSSdk::Lightsail_20161128
   class OperationFailureException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
@@ -3492,16 +3492,16 @@ module AWSSdk::Lightsail_20161128
   class ServiceException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
@@ -3509,21 +3509,21 @@ module AWSSdk::Lightsail_20161128
   class UnauthenticatedException < Exception
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "code", required: false)]
     property code : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "docs", required: false)]
     property docs : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "message", required: false)]
     property message : String?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "tip", required: false)]
     property tip : String?
   end
 
-  class AttachCertificateToDistributionRequest 
+  class AttachCertificateToDistributionRequest
     include JSON1_1
 
     # <p>The name of the distribution that the certificate will be attached to.</p>
@@ -3547,7 +3547,7 @@ module AWSSdk::Lightsail_20161128
     property certificate_name : String
   end
 
-  class AttachCertificateToDistributionResultStruct 
+  class AttachCertificateToDistributionResultStruct
     include JSON1_1
 
     # <p>An object that describes the result of the action, such as the status of the request, the
@@ -3556,7 +3556,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class AttachDiskRequest 
+  class AttachDiskRequest
     include JSON1_1
 
     # <p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>
@@ -3570,7 +3570,7 @@ module AWSSdk::Lightsail_20161128
     property disk_path : String
   end
 
-  class AttachDiskResultStruct 
+  class AttachDiskResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -3579,7 +3579,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class AttachInstancesToLoadBalancerRequest 
+  class AttachInstancesToLoadBalancerRequest
     include JSON1_1
 
     # <p>The name of the load balancer.</p>
@@ -3596,7 +3596,7 @@ module AWSSdk::Lightsail_20161128
     property instance_names : Array(String)
   end
 
-  class AttachInstancesToLoadBalancerResultStruct 
+  class AttachInstancesToLoadBalancerResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -3605,7 +3605,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class AttachLoadBalancerTlsCertificateRequest 
+  class AttachLoadBalancerTlsCertificateRequest
     include JSON1_1
 
     # <p>The name of the load balancer to which you want to associate the SSL/TLS
@@ -3617,7 +3617,7 @@ module AWSSdk::Lightsail_20161128
     property certificate_name : String
   end
 
-  class AttachLoadBalancerTlsCertificateResultStruct 
+  class AttachLoadBalancerTlsCertificateResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -3628,7 +3628,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class AttachStaticIpRequest 
+  class AttachStaticIpRequest
     include JSON1_1
 
     # <p>The name of the static IP.</p>
@@ -3639,7 +3639,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class AttachStaticIpResultStruct 
+  class AttachStaticIpResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -3648,7 +3648,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class PortInfoStruct 
+  class PortInfoStruct
     include JSON1_1
 
     # <p>The first port in a range of open ports on an instance.</p>
@@ -3743,7 +3743,7 @@ module AWSSdk::Lightsail_20161128
     property cidr_list_aliases : Array(String)?
   end
 
-  class CloseInstancePublicPortsRequest 
+  class CloseInstancePublicPortsRequest
     include JSON1_1
 
     # <p>An object to describe the ports to close for the specified instance.</p>
@@ -3754,7 +3754,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class CloseInstancePublicPortsResultStruct 
+  class CloseInstancePublicPortsResultStruct
     include JSON1_1
 
     # <p>An object that describes the result of the action, such as the status of the request, the
@@ -3763,7 +3763,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class CopySnapshotRequest 
+  class CopySnapshotRequest
     include JSON1_1
 
     # <p>The name of the source manual snapshot to copy.</p>
@@ -3830,7 +3830,7 @@ module AWSSdk::Lightsail_20161128
     property source_region : String
   end
 
-  class CopySnapshotResultStruct 
+  class CopySnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -3839,7 +3839,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class TagStruct 
+  class TagStruct
     include JSON1_1
 
     # <p>The key of the tag.</p>
@@ -3854,7 +3854,7 @@ module AWSSdk::Lightsail_20161128
     property value : String?
   end
 
-  class CreateCertificateRequest 
+  class CreateCertificateRequest
     include JSON1_1
 
     # <p>The name for the certificate.</p>
@@ -3876,7 +3876,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class ResourceRecordStruct 
+  class ResourceRecordStruct
     include JSON1_1
 
     # <p>The name of the record.</p>
@@ -3890,7 +3890,7 @@ module AWSSdk::Lightsail_20161128
     property value : String?
   end
 
-  class DomainValidationRecordStruct 
+  class DomainValidationRecordStruct
     include JSON1_1
 
     # <p>The domain name of the certificate validation record. For example,
@@ -3903,7 +3903,7 @@ module AWSSdk::Lightsail_20161128
     property resource_record : ResourceRecordStruct?
   end
 
-  class RenewalSummaryStruct 
+  class RenewalSummaryStruct
     include JSON1_1
 
     # <p>An array of objects that describe the domain validation records of the certificate.</p>
@@ -3958,7 +3958,7 @@ module AWSSdk::Lightsail_20161128
     property updated_at : Time?
   end
 
-  class CertificateStruct 
+  class CertificateStruct
     include JSON1_1
 
     # <p>The Amazon Resource Name (ARN) of the certificate.</p>
@@ -4097,7 +4097,7 @@ module AWSSdk::Lightsail_20161128
     property support_code : String?
   end
 
-  class CertificateSummaryStruct 
+  class CertificateSummaryStruct
     include JSON1_1
 
     # <p>The Amazon Resource Name (ARN) of the certificate.</p>
@@ -4119,7 +4119,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateCertificateResultStruct 
+  class CreateCertificateResultStruct
     include JSON1_1
 
     # <p>An object that describes the certificate created.</p>
@@ -4131,7 +4131,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class InstanceEntryStruct 
+  class InstanceEntryStruct
     include JSON1_1
 
     # <p>The name of the export snapshot record, which contains the exported Lightsail instance
@@ -4187,7 +4187,7 @@ module AWSSdk::Lightsail_20161128
     property availability_zone : String
   end
 
-  class CreateCloudFormationStackRequest 
+  class CreateCloudFormationStackRequest
     include JSON1_1
 
     # <p>An array of parameters that will be used to create the new Amazon EC2 instance. You can only
@@ -4197,7 +4197,7 @@ module AWSSdk::Lightsail_20161128
     property instances : Array(InstanceEntryStruct)
   end
 
-  class CreateCloudFormationStackResultStruct 
+  class CreateCloudFormationStackResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -4206,7 +4206,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateContactMethodRequest 
+  class CreateContactMethodRequest
     include JSON1_1
 
     # <p>The protocol of the contact method, such as <code>Email</code> or <code>SMS</code> (text
@@ -4249,7 +4249,7 @@ module AWSSdk::Lightsail_20161128
     property contact_endpoint : String
   end
 
-  class CreateContactMethodResultStruct 
+  class CreateContactMethodResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -4258,11 +4258,11 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class ContainerStruct 
+  class ContainerStruct
     include JSON1_1
 
     # <p>The name of the image used for the container.</p>
-    # 
+    #
     # <p>Container images sourced from your Lightsail container service, that are registered and
     # stored on your service, start with a colon (<code>:</code>). For example,
     # <code>:container-service-1.mystaticwebsite.1</code>. Container images sourced from a public
@@ -4281,7 +4281,7 @@ module AWSSdk::Lightsail_20161128
     property ports : Hash(String, String)?
   end
 
-  class ContainerServiceHealthCheckConfigStruct 
+  class ContainerServiceHealthCheckConfigStruct
     include JSON1_1
 
     # <p>The number of consecutive health checks successes required before moving the container to
@@ -4309,7 +4309,7 @@ module AWSSdk::Lightsail_20161128
     property success_codes : String?
   end
 
-  class EndpointRequest 
+  class EndpointRequest
     include JSON1_1
 
     # <p>The name of the container for the endpoint.</p>
@@ -4323,7 +4323,7 @@ module AWSSdk::Lightsail_20161128
     property health_check : ContainerServiceHealthCheckConfigStruct?
   end
 
-  class ContainerServiceDeploymentRequest 
+  class ContainerServiceDeploymentRequest
     include JSON1_1
 
     # <p>An object that describes the configuration for the containers of the deployment.</p>
@@ -4334,11 +4334,11 @@ module AWSSdk::Lightsail_20161128
     property public_endpoint : EndpointRequest?
   end
 
-  class CreateContainerServiceRequest 
+  class CreateContainerServiceRequest
     include JSON1_1
 
     # <p>The name for the container service.</p>
-    # 
+    #
     # <p>The name that you specify for your container service will make up part of its default
     # domain. The default domain of a container service is typically
     # <code>https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com</code>.
@@ -4347,9 +4347,9 @@ module AWSSdk::Lightsail_20161128
     # service will be like the following example:
     # <code>https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com</code>
     # </p>
-    # 
+    #
     # <p>The following are the requirements for container service names:</p>
-    # 
+    #
     # <ul>
     # <li>
     # <p>Must be unique within each AWS Region in your Lightsail account.</p>
@@ -4367,19 +4367,19 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "serviceName", required: true)]
     property service_name : String
     # <p>The power specification for the container service.</p>
-    # 
+    #
     # <p>The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the
     # container service. The <code>power</code> and <code>scale</code> of a container service makes
     # up its configured capacity. To determine the monthly price of your container service, multiply
     # the base price of the <code>power</code> with the <code>scale</code> (the number of nodes) of
     # the service.</p>
-    # 
+    #
     # <p>Use the <code>GetContainerServicePowers</code> action to get a list of power options that
     # you can specify using this parameter, and their base monthly cost.</p>
     @[Protocol::Field(location: :body, name: "power", required: true)]
     property power : String
     # <p>The scale specification for the container service.</p>
-    # 
+    #
     # <p>The scale specifies the allocated compute nodes of the container service. The
     # <code>power</code> and <code>scale</code> of a container service makes up its configured
     # capacity. To determine the monthly price of your container service, multiply the base price of
@@ -4388,33 +4388,33 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "scale", required: true)]
     property scale : Int32
     # <p>The tag keys and optional values for the container service.</p>
-    # 
+    #
     # <p>For more information about tags in Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
     @[Protocol::Field(location: :body, name: "tags", required: false)]
     property tags : Array(TagStruct)?
     # <p>The public domain names to use with the container service, such as
     # <code>example.com</code> and <code>www.example.com</code>.</p>
-    # 
+    #
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    # 
+    #
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    # 
+    #
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    # 
+    #
     # <p>You can specify public domain names using a string to array map as shown in the example
     # later on this page.</p>
     @[Protocol::Field(location: :body, name: "publicDomainNames", required: false)]
     property public_domain_names : Hash(String, Array(String))?
     # <p>An object that describes a deployment for the container service.</p>
-    # 
+    #
     # <p>A deployment specifies the containers that will be launched on the container service and
     # their settings, such as the ports to open, the environment variables to apply, and the launch
     # command to run. It also specifies the container that will serve as the public endpoint of the
@@ -4424,7 +4424,7 @@ module AWSSdk::Lightsail_20161128
     property deployment : ContainerServiceDeploymentRequest?
   end
 
-  class ContainerServiceEndpointStruct 
+  class ContainerServiceEndpointStruct
     include JSON1_1
 
     # <p>The name of the container entry of the deployment that the endpoint configuration applies
@@ -4439,14 +4439,14 @@ module AWSSdk::Lightsail_20161128
     property health_check : ContainerServiceHealthCheckConfigStruct?
   end
 
-  class ContainerServiceDeploymentStruct 
+  class ContainerServiceDeploymentStruct
     include JSON1_1
 
     # <p>The version number of the deployment.</p>
     @[Protocol::Field(location: :body, name: "version", required: false)]
     property version : Int32?
     # <p>The state of the deployment.</p>
-    # 
+    #
     # <p>A deployment can be in one of the following states:</p>
     # <ul>
     # <li>
@@ -4484,7 +4484,7 @@ module AWSSdk::Lightsail_20161128
     property created_at : Time?
   end
 
-  class ContainerServiceStruct 
+  class ContainerServiceStruct
     include JSON1_1
 
     # <p>The name of the container service.</p>
@@ -4510,7 +4510,7 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "tags", required: false)]
     property tags : Array(TagStruct)?
     # <p>The power specification of the container service.</p>
-    # 
+    #
     # <p>The power specifies the amount of RAM, the number of vCPUs, and the base price of the
     # container service.</p>
     @[Protocol::Field(location: :body, name: "power", required: false)]
@@ -4553,7 +4553,7 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "state", required: false)]
     property state : String?
     # <p>The scale specification of the container service.</p>
-    # 
+    #
     # <p>The scale specifies the allocated compute nodes of the container service.</p>
     @[Protocol::Field(location: :body, name: "scale", required: false)]
     property scale : Int32?
@@ -4561,7 +4561,7 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "currentDeployment", required: false)]
     property current_deployment : ContainerServiceDeploymentStruct?
     # <p>An object that describes the next deployment of the container service.</p>
-    # 
+    #
     # <p>This value is <code>null</code> when there is no deployment in a <code>pending</code>
     # state.</p>
     @[Protocol::Field(location: :body, name: "nextDeployment", required: false)]
@@ -4570,48 +4570,48 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "isDisabled", required: false)]
     property is_disabled : Bool?
     # <p>The principal ARN of the container service.</p>
-    # 
+    #
     # <p>The principal ARN can be used to create a trust relationship between your standard AWS
     # account and your Lightsail container service. This allows you to give your service
     # permission to access resources in your standard AWS account.</p>
     @[Protocol::Field(location: :body, name: "principalArn", required: false)]
     property principal_arn : String?
     # <p>The private domain name of the container service.</p>
-    # 
+    #
     # <p>The private domain name is accessible only by other resources within the default virtual
     # private cloud (VPC) of your Lightsail account.</p>
     @[Protocol::Field(location: :body, name: "privateDomainName", required: false)]
     property private_domain_name : String?
     # <p>The public domain name of the container service, such as <code>example.com</code> and
     # <code>www.example.com</code>.</p>
-    # 
+    #
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    # 
+    #
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    # 
+    #
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    # 
+    #
     # <p>See <code>CreateContainerService</code> or <code>UpdateContainerService</code> for
     # information about how to specify public domain names for your Lightsail container
     # service.</p>
     @[Protocol::Field(location: :body, name: "publicDomainNames", required: false)]
     property public_domain_names : Hash(String, Array(String))?
     # <p>The publicly accessible URL of the container service.</p>
-    # 
+    #
     # <p>If no public endpoint is specified in the <code>currentDeployment</code>, this URL returns
     # a 404 response.</p>
     @[Protocol::Field(location: :body, name: "url", required: false)]
     property url : String?
   end
 
-  class CreateContainerServiceResultStruct 
+  class CreateContainerServiceResultStruct
     include JSON1_1
 
     # <p>An object that describes a container service.</p>
@@ -4619,7 +4619,7 @@ module AWSSdk::Lightsail_20161128
     property container_service : ContainerServiceStruct?
   end
 
-  class CreateContainerServiceDeploymentRequest 
+  class CreateContainerServiceDeploymentRequest
     include JSON1_1
 
     # <p>The name of the container service for which to create the deployment.</p>
@@ -4635,7 +4635,7 @@ module AWSSdk::Lightsail_20161128
     property public_endpoint : EndpointRequest?
   end
 
-  class CreateContainerServiceDeploymentResultStruct 
+  class CreateContainerServiceDeploymentResultStruct
     include JSON1_1
 
     # <p>An object that describes a container service.</p>
@@ -4643,12 +4643,12 @@ module AWSSdk::Lightsail_20161128
     property container_service : ContainerServiceStruct?
   end
 
-  class CreateContainerServiceRegistryLoginRequest 
+  class CreateContainerServiceRegistryLoginRequest
     include JSON1_1
 
   end
 
-  class ContainerServiceRegistryLoginStruct 
+  class ContainerServiceRegistryLoginStruct
     include JSON1_1
 
     # <p>The container service registry username to use to push container images to the container
@@ -4660,7 +4660,7 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "password", required: false)]
     property password : String?
     # <p>The timestamp of when the container image registry username and password expire.</p>
-    # 
+    #
     # <p>The log in credentials expire 12 hours after they are created, at which point you will
     # need to create a new set of log in credentials using the
     # <code>CreateContainerServiceRegistryLogin</code> action.</p>
@@ -4672,7 +4672,7 @@ module AWSSdk::Lightsail_20161128
     property registry : String?
   end
 
-  class CreateContainerServiceRegistryLoginResultStruct 
+  class CreateContainerServiceRegistryLoginResultStruct
     include JSON1_1
 
     # <p>An object that describes the log in information for the container service registry of your
@@ -4681,7 +4681,7 @@ module AWSSdk::Lightsail_20161128
     property registry_login : ContainerServiceRegistryLoginStruct?
   end
 
-  class AutoSnapshotAddOnRequest 
+  class AutoSnapshotAddOnRequest
     include JSON1_1
 
     # <p>The daily time when an automatic snapshot will be created.</p>
@@ -4702,7 +4702,7 @@ module AWSSdk::Lightsail_20161128
     property snapshot_time_of_day : String?
   end
 
-  class AddOnRequest 
+  class AddOnRequest
     include JSON1_1
 
     # <p>The add-on type.</p>
@@ -4714,7 +4714,7 @@ module AWSSdk::Lightsail_20161128
     property auto_snapshot_add_on_request : AutoSnapshotAddOnRequest?
   end
 
-  class CreateDiskRequest 
+  class CreateDiskRequest
     include JSON1_1
 
     # <p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>
@@ -4739,7 +4739,7 @@ module AWSSdk::Lightsail_20161128
     property add_ons : Array(AddOnRequest)?
   end
 
-  class CreateDiskResultStruct 
+  class CreateDiskResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -4748,7 +4748,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateDiskFromSnapshotRequest 
+  class CreateDiskFromSnapshotRequest
     include JSON1_1
 
     # <p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>
@@ -4835,7 +4835,7 @@ module AWSSdk::Lightsail_20161128
     property use_latest_restorable_auto_snapshot : Bool?
   end
 
-  class CreateDiskFromSnapshotResultStruct 
+  class CreateDiskFromSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -4844,7 +4844,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateDiskSnapshotRequest 
+  class CreateDiskSnapshotRequest
     include JSON1_1
 
     # <p>The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).</p>
@@ -4874,7 +4874,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateDiskSnapshotResultStruct 
+  class CreateDiskSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -4883,7 +4883,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class InputOriginStruct 
+  class InputOriginStruct
     include JSON1_1
 
     # <p>The name of the origin resource.</p>
@@ -4898,7 +4898,7 @@ module AWSSdk::Lightsail_20161128
     property protocol_policy : String?
   end
 
-  class CacheBehaviorStruct 
+  class CacheBehaviorStruct
     include JSON1_1
 
     # <p>The cache behavior of the distribution.</p>
@@ -4930,7 +4930,7 @@ module AWSSdk::Lightsail_20161128
     property behavior : String?
   end
 
-  class CookieObjectStruct 
+  class CookieObjectStruct
     include JSON1_1
 
     # <p>Specifies which cookies to forward to the distribution's origin for a cache behavior:
@@ -4943,7 +4943,7 @@ module AWSSdk::Lightsail_20161128
     property cookies_allow_list : Array(String)?
   end
 
-  class HeaderObjectStruct 
+  class HeaderObjectStruct
     include JSON1_1
 
     # <p>The headers that you want your distribution to forward to your origin and base caching
@@ -4979,7 +4979,7 @@ module AWSSdk::Lightsail_20161128
     property headers_allow_list : Array(String)?
   end
 
-  class QueryStringObjectStruct 
+  class QueryStringObjectStruct
     include JSON1_1
 
     # <p>Indicates whether the distribution forwards and caches based on query strings.</p>
@@ -4994,7 +4994,7 @@ module AWSSdk::Lightsail_20161128
     property query_strings_allow_list : Array(String)?
   end
 
-  class CacheSettingsStruct 
+  class CacheSettingsStruct
     include JSON1_1
 
     # <p>The default amount of time that objects stay in the distribution's cache before the
@@ -5077,7 +5077,7 @@ module AWSSdk::Lightsail_20161128
     property forwarded_query_strings : QueryStringObjectStruct?
   end
 
-  class CacheBehaviorPerPathStruct 
+  class CacheBehaviorPerPathStruct
     include JSON1_1
 
     # <p>The path to a directory or file to cached, or not cache. Use an asterisk symbol to specify
@@ -5151,7 +5151,7 @@ module AWSSdk::Lightsail_20161128
     property behavior : String?
   end
 
-  class CreateDistributionRequest 
+  class CreateDistributionRequest
     include JSON1_1
 
     # <p>The name for the distribution.</p>
@@ -5184,7 +5184,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class OriginStruct 
+  class OriginStruct
     include JSON1_1
 
     # <p>The name of the origin resource.</p>
@@ -5202,7 +5202,7 @@ module AWSSdk::Lightsail_20161128
     property protocol_policy : String?
   end
 
-  class LightsailDistributionStruct 
+  class LightsailDistributionStruct
     include JSON1_1
 
     # <p>The name of the distribution.</p>
@@ -5279,7 +5279,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateDistributionResultStruct 
+  class CreateDistributionResultStruct
     include JSON1_1
 
     # <p>An object that describes the distribution created.</p>
@@ -5291,7 +5291,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class CreateDomainRequest 
+  class CreateDomainRequest
     include JSON1_1
 
     # <p>The domain name to manage (e.g., <code>example.com</code>).</p>
@@ -5309,7 +5309,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateDomainResultStruct 
+  class CreateDomainResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5318,7 +5318,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class DomainEntryStruct 
+  class DomainEntryStruct
     include JSON1_1
 
     # <p>The ID of the domain recordset entry.</p>
@@ -5390,7 +5390,7 @@ module AWSSdk::Lightsail_20161128
     property options : Hash(String, String)?
   end
 
-  class CreateDomainEntryRequest 
+  class CreateDomainEntryRequest
     include JSON1_1
 
     # <p>The domain name (e.g., <code>example.com</code>) for which you want to create the domain
@@ -5402,7 +5402,7 @@ module AWSSdk::Lightsail_20161128
     property domain_entry : DomainEntryStruct
   end
 
-  class CreateDomainEntryResultStruct 
+  class CreateDomainEntryResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5411,7 +5411,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class CreateInstancesRequest 
+  class CreateInstancesRequest
     include JSON1_1
 
     # <p>The names to use for your new Lightsail instances. Separate multiple values using
@@ -5472,7 +5472,7 @@ module AWSSdk::Lightsail_20161128
     property add_ons : Array(AddOnRequest)?
   end
 
-  class CreateInstancesResultStruct 
+  class CreateInstancesResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5481,7 +5481,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DiskMapStruct 
+  class DiskMapStruct
     include JSON1_1
 
     # <p>The original disk path exposed to the instance (for example,
@@ -5493,7 +5493,7 @@ module AWSSdk::Lightsail_20161128
     property new_disk_name : String?
   end
 
-  class CreateInstancesFromSnapshotRequest 
+  class CreateInstancesFromSnapshotRequest
     include JSON1_1
 
     # <p>The names for your new instances.</p>
@@ -5599,7 +5599,7 @@ module AWSSdk::Lightsail_20161128
     property use_latest_restorable_auto_snapshot : Bool?
   end
 
-  class CreateInstancesFromSnapshotResultStruct 
+  class CreateInstancesFromSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5608,7 +5608,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateInstanceSnapshotRequest 
+  class CreateInstanceSnapshotRequest
     include JSON1_1
 
     # <p>The name for your new snapshot.</p>
@@ -5623,7 +5623,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateInstanceSnapshotResultStruct 
+  class CreateInstanceSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5632,7 +5632,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateKeyPairRequest 
+  class CreateKeyPairRequest
     include JSON1_1
 
     # <p>The name for your new key pair.</p>
@@ -5644,7 +5644,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class KeyPairStruct 
+  class KeyPairStruct
     include JSON1_1
 
     # <p>The friendly name of the SSH key pair.</p>
@@ -5678,7 +5678,7 @@ module AWSSdk::Lightsail_20161128
     property fingerprint : String?
   end
 
-  class CreateKeyPairResultStruct 
+  class CreateKeyPairResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the new key pair you just
@@ -5697,7 +5697,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class CreateLoadBalancerRequest 
+  class CreateLoadBalancerRequest
     include JSON1_1
 
     # <p>The name of your load balancer.</p>
@@ -5735,7 +5735,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateLoadBalancerResultStruct 
+  class CreateLoadBalancerResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5744,7 +5744,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateLoadBalancerTlsCertificateRequest 
+  class CreateLoadBalancerTlsCertificateRequest
     include JSON1_1
 
     # <p>The load balancer name where you want to create the SSL/TLS certificate.</p>
@@ -5772,7 +5772,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateLoadBalancerTlsCertificateResultStruct 
+  class CreateLoadBalancerTlsCertificateResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5781,7 +5781,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateRelationalDatabaseRequest 
+  class CreateRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name to use for your new database.</p>
@@ -5915,7 +5915,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateRelationalDatabaseResultStruct 
+  class CreateRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -5924,7 +5924,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateRelationalDatabaseFromSnapshotRequest 
+  class CreateRelationalDatabaseFromSnapshotRequest
     include JSON1_1
 
     # <p>The name to use for your new database.</p>
@@ -6001,7 +6001,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateRelationalDatabaseFromSnapshotResultStruct 
+  class CreateRelationalDatabaseFromSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6010,7 +6010,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class CreateRelationalDatabaseSnapshotRequest 
+  class CreateRelationalDatabaseSnapshotRequest
     include JSON1_1
 
     # <p>The name of the database on which to base your new snapshot.</p>
@@ -6034,7 +6034,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)?
   end
 
-  class CreateRelationalDatabaseSnapshotResultStruct 
+  class CreateRelationalDatabaseSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6043,7 +6043,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteAlarmRequest 
+  class DeleteAlarmRequest
     include JSON1_1
 
     # <p>The name of the alarm to delete.</p>
@@ -6051,7 +6051,7 @@ module AWSSdk::Lightsail_20161128
     property alarm_name : String
   end
 
-  class DeleteAlarmResultStruct 
+  class DeleteAlarmResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6060,7 +6060,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteAutoSnapshotRequest 
+  class DeleteAutoSnapshotRequest
     include JSON1_1
 
     # <p>The name of the source instance or disk from which to delete the automatic
@@ -6074,7 +6074,7 @@ module AWSSdk::Lightsail_20161128
     property date : String
   end
 
-  class DeleteAutoSnapshotResultStruct 
+  class DeleteAutoSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6083,7 +6083,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteCertificateRequest 
+  class DeleteCertificateRequest
     include JSON1_1
 
     # <p>The name of the certificate to delete.</p>
@@ -6093,7 +6093,7 @@ module AWSSdk::Lightsail_20161128
     property certificate_name : String
   end
 
-  class DeleteCertificateResultStruct 
+  class DeleteCertificateResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6102,7 +6102,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteContactMethodRequest 
+  class DeleteContactMethodRequest
     include JSON1_1
 
     # <p>The protocol that will be deleted, such as <code>Email</code> or <code>SMS</code> (text
@@ -6116,7 +6116,7 @@ module AWSSdk::Lightsail_20161128
     property protocol : String
   end
 
-  class DeleteContactMethodResultStruct 
+  class DeleteContactMethodResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6125,17 +6125,17 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteContainerImageRequest 
+  class DeleteContainerImageRequest
     include JSON1_1
 
     # <p>The name of the container service for which to delete a registered container image.</p>
     @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
     property service_name : String
     # <p>The name of the container image to delete from the container service.</p>
-    # 
+    #
     # <p>Use the <code>GetContainerImages</code> action to get the name of the container images
     # that are registered to a container service.</p>
-    # 
+    #
     # <note>
     # <p>Container images sourced from your Lightsail container service, that are registered
     # and stored on your service, start with a colon (<code>:</code>). For example,
@@ -6147,12 +6147,12 @@ module AWSSdk::Lightsail_20161128
     property image : String
   end
 
-  class DeleteContainerImageResultStruct 
+  class DeleteContainerImageResultStruct
     include JSON1_1
 
   end
 
-  class DeleteContainerServiceRequest 
+  class DeleteContainerServiceRequest
     include JSON1_1
 
     # <p>The name of the container service to delete.</p>
@@ -6160,12 +6160,12 @@ module AWSSdk::Lightsail_20161128
     property service_name : String
   end
 
-  class DeleteContainerServiceResultStruct 
+  class DeleteContainerServiceResultStruct
     include JSON1_1
 
   end
 
-  class DeleteDiskRequest 
+  class DeleteDiskRequest
     include JSON1_1
 
     # <p>The unique name of the disk you want to delete (e.g., <code>my-disk</code>).</p>
@@ -6176,7 +6176,7 @@ module AWSSdk::Lightsail_20161128
     property force_delete_add_ons : Bool?
   end
 
-  class DeleteDiskResultStruct 
+  class DeleteDiskResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6185,7 +6185,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteDiskSnapshotRequest 
+  class DeleteDiskSnapshotRequest
     include JSON1_1
 
     # <p>The name of the disk snapshot you want to delete (e.g.,
@@ -6194,7 +6194,7 @@ module AWSSdk::Lightsail_20161128
     property disk_snapshot_name : String
   end
 
-  class DeleteDiskSnapshotResultStruct 
+  class DeleteDiskSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6203,7 +6203,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteDistributionRequest 
+  class DeleteDistributionRequest
     include JSON1_1
 
     # <p>The name of the distribution to delete.</p>
@@ -6213,7 +6213,7 @@ module AWSSdk::Lightsail_20161128
     property distribution_name : String?
   end
 
-  class DeleteDistributionResultStruct 
+  class DeleteDistributionResultStruct
     include JSON1_1
 
     # <p>An object that describes the result of the action, such as the status of the request, the
@@ -6222,7 +6222,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class DeleteDomainRequest 
+  class DeleteDomainRequest
     include JSON1_1
 
     # <p>The specific domain name to delete.</p>
@@ -6230,7 +6230,7 @@ module AWSSdk::Lightsail_20161128
     property domain_name : String
   end
 
-  class DeleteDomainResultStruct 
+  class DeleteDomainResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6239,7 +6239,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class DeleteDomainEntryRequest 
+  class DeleteDomainEntryRequest
     include JSON1_1
 
     # <p>The name of the domain entry to delete.</p>
@@ -6250,7 +6250,7 @@ module AWSSdk::Lightsail_20161128
     property domain_entry : DomainEntryStruct
   end
 
-  class DeleteDomainEntryResultStruct 
+  class DeleteDomainEntryResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6259,7 +6259,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class DeleteInstanceRequest 
+  class DeleteInstanceRequest
     include JSON1_1
 
     # <p>The name of the instance to delete.</p>
@@ -6270,7 +6270,7 @@ module AWSSdk::Lightsail_20161128
     property force_delete_add_ons : Bool?
   end
 
-  class DeleteInstanceResultStruct 
+  class DeleteInstanceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6279,7 +6279,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteInstanceSnapshotRequest 
+  class DeleteInstanceSnapshotRequest
     include JSON1_1
 
     # <p>The name of the snapshot to delete.</p>
@@ -6287,7 +6287,7 @@ module AWSSdk::Lightsail_20161128
     property instance_snapshot_name : String
   end
 
-  class DeleteInstanceSnapshotResultStruct 
+  class DeleteInstanceSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6296,7 +6296,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteKeyPairRequest 
+  class DeleteKeyPairRequest
     include JSON1_1
 
     # <p>The name of the key pair to delete.</p>
@@ -6304,7 +6304,7 @@ module AWSSdk::Lightsail_20161128
     property key_pair_name : String
   end
 
-  class DeleteKeyPairResultStruct 
+  class DeleteKeyPairResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6313,7 +6313,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class DeleteKnownHostKeysRequest 
+  class DeleteKnownHostKeysRequest
     include JSON1_1
 
     # <p>The name of the instance for which you want to reset the host key or certificate.</p>
@@ -6321,7 +6321,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class DeleteKnownHostKeysResultStruct 
+  class DeleteKnownHostKeysResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6330,7 +6330,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteLoadBalancerRequest 
+  class DeleteLoadBalancerRequest
     include JSON1_1
 
     # <p>The name of the load balancer you want to delete.</p>
@@ -6338,7 +6338,7 @@ module AWSSdk::Lightsail_20161128
     property load_balancer_name : String
   end
 
-  class DeleteLoadBalancerResultStruct 
+  class DeleteLoadBalancerResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6347,7 +6347,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteLoadBalancerTlsCertificateRequest 
+  class DeleteLoadBalancerTlsCertificateRequest
     include JSON1_1
 
     # <p>The load balancer name.</p>
@@ -6364,7 +6364,7 @@ module AWSSdk::Lightsail_20161128
     property force : Bool?
   end
 
-  class DeleteLoadBalancerTlsCertificateResultStruct 
+  class DeleteLoadBalancerTlsCertificateResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6373,7 +6373,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteRelationalDatabaseRequest 
+  class DeleteRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name of the database that you are deleting.</p>
@@ -6407,7 +6407,7 @@ module AWSSdk::Lightsail_20161128
     property final_relational_database_snapshot_name : String?
   end
 
-  class DeleteRelationalDatabaseResultStruct 
+  class DeleteRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6416,7 +6416,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DeleteRelationalDatabaseSnapshotRequest 
+  class DeleteRelationalDatabaseSnapshotRequest
     include JSON1_1
 
     # <p>The name of the database snapshot that you are deleting.</p>
@@ -6424,7 +6424,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_snapshot_name : String
   end
 
-  class DeleteRelationalDatabaseSnapshotResultStruct 
+  class DeleteRelationalDatabaseSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6433,7 +6433,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DetachCertificateFromDistributionRequest 
+  class DetachCertificateFromDistributionRequest
     include JSON1_1
 
     # <p>The name of the distribution from which to detach the certificate.</p>
@@ -6443,7 +6443,7 @@ module AWSSdk::Lightsail_20161128
     property distribution_name : String
   end
 
-  class DetachCertificateFromDistributionResultStruct 
+  class DetachCertificateFromDistributionResultStruct
     include JSON1_1
 
     # <p>An object that describes the result of the action, such as the status of the request, the
@@ -6452,7 +6452,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class DetachDiskRequest 
+  class DetachDiskRequest
     include JSON1_1
 
     # <p>The unique name of the disk you want to detach from your instance (e.g.,
@@ -6461,7 +6461,7 @@ module AWSSdk::Lightsail_20161128
     property disk_name : String
   end
 
-  class DetachDiskResultStruct 
+  class DetachDiskResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6470,7 +6470,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DetachInstancesFromLoadBalancerRequest 
+  class DetachInstancesFromLoadBalancerRequest
     include JSON1_1
 
     # <p>The name of the Lightsail load balancer.</p>
@@ -6482,7 +6482,7 @@ module AWSSdk::Lightsail_20161128
     property instance_names : Array(String)
   end
 
-  class DetachInstancesFromLoadBalancerResultStruct 
+  class DetachInstancesFromLoadBalancerResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6491,7 +6491,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DetachStaticIpRequest 
+  class DetachStaticIpRequest
     include JSON1_1
 
     # <p>The name of the static IP to detach from the instance.</p>
@@ -6499,7 +6499,7 @@ module AWSSdk::Lightsail_20161128
     property static_ip_name : String
   end
 
-  class DetachStaticIpResultStruct 
+  class DetachStaticIpResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6508,7 +6508,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DisableAddOnRequest 
+  class DisableAddOnRequest
     include JSON1_1
 
     # <p>The add-on type to disable.</p>
@@ -6519,7 +6519,7 @@ module AWSSdk::Lightsail_20161128
     property resource_name : String
   end
 
-  class DisableAddOnResultStruct 
+  class DisableAddOnResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6528,12 +6528,12 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class DownloadDefaultKeyPairRequest 
+  class DownloadDefaultKeyPairRequest
     include JSON1_1
 
   end
 
-  class DownloadDefaultKeyPairResultStruct 
+  class DownloadDefaultKeyPairResultStruct
     include JSON1_1
 
     # <p>A base64-encoded public key of the <code>ssh-rsa</code> type.</p>
@@ -6544,7 +6544,7 @@ module AWSSdk::Lightsail_20161128
     property private_key_base64 : String?
   end
 
-  class EnableAddOnRequest 
+  class EnableAddOnRequest
     include JSON1_1
 
     # <p>The name of the source resource for which to enable or modify the add-on.</p>
@@ -6555,7 +6555,7 @@ module AWSSdk::Lightsail_20161128
     property add_on_request : AddOnRequest
   end
 
-  class EnableAddOnResultStruct 
+  class EnableAddOnResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6564,7 +6564,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class ExportSnapshotRequest 
+  class ExportSnapshotRequest
     include JSON1_1
 
     # <p>The name of the instance or disk snapshot to be exported to Amazon EC2.</p>
@@ -6572,7 +6572,7 @@ module AWSSdk::Lightsail_20161128
     property source_snapshot_name : String
   end
 
-  class ExportSnapshotResultStruct 
+  class ExportSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -6581,7 +6581,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class GetActiveNamesRequest 
+  class GetActiveNamesRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -6592,7 +6592,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetActiveNamesResultStruct 
+  class GetActiveNamesResultStruct
     include JSON1_1
 
     # <p>The list of active names returned by the get active names request.</p>
@@ -6606,7 +6606,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetAlarmsRequest 
+  class GetAlarmsRequest
     include JSON1_1
 
     # <p>The name of the alarm.</p>
@@ -6626,7 +6626,7 @@ module AWSSdk::Lightsail_20161128
     property monitored_resource_name : String?
   end
 
-  class MonitoredResourceInfoStruct 
+  class MonitoredResourceInfoStruct
     include JSON1_1
 
     # <p>The Amazon Resource Name (ARN) of the resource being monitored.</p>
@@ -6642,7 +6642,7 @@ module AWSSdk::Lightsail_20161128
     property resource_type : String?
   end
 
-  class AlarmStruct 
+  class AlarmStruct
     include JSON1_1
 
     # <p>The name of the alarm.</p>
@@ -6781,7 +6781,7 @@ module AWSSdk::Lightsail_20161128
     property notification_enabled : Bool?
   end
 
-  class GetAlarmsResultStruct 
+  class GetAlarmsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the alarms.</p>
@@ -6795,7 +6795,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetAutoSnapshotsRequest 
+  class GetAutoSnapshotsRequest
     include JSON1_1
 
     # <p>The name of the source instance or disk from which to get automatic snapshot
@@ -6804,7 +6804,7 @@ module AWSSdk::Lightsail_20161128
     property resource_name : String
   end
 
-  class AttachedDiskStruct 
+  class AttachedDiskStruct
     include JSON1_1
 
     # <p>The path of the disk (e.g., <code>/dev/xvdf</code>).</p>
@@ -6815,7 +6815,7 @@ module AWSSdk::Lightsail_20161128
     property size_in_gb : Int32?
   end
 
-  class AutoSnapshotDetailsStruct 
+  class AutoSnapshotDetailsStruct
     include JSON1_1
 
     # <p>The date of the automatic snapshot in <code>YYYY-MM-DD</code> format.</p>
@@ -6833,7 +6833,7 @@ module AWSSdk::Lightsail_20161128
     property from_attached_disks : Array(AttachedDiskStruct)?
   end
 
-  class GetAutoSnapshotsResultStruct 
+  class GetAutoSnapshotsResultStruct
     include JSON1_1
 
     # <p>The name of the source instance or disk for the automatic snapshots.</p>
@@ -6848,7 +6848,7 @@ module AWSSdk::Lightsail_20161128
     property auto_snapshots : Array(AutoSnapshotDetailsStruct)?
   end
 
-  class GetBlueprintsRequest 
+  class GetBlueprintsRequest
     include JSON1_1
 
     # <p>A Boolean value indicating whether to include inactive results in your request.</p>
@@ -6862,7 +6862,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class BlueprintStruct 
+  class BlueprintStruct
     include JSON1_1
 
     # <p>The ID for the virtual private server image (e.g., <code>app_wordpress_4_4</code> or
@@ -6912,7 +6912,7 @@ module AWSSdk::Lightsail_20161128
     property platform : String?
   end
 
-  class GetBlueprintsResultStruct 
+  class GetBlueprintsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs that contains information about the available
@@ -6927,7 +6927,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetBundlesRequest 
+  class GetBundlesRequest
     include JSON1_1
 
     # <p>A Boolean value that indicates whether to include inactive bundle results in your
@@ -6942,7 +6942,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class BundleStruct 
+  class BundleStruct
     include JSON1_1
 
     # <p>The price in US dollars (e.g., <code>5.0</code>) of the bundle.</p>
@@ -6987,7 +6987,7 @@ module AWSSdk::Lightsail_20161128
     property supported_platforms : Array(String)?
   end
 
-  class GetBundlesResultStruct 
+  class GetBundlesResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs that contains information about the available bundles.</p>
@@ -7001,7 +7001,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetCertificatesRequest 
+  class GetCertificatesRequest
     include JSON1_1
 
     # <p>The status of the certificates for which to return information.</p>
@@ -7024,7 +7024,7 @@ module AWSSdk::Lightsail_20161128
     property certificate_name : String?
   end
 
-  class GetCertificatesResultStruct 
+  class GetCertificatesResultStruct
     include JSON1_1
 
     # <p>An object that describes certificates.</p>
@@ -7032,7 +7032,7 @@ module AWSSdk::Lightsail_20161128
     property certificates : Array(CertificateSummaryStruct)?
   end
 
-  class GetCloudFormationStackRecordsRequest 
+  class GetCloudFormationStackRecordsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -7043,7 +7043,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class CloudFormationStackRecordSourceInfoStruct 
+  class CloudFormationStackRecordSourceInfoStruct
     include JSON1_1
 
     # <p>The Lightsail resource type (e.g., <code>ExportSnapshotRecord</code>).</p>
@@ -7057,7 +7057,7 @@ module AWSSdk::Lightsail_20161128
     property arn : String?
   end
 
-  class DestinationInfoStruct 
+  class DestinationInfoStruct
     include JSON1_1
 
     # <p>The ID of the resource created at the destination.</p>
@@ -7068,7 +7068,7 @@ module AWSSdk::Lightsail_20161128
     property service : String?
   end
 
-  class CloudFormationStackRecordStruct 
+  class CloudFormationStackRecordStruct
     include JSON1_1
 
     # <p>The name of the CloudFormation stack record. It starts with
@@ -7100,7 +7100,7 @@ module AWSSdk::Lightsail_20161128
     property destination_info : DestinationInfoStruct?
   end
 
-  class GetCloudFormationStackRecordsResultStruct 
+  class GetCloudFormationStackRecordsResultStruct
     include JSON1_1
 
     # <p>A list of objects describing the CloudFormation stack records.</p>
@@ -7115,7 +7115,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetContactMethodsRequest 
+  class GetContactMethodsRequest
     include JSON1_1
 
     # <p>The protocols used to send notifications, such as <code>Email</code>, or <code>SMS</code>
@@ -7126,7 +7126,7 @@ module AWSSdk::Lightsail_20161128
     property protocols : Array(String)?
   end
 
-  class ContactMethodStruct 
+  class ContactMethodStruct
     include JSON1_1
 
     # <p>The destination of the contact method, such as an email address or a mobile phone
@@ -7165,7 +7165,7 @@ module AWSSdk::Lightsail_20161128
     # <p>The timestamp when the contact method was created.</p>
     @[Protocol::Field(location: :body, name: "createdAt", required: false)]
     property created_at : Time?
-    # 
+    #
     @[Protocol::Field(location: :body, name: "location", required: false)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>ContactMethod</code>).</p>
@@ -7178,7 +7178,7 @@ module AWSSdk::Lightsail_20161128
     property support_code : String?
   end
 
-  class GetContactMethodsResultStruct 
+  class GetContactMethodsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the contact methods.</p>
@@ -7186,12 +7186,12 @@ module AWSSdk::Lightsail_20161128
     property contact_methods : Array(ContactMethodStruct)?
   end
 
-  class GetContainerAPIMetadataRequest 
+  class GetContainerAPIMetadataRequest
     include JSON1_1
 
   end
 
-  class GetContainerAPIMetadataResultStruct 
+  class GetContainerAPIMetadataResultStruct
     include JSON1_1
 
     # <p>Metadata about Lightsail containers, such as the current version of the Lightsail
@@ -7200,7 +7200,7 @@ module AWSSdk::Lightsail_20161128
     property metadata : Array(Hash(String, String))?
   end
 
-  class GetContainerImagesRequest 
+  class GetContainerImagesRequest
     include JSON1_1
 
     # <p>The name of the container service for which to return registered container images.</p>
@@ -7208,7 +7208,7 @@ module AWSSdk::Lightsail_20161128
     property service_name : String
   end
 
-  class ContainerImageStruct 
+  class ContainerImageStruct
     include JSON1_1
 
     # <p>The name of the container image.</p>
@@ -7222,7 +7222,7 @@ module AWSSdk::Lightsail_20161128
     property created_at : Time?
   end
 
-  class GetContainerImagesResultStruct 
+  class GetContainerImagesResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe container images that are registered to the container
@@ -7231,7 +7231,7 @@ module AWSSdk::Lightsail_20161128
     property container_images : Array(ContainerImageStruct)?
   end
 
-  class GetContainerLogRequest 
+  class GetContainerLogRequest
     include JSON1_1
 
     # <p>The name of the container service for which to get a container log.</p>
@@ -7242,45 +7242,45 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :uri, name: "containerName", required: true)]
     property container_name : String
     # <p>The start of the time interval for which to get log data.</p>
-    # 
+    #
     # <p>Constraints:</p>
-    # 
+    #
     # <ul>
     # <li>
     # <p>Specified in Coordinated Universal Time (UTC).</p>
     # </li>
     # <li>
     # <p>Specified in the Unix time format.</p>
-    # 
+    #
     # <p>For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify
     # <code>1538424000</code> as the start time.</p>
     # </li>
     # </ul>
-    # 
+    #
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
     @[Protocol::Field(location: :query, name: "startTime", required: false)]
     property start_time : Time?
     # <p>The end of the time interval for which to get log data.</p>
-    # 
+    #
     # <p>Constraints:</p>
-    # 
+    #
     # <ul>
     # <li>
     # <p>Specified in Coordinated Universal Time (UTC).</p>
     # </li>
     # <li>
     # <p>Specified in the Unix time format.</p>
-    # 
+    #
     # <p>For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify
     # <code>1538427600</code> as the end time.</p>
     # </li>
     # </ul>
-    # 
+    #
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
     @[Protocol::Field(location: :query, name: "endTime", required: false)]
     property end_time : Time?
     # <p>The pattern to use to filter the returned log events to a specific term.</p>
-    # 
+    #
     # <p>The following are a few examples of filter patterns that you can specify:</p>
     # <ul>
     # <li>
@@ -7308,7 +7308,7 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :query, name: "filterPattern", required: false)]
     property filter_pattern : String?
     # <p>The token to advance to the next page of results from your request.</p>
-    # 
+    #
     # <p>To get a page token, perform an initial <code>GetContainerLog</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
@@ -7316,7 +7316,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class ContainerServiceLogEventStruct 
+  class ContainerServiceLogEventStruct
     include JSON1_1
 
     # <p>The timestamp when the container service log event was created.</p>
@@ -7327,23 +7327,23 @@ module AWSSdk::Lightsail_20161128
     property message : String?
   end
 
-  class GetContainerLogResultStruct 
+  class GetContainerLogResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the log events of a container.</p>
     @[Protocol::Field(location: :body, name: "logEvents", required: false)]
     property log_events : Array(ContainerServiceLogEventStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
-    # 
+    #
     # <p>A next page token is not returned if there are no more results to display.</p>
-    # 
+    #
     # <p>To get the next page of results, perform another <code>GetContainerLog</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
     @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
     property next_page_token : String?
   end
 
-  class GetContainerServiceDeploymentsRequest 
+  class GetContainerServiceDeploymentsRequest
     include JSON1_1
 
     # <p>The name of the container service for which to return deployments.</p>
@@ -7351,7 +7351,7 @@ module AWSSdk::Lightsail_20161128
     property service_name : String
   end
 
-  class GetContainerServiceDeploymentsResultStruct 
+  class GetContainerServiceDeploymentsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe deployments for a container service.</p>
@@ -7359,17 +7359,17 @@ module AWSSdk::Lightsail_20161128
     property deployments : Array(ContainerServiceDeploymentStruct)?
   end
 
-  class GetContainerServiceMetricDataRequest 
+  class GetContainerServiceMetricDataRequest
     include JSON1_1
 
     # <p>The name of the container service for which to get metric data.</p>
     @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
     property service_name : String
     # <p>The metric for which you want to return information.</p>
-    # 
+    #
     # <p>Valid container service metric names are listed below, along with the most useful
     # statistics to include in your request, and the published unit value.</p>
-    # 
+    #
     # <ul>
     # <li>
     # <p>
@@ -7399,15 +7399,15 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :query, name: "endTime", required: true)]
     property end_time : Time
     # <p>The granularity, in seconds, of the returned data points.</p>
-    # 
+    #
     # <p>All container service metric data is available in 5-minute (300 seconds)
     # granularity.</p>
     @[Protocol::Field(location: :query, name: "period", required: true)]
     property period : Int32
     # <p>The statistic for the metric.</p>
-    # 
+    #
     # <p>The following statistics are available:</p>
-    # 
+    #
     # <ul>
     # <li>
     # <p>
@@ -7442,7 +7442,7 @@ module AWSSdk::Lightsail_20161128
     property statistics : Array(String)
   end
 
-  class MetricDatapointStruct 
+  class MetricDatapointStruct
     include JSON1_1
 
     # <p>The average.</p>
@@ -7468,7 +7468,7 @@ module AWSSdk::Lightsail_20161128
     property unit : String?
   end
 
-  class GetContainerServiceMetricDataResultStruct 
+  class GetContainerServiceMetricDataResultStruct
     include JSON1_1
 
     # <p>The name of the metric returned. </p>
@@ -7479,12 +7479,12 @@ module AWSSdk::Lightsail_20161128
     property metric_data : Array(MetricDatapointStruct)?
   end
 
-  class GetContainerServicePowersRequest 
+  class GetContainerServicePowersRequest
     include JSON1_1
 
   end
 
-  class ContainerServicePowerStruct 
+  class ContainerServicePowerStruct
     include JSON1_1
 
     # <p>The ID of the power (e.g., <code>nano-1</code>).</p>
@@ -7508,7 +7508,7 @@ module AWSSdk::Lightsail_20161128
     property is_active : Bool?
   end
 
-  class GetContainerServicePowersResultStruct 
+  class GetContainerServicePowersResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the powers that can be specified for a container
@@ -7517,18 +7517,18 @@ module AWSSdk::Lightsail_20161128
     property powers : Array(ContainerServicePowerStruct)?
   end
 
-  class GetContainerServicesRequest 
+  class GetContainerServicesRequest
     include JSON1_1
 
     # <p>The name of the container service for which to return information.</p>
-    # 
+    #
     # <p>When omitted, the response includes all of your container services in the AWS Region
     # where the request is made.</p>
     @[Protocol::Field(location: :query, name: "serviceName", required: false)]
     property service_name : String?
   end
 
-  class ContainerServicesListResultStruct 
+  class ContainerServicesListResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe one or more container services.</p>
@@ -7536,7 +7536,7 @@ module AWSSdk::Lightsail_20161128
     property container_services : Array(ContainerServiceStruct)?
   end
 
-  class GetDiskRequest 
+  class GetDiskRequest
     include JSON1_1
 
     # <p>The name of the disk (e.g., <code>my-disk</code>).</p>
@@ -7544,7 +7544,7 @@ module AWSSdk::Lightsail_20161128
     property disk_name : String
   end
 
-  class AddOnStruct 
+  class AddOnStruct
     include JSON1_1
 
     # <p>The name of the add-on.</p>
@@ -7569,7 +7569,7 @@ module AWSSdk::Lightsail_20161128
     property next_snapshot_time_of_day : String?
   end
 
-  class DiskStruct 
+  class DiskStruct
     include JSON1_1
 
     # <p>The unique name of the disk.</p>
@@ -7639,7 +7639,7 @@ module AWSSdk::Lightsail_20161128
     property gb_in_use : Int32?
   end
 
-  class GetDiskResultStruct 
+  class GetDiskResultStruct
     include JSON1_1
 
     # <p>An object containing information about the disk.</p>
@@ -7647,7 +7647,7 @@ module AWSSdk::Lightsail_20161128
     property disk : DiskStruct?
   end
 
-  class GetDisksRequest 
+  class GetDisksRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -7658,7 +7658,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetDisksResultStruct 
+  class GetDisksResultStruct
     include JSON1_1
 
     # <p>An array of objects containing information about all block storage disks.</p>
@@ -7672,7 +7672,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetDiskSnapshotRequest 
+  class GetDiskSnapshotRequest
     include JSON1_1
 
     # <p>The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).</p>
@@ -7680,7 +7680,7 @@ module AWSSdk::Lightsail_20161128
     property disk_snapshot_name : String
   end
 
-  class DiskSnapshotStruct 
+  class DiskSnapshotStruct
     include JSON1_1
 
     # <p>The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).</p>
@@ -7738,7 +7738,7 @@ module AWSSdk::Lightsail_20161128
     property is_from_auto_snapshot : Bool?
   end
 
-  class GetDiskSnapshotResultStruct 
+  class GetDiskSnapshotResultStruct
     include JSON1_1
 
     # <p>An object containing information about the disk snapshot.</p>
@@ -7746,7 +7746,7 @@ module AWSSdk::Lightsail_20161128
     property disk_snapshot : DiskSnapshotStruct?
   end
 
-  class GetDiskSnapshotsRequest 
+  class GetDiskSnapshotsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -7757,7 +7757,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetDiskSnapshotsResultStruct 
+  class GetDiskSnapshotsResultStruct
     include JSON1_1
 
     # <p>An array of objects containing information about all block storage disk snapshots.</p>
@@ -7771,12 +7771,12 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetDistributionBundlesRequest 
+  class GetDistributionBundlesRequest
     include JSON1_1
 
   end
 
-  class DistributionBundleStruct 
+  class DistributionBundleStruct
     include JSON1_1
 
     # <p>The ID of the bundle.</p>
@@ -7797,7 +7797,7 @@ module AWSSdk::Lightsail_20161128
     property is_active : Bool?
   end
 
-  class GetDistributionBundlesResultStruct 
+  class GetDistributionBundlesResultStruct
     include JSON1_1
 
     # <p>An object that describes a distribution bundle.</p>
@@ -7805,7 +7805,7 @@ module AWSSdk::Lightsail_20161128
     property bundles : Array(DistributionBundleStruct)?
   end
 
-  class GetDistributionLatestCacheResetRequest 
+  class GetDistributionLatestCacheResetRequest
     include JSON1_1
 
     # <p>The name of the distribution for which to return the timestamp of the last cache
@@ -7818,7 +7818,7 @@ module AWSSdk::Lightsail_20161128
     property distribution_name : String?
   end
 
-  class GetDistributionLatestCacheResetResultStruct 
+  class GetDistributionLatestCacheResetResultStruct
     include JSON1_1
 
     # <p>The status of the last cache reset.</p>
@@ -7830,7 +7830,7 @@ module AWSSdk::Lightsail_20161128
     property create_time : Time?
   end
 
-  class GetDistributionMetricDataRequest 
+  class GetDistributionMetricDataRequest
     include JSON1_1
 
     # <p>The name of the distribution for which to get metric data.</p>
@@ -7991,7 +7991,7 @@ module AWSSdk::Lightsail_20161128
     property statistics : Array(String)
   end
 
-  class GetDistributionMetricDataResultStruct 
+  class GetDistributionMetricDataResultStruct
     include JSON1_1
 
     # <p>The name of the metric returned.</p>
@@ -8002,7 +8002,7 @@ module AWSSdk::Lightsail_20161128
     property metric_data : Array(MetricDatapointStruct)?
   end
 
-  class GetDistributionsRequest 
+  class GetDistributionsRequest
     include JSON1_1
 
     # <p>The name of the distribution for which to return information.</p>
@@ -8020,7 +8020,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetDistributionsResultStruct 
+  class GetDistributionsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe your distributions.</p>
@@ -8034,7 +8034,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetDomainRequest 
+  class GetDomainRequest
     include JSON1_1
 
     # <p>The domain name for which your want to return information about.</p>
@@ -8042,7 +8042,7 @@ module AWSSdk::Lightsail_20161128
     property domain_name : String
   end
 
-  class DomainStruct 
+  class DomainStruct
     include JSON1_1
 
     # <p>The name of the domain.</p>
@@ -8076,7 +8076,7 @@ module AWSSdk::Lightsail_20161128
     property domain_entries : Array(DomainEntryStruct)?
   end
 
-  class GetDomainResultStruct 
+  class GetDomainResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about your get domain request.</p>
@@ -8084,7 +8084,7 @@ module AWSSdk::Lightsail_20161128
     property domain : DomainStruct?
   end
 
-  class GetDomainsRequest 
+  class GetDomainsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -8095,7 +8095,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetDomainsResultStruct 
+  class GetDomainsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about each of the domain entries in the
@@ -8110,7 +8110,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetExportSnapshotRecordsRequest 
+  class GetExportSnapshotRecordsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -8121,7 +8121,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class DiskInfoStruct 
+  class DiskInfoStruct
     include JSON1_1
 
     # <p>The disk name.</p>
@@ -8139,7 +8139,7 @@ module AWSSdk::Lightsail_20161128
     property is_system_disk : Bool?
   end
 
-  class InstanceSnapshotInfoStruct 
+  class InstanceSnapshotInfoStruct
     include JSON1_1
 
     # <p>The bundle ID from which the source instance was created (e.g.,
@@ -8154,7 +8154,7 @@ module AWSSdk::Lightsail_20161128
     property from_disk_info : Array(DiskInfoStruct)?
   end
 
-  class DiskSnapshotInfoStruct 
+  class DiskSnapshotInfoStruct
     include JSON1_1
 
     # <p>The size of the disk in GB (e.g., <code>32</code>).</p>
@@ -8162,7 +8162,7 @@ module AWSSdk::Lightsail_20161128
     property size_in_gb : Int32?
   end
 
-  class ExportSnapshotRecordSourceInfoStruct 
+  class ExportSnapshotRecordSourceInfoStruct
     include JSON1_1
 
     # <p>The Lightsail resource type (e.g., <code>InstanceSnapshot</code> or
@@ -8192,7 +8192,7 @@ module AWSSdk::Lightsail_20161128
     property disk_snapshot_info : DiskSnapshotInfoStruct?
   end
 
-  class ExportSnapshotRecordStruct 
+  class ExportSnapshotRecordStruct
     include JSON1_1
 
     # <p>The export snapshot record name.</p>
@@ -8221,7 +8221,7 @@ module AWSSdk::Lightsail_20161128
     property destination_info : DestinationInfoStruct?
   end
 
-  class GetExportSnapshotRecordsResultStruct 
+  class GetExportSnapshotRecordsResultStruct
     include JSON1_1
 
     # <p>A list of objects describing the export snapshot records.</p>
@@ -8235,7 +8235,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetInstanceRequest 
+  class GetInstanceRequest
     include JSON1_1
 
     # <p>The name of the instance.</p>
@@ -8243,7 +8243,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class InstanceHardwareStruct 
+  class InstanceHardwareStruct
     include JSON1_1
 
     # <p>The number of vCPUs the instance has.</p>
@@ -8257,7 +8257,7 @@ module AWSSdk::Lightsail_20161128
     property ram_size_in_gb : Float32?
   end
 
-  class MonthlyTransferStruct 
+  class MonthlyTransferStruct
     include JSON1_1
 
     # <p>The amount allocated per month (in GB).</p>
@@ -8265,7 +8265,7 @@ module AWSSdk::Lightsail_20161128
     property gb_per_month_allocated : Int32?
   end
 
-  class InstancePortInfoStruct 
+  class InstancePortInfoStruct
     include JSON1_1
 
     # <p>The first port in a range of open ports on an instance.</p>
@@ -8365,7 +8365,7 @@ module AWSSdk::Lightsail_20161128
     property cidr_list_aliases : Array(String)?
   end
 
-  class InstanceNetworkingStruct 
+  class InstanceNetworkingStruct
     include JSON1_1
 
     # <p>The amount of data in GB allocated for monthly data transfers.</p>
@@ -8376,7 +8376,7 @@ module AWSSdk::Lightsail_20161128
     property ports : Array(InstancePortInfoStruct)?
   end
 
-  class InstanceStateStruct 
+  class InstanceStateStruct
     include JSON1_1
 
     # <p>The status code for the instance.</p>
@@ -8387,7 +8387,7 @@ module AWSSdk::Lightsail_20161128
     property name : String?
   end
 
-  class InstanceStruct 
+  class InstanceStruct
     include JSON1_1
 
     # <p>The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).</p>
@@ -8460,7 +8460,7 @@ module AWSSdk::Lightsail_20161128
     property ssh_key_name : String?
   end
 
-  class GetInstanceResultStruct 
+  class GetInstanceResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the specified instance.</p>
@@ -8468,7 +8468,7 @@ module AWSSdk::Lightsail_20161128
     property instance : InstanceStruct?
   end
 
-  class GetInstanceAccessDetailsRequest 
+  class GetInstanceAccessDetailsRequest
     include JSON1_1
 
     # <p>The name of the instance to access.</p>
@@ -8479,7 +8479,7 @@ module AWSSdk::Lightsail_20161128
     property protocol : String?
   end
 
-  class PasswordDataStruct 
+  class PasswordDataStruct
     include JSON1_1
 
     # <p>The encrypted password. Ciphertext will be an empty string if access to your new instance
@@ -8505,7 +8505,7 @@ module AWSSdk::Lightsail_20161128
     property key_pair_name : String?
   end
 
-  class HostKeyAttributesStruct 
+  class HostKeyAttributesStruct
     include JSON1_1
 
     # <p>The SSH host key algorithm or the RDP certificate format.</p>
@@ -8564,7 +8564,7 @@ module AWSSdk::Lightsail_20161128
     property not_valid_after : Time?
   end
 
-  class InstanceAccessDetailsStruct 
+  class InstanceAccessDetailsStruct
     include JSON1_1
 
     # <p>For SSH access, the public key to use when accessing your instance For OpenSSH clients
@@ -8614,7 +8614,7 @@ module AWSSdk::Lightsail_20161128
     property host_keys : Array(HostKeyAttributesStruct)?
   end
 
-  class GetInstanceAccessDetailsResultStruct 
+  class GetInstanceAccessDetailsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about a get instance access
@@ -8623,7 +8623,7 @@ module AWSSdk::Lightsail_20161128
     property access_details : InstanceAccessDetailsStruct?
   end
 
-  class GetInstanceMetricDataRequest 
+  class GetInstanceMetricDataRequest
     include JSON1_1
 
     # <p>The name of the instance for which you want to get metrics data.</p>
@@ -8806,7 +8806,7 @@ module AWSSdk::Lightsail_20161128
     property statistics : Array(String)
   end
 
-  class GetInstanceMetricDataResultStruct 
+  class GetInstanceMetricDataResultStruct
     include JSON1_1
 
     # <p>The name of the metric returned.</p>
@@ -8817,7 +8817,7 @@ module AWSSdk::Lightsail_20161128
     property metric_data : Array(MetricDatapointStruct)?
   end
 
-  class GetInstancePortStatesRequest 
+  class GetInstancePortStatesRequest
     include JSON1_1
 
     # <p>The name of the instance for which to return firewall port states.</p>
@@ -8825,7 +8825,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class InstancePortStateStruct 
+  class InstancePortStateStruct
     include JSON1_1
 
     # <p>The first port in a range of open ports on an instance.</p>
@@ -8915,7 +8915,7 @@ module AWSSdk::Lightsail_20161128
     property cidr_list_aliases : Array(String)?
   end
 
-  class GetInstancePortStatesResultStruct 
+  class GetInstancePortStatesResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the firewall port states for the specified
@@ -8924,7 +8924,7 @@ module AWSSdk::Lightsail_20161128
     property port_states : Array(InstancePortStateStruct)?
   end
 
-  class GetInstancesRequest 
+  class GetInstancesRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -8935,7 +8935,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetInstancesResultStruct 
+  class GetInstancesResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about your instances.</p>
@@ -8949,7 +8949,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetInstanceSnapshotRequest 
+  class GetInstanceSnapshotRequest
     include JSON1_1
 
     # <p>The name of the snapshot for which you are requesting information.</p>
@@ -8957,7 +8957,7 @@ module AWSSdk::Lightsail_20161128
     property instance_snapshot_name : String
   end
 
-  class InstanceSnapshotStruct 
+  class InstanceSnapshotStruct
     include JSON1_1
 
     # <p>The name of the snapshot.</p>
@@ -9019,7 +9019,7 @@ module AWSSdk::Lightsail_20161128
     property size_in_gb : Int32?
   end
 
-  class GetInstanceSnapshotResultStruct 
+  class GetInstanceSnapshotResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the results of your get instance
@@ -9028,7 +9028,7 @@ module AWSSdk::Lightsail_20161128
     property instance_snapshot : InstanceSnapshotStruct?
   end
 
-  class GetInstanceSnapshotsRequest 
+  class GetInstanceSnapshotsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -9039,7 +9039,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetInstanceSnapshotsResultStruct 
+  class GetInstanceSnapshotsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the results of your get instance
@@ -9054,7 +9054,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetInstanceStateRequest 
+  class GetInstanceStateRequest
     include JSON1_1
 
     # <p>The name of the instance to get state information about.</p>
@@ -9062,7 +9062,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class GetInstanceStateResultStruct 
+  class GetInstanceStateResultStruct
     include JSON1_1
 
     # <p>The state of the instance.</p>
@@ -9070,7 +9070,7 @@ module AWSSdk::Lightsail_20161128
     property state : InstanceStateStruct?
   end
 
-  class GetKeyPairRequest 
+  class GetKeyPairRequest
     include JSON1_1
 
     # <p>The name of the key pair for which you are requesting information.</p>
@@ -9078,7 +9078,7 @@ module AWSSdk::Lightsail_20161128
     property key_pair_name : String
   end
 
-  class GetKeyPairResultStruct 
+  class GetKeyPairResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the key pair.</p>
@@ -9086,7 +9086,7 @@ module AWSSdk::Lightsail_20161128
     property key_pair : KeyPairStruct?
   end
 
-  class GetKeyPairsRequest 
+  class GetKeyPairsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -9097,7 +9097,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetKeyPairsResultStruct 
+  class GetKeyPairsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the key pairs.</p>
@@ -9111,7 +9111,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetLoadBalancerRequest 
+  class GetLoadBalancerRequest
     include JSON1_1
 
     # <p>The name of the load balancer.</p>
@@ -9119,7 +9119,7 @@ module AWSSdk::Lightsail_20161128
     property load_balancer_name : String
   end
 
-  class InstanceHealthSummaryStruct 
+  class InstanceHealthSummaryStruct
     include JSON1_1
 
     # <p>The name of the Lightsail instance for which you are requesting health check
@@ -9254,7 +9254,7 @@ module AWSSdk::Lightsail_20161128
     property instance_health_reason : String?
   end
 
-  class LoadBalancerTlsCertificateSummaryStruct 
+  class LoadBalancerTlsCertificateSummaryStruct
     include JSON1_1
 
     # <p>The name of the SSL/TLS certificate.</p>
@@ -9266,7 +9266,7 @@ module AWSSdk::Lightsail_20161128
     property is_attached : Bool?
   end
 
-  class LoadBalancerStruct 
+  class LoadBalancerStruct
     include JSON1_1
 
     # <p>The name of the load balancer (e.g., <code>my-load-balancer</code>).</p>
@@ -9333,7 +9333,7 @@ module AWSSdk::Lightsail_20161128
     property configuration_options : Hash(String, String)?
   end
 
-  class GetLoadBalancerResultStruct 
+  class GetLoadBalancerResultStruct
     include JSON1_1
 
     # <p>An object containing information about your load balancer.</p>
@@ -9341,7 +9341,7 @@ module AWSSdk::Lightsail_20161128
     property load_balancer : LoadBalancerStruct?
   end
 
-  class GetLoadBalancerMetricDataRequest 
+  class GetLoadBalancerMetricDataRequest
     include JSON1_1
 
     # <p>The name of the load balancer.</p>
@@ -9567,7 +9567,7 @@ module AWSSdk::Lightsail_20161128
     property statistics : Array(String)
   end
 
-  class GetLoadBalancerMetricDataResultStruct 
+  class GetLoadBalancerMetricDataResultStruct
     include JSON1_1
 
     # <p>The name of the metric returned.</p>
@@ -9578,7 +9578,7 @@ module AWSSdk::Lightsail_20161128
     property metric_data : Array(MetricDatapointStruct)?
   end
 
-  class GetLoadBalancersRequest 
+  class GetLoadBalancersRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -9589,7 +9589,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetLoadBalancersResultStruct 
+  class GetLoadBalancersResultStruct
     include JSON1_1
 
     # <p>An array of LoadBalancer objects describing your load balancers.</p>
@@ -9603,7 +9603,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetLoadBalancerTlsCertificatesRequest 
+  class GetLoadBalancerTlsCertificatesRequest
     include JSON1_1
 
     # <p>The name of the load balancer you associated with your SSL/TLS certificate.</p>
@@ -9611,7 +9611,7 @@ module AWSSdk::Lightsail_20161128
     property load_balancer_name : String
   end
 
-  class LoadBalancerTlsCertificateDomainValidationRecordStruct 
+  class LoadBalancerTlsCertificateDomainValidationRecordStruct
     include JSON1_1
 
     # <p>A fully qualified domain name in the certificate. For example,
@@ -9633,7 +9633,7 @@ module AWSSdk::Lightsail_20161128
     property domain_name : String?
   end
 
-  class LoadBalancerTlsCertificateDomainValidationOptionStruct 
+  class LoadBalancerTlsCertificateDomainValidationOptionStruct
     include JSON1_1
 
     # <p>The fully qualified domain name in the certificate request.</p>
@@ -9644,7 +9644,7 @@ module AWSSdk::Lightsail_20161128
     property validation_status : String?
   end
 
-  class LoadBalancerTlsCertificateRenewalSummaryStruct 
+  class LoadBalancerTlsCertificateRenewalSummaryStruct
     include JSON1_1
 
     # <p>The renewal status of the certificate.</p>
@@ -9695,7 +9695,7 @@ module AWSSdk::Lightsail_20161128
     property domain_validation_options : Array(LoadBalancerTlsCertificateDomainValidationOptionStruct)?
   end
 
-  class LoadBalancerTlsCertificateStruct 
+  class LoadBalancerTlsCertificateStruct
     include JSON1_1
 
     # <p>The name of the SSL/TLS certificate (e.g., <code>my-certificate</code>).</p>
@@ -9810,7 +9810,7 @@ module AWSSdk::Lightsail_20161128
     @[Protocol::Field(location: :body, name: "domainValidationRecords", required: false)]
     property domain_validation_records : Array(LoadBalancerTlsCertificateDomainValidationRecordStruct)?
     # <p>The validation failure reason, if any, of the certificate.</p>
-    # 
+    #
     # <p>The following failure reasons are possible:</p>
     # <ul>
     # <li>
@@ -9918,7 +9918,7 @@ module AWSSdk::Lightsail_20161128
     property subject_alternative_names : Array(String)?
   end
 
-  class GetLoadBalancerTlsCertificatesResultStruct 
+  class GetLoadBalancerTlsCertificatesResultStruct
     include JSON1_1
 
     # <p>An array of LoadBalancerTlsCertificate objects describing your SSL/TLS
@@ -9927,7 +9927,7 @@ module AWSSdk::Lightsail_20161128
     property tls_certificates : Array(LoadBalancerTlsCertificateStruct)?
   end
 
-  class GetOperationRequest 
+  class GetOperationRequest
     include JSON1_1
 
     # <p>A GUID used to identify the operation.</p>
@@ -9935,7 +9935,7 @@ module AWSSdk::Lightsail_20161128
     property operation_id : String
   end
 
-  class GetOperationResultStruct 
+  class GetOperationResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -9944,7 +9944,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class GetOperationsRequest 
+  class GetOperationsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -9955,7 +9955,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetOperationsResultStruct 
+  class GetOperationsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -9970,7 +9970,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetOperationsForResourceRequest 
+  class GetOperationsForResourceRequest
     include JSON1_1
 
     # <p>The name of the resource for which you are requesting information.</p>
@@ -9984,7 +9984,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetOperationsForResourceResultStruct 
+  class GetOperationsForResourceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -10007,7 +10007,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetRegionsRequest 
+  class GetRegionsRequest
     include JSON1_1
 
     # <p>A Boolean value indicating whether to also include Availability Zones in your get regions
@@ -10021,7 +10021,7 @@ module AWSSdk::Lightsail_20161128
     property include_relational_database_availability_zones : Bool?
   end
 
-  class AvailabilityZoneStruct 
+  class AvailabilityZoneStruct
     include JSON1_1
 
     # <p>The name of the Availability Zone. The format is <code>us-east-2a</code>
@@ -10033,7 +10033,7 @@ module AWSSdk::Lightsail_20161128
     property state : String?
   end
 
-  class RegionStruct 
+  class RegionStruct
     include JSON1_1
 
     # <p>The continent code (e.g., <code>NA</code>, meaning North America).</p>
@@ -10059,7 +10059,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_availability_zones : Array(AvailabilityZoneStruct)?
   end
 
-  class GetRegionsResultStruct 
+  class GetRegionsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about your get regions request.</p>
@@ -10067,7 +10067,7 @@ module AWSSdk::Lightsail_20161128
     property regions : Array(RegionStruct)?
   end
 
-  class GetRelationalDatabaseRequest 
+  class GetRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name of the database that you are looking up.</p>
@@ -10075,7 +10075,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_name : String
   end
 
-  class RelationalDatabaseHardwareStruct 
+  class RelationalDatabaseHardwareStruct
     include JSON1_1
 
     # <p>The number of vCPUs for the database.</p>
@@ -10089,7 +10089,7 @@ module AWSSdk::Lightsail_20161128
     property ram_size_in_gb : Float32?
   end
 
-  class PendingModifiedRelationalDatabaseValuesStruct 
+  class PendingModifiedRelationalDatabaseValuesStruct
     include JSON1_1
 
     # <p>The password for the master user of the database.</p>
@@ -10103,7 +10103,7 @@ module AWSSdk::Lightsail_20161128
     property backup_retention_enabled : Bool?
   end
 
-  class RelationalDatabaseEndpointStruct 
+  class RelationalDatabaseEndpointStruct
     include JSON1_1
 
     # <p>Specifies the port that the database is listening on.</p>
@@ -10114,7 +10114,7 @@ module AWSSdk::Lightsail_20161128
     property address : String?
   end
 
-  class PendingMaintenanceActionStruct 
+  class PendingMaintenanceActionStruct
     include JSON1_1
 
     # <p>The type of pending database maintenance action.</p>
@@ -10128,7 +10128,7 @@ module AWSSdk::Lightsail_20161128
     property current_apply_date : Time?
   end
 
-  class RelationalDatabaseStruct 
+  class RelationalDatabaseStruct
     include JSON1_1
 
     # <p>The unique name of the database resource in Lightsail.</p>
@@ -10226,7 +10226,7 @@ module AWSSdk::Lightsail_20161128
     property ca_certificate_identifier : String?
   end
 
-  class GetRelationalDatabaseResultStruct 
+  class GetRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An object describing the specified database.</p>
@@ -10234,7 +10234,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database : RelationalDatabaseStruct?
   end
 
-  class GetRelationalDatabaseBlueprintsRequest 
+  class GetRelationalDatabaseBlueprintsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -10245,7 +10245,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class RelationalDatabaseBlueprintStruct 
+  class RelationalDatabaseBlueprintStruct
     include JSON1_1
 
     # <p>The ID for the database blueprint.</p>
@@ -10270,7 +10270,7 @@ module AWSSdk::Lightsail_20161128
     property is_engine_default : Bool?
   end
 
-  class GetRelationalDatabaseBlueprintsResultStruct 
+  class GetRelationalDatabaseBlueprintsResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database blueprints request.</p>
@@ -10285,7 +10285,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetRelationalDatabaseBundlesRequest 
+  class GetRelationalDatabaseBundlesRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -10296,7 +10296,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class RelationalDatabaseBundleStruct 
+  class RelationalDatabaseBundleStruct
     include JSON1_1
 
     # <p>The ID for the database bundle.</p>
@@ -10328,7 +10328,7 @@ module AWSSdk::Lightsail_20161128
     property is_active : Bool?
   end
 
-  class GetRelationalDatabaseBundlesResultStruct 
+  class GetRelationalDatabaseBundlesResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database bundles request.</p>
@@ -10342,7 +10342,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetRelationalDatabaseEventsRequest 
+  class GetRelationalDatabaseEventsRequest
     include JSON1_1
 
     # <p>The name of the database from which to get events.</p>
@@ -10363,7 +10363,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class RelationalDatabaseEventStruct 
+  class RelationalDatabaseEventStruct
     include JSON1_1
 
     # <p>The database that the database event relates to.</p>
@@ -10380,7 +10380,7 @@ module AWSSdk::Lightsail_20161128
     property event_categories : Array(String)?
   end
 
-  class GetRelationalDatabaseEventsResultStruct 
+  class GetRelationalDatabaseEventsResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database events request.</p>
@@ -10394,7 +10394,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetRelationalDatabaseLogEventsRequest 
+  class GetRelationalDatabaseLogEventsRequest
     include JSON1_1
 
     # <p>The name of your database for which to get log events.</p>
@@ -10429,7 +10429,7 @@ module AWSSdk::Lightsail_20161128
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the end time.</p>
-    # 
+    #
     # </li>
     # </ul>
     @[Protocol::Field(location: :body, name: "endTime", required: false)]
@@ -10451,7 +10451,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class LogEventStruct 
+  class LogEventStruct
     include JSON1_1
 
     # <p>The timestamp when the database log event was created.</p>
@@ -10462,7 +10462,7 @@ module AWSSdk::Lightsail_20161128
     property message : String?
   end
 
-  class GetRelationalDatabaseLogEventsResultStruct 
+  class GetRelationalDatabaseLogEventsResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database log events request.</p>
@@ -10478,7 +10478,7 @@ module AWSSdk::Lightsail_20161128
     property next_forward_token : String?
   end
 
-  class GetRelationalDatabaseLogStreamsRequest 
+  class GetRelationalDatabaseLogStreamsRequest
     include JSON1_1
 
     # <p>The name of your database for which to get log streams.</p>
@@ -10486,7 +10486,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_name : String
   end
 
-  class GetRelationalDatabaseLogStreamsResultStruct 
+  class GetRelationalDatabaseLogStreamsResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database log streams
@@ -10495,7 +10495,7 @@ module AWSSdk::Lightsail_20161128
     property log_streams : Array(String)?
   end
 
-  class GetRelationalDatabaseMasterUserPasswordRequest 
+  class GetRelationalDatabaseMasterUserPasswordRequest
     include JSON1_1
 
     # <p>The name of your database for which to get the master user password.</p>
@@ -10513,7 +10513,7 @@ module AWSSdk::Lightsail_20161128
     property password_version : String?
   end
 
-  class GetRelationalDatabaseMasterUserPasswordResultStruct 
+  class GetRelationalDatabaseMasterUserPasswordResultStruct
     include JSON1_1
 
     # <p>The master user password for the <code>password version</code> specified.</p>
@@ -10524,7 +10524,7 @@ module AWSSdk::Lightsail_20161128
     property created_at : Time?
   end
 
-  class GetRelationalDatabaseMetricDataRequest 
+  class GetRelationalDatabaseMetricDataRequest
     include JSON1_1
 
     # <p>The name of your database from which to get metric data.</p>
@@ -10624,7 +10624,7 @@ module AWSSdk::Lightsail_20161128
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the start time.</p>
-    # 
+    #
     # </li>
     # </ul>
     @[Protocol::Field(location: :body, name: "startTime", required: true)]
@@ -10639,7 +10639,7 @@ module AWSSdk::Lightsail_20161128
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the end time.</p>
-    # 
+    #
     # </li>
     # </ul>
     @[Protocol::Field(location: :body, name: "endTime", required: true)]
@@ -10684,7 +10684,7 @@ module AWSSdk::Lightsail_20161128
     property statistics : Array(String)
   end
 
-  class GetRelationalDatabaseMetricDataResultStruct 
+  class GetRelationalDatabaseMetricDataResultStruct
     include JSON1_1
 
     # <p>The name of the metric returned.</p>
@@ -10695,7 +10695,7 @@ module AWSSdk::Lightsail_20161128
     property metric_data : Array(MetricDatapointStruct)?
   end
 
-  class GetRelationalDatabaseParametersRequest 
+  class GetRelationalDatabaseParametersRequest
     include JSON1_1
 
     # <p>The name of your database for which to get parameters.</p>
@@ -10709,7 +10709,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class RelationalDatabaseParameterStruct 
+  class RelationalDatabaseParameterStruct
     include JSON1_1
 
     # <p>Specifies the valid range of values for the parameter.</p>
@@ -10739,7 +10739,7 @@ module AWSSdk::Lightsail_20161128
     property parameter_value : String?
   end
 
-  class GetRelationalDatabaseParametersResultStruct 
+  class GetRelationalDatabaseParametersResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database parameters request.</p>
@@ -10754,7 +10754,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetRelationalDatabasesRequest 
+  class GetRelationalDatabasesRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -10765,7 +10765,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetRelationalDatabasesResultStruct 
+  class GetRelationalDatabasesResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational databases request.</p>
@@ -10779,7 +10779,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetRelationalDatabaseSnapshotRequest 
+  class GetRelationalDatabaseSnapshotRequest
     include JSON1_1
 
     # <p>The name of the database snapshot for which to get information.</p>
@@ -10787,7 +10787,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_snapshot_name : String
   end
 
-  class RelationalDatabaseSnapshotStruct 
+  class RelationalDatabaseSnapshotStruct
     include JSON1_1
 
     # <p>The name of the database snapshot.</p>
@@ -10845,7 +10845,7 @@ module AWSSdk::Lightsail_20161128
     property from_relational_database_blueprint_id : String?
   end
 
-  class GetRelationalDatabaseSnapshotResultStruct 
+  class GetRelationalDatabaseSnapshotResultStruct
     include JSON1_1
 
     # <p>An object describing the specified database snapshot.</p>
@@ -10853,7 +10853,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_snapshot : RelationalDatabaseSnapshotStruct?
   end
 
-  class GetRelationalDatabaseSnapshotsRequest 
+  class GetRelationalDatabaseSnapshotsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -10864,7 +10864,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetRelationalDatabaseSnapshotsResultStruct 
+  class GetRelationalDatabaseSnapshotsResultStruct
     include JSON1_1
 
     # <p>An object describing the result of your get relational database snapshots request.</p>
@@ -10879,7 +10879,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class GetStaticIpRequest 
+  class GetStaticIpRequest
     include JSON1_1
 
     # <p>The name of the static IP in Lightsail.</p>
@@ -10887,7 +10887,7 @@ module AWSSdk::Lightsail_20161128
     property static_ip_name : String
   end
 
-  class StaticIpStruct 
+  class StaticIpStruct
     include JSON1_1
 
     # <p>The name of the static IP (e.g., <code>StaticIP-Ohio-EXAMPLE</code>).</p>
@@ -10923,7 +10923,7 @@ module AWSSdk::Lightsail_20161128
     property is_attached : Bool?
   end
 
-  class GetStaticIpResultStruct 
+  class GetStaticIpResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about the requested static IP.</p>
@@ -10931,7 +10931,7 @@ module AWSSdk::Lightsail_20161128
     property static_ip : StaticIpStruct?
   end
 
-  class GetStaticIpsRequest 
+  class GetStaticIpsRequest
     include JSON1_1
 
     # <p>The token to advance to the next page of results from your request.</p>
@@ -10942,7 +10942,7 @@ module AWSSdk::Lightsail_20161128
     property page_token : String?
   end
 
-  class GetStaticIpsResultStruct 
+  class GetStaticIpsResultStruct
     include JSON1_1
 
     # <p>An array of key-value pairs containing information about your get static IPs
@@ -10957,7 +10957,7 @@ module AWSSdk::Lightsail_20161128
     property next_page_token : String?
   end
 
-  class ImportKeyPairRequest 
+  class ImportKeyPairRequest
     include JSON1_1
 
     # <p>The name of the key pair for which you want to import the public key.</p>
@@ -10968,7 +10968,7 @@ module AWSSdk::Lightsail_20161128
     property public_key_base64 : String
   end
 
-  class ImportKeyPairResultStruct 
+  class ImportKeyPairResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -10977,12 +10977,12 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class IsVpcPeeredRequest 
+  class IsVpcPeeredRequest
     include JSON1_1
 
   end
 
-  class IsVpcPeeredResultStruct 
+  class IsVpcPeeredResultStruct
     include JSON1_1
 
     # <p>Returns <code>true</code> if the Lightsail VPC is peered; otherwise,
@@ -10991,7 +10991,7 @@ module AWSSdk::Lightsail_20161128
     property is_peered : Bool?
   end
 
-  class OpenInstancePublicPortsRequest 
+  class OpenInstancePublicPortsRequest
     include JSON1_1
 
     # <p>An object to describe the ports to open for the specified instance.</p>
@@ -11002,7 +11002,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class OpenInstancePublicPortsResultStruct 
+  class OpenInstancePublicPortsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11011,12 +11011,12 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class PeerVpcRequest 
+  class PeerVpcRequest
     include JSON1_1
 
   end
 
-  class PeerVpcResultStruct 
+  class PeerVpcResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11025,7 +11025,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class PutAlarmRequest 
+  class PutAlarmRequest
     include JSON1_1
 
     # <p>The name for the alarm. Specify the name of an existing alarm to update, and overwrite the
@@ -11177,7 +11177,7 @@ module AWSSdk::Lightsail_20161128
     property notification_enabled : Bool?
   end
 
-  class PutAlarmResultStruct 
+  class PutAlarmResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11186,7 +11186,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class PutInstancePublicPortsRequest 
+  class PutInstancePublicPortsRequest
     include JSON1_1
 
     # <p>An array of objects to describe the ports to open for the specified instance.</p>
@@ -11197,7 +11197,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class PutInstancePublicPortsResultStruct 
+  class PutInstancePublicPortsResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11206,7 +11206,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class RebootInstanceRequest 
+  class RebootInstanceRequest
     include JSON1_1
 
     # <p>The name of the instance to reboot.</p>
@@ -11214,7 +11214,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class RebootInstanceResultStruct 
+  class RebootInstanceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11223,7 +11223,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class RebootRelationalDatabaseRequest 
+  class RebootRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name of your database to reboot.</p>
@@ -11231,7 +11231,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_name : String
   end
 
-  class RebootRelationalDatabaseResultStruct 
+  class RebootRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11240,17 +11240,17 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class RegisterContainerImageRequest 
+  class RegisterContainerImageRequest
     include JSON1_1
 
     # <p>The name of the container service for which to register a container image.</p>
     @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
     property service_name : String
     # <p>The label for the container image when it's registered to the container service.</p>
-    # 
+    #
     # <p>Use a descriptive label that you can use to track the different versions of your
     # registered container images.</p>
-    # 
+    #
     # <p>Use the <code>GetContainerImages</code> action to return the container images registered
     # to a Lightsail container service. The label is the <code><imagelabel></code> portion
     # of the following image name example:</p>
@@ -11261,11 +11261,11 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    # 
+    #
     # <p>If the name of your container service is <code>mycontainerservice</code>, and the label
     # that you specify is <code>mystaticwebsite</code>, then the name of the registered container
     # image will be <code>:mycontainerservice.mystaticwebsite.1</code>.</p>
-    # 
+    #
     # <p>The number at the end of these image name examples represents the version of the
     # registered container image. If you push and register another container image to the same
     # Lightsail container service, with the same label, then the version number for the new
@@ -11278,15 +11278,15 @@ module AWSSdk::Lightsail_20161128
     property digest : String
   end
 
-  class RegisterContainerImageResultStruct 
+  class RegisterContainerImageResultStruct
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "containerImage", required: false)]
     property container_image : ContainerImageStruct?
   end
 
-  class ReleaseStaticIpRequest 
+  class ReleaseStaticIpRequest
     include JSON1_1
 
     # <p>The name of the static IP to delete.</p>
@@ -11294,7 +11294,7 @@ module AWSSdk::Lightsail_20161128
     property static_ip_name : String
   end
 
-  class ReleaseStaticIpResultStruct 
+  class ReleaseStaticIpResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11303,7 +11303,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class ResetDistributionCacheRequest 
+  class ResetDistributionCacheRequest
     include JSON1_1
 
     # <p>The name of the distribution for which to reset cache.</p>
@@ -11313,7 +11313,7 @@ module AWSSdk::Lightsail_20161128
     property distribution_name : String?
   end
 
-  class ResetDistributionCacheResultStruct 
+  class ResetDistributionCacheResultStruct
     include JSON1_1
 
     # <p>The status of the reset cache request.</p>
@@ -11329,7 +11329,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class SendContactMethodVerificationRequest 
+  class SendContactMethodVerificationRequest
     include JSON1_1
 
     # <p>The protocol to verify, such as <code>Email</code> or <code>SMS</code> (text
@@ -11338,7 +11338,7 @@ module AWSSdk::Lightsail_20161128
     property protocol : String
   end
 
-  class SendContactMethodVerificationResultStruct 
+  class SendContactMethodVerificationResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11347,7 +11347,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class StartInstanceRequest 
+  class StartInstanceRequest
     include JSON1_1
 
     # <p>The name of the instance (a virtual private server) to start.</p>
@@ -11355,7 +11355,7 @@ module AWSSdk::Lightsail_20161128
     property instance_name : String
   end
 
-  class StartInstanceResultStruct 
+  class StartInstanceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11364,7 +11364,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class StartRelationalDatabaseRequest 
+  class StartRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name of your database to start.</p>
@@ -11372,7 +11372,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_name : String
   end
 
-  class StartRelationalDatabaseResultStruct 
+  class StartRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11381,7 +11381,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class StopInstanceRequest 
+  class StopInstanceRequest
     include JSON1_1
 
     # <p>The name of the instance (a virtual private server) to stop.</p>
@@ -11398,7 +11398,7 @@ module AWSSdk::Lightsail_20161128
     property force : Bool?
   end
 
-  class StopInstanceResultStruct 
+  class StopInstanceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11407,7 +11407,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class StopRelationalDatabaseRequest 
+  class StopRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name of your database to stop.</p>
@@ -11418,7 +11418,7 @@ module AWSSdk::Lightsail_20161128
     property relational_database_snapshot_name : String?
   end
 
-  class StopRelationalDatabaseResultStruct 
+  class StopRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11427,7 +11427,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class TagResourceRequest 
+  class TagResourceRequest
     include JSON1_1
 
     # <p>The name of the resource to which you are adding tags.</p>
@@ -11441,7 +11441,7 @@ module AWSSdk::Lightsail_20161128
     property tags : Array(TagStruct)
   end
 
-  class TagResourceResultStruct 
+  class TagResourceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11450,7 +11450,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class TestAlarmRequest 
+  class TestAlarmRequest
     include JSON1_1
 
     # <p>The name of the alarm to test.</p>
@@ -11478,7 +11478,7 @@ module AWSSdk::Lightsail_20161128
     property state : String
   end
 
-  class TestAlarmResultStruct 
+  class TestAlarmResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11487,12 +11487,12 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class UnpeerVpcRequest 
+  class UnpeerVpcRequest
     include JSON1_1
 
   end
 
-  class UnpeerVpcResultStruct 
+  class UnpeerVpcResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11501,7 +11501,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class UntagResourceRequest 
+  class UntagResourceRequest
     include JSON1_1
 
     # <p>The name of the resource from which you are removing a tag.</p>
@@ -11515,7 +11515,7 @@ module AWSSdk::Lightsail_20161128
     property tag_keys : Array(String)
   end
 
-  class UntagResourceResultStruct 
+  class UntagResourceResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11524,26 +11524,26 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class UpdateContainerServiceRequest 
+  class UpdateContainerServiceRequest
     include JSON1_1
 
     # <p>The name of the container service to update.</p>
     @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
     property service_name : String
     # <p>The power for the container service.</p>
-    # 
+    #
     # <p>The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the
     # container service. The <code>power</code> and <code>scale</code> of a container service makes
     # up its configured capacity. To determine the monthly price of your container service, multiply
     # the base price of the <code>power</code> with the <code>scale</code> (the number of nodes) of
     # the service.</p>
-    # 
+    #
     # <p>Use the <code>GetContainerServicePowers</code> action to view the specifications of each
     # power option.</p>
     @[Protocol::Field(location: :body, name: "power", required: false)]
     property power : String?
     # <p>The scale for the container service.</p>
-    # 
+    #
     # <p>The scale specifies the allocated compute nodes of the container service. The
     # <code>power</code> and <code>scale</code> of a container service makes up its configured
     # capacity. To determine the monthly price of your container service, multiply the base price of
@@ -11556,27 +11556,27 @@ module AWSSdk::Lightsail_20161128
     property is_disabled : Bool?
     # <p>The public domain names to use with the container service, such as
     # <code>example.com</code> and <code>www.example.com</code>.</p>
-    # 
+    #
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    # 
+    #
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    # 
+    #
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    # 
+    #
     # <p>You can specify public domain names using a string to array map as shown in the example
     # later on this page.</p>
     @[Protocol::Field(location: :body, name: "publicDomainNames", required: false)]
     property public_domain_names : Hash(String, Array(String))?
   end
 
-  class UpdateContainerServiceResultStruct 
+  class UpdateContainerServiceResultStruct
     include JSON1_1
 
     # <p>An object that describes a container service.</p>
@@ -11584,7 +11584,7 @@ module AWSSdk::Lightsail_20161128
     property container_service : ContainerServiceStruct?
   end
 
-  class UpdateDistributionRequest 
+  class UpdateDistributionRequest
     include JSON1_1
 
     # <p>The name of the distribution to update.</p>
@@ -11616,7 +11616,7 @@ module AWSSdk::Lightsail_20161128
     property is_enabled : Bool?
   end
 
-  class UpdateDistributionResultStruct 
+  class UpdateDistributionResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11625,7 +11625,7 @@ module AWSSdk::Lightsail_20161128
     property operation : OperationStruct?
   end
 
-  class UpdateDistributionBundleRequest 
+  class UpdateDistributionBundleRequest
     include JSON1_1
 
     # <p>The name of the distribution for which to update the bundle.</p>
@@ -11640,15 +11640,15 @@ module AWSSdk::Lightsail_20161128
     property bundle_id : String?
   end
 
-  class UpdateDistributionBundleResultStruct 
+  class UpdateDistributionBundleResultStruct
     include JSON1_1
 
-    # 
+    #
     @[Protocol::Field(location: :body, name: "operation", required: false)]
     property operation : OperationStruct?
   end
 
-  class UpdateDomainEntryRequest 
+  class UpdateDomainEntryRequest
     include JSON1_1
 
     # <p>The name of the domain recordset to update.</p>
@@ -11659,7 +11659,7 @@ module AWSSdk::Lightsail_20161128
     property domain_entry : DomainEntryStruct
   end
 
-  class UpdateDomainEntryResultStruct 
+  class UpdateDomainEntryResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11668,7 +11668,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class UpdateLoadBalancerAttributeRequest 
+  class UpdateLoadBalancerAttributeRequest
     include JSON1_1
 
     # <p>The name of the load balancer that you want to modify (e.g.,
@@ -11683,7 +11683,7 @@ module AWSSdk::Lightsail_20161128
     property attribute_value : String
   end
 
-  class UpdateLoadBalancerAttributeResultStruct 
+  class UpdateLoadBalancerAttributeResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11692,7 +11692,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class UpdateRelationalDatabaseRequest 
+  class UpdateRelationalDatabaseRequest
     include JSON1_1
 
     # <p>The name of your database to update.</p>
@@ -11784,7 +11784,7 @@ module AWSSdk::Lightsail_20161128
     property ca_certificate_identifier : String?
   end
 
-  class UpdateRelationalDatabaseResultStruct 
+  class UpdateRelationalDatabaseResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
@@ -11793,7 +11793,7 @@ module AWSSdk::Lightsail_20161128
     property operations : Array(OperationStruct)?
   end
 
-  class UpdateRelationalDatabaseParametersRequest 
+  class UpdateRelationalDatabaseParametersRequest
     include JSON1_1
 
     # <p>The name of your database for which to update parameters.</p>
@@ -11804,7 +11804,7 @@ module AWSSdk::Lightsail_20161128
     property parameters : Array(RelationalDatabaseParameterStruct)
   end
 
-  class UpdateRelationalDatabaseParametersResultStruct 
+  class UpdateRelationalDatabaseParametersResultStruct
     include JSON1_1
 
     # <p>An array of objects that describe the result of the action, such as the status of the
