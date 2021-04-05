@@ -1,28 +1,28 @@
-class <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
-  include <%= @namespace.service.try &.protocol_module %>
+  class <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
+    include <%= @namespace.service.try &.protocol_module %>
 
-  <%- @members.each do |key, value| -%>
-  <%- traits = @memberTraits[key] -%>
-  <%- if docs = @memberTraits[key].try &.["smithy.api#documentation"]?.to_s-%>
-  <%- docs.split('\n').each do |line| -%>
-  # <%= line.strip %>
-  <%- end -%>
-  <%- end -%>
-  @[Protocol::Field(<%-= 
-  case traits
-  when .has_key? "smithy.api#httpQuery"
-    "location: :query, name: \"#{traits["smithy.api#httpQuery"]?}\""
-  when .has_key? "smithy.api#httpLabel"
-    "location: :uri, name: \"#{key}\""
-  when .has_key? "smithy.api#httpHeader"
-    "location: :header, name: \"#{traits["smithy.api#httpHeader"]}\""
-  when .has_key? "smithy.api#httpPrefixHeaders"
-    "location: :header_prefix, name: \"#{traits["smithy.api#httpPrefixHeaders"]}\""
-  when .has_key? "smithy.api#httpPayload"
-    "location: :body_io"
-  else 
-    "location: :body, name: \"#{traits["smithy.api#xmlName"]? || key}\""
-  end%>, required: <%= traits.has_key? "smithy.api#required" %>)]
-  property <%= key.underscore %> : <%= value.to_type %><%= traits.try &.["smithy.api#required"]? ? "" : '?' %>
-  <%- end -%>
-end
+    <%- @members.each do |key, value| -%>
+    <%- traits = @memberTraits[key] -%>
+    <%- if docs = @memberTraits[key].try &.["smithy.api#documentation"]?.to_s-%>
+    <%- docs.split('\n').each do |line| -%>
+    # <%= line.strip %>
+    <%- end -%>
+    <%- end -%>
+    @[Protocol::Field(<%-= 
+    case traits
+    when .has_key? "smithy.api#httpQuery"
+      "location: :query, name: \"#{traits["smithy.api#httpQuery"]?}\""
+    when .has_key? "smithy.api#httpLabel"
+      "location: :uri, name: \"#{key}\""
+    when .has_key? "smithy.api#httpHeader"
+      "location: :header, name: \"#{traits["smithy.api#httpHeader"]}\""
+    when .has_key? "smithy.api#httpPrefixHeaders"
+      "location: :header_prefix, name: \"#{traits["smithy.api#httpPrefixHeaders"]}\""
+    when .has_key? "smithy.api#httpPayload"
+      "location: :body_io"
+    else 
+      "location: :body, name: \"#{traits["smithy.api#xmlName"]? || key}\""
+    end%>, required: <%= traits.has_key? "smithy.api#required" %>)]
+    property <%= key.underscore %> : <%= value.to_type %><%= traits.try &.["smithy.api#required"]? ? "" : '?' %>
+    <%- end -%>
+  end

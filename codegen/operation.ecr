@@ -18,6 +18,16 @@
     <%- end -%>
     request = HTTP::Request.new("<%= traits["smithy.api#http"]["method"] %>", path)
     request = input.process(request)
-    AWSSdk::Client.send(request, success_code: <%= traits["smithy.api#http"]["code"] %>)
+    response = AWSSdk::Client.send(request, success_code: <%= traits["smithy.api#http"]["code"] %>)
+
+    <%- errors.each do |error| -%>
+    raise <%= error.name %> if response.code == <%= error.traits["smithy.api#httpError"] %>
+    <%- end -%>
+
+    <%- if output = @output -%>
+    <%= "#{output.name}.from_request(request)" %>
+    <%- else -%>
+    nil
+    <%- end -%>
   end
 

@@ -13,7 +13,7 @@ module AWSSdk::<%= name %>
 <% end %>
 
 <% @namespace.structures.each do |structure| %>
-  <%= structure.to_code %>
+<%= structure.to_code %>
 <% end %>
 <% @namespace.unions.each do |structure| %>
   <%= structure.to_code %>

@@ -28,17 +28,22 @@ module Smithy
     end
 
     def new_data_type(namespace, id, shape : Shape) : DataType
-      {% begin %}
-        case shape
-          {% for type in %w{Structure Map List Union}+PRIMITIVE_TYPENAMES%}
-          when ASTNode{{type.id}}
-            {{type.id}}Type.new(namespace, id, shape)
-          {% end %}
-        else
-          pp shape
-          raise "What kind of type is that??"
-        end
-      {% end %}
+      @namespace.datatypes.fetch id do
+        {% begin %}
+          case shape
+            {% for type in %w{Structure Map List Union}+PRIMITIVE_TYPENAMES%}
+            when ASTNode{{type.id}}
+              new_node = {{type.id}}Type.new(namespace, id, shape)
+              @namespace.datatypes[id] = new_node
+              new_node
+            {% end %}
+          else
+            pp shape
+            raise "What kind of type is that??"
+          end
+        {% end %}
+
+      end
     end
   end
 
@@ -89,7 +94,7 @@ module Smithy
   class OperationType < AbstractType(ASTNodeOperation)
     property input : DataType?
     property output : DataType?
-    property errors : Array(DataType)?
+    property errors = Array(DataType).new
 
     def initialize(@namespace, @id, @node : ASTNodeOperation)
       @traits = @node.traits
@@ -264,6 +269,7 @@ module Smithy
     property structures : Set(StructureType) = Set(StructureType).new
     property unions = Set(UnionType).new
     getter service : ServiceType?
+    property datatypes = Hash(String, DataType).new
 
     def initialize(filename)
       @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename), "shapes")
@@ -273,13 +279,13 @@ module Smithy
   end
 end
 
-appconfig = Smithy::Namespace.new("aws-models/appconfig.json")
+namespace = Smithy::Namespace.new("aws-models/s3.json")
 begin
-  file = File.open("src/clients/appconfig.cr", "w")
-  file.puts appconfig.service.try &.to_code
-# rescue exception
-#   puts "Failed to write to file"
-#   pp exception
+  file = File.open("src/clients/s3.cr", "w")
+  file.puts namespace.service.try &.to_code
+rescue exception
+  puts "Failed to write to file"
+  pp exception
 ensure
   file.close if file
 end
