@@ -25,7 +25,7 @@ TODO:
 - [ ] Protocols
 - - [ ] XML Rest
 - - 1. [x] Serialize \ Deserialize
-- - 2. [ ] Request \ Response processing
+- - 2. [x] Request \ Response processing
 - - 3. [ ] Exceptions
 - - [ ] JSON Rest
 - - 1. [ ] Serialize \ Deserialize
