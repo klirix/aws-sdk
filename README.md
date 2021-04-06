@@ -24,10 +24,25 @@ TODO:
 - [x] Place location data into annotations
 - [ ] Protocols
 - - [ ] XML Rest
+- - 1. [x] Serialize \ Deserialize
+- - 2. [ ] Request \ Response processing
+- - 3. [ ] Exceptions
 - - [ ] JSON Rest
+- - 1. [ ] Serialize \ Deserialize
+- - 2. [ ] Request \ Response processing
+- - 3. [ ] Exceptions
 - - [ ] JSON 1.1
+- - 1. [ ] Serialize \ Deserialize
+- - 2. [ ] Request \ Response processing
+- - 3. [ ] Exceptions
 - - [ ] Query
+- - 1. [ ] Serialize \ Deserialize
+- - 2. [ ] Request \ Response processing
+- - 3. [ ] Exceptions
 - - [ ] EC2
+- - 1. [ ] Serialize \ Deserialize
+- - 2. [ ] Request \ Response processing
+- - 3. [ ] Exceptions
 - [ ] Some kind of generic client to inherit from
 - [ ] Specs and docs
 
