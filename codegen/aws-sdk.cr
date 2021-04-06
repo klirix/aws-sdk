@@ -298,9 +298,9 @@ module Smithy
   end
 end
 
-namespace = Smithy::Namespace.new("aws-models/s3.json")
+namespace = Smithy::Namespace.new("aws-models/#{ARGV[0]}.json")
 begin
-  file = File.open("src/clients/s3.cr", "w")
+  file = File.open("src/clients/#{ARGV[0]}.cr", "w")
   file.puts namespace.service.try &.to_code
 rescue exception
   puts "Failed to write to file"
