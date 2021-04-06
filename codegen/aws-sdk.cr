@@ -246,7 +246,7 @@ module Smithy
 
   class BlobType
     def to_type
-      "Bytes"
+      "Array(UInt8)"
     end
   end
 

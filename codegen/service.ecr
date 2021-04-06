@@ -5,6 +5,7 @@ require "../protocols/rest_json"
 <% elsif protocol == :json1_1 %>
 require "../protocols/json1_1"
 <% end %>
+require "./baseclient"
 module AWSSdk::<%= name %>
   ENDPOINT_PREFIX = "<%= traits.not_nil!["aws.api#service"]["endpointPrefix"] %>"
 

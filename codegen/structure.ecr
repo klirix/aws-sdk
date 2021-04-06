@@ -19,7 +19,7 @@
     when .has_key? "smithy.api#httpPrefixHeaders"
       "location: :header_prefix, name: \"#{traits["smithy.api#httpPrefixHeaders"]}\""
     when .has_key? "smithy.api#httpPayload"
-      "location: :body_io"
+      "location: :body_io, name: \"#{value.is_a?(StructureType) ? value.name : "nil"}\""
     else 
       "location: :body, name: \"#{traits["smithy.api#xmlName"]? || key}\""
     end%>, structure: <%= value.is_a? StructureType %>)]

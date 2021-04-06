@@ -12,14 +12,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     AllocateStaticIpResult.from_request(request)
   end
 
@@ -43,13 +35,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     AttachCertificateToDistributionResult.from_request(request)
   end
 
@@ -65,14 +50,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     AttachDiskResult.from_request(request)
   end
@@ -90,14 +67,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     AttachInstancesToLoadBalancerResult.from_request(request)
   end
@@ -119,14 +88,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     AttachLoadBalancerTlsCertificateResult.from_request(request)
   end
 
@@ -138,14 +99,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     AttachStaticIpResult.from_request(request)
   end
@@ -161,14 +114,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CloseInstancePublicPortsResult.from_request(request)
   end
@@ -192,14 +137,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CopySnapshotResult.from_request(request)
   end
 
@@ -221,12 +158,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateCertificateResult.from_request(request)
   end
 
@@ -246,14 +177,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateCloudFormationStackResult.from_request(request)
   end
 
@@ -270,20 +193,13 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateContactMethodResult.from_request(request)
   end
 
 
 
       # <p>Creates an Amazon Lightsail container service.</p>
-  #
+  # 
   # <p>A Lightsail container service is a compute resource to which you can deploy containers.
   # For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-containers">Container services in Amazon Lightsail</a> in the <i>Lightsail Dev
   # Guide</i>.</p>
@@ -293,25 +209,19 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 201)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateContainerServiceResult.from_request(request)
   end
 
 
 
       # <p>Creates a deployment for your Amazon Lightsail container service.</p>
-  #
+  # 
   # <p>A deployment specifies the containers that will be launched on the container service and
   # their settings, such as the ports to open, the environment variables to apply, and the launch
   # command to run. It also specifies the container that will serve as the public endpoint of the
   # deployment and its settings, such as the HTTP or HTTPS port to use, and the health check
   # configuration.</p>
-  #
+  # 
   # <p>You can deploy containers to your container service using container images from a public
   # registry like Docker Hub, or from your local machine. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-container-images">Creating container images for your Amazon Lightsail container services</a> in the
   # <i>Lightsail Dev Guide</i>.</p>
@@ -326,12 +236,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 201)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateContainerServiceDeploymentResult.from_request(request)
   end
 
@@ -343,17 +247,17 @@ module AWSSdk::Lightsail_20161128
   # account so that you can use them with your Lightsail container service. The log in
   # credentials expire 12 hours after they are created, at which point you will need to create a
   # new set of log in credentials.</p>
-  #
+  # 
   # <note>
   # <p>You can only push container images to the container service registry of your Lightsail
   # account. You cannot pull container images perform any other container image management
   # actions on the container service registry of your Lightsail account.</p>
   # </note>
-  #
+  # 
   # <p>After you push your container images to the container image registry of your Lightsail
   # account, use the <code>RegisterContainerImage</code> action to register the pushed images to a
   # specific Lightsail container service.</p>
-  #
+  # 
   # <note>
   # <p>This action is not required if you install and use the Lightsail Control
   # (lightsailctl) plugin to push container images to your Lightsail container service. For
@@ -366,12 +270,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateContainerServiceRegistryLoginResult.from_request(request)
   end
@@ -387,14 +285,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateDiskResult.from_request(request)
   end
@@ -412,14 +302,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateDiskFromSnapshotResult.from_request(request)
   end
@@ -443,7 +325,7 @@ module AWSSdk::Lightsail_20161128
   # when issuing the snapshot command, and a snapshot of the defined instance's system volume will
   # be created. After the snapshot is available, you can create a block storage disk from the
   # snapshot and attach it to a running instance to access the data on the disk.</p>
-  #
+  # 
   # <p>The <code>create disk snapshot</code> operation supports tag-based access control via
   # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
   def create_disk_snapshot(input : CreateDiskSnapshotRequest) : CreateDiskSnapshotResult
@@ -451,14 +333,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateDiskSnapshotResult.from_request(request)
   end
@@ -475,13 +349,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateDistributionResult.from_request(request)
   end
 
@@ -496,14 +363,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateDomainResult.from_request(request)
   end
 
@@ -512,9 +371,9 @@ module AWSSdk::Lightsail_20161128
       # <p>Creates one of the following domain name system (DNS) records in a domain DNS zone:
   # Address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority
   # (SOA), service locator (SRV), or text (TXT).</p>
-  #
-  #
-  #
+  # 
+  # 
+  # 
   # <p>The <code>create domain entry</code> operation supports tag-based access control via
   # resource tags applied to the resource identified by <code>domain name</code>. For more
   # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
@@ -523,14 +382,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateDomainEntryResult.from_request(request)
   end
@@ -545,14 +396,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateInstancesResult.from_request(request)
   end
@@ -570,14 +413,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateInstancesFromSnapshotResult.from_request(request)
   end
 
@@ -593,14 +428,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateInstanceSnapshotResult.from_request(request)
   end
 
@@ -614,14 +441,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateKeyPairResult.from_request(request)
   end
@@ -642,14 +461,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateLoadBalancerResult.from_request(request)
   end
 
@@ -666,14 +477,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateLoadBalancerTlsCertificateResult.from_request(request)
   end
 
@@ -687,14 +490,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateRelationalDatabaseResult.from_request(request)
   end
@@ -714,14 +509,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     CreateRelationalDatabaseFromSnapshotResult.from_request(request)
   end
 
@@ -736,14 +523,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     CreateRelationalDatabaseSnapshotResult.from_request(request)
   end
@@ -761,13 +540,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteAlarmResult.from_request(request)
   end
 
@@ -779,13 +551,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteAutoSnapshotResult.from_request(request)
   end
@@ -803,12 +568,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteCertificateResult.from_request(request)
   end
 
@@ -824,13 +583,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteContactMethodResult.from_request(request)
   end
@@ -855,12 +607,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 204)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteContainerImageResult.from_request(request)
   end
 
@@ -877,12 +623,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 204)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteContainerServiceResult.from_request(request)
   end
@@ -902,14 +642,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteDiskResult.from_request(request)
   end
@@ -931,14 +663,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteDiskSnapshotResult.from_request(request)
   end
 
@@ -950,13 +674,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteDistributionResult.from_request(request)
   end
@@ -973,14 +690,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteDomainResult.from_request(request)
   end
 
@@ -996,14 +705,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteDomainEntryResult.from_request(request)
   end
 
@@ -1018,14 +719,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteInstanceResult.from_request(request)
   end
@@ -1043,14 +736,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteInstanceSnapshotResult.from_request(request)
   end
 
@@ -1065,14 +750,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteKeyPairResult.from_request(request)
   end
@@ -1094,14 +771,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteKnownHostKeysResult.from_request(request)
   end
 
@@ -1119,14 +788,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteLoadBalancerResult.from_request(request)
   end
 
@@ -1141,14 +802,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DeleteLoadBalancerTlsCertificateResult.from_request(request)
   end
@@ -1165,14 +818,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteRelationalDatabaseResult.from_request(request)
   end
 
@@ -1188,14 +833,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DeleteRelationalDatabaseSnapshotResult.from_request(request)
   end
 
@@ -1210,13 +847,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DetachCertificateFromDistributionResult.from_request(request)
   end
@@ -1235,14 +865,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DetachDiskResult.from_request(request)
   end
 
@@ -1260,14 +882,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DetachInstancesFromLoadBalancerResult.from_request(request)
   end
 
@@ -1279,14 +893,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DetachStaticIpResult.from_request(request)
   end
@@ -1300,13 +906,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     DisableAddOnResult.from_request(request)
   end
 
@@ -1318,14 +917,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     DownloadDefaultKeyPairResult.from_request(request)
   end
@@ -1339,13 +930,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     EnableAddOnResult.from_request(request)
   end
@@ -1373,14 +957,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     ExportSnapshotResult.from_request(request)
   end
 
@@ -1392,14 +968,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetActiveNamesResult.from_request(request)
   end
@@ -1419,13 +987,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetAlarmsResult.from_request(request)
   end
 
@@ -1438,13 +999,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetAutoSnapshotsResult.from_request(request)
   end
@@ -1467,14 +1021,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetBlueprintsResult.from_request(request)
   end
 
@@ -1487,14 +1033,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetBundlesResult.from_request(request)
   end
@@ -1513,12 +1051,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetCertificatesResult.from_request(request)
   end
 
@@ -1533,14 +1065,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetCloudFormationStackRecordsResult.from_request(request)
   end
@@ -1559,13 +1083,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetContactMethodsResult.from_request(request)
   end
 
@@ -1579,10 +1096,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetContainerAPIMetadataResult.from_request(request)
   end
 
@@ -1590,7 +1103,7 @@ module AWSSdk::Lightsail_20161128
 
       # <p>Returns the container images that are registered to your Amazon Lightsail container
   # service.</p>
-  #
+  # 
   # <note>
   # <p>If you created a deployment on your Lightsail container service that uses container
   # images from a public registry like Docker Hub, those images are not returned as part of this
@@ -1607,23 +1120,17 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetContainerImagesResult.from_request(request)
   end
 
 
 
       # <p>Returns the log events of a container of your Amazon Lightsail container service.</p>
-  #
+  # 
   # <p>If your container service has more than one node (i.e., a scale greater than 1), then the
   # log events that are returned for the specified container are merged from all nodes on your
   # container service.</p>
-  #
+  # 
   # <note>
   # <p>Container logs are retained for a certain amount of time. For more information, see
   # <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
@@ -1645,25 +1152,19 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetContainerLogResult.from_request(request)
   end
 
 
 
       # <p>Returns the deployments for your Amazon Lightsail container service</p>
-  #
+  # 
   # <p>A deployment specifies the settings, such as the ports and launch command, of containers
   # that are deployed to your container service.</p>
-  #
+  # 
   # <p>The deployments are ordered by version in ascending order. The newest version is listed at
   # the top of the response.</p>
-  #
+  # 
   # <note>
   # <p>A set number of deployments are kept before the oldest one is replaced with the newest
   # one. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
@@ -1680,12 +1181,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetContainerServiceDeploymentsResult.from_request(request)
   end
 
@@ -1693,7 +1188,7 @@ module AWSSdk::Lightsail_20161128
 
       # <p>Returns the data points of a specific metric of your Amazon Lightsail container
   # service.</p>
-  #
+  # 
   # <p>Metrics report the utilization of your resources. Monitor and collect metric data
   # regularly to maintain the reliability, availability, and performance of your resources.</p>
   def get_container_service_metric_data(input : GetContainerServiceMetricDataRequest) : GetContainerServiceMetricDataResult
@@ -1707,12 +1202,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetContainerServiceMetricDataResult.from_request(request)
   end
 
@@ -1720,7 +1209,7 @@ module AWSSdk::Lightsail_20161128
 
       # <p>Returns the list of powers that can be specified for your Amazon Lightsail container
   # services.</p>
-  #
+  # 
   # <p>The power specifies the amount of memory, the number of vCPUs, and the base price of the
   # container service.</p>
   def get_container_service_powers(input : GetContainerServicePowersRequest) : GetContainerServicePowersResult
@@ -1728,12 +1217,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetContainerServicePowersResult.from_request(request)
   end
@@ -1747,12 +1230,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     ContainerServicesListResult.from_request(request)
   end
 
@@ -1764,14 +1241,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetDiskResult.from_request(request)
   end
@@ -1785,14 +1254,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetDisksResult.from_request(request)
   end
 
@@ -1804,14 +1265,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetDiskSnapshotResult.from_request(request)
   end
@@ -1825,14 +1278,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetDiskSnapshotsResult.from_request(request)
   end
@@ -1849,13 +1294,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetDistributionBundlesResult.from_request(request)
   end
 
@@ -1868,13 +1306,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetDistributionLatestCacheResetResult.from_request(request)
   end
@@ -1892,13 +1323,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetDistributionMetricDataResult.from_request(request)
   end
 
@@ -1912,13 +1336,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetDistributionsResult.from_request(request)
   end
 
@@ -1931,14 +1348,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetDomainResult.from_request(request)
   end
 
@@ -1950,14 +1359,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetDomainsResult.from_request(request)
   end
@@ -1974,14 +1375,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetExportSnapshotRecordsResult.from_request(request)
   end
 
@@ -1994,14 +1387,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetInstanceResult.from_request(request)
   end
@@ -2019,14 +1404,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetInstanceAccessDetailsResult.from_request(request)
   end
 
@@ -2043,14 +1420,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetInstanceMetricDataResult.from_request(request)
   end
 
@@ -2063,14 +1432,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetInstancePortStatesResult.from_request(request)
   end
@@ -2085,14 +1446,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetInstancesResult.from_request(request)
   end
 
@@ -2104,14 +1457,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetInstanceSnapshotResult.from_request(request)
   end
@@ -2125,14 +1470,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetInstanceSnapshotsResult.from_request(request)
   end
 
@@ -2144,14 +1481,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetInstanceStateResult.from_request(request)
   end
@@ -2165,14 +1494,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetKeyPairResult.from_request(request)
   end
 
@@ -2185,14 +1506,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetKeyPairsResult.from_request(request)
   end
 
@@ -2204,14 +1517,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetLoadBalancerResult.from_request(request)
   end
@@ -2228,14 +1533,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetLoadBalancerMetricDataResult.from_request(request)
   end
 
@@ -2247,14 +1544,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetLoadBalancersResult.from_request(request)
   end
@@ -2272,14 +1561,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetLoadBalancerTlsCertificatesResult.from_request(request)
   end
 
@@ -2292,14 +1573,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetOperationResult.from_request(request)
   end
@@ -2316,14 +1589,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetOperationsResult.from_request(request)
   end
 
@@ -2335,14 +1600,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetOperationsForResourceResult.from_request(request)
   end
@@ -2358,14 +1615,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRegionsResult.from_request(request)
   end
 
@@ -2377,14 +1626,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetRelationalDatabaseResult.from_request(request)
   end
@@ -2401,14 +1642,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRelationalDatabaseBlueprintsResult.from_request(request)
   end
 
@@ -2424,14 +1657,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRelationalDatabaseBundlesResult.from_request(request)
   end
 
@@ -2443,14 +1668,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetRelationalDatabaseEventsResult.from_request(request)
   end
@@ -2464,14 +1681,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRelationalDatabaseLogEventsResult.from_request(request)
   end
 
@@ -2483,14 +1692,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetRelationalDatabaseLogStreamsResult.from_request(request)
   end
@@ -2508,14 +1709,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRelationalDatabaseMasterUserPasswordResult.from_request(request)
   end
 
@@ -2530,14 +1723,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetRelationalDatabaseMetricDataResult.from_request(request)
   end
@@ -2555,14 +1740,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRelationalDatabaseParametersResult.from_request(request)
   end
 
@@ -2574,14 +1751,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetRelationalDatabasesResult.from_request(request)
   end
@@ -2595,14 +1764,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetRelationalDatabaseSnapshotResult.from_request(request)
   end
 
@@ -2614,14 +1775,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetRelationalDatabaseSnapshotsResult.from_request(request)
   end
@@ -2635,14 +1788,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     GetStaticIpResult.from_request(request)
   end
 
@@ -2654,14 +1799,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     GetStaticIpsResult.from_request(request)
   end
@@ -2675,14 +1812,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     ImportKeyPairResult.from_request(request)
   end
 
@@ -2694,14 +1823,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     IsVpcPeeredResult.from_request(request)
   end
@@ -2719,14 +1840,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     OpenInstancePublicPortsResult.from_request(request)
   end
 
@@ -2738,14 +1851,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     PeerVpcResult.from_request(request)
   end
@@ -2769,13 +1874,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     PutAlarmResult.from_request(request)
   end
 
@@ -2796,14 +1894,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     PutInstancePublicPortsResult.from_request(request)
   end
 
@@ -2818,14 +1908,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     RebootInstanceResult.from_request(request)
   end
@@ -2842,21 +1924,13 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     RebootRelationalDatabaseResult.from_request(request)
   end
 
 
 
       # <p>Registers a container image to your Amazon Lightsail container service.</p>
-  #
+  # 
   # <note>
   # <p>This action is not required if you install and use the Lightsail Control
   # (lightsailctl) plugin to push container images to your Lightsail container service. For
@@ -2875,12 +1949,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     RegisterContainerImageResult.from_request(request)
   end
 
@@ -2892,14 +1960,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     ReleaseStaticIpResult.from_request(request)
   end
@@ -2915,13 +1975,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     ResetDistributionCacheResult.from_request(request)
   end
@@ -2947,13 +2000,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     SendContactMethodVerificationResult.from_request(request)
   end
 
@@ -2975,14 +2021,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     StartInstanceResult.from_request(request)
   end
 
@@ -2998,14 +2036,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     StartRelationalDatabaseResult.from_request(request)
   end
@@ -3027,14 +2057,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     StopInstanceResult.from_request(request)
   end
 
@@ -3049,14 +2071,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     StopRelationalDatabaseResult.from_request(request)
   end
@@ -3075,14 +2089,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     TagResourceResult.from_request(request)
   end
@@ -3103,13 +2109,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     TestAlarmResult.from_request(request)
   end
 
@@ -3121,14 +2120,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     UnpeerVpcResult.from_request(request)
   end
@@ -3145,14 +2136,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     UntagResourceResult.from_request(request)
   end
@@ -3172,12 +2155,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     UpdateContainerServiceResult.from_request(request)
   end
 
@@ -3190,13 +2167,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     UpdateDistributionResult.from_request(request)
   end
@@ -3219,13 +2189,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     UpdateDistributionBundleResult.from_request(request)
   end
 
@@ -3240,14 +2203,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     UpdateDomainEntryResult.from_request(request)
   end
@@ -3265,14 +2220,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     UpdateLoadBalancerAttributeResult.from_request(request)
   end
 
@@ -3289,14 +2236,6 @@ module AWSSdk::Lightsail_20161128
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
-
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
 
     UpdateRelationalDatabaseResult.from_request(request)
   end
@@ -3319,14 +2258,6 @@ module AWSSdk::Lightsail_20161128
     request = input.process(request)
     response = AWSSdk::Client.send(request, success_code: 200)
 
-    raise AccessDeniedException if response.code == 403
-    raise AccountSetupInProgressException if response.code == 428
-    raise InvalidInputException if response.code == 400
-    raise NotFoundException if response.code == 404
-    raise OperationFailureException if response.code == 400
-    raise ServiceException if response.code == 500
-    raise UnauthenticatedException if response.code == 401
-
     UpdateRelationalDatabaseParametersResult.from_request(request)
   end
 
@@ -3334,202 +2265,235 @@ module AWSSdk::Lightsail_20161128
 
 
 
-  class AllocateStaticIpRequest
-    include JSON1_1
+  class AllocateStaticIpRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the static IP address.</p>
-    @[Protocol::Field(location: :body, name: "staticIpName", required: true)]
+    @[Protocol::Field(location: :body, name: "staticIpName", structure: false)]
     property static_ip_name : String
+
+    def initialize(@static_ip_name)
+    end
   end
 
-  class ResourceLocationStruct
-    include JSON1_1
+  class ResourceLocationStruct 
+    include JSON1_1::Structure
 
     # <p>The Availability Zone. Follows the format <code>us-east-2a</code> (case-sensitive).</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: false)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String?
     # <p>The AWS Region name.</p>
-    @[Protocol::Field(location: :body, name: "regionName", required: false)]
+    @[Protocol::Field(location: :body, name: "regionName", structure: false)]
     property region_name : String?
+
+    def initialize(@availability_zone = nil , @region_name = nil )
+    end
   end
 
-  class OperationStruct
-    include JSON1_1
+  class OperationStruct 
+    include JSON1_1::Structure
 
     # <p>The ID of the operation.</p>
-    @[Protocol::Field(location: :body, name: "id", required: false)]
+    @[Protocol::Field(location: :body, name: "id", structure: false)]
     property id : String?
     # <p>The resource name.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String?
     # <p>The resource type. </p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The timestamp when the operation was initialized (e.g.,
     # <code>1479816991.349</code>).</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region and Availability Zone.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>A Boolean value indicating whether the operation is terminal.</p>
-    @[Protocol::Field(location: :body, name: "isTerminal", required: false)]
+    @[Protocol::Field(location: :body, name: "isTerminal", structure: false)]
     property is_terminal : Bool?
     # <p>Details about the operation (e.g., <code>Debian-1GB-Ohio-1</code>).</p>
-    @[Protocol::Field(location: :body, name: "operationDetails", required: false)]
+    @[Protocol::Field(location: :body, name: "operationDetails", structure: false)]
     property operation_details : String?
     # <p>The type of operation. </p>
-    @[Protocol::Field(location: :body, name: "operationType", required: false)]
+    @[Protocol::Field(location: :body, name: "operationType", structure: false)]
     property operation_type : String?
     # <p>The status of the operation. </p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The timestamp when the status was changed (e.g., <code>1479816991.349</code>).</p>
-    @[Protocol::Field(location: :body, name: "statusChangedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "statusChangedAt", structure: false)]
     property status_changed_at : Time?
     # <p>The error code.</p>
-    @[Protocol::Field(location: :body, name: "errorCode", required: false)]
+    @[Protocol::Field(location: :body, name: "errorCode", structure: false)]
     property error_code : String?
     # <p>The error details.</p>
-    @[Protocol::Field(location: :body, name: "errorDetails", required: false)]
+    @[Protocol::Field(location: :body, name: "errorDetails", structure: false)]
     property error_details : String?
+
+    def initialize(@id = nil , @resource_name = nil , @resource_type = nil , @created_at = nil , @location = nil , @is_terminal = nil , @operation_details = nil , @operation_type = nil , @status = nil , @status_changed_at = nil , @error_code = nil , @error_details = nil )
+    end
   end
 
-  class AllocateStaticIpResultStruct
-    include JSON1_1
+  class AllocateStaticIpResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
   class AccessDeniedException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
   class AccountSetupInProgressException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
   class InvalidInputException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
   class NotFoundException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
   class OperationFailureException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
   class ServiceException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
   class UnauthenticatedException < Exception
-    include JSON1_1
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
-    @[Protocol::Field(location: :body, name: "docs", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
-    @[Protocol::Field(location: :body, name: "tip", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
+
+    def initialize(@code = nil , @docs = nil , @message = nil , @tip = nil )
+    end
   end
 
-  class AttachCertificateToDistributionRequest
-    include JSON1_1
+  class AttachCertificateToDistributionRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution that the certificate will be attached to.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: true)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
     # <p>The name of the certificate to attach to a distribution.</p>
     # <p>Only certificates with a status of <code>ISSUED</code> can be attached to a
@@ -3543,47 +2507,59 @@ module AWSSdk::Lightsail_20161128
     # <code>WordPress-Blog-Certificate</code> and the domain name of the certificate might be
     # <code>example.com</code>.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "certificateName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String
+
+    def initialize(@distribution_name, @certificate_name)
+    end
   end
 
-  class AttachCertificateToDistributionResultStruct
-    include JSON1_1
+  class AttachCertificateToDistributionResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the result of the action, such as the status of the request, the
     # timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class AttachDiskRequest
-    include JSON1_1
+  class AttachDiskRequest 
+    include JSON1_1::Structure
 
     # <p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String
     # <p>The name of the Lightsail instance where you want to utilize the storage disk.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
     # <p>The disk path to expose to the instance (e.g., <code>/dev/xvdf</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskPath", required: true)]
+    @[Protocol::Field(location: :body, name: "diskPath", structure: false)]
     property disk_path : String
+
+    def initialize(@disk_name, @instance_name, @disk_path)
+    end
   end
 
-  class AttachDiskResultStruct
-    include JSON1_1
+  class AttachDiskResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class AttachInstancesToLoadBalancerRequest
-    include JSON1_1
+  class AttachInstancesToLoadBalancerRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>An array of strings representing the instance name(s) you want to attach to your load
     # balancer.</p>
@@ -3592,64 +2568,82 @@ module AWSSdk::Lightsail_20161128
     # <p>There are no additional limits on the number of instances you can attach to your load
     # balancer, aside from the limit of Lightsail instances you can create in your account
     # (20).</p>
-    @[Protocol::Field(location: :body, name: "instanceNames", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceNames", structure: false)]
     property instance_names : Array(String)
+
+    def initialize(@load_balancer_name, @instance_names)
+    end
   end
 
-  class AttachInstancesToLoadBalancerResultStruct
-    include JSON1_1
+  class AttachInstancesToLoadBalancerResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class AttachLoadBalancerTlsCertificateRequest
-    include JSON1_1
+  class AttachLoadBalancerTlsCertificateRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer to which you want to associate the SSL/TLS
     # certificate.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>The name of your SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String
+
+    def initialize(@load_balancer_name, @certificate_name)
+    end
   end
 
-  class AttachLoadBalancerTlsCertificateResultStruct
-    include JSON1_1
+  class AttachLoadBalancerTlsCertificateResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
     # <p>These SSL/TLS certificates are only usable by Lightsail load balancers. You can't get
     # the certificate and use it for another purpose.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class AttachStaticIpRequest
-    include JSON1_1
+  class AttachStaticIpRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the static IP.</p>
-    @[Protocol::Field(location: :body, name: "staticIpName", required: true)]
+    @[Protocol::Field(location: :body, name: "staticIpName", structure: false)]
     property static_ip_name : String
     # <p>The instance name to which you want to attach the static IP address.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@static_ip_name, @instance_name)
+    end
   end
 
-  class AttachStaticIpResultStruct
-    include JSON1_1
+  class AttachStaticIpResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class PortInfoStruct
-    include JSON1_1
+  class PortInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The first port in a range of open ports on an instance.</p>
     # <p>Allowed ports:</p>
@@ -3664,7 +2658,7 @@ module AWSSdk::Lightsail_20161128
     # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "fromPort", required: false)]
+    @[Protocol::Field(location: :body, name: "fromPort", structure: false)]
     property from_port : Int32?
     # <p>The last port in a range of open ports on an instance.</p>
     # <p>Allowed ports:</p>
@@ -3679,7 +2673,7 @@ module AWSSdk::Lightsail_20161128
     # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "toPort", required: false)]
+    @[Protocol::Field(location: :body, name: "toPort", structure: false)]
     property to_port : Int32?
     # <p>The IP protocol name.</p>
     # <p>The name can be one of the following:</p>
@@ -3716,7 +2710,7 @@ module AWSSdk::Lightsail_20161128
     # <code>toPort</code> parameter.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
     # <p>The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to
     # an instance through the ports, and the protocol. Lightsail supports IPv4 addresses.</p>
@@ -3733,38 +2727,47 @@ module AWSSdk::Lightsail_20161128
     # </ul>
     # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
     # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
-    @[Protocol::Field(location: :body, name: "cidrs", required: false)]
+    @[Protocol::Field(location: :body, name: "cidrs", structure: false)]
     property cidrs : Array(String)?
     # <p>An alias that defines access for a preconfigured range of IP addresses.</p>
     # <p>The only alias currently supported is <code>lightsail-connect</code>, which allows IP
     # addresses of the browser-based RDP/SSH client in the Lightsail console to connect to your
     # instance.</p>
-    @[Protocol::Field(location: :body, name: "cidrListAliases", required: false)]
+    @[Protocol::Field(location: :body, name: "cidrListAliases", structure: false)]
     property cidr_list_aliases : Array(String)?
+
+    def initialize(@from_port = nil , @to_port = nil , @protocol = nil , @cidrs = nil , @cidr_list_aliases = nil )
+    end
   end
 
-  class CloseInstancePublicPortsRequest
-    include JSON1_1
+  class CloseInstancePublicPortsRequest 
+    include JSON1_1::Structure
 
     # <p>An object to describe the ports to close for the specified instance.</p>
-    @[Protocol::Field(location: :body, name: "portInfo", required: true)]
+    @[Protocol::Field(location: :body, name: "portInfo", structure: true)]
     property port_info : PortInfoStruct
     # <p>The name of the instance for which to close ports.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@port_info, @instance_name)
+    end
   end
 
-  class CloseInstancePublicPortsResultStruct
-    include JSON1_1
+  class CloseInstancePublicPortsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the result of the action, such as the status of the request, the
     # timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class CopySnapshotRequest
-    include JSON1_1
+  class CopySnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the source manual snapshot to copy.</p>
     # <p>Constraint:</p>
@@ -3774,7 +2777,7 @@ module AWSSdk::Lightsail_20161128
     # snapshot.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "sourceSnapshotName", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceSnapshotName", structure: false)]
     property source_snapshot_name : String?
     # <p>The name of the source instance or disk from which the source automatic snapshot was
     # created.</p>
@@ -3785,7 +2788,7 @@ module AWSSdk::Lightsail_20161128
     # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "sourceResourceName", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceResourceName", structure: false)]
     property source_resource_name : String?
     # <p>The date of the source automatic snapshot to copy. Use the <code>get auto snapshots</code>
     # operation to identify the dates of the available automatic snapshots.</p>
@@ -3804,7 +2807,7 @@ module AWSSdk::Lightsail_20161128
     # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "restoreDate", required: false)]
+    @[Protocol::Field(location: :body, name: "restoreDate", structure: false)]
     property restore_date : String?
     # <p>A Boolean value to indicate whether to use the latest available automatic snapshot of the
     # specified source instance or disk.</p>
@@ -3820,94 +2823,112 @@ module AWSSdk::Lightsail_20161128
     # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "useLatestRestorableAutoSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "useLatestRestorableAutoSnapshot", structure: false)]
     property use_latest_restorable_auto_snapshot : Bool?
     # <p>The name of the new manual snapshot to be created as a copy.</p>
-    @[Protocol::Field(location: :body, name: "targetSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "targetSnapshotName", structure: false)]
     property target_snapshot_name : String
     # <p>The AWS Region where the source manual or automatic snapshot is located.</p>
-    @[Protocol::Field(location: :body, name: "sourceRegion", required: true)]
+    @[Protocol::Field(location: :body, name: "sourceRegion", structure: false)]
     property source_region : String
+
+    def initialize(@target_snapshot_name, @source_region, @source_snapshot_name = nil , @source_resource_name = nil , @restore_date = nil , @use_latest_restorable_auto_snapshot = nil )
+    end
   end
 
-  class CopySnapshotResultStruct
-    include JSON1_1
+  class CopySnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class TagStruct
-    include JSON1_1
+  class TagStruct 
+    include JSON1_1::Structure
 
     # <p>The key of the tag.</p>
     # <p>Constraints: Tag keys accept a maximum of 128 letters, numbers, spaces in UTF-8, or the
     # following characters: + - = . _ : / @</p>
-    @[Protocol::Field(location: :body, name: "key", required: false)]
+    @[Protocol::Field(location: :body, name: "key", structure: false)]
     property key : String?
     # <p>The value of the tag.</p>
     # <p>Constraints: Tag values accept a maximum of 256 letters, numbers, spaces in UTF-8, or the
     # following characters: + - = . _ : / @</p>
-    @[Protocol::Field(location: :body, name: "value", required: false)]
+    @[Protocol::Field(location: :body, name: "value", structure: false)]
     property value : String?
+
+    def initialize(@key = nil , @value = nil )
+    end
   end
 
-  class CreateCertificateRequest
-    include JSON1_1
+  class CreateCertificateRequest 
+    include JSON1_1::Structure
 
     # <p>The name for the certificate.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String
     # <p>The domain name (e.g., <code>example.com</code>) for the certificate.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
     # <p>An array of strings that specify the alternate domains (e.g., <code>example2.com</code>)
     # and subdomains (e.g., <code>blog.example.com</code>) for the certificate.</p>
     # <p>You can specify a maximum of nine alternate domains (in addition to the primary domain
     # name).</p>
     # <p>Wildcard domain entries (e.g., <code>*.example.com</code>) are not supported.</p>
-    @[Protocol::Field(location: :body, name: "subjectAlternativeNames", required: false)]
+    @[Protocol::Field(location: :body, name: "subjectAlternativeNames", structure: false)]
     property subject_alternative_names : Array(String)?
     # <p>The tag keys and optional values to add to the certificate during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@certificate_name, @domain_name, @subject_alternative_names = nil , @tags = nil )
+    end
   end
 
-  class ResourceRecordStruct
-    include JSON1_1
+  class ResourceRecordStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the record.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The DNS record type.</p>
-    @[Protocol::Field(location: :body, name: "type", required: false)]
+    @[Protocol::Field(location: :body, name: "type", structure: false)]
     property type : String?
     # <p>The value for the DNS record.</p>
-    @[Protocol::Field(location: :body, name: "value", required: false)]
+    @[Protocol::Field(location: :body, name: "value", structure: false)]
     property value : String?
+
+    def initialize(@name = nil , @type = nil , @value = nil )
+    end
   end
 
-  class DomainValidationRecordStruct
-    include JSON1_1
+  class DomainValidationRecordStruct 
+    include JSON1_1::Structure
 
     # <p>The domain name of the certificate validation record. For example,
     # <code>example.com</code> or <code>www.example.com</code>.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
     # <p>An object that describes the DNS records to add to your domain's DNS to validate it for
     # the certificate.</p>
-    @[Protocol::Field(location: :body, name: "resourceRecord", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceRecord", structure: true)]
     property resource_record : ResourceRecordStruct?
+
+    def initialize(@domain_name = nil , @resource_record = nil )
+    end
   end
 
-  class RenewalSummaryStruct
-    include JSON1_1
+  class RenewalSummaryStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the domain validation records of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "domainValidationRecords", required: false)]
+    @[Protocol::Field(location: :body, name: "domainValidationRecords", structure: false)]
     property domain_validation_records : Array(DomainValidationRecordStruct)?
     # <p>The renewal status of the certificate.</p>
     # <p>The following renewal status are possible:</p>
@@ -3948,40 +2969,43 @@ module AWSSdk::Lightsail_20161128
     # action.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "renewalStatus", required: false)]
+    @[Protocol::Field(location: :body, name: "renewalStatus", structure: false)]
     property renewal_status : String?
     # <p>The reason for the renewal status of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "renewalStatusReason", required: false)]
+    @[Protocol::Field(location: :body, name: "renewalStatusReason", structure: false)]
     property renewal_status_reason : String?
     # <p>The timestamp when the certificate was last updated.</p>
-    @[Protocol::Field(location: :body, name: "updatedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "updatedAt", structure: false)]
     property updated_at : Time?
+
+    def initialize(@domain_validation_records = nil , @renewal_status = nil , @renewal_status_reason = nil , @updated_at = nil )
+    end
   end
 
-  class CertificateStruct
-    include JSON1_1
+  class CertificateStruct 
+    include JSON1_1::Structure
 
     # <p>The Amazon Resource Name (ARN) of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The name of the certificate (e.g., <code>my-certificate</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The domain name of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
     # <p>The validation status of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The serial number of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "serialNumber", required: false)]
+    @[Protocol::Field(location: :body, name: "serialNumber", structure: false)]
     property serial_number : String?
     # <p>An array of strings that specify the alternate domains (e.g., <code>example2.com</code>)
     # and subdomains (e.g., <code>blog.example.com</code>) of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "subjectAlternativeNames", required: false)]
+    @[Protocol::Field(location: :body, name: "subjectAlternativeNames", structure: false)]
     property subject_alternative_names : Array(String)?
     # <p>An array of objects that describe the domain validation records of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "domainValidationRecords", required: false)]
+    @[Protocol::Field(location: :body, name: "domainValidationRecords", structure: false)]
     property domain_validation_records : Array(DomainValidationRecordStruct)?
     # <p>The validation failure reason, if any, of the certificate.</p>
     # <p>The following failure reasons are possible:</p>
@@ -4046,102 +3070,111 @@ module AWSSdk::Lightsail_20161128
     # were in the failed request. </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "requestFailureReason", required: false)]
+    @[Protocol::Field(location: :body, name: "requestFailureReason", structure: false)]
     property request_failure_reason : String?
     # <p>The number of Lightsail resources that the certificate is attached to.</p>
-    @[Protocol::Field(location: :body, name: "inUseResourceCount", required: false)]
+    @[Protocol::Field(location: :body, name: "inUseResourceCount", structure: false)]
     property in_use_resource_count : Int32?
     # <p>The algorithm used to generate the key pair (the public and private key) of the
     # certificate.</p>
-    @[Protocol::Field(location: :body, name: "keyAlgorithm", required: false)]
+    @[Protocol::Field(location: :body, name: "keyAlgorithm", structure: false)]
     property key_algorithm : String?
     # <p>The timestamp when the certificate was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The timestamp when the certificate was issued.</p>
-    @[Protocol::Field(location: :body, name: "issuedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "issuedAt", structure: false)]
     property issued_at : Time?
     # <p>The certificate authority that issued the certificate.</p>
-    @[Protocol::Field(location: :body, name: "issuerCA", required: false)]
+    @[Protocol::Field(location: :body, name: "issuerCA", structure: false)]
     property issuer_ca : String?
     # <p>The timestamp when the certificate is first valid.</p>
-    @[Protocol::Field(location: :body, name: "notBefore", required: false)]
+    @[Protocol::Field(location: :body, name: "notBefore", structure: false)]
     property not_before : Time?
     # <p>The timestamp when the certificate expires.</p>
-    @[Protocol::Field(location: :body, name: "notAfter", required: false)]
+    @[Protocol::Field(location: :body, name: "notAfter", structure: false)]
     property not_after : Time?
     # <p>The renewal eligibility of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "eligibleToRenew", required: false)]
+    @[Protocol::Field(location: :body, name: "eligibleToRenew", structure: false)]
     property eligible_to_renew : String?
     # <p>An object that describes the status of the certificate renewal managed by
     # Lightsail.</p>
-    @[Protocol::Field(location: :body, name: "renewalSummary", required: false)]
+    @[Protocol::Field(location: :body, name: "renewalSummary", structure: true)]
     property renewal_summary : RenewalSummaryStruct?
     # <p>The timestamp when the certificate was revoked. This value is present only when the
     # certificate status is <code>REVOKED</code>.</p>
-    @[Protocol::Field(location: :body, name: "revokedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "revokedAt", structure: false)]
     property revoked_at : Time?
     # <p>The reason the certificate was revoked. This value is present only when the certificate
     # status is <code>REVOKED</code>.</p>
-    @[Protocol::Field(location: :body, name: "revocationReason", required: false)]
+    @[Protocol::Field(location: :body, name: "revocationReason", structure: false)]
     property revocation_reason : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail certificate. This code enables our support team to look up your Lightsail
     # information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
+
+    def initialize(@arn = nil , @tags = nil , @revocation_reason = nil , @revoked_at = nil , @renewal_summary = nil , @eligible_to_renew = nil , @not_after = nil , @not_before = nil , @issuer_ca = nil , @issued_at = nil , @created_at = nil , @key_algorithm = nil , @in_use_resource_count = nil , @request_failure_reason = nil , @domain_validation_records = nil , @subject_alternative_names = nil , @serial_number = nil , @status = nil , @domain_name = nil , @name = nil , @support_code = nil )
+    end
   end
 
-  class CertificateSummaryStruct
-    include JSON1_1
+  class CertificateSummaryStruct 
+    include JSON1_1::Structure
 
     # <p>The Amazon Resource Name (ARN) of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "certificateArn", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateArn", structure: false)]
     property certificate_arn : String?
     # <p>The name of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String?
     # <p>The domain name of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
     # <p>An object that describes a certificate in detail.</p>
-    @[Protocol::Field(location: :body, name: "certificateDetail", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateDetail", structure: true)]
     property certificate_detail : CertificateStruct?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@certificate_arn = nil , @certificate_name = nil , @domain_name = nil , @certificate_detail = nil , @tags = nil )
+    end
   end
 
-  class CreateCertificateResultStruct
-    include JSON1_1
+  class CreateCertificateResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the certificate created.</p>
-    @[Protocol::Field(location: :body, name: "certificate", required: false)]
+    @[Protocol::Field(location: :body, name: "certificate", structure: true)]
     property certificate : CertificateSummaryStruct?
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@certificate = nil , @operations = nil )
+    end
   end
 
-  class InstanceEntryStruct
-    include JSON1_1
+  class InstanceEntryStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the export snapshot record, which contains the exported Lightsail instance
     # snapshot that will be used as the source of the new Amazon EC2 instance.</p>
     # <p>Use the <code>get export snapshot records</code> operation to get a list of export
     # snapshot records that you can use to create a CloudFormation stack.</p>
-    @[Protocol::Field(location: :body, name: "sourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "sourceName", structure: false)]
     property source_name : String
     # <p>The instance type (e.g., <code>t2.micro</code>) to use for the new Amazon EC2 instance.</p>
-    @[Protocol::Field(location: :body, name: "instanceType", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceType", structure: false)]
     property instance_type : String
     # <p>The port configuration to use for the new Amazon EC2 instance.</p>
     # <p>The following configuration options are available:</p>
@@ -4171,7 +3204,7 @@ module AWSSdk::Lightsail_20161128
     # connect to your instance, that configuration is not carried over to your new Amazon EC2
     # instance.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "portInfoSource", required: true)]
+    @[Protocol::Field(location: :body, name: "portInfoSource", structure: false)]
     property port_info_source : String
     # <p>A launch script you can create that configures a server with additional user data. For
     # example, you might want to run <code>apt-get -y update</code>.</p>
@@ -4180,34 +3213,43 @@ module AWSSdk::Lightsail_20161128
     # varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
     # <code>apt-get</code>, and FreeBSD uses <code>pkg</code>.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "userData", required: false)]
+    @[Protocol::Field(location: :body, name: "userData", structure: false)]
     property user_data : String?
     # <p>The Availability Zone for the new Amazon EC2 instance.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: true)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String
+
+    def initialize(@source_name, @instance_type, @port_info_source, @availability_zone, @user_data = nil )
+    end
   end
 
-  class CreateCloudFormationStackRequest
-    include JSON1_1
+  class CreateCloudFormationStackRequest 
+    include JSON1_1::Structure
 
     # <p>An array of parameters that will be used to create the new Amazon EC2 instance. You can only
     # pass one instance entry at a time in this array. You will get an invalid parameter error if
     # you pass more than one instance entry in this array.</p>
-    @[Protocol::Field(location: :body, name: "instances", required: true)]
+    @[Protocol::Field(location: :body, name: "instances", structure: false)]
     property instances : Array(InstanceEntryStruct)
+
+    def initialize(@instances)
+    end
   end
 
-  class CreateCloudFormationStackResultStruct
-    include JSON1_1
+  class CreateCloudFormationStackResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateContactMethodRequest
-    include JSON1_1
+  class CreateContactMethodRequest 
+    include JSON1_1::Structure
 
     # <p>The protocol of the contact method, such as <code>Email</code> or <code>SMS</code> (text
     # messaging).</p>
@@ -4236,7 +3278,7 @@ module AWSSdk::Lightsail_20161128
     # Regions where SMS text messaging is supported, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html">Supported Regions and Countries</a> in the <i>Amazon SNS Developer
     # Guide</i>.</p>
     # <p>For more information about notifications in Amazon Lightsail, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
-    @[Protocol::Field(location: :body, name: "protocol", required: true)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String
     # <p>The destination of the contact method, such as an email address or a mobile phone
     # number.</p>
@@ -4245,100 +3287,118 @@ module AWSSdk::Lightsail_20161128
     # this format can have a maximum of 15 digits, and they are prefixed with the plus character (+)
     # and the country code. For example, a U.S. phone number in E.164 format would be specified as
     # +1XXX5550100. For more information, see <a href="https://en.wikipedia.org/wiki/E.164">E.164</a> on <i>Wikipedia</i>.</p>
-    @[Protocol::Field(location: :body, name: "contactEndpoint", required: true)]
+    @[Protocol::Field(location: :body, name: "contactEndpoint", structure: false)]
     property contact_endpoint : String
+
+    def initialize(@protocol, @contact_endpoint)
+    end
   end
 
-  class CreateContactMethodResultStruct
-    include JSON1_1
+  class CreateContactMethodResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class ContainerStruct
-    include JSON1_1
+  class ContainerStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the image used for the container.</p>
-    #
+    # 
     # <p>Container images sourced from your Lightsail container service, that are registered and
     # stored on your service, start with a colon (<code>:</code>). For example,
     # <code>:container-service-1.mystaticwebsite.1</code>. Container images sourced from a public
     # registry like Docker Hub don't start with a colon. For example, <code>nginx:latest</code> or
     # <code>nginx</code>.</p>
-    @[Protocol::Field(location: :body, name: "image", required: false)]
+    @[Protocol::Field(location: :body, name: "image", structure: false)]
     property image : String?
     # <p>The launch command for the container.</p>
-    @[Protocol::Field(location: :body, name: "command", required: false)]
+    @[Protocol::Field(location: :body, name: "command", structure: false)]
     property command : Array(String)?
     # <p>The environment variables of the container.</p>
-    @[Protocol::Field(location: :body, name: "environment", required: false)]
+    @[Protocol::Field(location: :body, name: "environment", structure: false)]
     property environment : Hash(String, String)?
     # <p>The open firewall ports of the container.</p>
-    @[Protocol::Field(location: :body, name: "ports", required: false)]
+    @[Protocol::Field(location: :body, name: "ports", structure: false)]
     property ports : Hash(String, String)?
+
+    def initialize(@image = nil , @command = nil , @environment = nil , @ports = nil )
+    end
   end
 
-  class ContainerServiceHealthCheckConfigStruct
-    include JSON1_1
+  class ContainerServiceHealthCheckConfigStruct 
+    include JSON1_1::Structure
 
     # <p>The number of consecutive health checks successes required before moving the container to
     # the <code>Healthy</code> state.</p>
-    @[Protocol::Field(location: :body, name: "healthyThreshold", required: false)]
+    @[Protocol::Field(location: :body, name: "healthyThreshold", structure: false)]
     property healthy_threshold : Int32?
     # <p>The number of consecutive health check failures required before moving the container to
     # the <code>Unhealthy</code> state.</p>
-    @[Protocol::Field(location: :body, name: "unhealthyThreshold", required: false)]
+    @[Protocol::Field(location: :body, name: "unhealthyThreshold", structure: false)]
     property unhealthy_threshold : Int32?
     # <p>The amount of time, in seconds, during which no response means a failed health check. You
     # may specify between 2 and 60 seconds.</p>
-    @[Protocol::Field(location: :body, name: "timeoutSeconds", required: false)]
+    @[Protocol::Field(location: :body, name: "timeoutSeconds", structure: false)]
     property timeout_seconds : Int32?
     # <p>The approximate interval, in seconds, between health checks of an individual container.
     # You may specify between 5 and 300 seconds.</p>
-    @[Protocol::Field(location: :body, name: "intervalSeconds", required: false)]
+    @[Protocol::Field(location: :body, name: "intervalSeconds", structure: false)]
     property interval_seconds : Int32?
     # <p>The path on the container on which to perform the health check.</p>
-    @[Protocol::Field(location: :body, name: "path", required: false)]
+    @[Protocol::Field(location: :body, name: "path", structure: false)]
     property path : String?
     # <p>The HTTP codes to use when checking for a successful response from a container. You can
     # specify values between 200 and 499.</p>
-    @[Protocol::Field(location: :body, name: "successCodes", required: false)]
+    @[Protocol::Field(location: :body, name: "successCodes", structure: false)]
     property success_codes : String?
+
+    def initialize(@healthy_threshold = nil , @unhealthy_threshold = nil , @timeout_seconds = nil , @interval_seconds = nil , @path = nil , @success_codes = nil )
+    end
   end
 
-  class EndpointRequest
-    include JSON1_1
+  class EndpointRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container for the endpoint.</p>
-    @[Protocol::Field(location: :body, name: "containerName", required: true)]
+    @[Protocol::Field(location: :body, name: "containerName", structure: false)]
     property container_name : String
     # <p>The port of the container to which traffic is forwarded to.</p>
-    @[Protocol::Field(location: :body, name: "containerPort", required: true)]
+    @[Protocol::Field(location: :body, name: "containerPort", structure: false)]
     property container_port : Int32
     # <p>An object that describes the health check configuration of the container.</p>
-    @[Protocol::Field(location: :body, name: "healthCheck", required: false)]
+    @[Protocol::Field(location: :body, name: "healthCheck", structure: true)]
     property health_check : ContainerServiceHealthCheckConfigStruct?
+
+    def initialize(@container_name, @container_port, @health_check = nil )
+    end
   end
 
-  class ContainerServiceDeploymentRequest
-    include JSON1_1
+  class ContainerServiceDeploymentRequest 
+    include JSON1_1::Structure
 
     # <p>An object that describes the configuration for the containers of the deployment.</p>
-    @[Protocol::Field(location: :body, name: "containers", required: false)]
+    @[Protocol::Field(location: :body, name: "containers", structure: false)]
     property containers : Hash(String, ContainerStruct)?
     # <p>An object that describes the endpoint of the deployment.</p>
-    @[Protocol::Field(location: :body, name: "publicEndpoint", required: false)]
+    @[Protocol::Field(location: :body, name: "publicEndpoint", structure: true)]
     property public_endpoint : EndpointRequest?
+
+    def initialize(@containers = nil , @public_endpoint = nil )
+    end
   end
 
-  class CreateContainerServiceRequest
-    include JSON1_1
+  class CreateContainerServiceRequest 
+    include JSON1_1::Structure
 
     # <p>The name for the container service.</p>
-    #
+    # 
     # <p>The name that you specify for your container service will make up part of its default
     # domain. The default domain of a container service is typically
     # <code>https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com</code>.
@@ -4347,9 +3407,9 @@ module AWSSdk::Lightsail_20161128
     # service will be like the following example:
     # <code>https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com</code>
     # </p>
-    #
+    # 
     # <p>The following are the requirements for container service names:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>Must be unique within each AWS Region in your Lightsail account.</p>
@@ -4364,89 +3424,95 @@ module AWSSdk::Lightsail_20161128
     # <p>A hyphen (-) can separate words but cannot be at the start or end of the name.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :body, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The power specification for the container service.</p>
-    #
+    # 
     # <p>The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the
     # container service. The <code>power</code> and <code>scale</code> of a container service makes
     # up its configured capacity. To determine the monthly price of your container service, multiply
     # the base price of the <code>power</code> with the <code>scale</code> (the number of nodes) of
     # the service.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerServicePowers</code> action to get a list of power options that
     # you can specify using this parameter, and their base monthly cost.</p>
-    @[Protocol::Field(location: :body, name: "power", required: true)]
+    @[Protocol::Field(location: :body, name: "power", structure: false)]
     property power : String
     # <p>The scale specification for the container service.</p>
-    #
+    # 
     # <p>The scale specifies the allocated compute nodes of the container service. The
     # <code>power</code> and <code>scale</code> of a container service makes up its configured
     # capacity. To determine the monthly price of your container service, multiply the base price of
     # the <code>power</code> with the <code>scale</code> (the number of nodes) of the
     # service.</p>
-    @[Protocol::Field(location: :body, name: "scale", required: true)]
+    @[Protocol::Field(location: :body, name: "scale", structure: false)]
     property scale : Int32
     # <p>The tag keys and optional values for the container service.</p>
-    #
+    # 
     # <p>For more information about tags in Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The public domain names to use with the container service, such as
     # <code>example.com</code> and <code>www.example.com</code>.</p>
-    #
+    # 
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    #
+    # 
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    #
+    # 
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    #
+    # 
     # <p>You can specify public domain names using a string to array map as shown in the example
     # later on this page.</p>
-    @[Protocol::Field(location: :body, name: "publicDomainNames", required: false)]
+    @[Protocol::Field(location: :body, name: "publicDomainNames", structure: false)]
     property public_domain_names : Hash(String, Array(String))?
     # <p>An object that describes a deployment for the container service.</p>
-    #
+    # 
     # <p>A deployment specifies the containers that will be launched on the container service and
     # their settings, such as the ports to open, the environment variables to apply, and the launch
     # command to run. It also specifies the container that will serve as the public endpoint of the
     # deployment and its settings, such as the HTTP or HTTPS port to use, and the health check
     # configuration.</p>
-    @[Protocol::Field(location: :body, name: "deployment", required: false)]
+    @[Protocol::Field(location: :body, name: "deployment", structure: true)]
     property deployment : ContainerServiceDeploymentRequest?
+
+    def initialize(@service_name, @power, @scale, @tags = nil , @public_domain_names = nil , @deployment = nil )
+    end
   end
 
-  class ContainerServiceEndpointStruct
-    include JSON1_1
+  class ContainerServiceEndpointStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the container entry of the deployment that the endpoint configuration applies
     # to.</p>
-    @[Protocol::Field(location: :body, name: "containerName", required: false)]
+    @[Protocol::Field(location: :body, name: "containerName", structure: false)]
     property container_name : String?
     # <p>The port of the specified container to which traffic is forwarded to.</p>
-    @[Protocol::Field(location: :body, name: "containerPort", required: false)]
+    @[Protocol::Field(location: :body, name: "containerPort", structure: false)]
     property container_port : Int32?
     # <p>An object that describes the health check configuration of the container.</p>
-    @[Protocol::Field(location: :body, name: "healthCheck", required: false)]
+    @[Protocol::Field(location: :body, name: "healthCheck", structure: true)]
     property health_check : ContainerServiceHealthCheckConfigStruct?
+
+    def initialize(@container_name = nil , @container_port = nil , @health_check = nil )
+    end
   end
 
-  class ContainerServiceDeploymentStruct
-    include JSON1_1
+  class ContainerServiceDeploymentStruct 
+    include JSON1_1::Structure
 
     # <p>The version number of the deployment.</p>
-    @[Protocol::Field(location: :body, name: "version", required: false)]
+    @[Protocol::Field(location: :body, name: "version", structure: false)]
     property version : Int32?
     # <p>The state of the deployment.</p>
-    #
+    # 
     # <p>A deployment can be in one of the following states:</p>
     # <ul>
     # <li>
@@ -4471,52 +3537,55 @@ module AWSSdk::Lightsail_20161128
     # reason for the failure.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>An object that describes the configuration for the containers of the deployment.</p>
-    @[Protocol::Field(location: :body, name: "containers", required: false)]
+    @[Protocol::Field(location: :body, name: "containers", structure: false)]
     property containers : Hash(String, ContainerStruct)?
     # <p>An object that describes the endpoint of the deployment.</p>
-    @[Protocol::Field(location: :body, name: "publicEndpoint", required: false)]
+    @[Protocol::Field(location: :body, name: "publicEndpoint", structure: true)]
     property public_endpoint : ContainerServiceEndpointStruct?
     # <p>The timestamp when the deployment was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
+
+    def initialize(@version = nil , @state = nil , @containers = nil , @public_endpoint = nil , @created_at = nil )
+    end
   end
 
-  class ContainerServiceStruct
-    include JSON1_1
+  class ContainerServiceStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the container service.</p>
-    @[Protocol::Field(location: :body, name: "containerServiceName", required: false)]
+    @[Protocol::Field(location: :body, name: "containerServiceName", structure: false)]
     property container_service_name : String?
     # <p>The Amazon Resource Name (ARN) of the container service.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The timestamp when the container service was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>An object that describes the location of the container service, such as the AWS Region
     # and Availability Zone.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type of the container service (i.e.,
     # <code>ContainerService</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The power specification of the container service.</p>
-    #
+    # 
     # <p>The power specifies the amount of RAM, the number of vCPUs, and the base price of the
     # container service.</p>
-    @[Protocol::Field(location: :body, name: "power", required: false)]
+    @[Protocol::Field(location: :body, name: "power", structure: false)]
     property power : String?
     # <p>The ID of the power of the container service.</p>
-    @[Protocol::Field(location: :body, name: "powerId", required: false)]
+    @[Protocol::Field(location: :body, name: "powerId", structure: false)]
     property power_id : String?
     # <p>The current state of the container service.</p>
     # <p>The state can be:</p>
@@ -4550,139 +3619,160 @@ module AWSSdk::Lightsail_20161128
     # deployment.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The scale specification of the container service.</p>
-    #
+    # 
     # <p>The scale specifies the allocated compute nodes of the container service.</p>
-    @[Protocol::Field(location: :body, name: "scale", required: false)]
+    @[Protocol::Field(location: :body, name: "scale", structure: false)]
     property scale : Int32?
     # <p>An object that describes the current container deployment of the container service.</p>
-    @[Protocol::Field(location: :body, name: "currentDeployment", required: false)]
+    @[Protocol::Field(location: :body, name: "currentDeployment", structure: true)]
     property current_deployment : ContainerServiceDeploymentStruct?
     # <p>An object that describes the next deployment of the container service.</p>
-    #
+    # 
     # <p>This value is <code>null</code> when there is no deployment in a <code>pending</code>
     # state.</p>
-    @[Protocol::Field(location: :body, name: "nextDeployment", required: false)]
+    @[Protocol::Field(location: :body, name: "nextDeployment", structure: true)]
     property next_deployment : ContainerServiceDeploymentStruct?
     # <p>A Boolean value indicating whether the container service is disabled.</p>
-    @[Protocol::Field(location: :body, name: "isDisabled", required: false)]
+    @[Protocol::Field(location: :body, name: "isDisabled", structure: false)]
     property is_disabled : Bool?
     # <p>The principal ARN of the container service.</p>
-    #
+    # 
     # <p>The principal ARN can be used to create a trust relationship between your standard AWS
     # account and your Lightsail container service. This allows you to give your service
     # permission to access resources in your standard AWS account.</p>
-    @[Protocol::Field(location: :body, name: "principalArn", required: false)]
+    @[Protocol::Field(location: :body, name: "principalArn", structure: false)]
     property principal_arn : String?
     # <p>The private domain name of the container service.</p>
-    #
+    # 
     # <p>The private domain name is accessible only by other resources within the default virtual
     # private cloud (VPC) of your Lightsail account.</p>
-    @[Protocol::Field(location: :body, name: "privateDomainName", required: false)]
+    @[Protocol::Field(location: :body, name: "privateDomainName", structure: false)]
     property private_domain_name : String?
     # <p>The public domain name of the container service, such as <code>example.com</code> and
     # <code>www.example.com</code>.</p>
-    #
+    # 
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    #
+    # 
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    #
+    # 
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    #
+    # 
     # <p>See <code>CreateContainerService</code> or <code>UpdateContainerService</code> for
     # information about how to specify public domain names for your Lightsail container
     # service.</p>
-    @[Protocol::Field(location: :body, name: "publicDomainNames", required: false)]
+    @[Protocol::Field(location: :body, name: "publicDomainNames", structure: false)]
     property public_domain_names : Hash(String, Array(String))?
     # <p>The publicly accessible URL of the container service.</p>
-    #
+    # 
     # <p>If no public endpoint is specified in the <code>currentDeployment</code>, this URL returns
     # a 404 response.</p>
-    @[Protocol::Field(location: :body, name: "url", required: false)]
+    @[Protocol::Field(location: :body, name: "url", structure: false)]
     property url : String?
+
+    def initialize(@container_service_name = nil , @public_domain_names = nil , @private_domain_name = nil , @principal_arn = nil , @is_disabled = nil , @next_deployment = nil , @current_deployment = nil , @scale = nil , @state = nil , @power_id = nil , @power = nil , @tags = nil , @resource_type = nil , @location = nil , @created_at = nil , @arn = nil , @url = nil )
+    end
   end
 
-  class CreateContainerServiceResultStruct
-    include JSON1_1
+  class CreateContainerServiceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes a container service.</p>
-    @[Protocol::Field(location: :body, name: "containerService", required: false)]
+    @[Protocol::Field(location: :body, name: "containerService", structure: true)]
     property container_service : ContainerServiceStruct?
+
+    def initialize(@container_service = nil )
+    end
   end
 
-  class CreateContainerServiceDeploymentRequest
-    include JSON1_1
+  class CreateContainerServiceDeploymentRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to create the deployment.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>An object that describes the settings of the containers that will be launched on the
     # container service.</p>
-    @[Protocol::Field(location: :body, name: "containers", required: false)]
+    @[Protocol::Field(location: :body, name: "containers", structure: false)]
     property containers : Hash(String, ContainerStruct)?
     # <p>An object that describes the settings of the public endpoint for the container
     # service.</p>
-    @[Protocol::Field(location: :body, name: "publicEndpoint", required: false)]
+    @[Protocol::Field(location: :body, name: "publicEndpoint", structure: true)]
     property public_endpoint : EndpointRequest?
+
+    def initialize(@service_name, @containers = nil , @public_endpoint = nil )
+    end
   end
 
-  class CreateContainerServiceDeploymentResultStruct
-    include JSON1_1
+  class CreateContainerServiceDeploymentResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes a container service.</p>
-    @[Protocol::Field(location: :body, name: "containerService", required: false)]
+    @[Protocol::Field(location: :body, name: "containerService", structure: true)]
     property container_service : ContainerServiceStruct?
+
+    def initialize(@container_service = nil )
+    end
   end
 
-  class CreateContainerServiceRegistryLoginRequest
-    include JSON1_1
+  class CreateContainerServiceRegistryLoginRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class ContainerServiceRegistryLoginStruct
-    include JSON1_1
+  class ContainerServiceRegistryLoginStruct 
+    include JSON1_1::Structure
 
     # <p>The container service registry username to use to push container images to the container
     # image registry of a Lightsail account.</p>
-    @[Protocol::Field(location: :body, name: "username", required: false)]
+    @[Protocol::Field(location: :body, name: "username", structure: false)]
     property username : String?
     # <p>The container service registry password to use to push container images to the container
     # image registry of a Lightsail account</p>
-    @[Protocol::Field(location: :body, name: "password", required: false)]
+    @[Protocol::Field(location: :body, name: "password", structure: false)]
     property password : String?
     # <p>The timestamp of when the container image registry username and password expire.</p>
-    #
+    # 
     # <p>The log in credentials expire 12 hours after they are created, at which point you will
     # need to create a new set of log in credentials using the
     # <code>CreateContainerServiceRegistryLogin</code> action.</p>
-    @[Protocol::Field(location: :body, name: "expiresAt", required: false)]
+    @[Protocol::Field(location: :body, name: "expiresAt", structure: false)]
     property expires_at : Time?
     # <p>The address to use to push container images to the container image registry of a
     # Lightsail account.</p>
-    @[Protocol::Field(location: :body, name: "registry", required: false)]
+    @[Protocol::Field(location: :body, name: "registry", structure: false)]
     property registry : String?
+
+    def initialize(@username = nil , @password = nil , @expires_at = nil , @registry = nil )
+    end
   end
 
-  class CreateContainerServiceRegistryLoginResultStruct
-    include JSON1_1
+  class CreateContainerServiceRegistryLoginResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the log in information for the container service registry of your
     # Lightsail account.</p>
-    @[Protocol::Field(location: :body, name: "registryLogin", required: false)]
+    @[Protocol::Field(location: :body, name: "registryLogin", structure: true)]
     property registry_login : ContainerServiceRegistryLoginStruct?
+
+    def initialize(@registry_login = nil )
+    end
   end
 
-  class AutoSnapshotAddOnRequest
-    include JSON1_1
+  class AutoSnapshotAddOnRequest 
+    include JSON1_1::Structure
 
     # <p>The daily time when an automatic snapshot will be created.</p>
     # <p>Constraints:</p>
@@ -4698,61 +3788,73 @@ module AWSSdk::Lightsail_20161128
     # minutes after.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "snapshotTimeOfDay", required: false)]
+    @[Protocol::Field(location: :body, name: "snapshotTimeOfDay", structure: false)]
     property snapshot_time_of_day : String?
+
+    def initialize(@snapshot_time_of_day = nil )
+    end
   end
 
-  class AddOnRequest
-    include JSON1_1
+  class AddOnRequest 
+    include JSON1_1::Structure
 
     # <p>The add-on type.</p>
-    @[Protocol::Field(location: :body, name: "addOnType", required: true)]
+    @[Protocol::Field(location: :body, name: "addOnType", structure: false)]
     property add_on_type : String
     # <p>An object that represents additional parameters when enabling or modifying the automatic
     # snapshot add-on.</p>
-    @[Protocol::Field(location: :body, name: "autoSnapshotAddOnRequest", required: false)]
+    @[Protocol::Field(location: :body, name: "autoSnapshotAddOnRequest", structure: true)]
     property auto_snapshot_add_on_request : AutoSnapshotAddOnRequest?
+
+    def initialize(@add_on_type, @auto_snapshot_add_on_request = nil )
+    end
   end
 
-  class CreateDiskRequest
-    include JSON1_1
+  class CreateDiskRequest 
+    include JSON1_1::Structure
 
     # <p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String
     # <p>The Availability Zone where you want to create the disk (e.g., <code>us-east-2a</code>).
     # Use the same Availability Zone as the Lightsail instance to which you want to attach the
     # disk.</p>
     # <p>Use the <code>get regions</code> operation to list the Availability Zones where
     # Lightsail is currently available.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: true)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String
     # <p>The size of the disk in GB (e.g., <code>32</code>).</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: true)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>An array of objects that represent the add-ons to enable for the new disk.</p>
-    @[Protocol::Field(location: :body, name: "addOns", required: false)]
+    @[Protocol::Field(location: :body, name: "addOns", structure: false)]
     property add_ons : Array(AddOnRequest)?
+
+    def initialize(@disk_name, @availability_zone, @size_in_gb, @tags = nil , @add_ons = nil )
+    end
   end
 
-  class CreateDiskResultStruct
-    include JSON1_1
+  class CreateDiskResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateDiskFromSnapshotRequest
-    include JSON1_1
+  class CreateDiskFromSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String
     # <p>The name of the disk snapshot (e.g., <code>my-snapshot</code>) from which to create the
     # new storage disk.</p>
@@ -4764,24 +3866,24 @@ module AWSSdk::Lightsail_20161128
     # parameters are mutually exclusive.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "diskSnapshotName", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSnapshotName", structure: false)]
     property disk_snapshot_name : String?
     # <p>The Availability Zone where you want to create the disk (e.g., <code>us-east-2a</code>).
     # Choose the same Availability Zone as the Lightsail instance where you want to create the
     # disk.</p>
     # <p>Use the GetRegions operation to list the Availability Zones where Lightsail is currently
     # available.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: true)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String
     # <p>The size of the disk in GB (e.g., <code>32</code>).</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: true)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>An array of objects that represent the add-ons to enable for the new disk.</p>
-    @[Protocol::Field(location: :body, name: "addOns", required: false)]
+    @[Protocol::Field(location: :body, name: "addOns", structure: false)]
     property add_ons : Array(AddOnRequest)?
     # <p>The name of the source disk from which the source automatic snapshot was created.</p>
     # <p>Constraints:</p>
@@ -4796,7 +3898,7 @@ module AWSSdk::Lightsail_20161128
     # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "sourceDiskName", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceDiskName", structure: false)]
     property source_disk_name : String?
     # <p>The date of the automatic snapshot to use for the new disk. Use the <code>get auto
     # snapshots</code> operation to identify the dates of the available automatic
@@ -4816,7 +3918,7 @@ module AWSSdk::Lightsail_20161128
     # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "restoreDate", required: false)]
+    @[Protocol::Field(location: :body, name: "restoreDate", structure: false)]
     property restore_date : String?
     # <p>A Boolean value to indicate whether to use the latest available automatic snapshot.</p>
     # <p>Constraints:</p>
@@ -4831,21 +3933,27 @@ module AWSSdk::Lightsail_20161128
     # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "useLatestRestorableAutoSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "useLatestRestorableAutoSnapshot", structure: false)]
     property use_latest_restorable_auto_snapshot : Bool?
+
+    def initialize(@disk_name, @availability_zone, @size_in_gb, @disk_snapshot_name = nil , @tags = nil , @add_ons = nil , @source_disk_name = nil , @restore_date = nil , @use_latest_restorable_auto_snapshot = nil )
+    end
   end
 
-  class CreateDiskFromSnapshotResultStruct
-    include JSON1_1
+  class CreateDiskFromSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateDiskSnapshotRequest
-    include JSON1_1
+  class CreateDiskSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The unique name of the source disk (e.g., <code>Disk-Virginia-1</code>).</p>
     # <note>
@@ -4853,11 +3961,11 @@ module AWSSdk::Lightsail_20161128
     # The <code>disk name</code> and <code>instance name</code> parameters are mutually
     # exclusive.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "diskName", required: false)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String?
     # <p>The name of the destination disk snapshot (e.g., <code>my-disk-snapshot</code>) based on
     # the source disk.</p>
-    @[Protocol::Field(location: :body, name: "diskSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskSnapshotName", structure: false)]
     property disk_snapshot_name : String
     # <p>The unique name of the source instance (e.g., <code>Amazon_Linux-512MB-Virginia-1</code>).
     # When this is defined, a snapshot of the instance's system volume is created.</p>
@@ -4866,40 +3974,49 @@ module AWSSdk::Lightsail_20161128
     # <code>instance name</code> and <code>disk name</code> parameters are mutually
     # exclusive.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "instanceName", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@disk_snapshot_name, @disk_name = nil , @instance_name = nil , @tags = nil )
+    end
   end
 
-  class CreateDiskSnapshotResultStruct
-    include JSON1_1
+  class CreateDiskSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class InputOriginStruct
-    include JSON1_1
+  class InputOriginStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the origin resource.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The AWS Region name of the origin resource.</p>
-    @[Protocol::Field(location: :body, name: "regionName", required: false)]
+    @[Protocol::Field(location: :body, name: "regionName", structure: false)]
     property region_name : String?
     # <p>The protocol that your Amazon Lightsail distribution uses when establishing a connection
     # with your origin to pull content.</p>
-    @[Protocol::Field(location: :body, name: "protocolPolicy", required: false)]
+    @[Protocol::Field(location: :body, name: "protocolPolicy", structure: false)]
     property protocol_policy : String?
+
+    def initialize(@name = nil , @region_name = nil , @protocol_policy = nil )
+    end
   end
 
-  class CacheBehaviorStruct
-    include JSON1_1
+  class CacheBehaviorStruct 
+    include JSON1_1::Structure
 
     # <p>The cache behavior of the distribution.</p>
     # <p>The following cache behaviors can be specified:</p>
@@ -4926,25 +4043,31 @@ module AWSSdk::Lightsail_20161128
     # individual users.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "behavior", required: false)]
+    @[Protocol::Field(location: :body, name: "behavior", structure: false)]
     property behavior : String?
+
+    def initialize(@behavior = nil )
+    end
   end
 
-  class CookieObjectStruct
-    include JSON1_1
+  class CookieObjectStruct 
+    include JSON1_1::Structure
 
     # <p>Specifies which cookies to forward to the distribution's origin for a cache behavior:
     # <code>all</code>, <code>none</code>, or <code>allow-list</code> to forward only the cookies
     # specified in the <code>cookiesAllowList</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "option", required: false)]
+    @[Protocol::Field(location: :body, name: "option", structure: false)]
     property option : String?
     # <p>The specific cookies to forward to your distribution's origin.</p>
-    @[Protocol::Field(location: :body, name: "cookiesAllowList", required: false)]
+    @[Protocol::Field(location: :body, name: "cookiesAllowList", structure: false)]
     property cookies_allow_list : Array(String)?
+
+    def initialize(@option = nil , @cookies_allow_list = nil )
+    end
   end
 
-  class HeaderObjectStruct
-    include JSON1_1
+  class HeaderObjectStruct 
+    include JSON1_1::Structure
 
     # <p>The headers that you want your distribution to forward to your origin and base caching
     # on.</p>
@@ -4972,30 +4095,36 @@ module AWSSdk::Lightsail_20161128
     # you specify using the <code>headersAllowList</code> parameter.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "option", required: false)]
+    @[Protocol::Field(location: :body, name: "option", structure: false)]
     property option : String?
     # <p>The specific headers to forward to your distribution's origin.</p>
-    @[Protocol::Field(location: :body, name: "headersAllowList", required: false)]
+    @[Protocol::Field(location: :body, name: "headersAllowList", structure: false)]
     property headers_allow_list : Array(String)?
+
+    def initialize(@option = nil , @headers_allow_list = nil )
+    end
   end
 
-  class QueryStringObjectStruct
-    include JSON1_1
+  class QueryStringObjectStruct 
+    include JSON1_1::Structure
 
     # <p>Indicates whether the distribution forwards and caches based on query strings.</p>
-    @[Protocol::Field(location: :body, name: "option", required: false)]
+    @[Protocol::Field(location: :body, name: "option", structure: false)]
     property option : Bool?
     # <p>The specific query strings that the distribution forwards to the origin.</p>
     # <p>Your distribution will cache content based on the specified query strings.</p>
     # <p>If the <code>option</code> parameter is true, then your distribution forwards all query
     # strings, regardless of what you specify using the <code>queryStringsAllowList</code>
     # parameter.</p>
-    @[Protocol::Field(location: :body, name: "queryStringsAllowList", required: false)]
+    @[Protocol::Field(location: :body, name: "queryStringsAllowList", structure: false)]
     property query_strings_allow_list : Array(String)?
+
+    def initialize(@option = nil , @query_strings_allow_list = nil )
+    end
   end
 
-  class CacheSettingsStruct
-    include JSON1_1
+  class CacheSettingsStruct 
+    include JSON1_1::Structure
 
     # <p>The default amount of time that objects stay in the distribution's cache before the
     # distribution forwards another request to the origin to determine whether the content has been
@@ -5005,14 +4134,14 @@ module AWSSdk::Lightsail_20161128
     # <code>Cache-Control max-age</code>, <code>Cache-Control s-maxage</code>, and
     # <code>Expires</code> to objects.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "defaultTTL", required: false)]
+    @[Protocol::Field(location: :body, name: "defaultTTL", structure: false)]
     property default_ttl : Int64?
     # <p>The minimum amount of time that objects stay in the distribution's cache before the
     # distribution forwards another request to the origin to determine whether the object has been
     # updated.</p>
     # <p>A value of <code>0</code> must be specified for <code>minimumTTL</code> if the
     # distribution is configured to forward all headers to the origin.</p>
-    @[Protocol::Field(location: :body, name: "minimumTTL", required: false)]
+    @[Protocol::Field(location: :body, name: "minimumTTL", structure: false)]
     property minimum_ttl : Int64?
     # <p>The maximum amount of time that objects stay in the distribution's cache before the
     # distribution forwards another request to the origin to determine whether the object has been
@@ -5020,7 +4149,7 @@ module AWSSdk::Lightsail_20161128
     # <p>The value specified applies only when the origin adds HTTP headers such as
     # <code>Cache-Control max-age</code>, <code>Cache-Control s-maxage</code>, and
     # <code>Expires</code> to objects.</p>
-    @[Protocol::Field(location: :body, name: "maximumTTL", required: false)]
+    @[Protocol::Field(location: :body, name: "maximumTTL", structure: false)]
     property maximum_ttl : Int64?
     # <p>The HTTP methods that are processed and forwarded to the distribution's origin.</p>
     # <p>You can specify the following options:</p>
@@ -5045,7 +4174,7 @@ module AWSSdk::Lightsail_20161128
     # <p>If you specify the third option, you might need to restrict access to your distribution's
     # origin so users can't perform operations that you don't want them to. For example, you might
     # not want users to have permission to delete objects from your origin.</p>
-    @[Protocol::Field(location: :body, name: "allowedHTTPMethods", required: false)]
+    @[Protocol::Field(location: :body, name: "allowedHTTPMethods", structure: false)]
     property allowed_http_methods : String?
     # <p>The HTTP method responses that are cached by your distribution.</p>
     # <p>You can specify the following options:</p>
@@ -5061,24 +4190,27 @@ module AWSSdk::Lightsail_20161128
     # <code>GET</code>, <code>HEAD</code>, and <code>OPTIONS</code> methods.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "cachedHTTPMethods", required: false)]
+    @[Protocol::Field(location: :body, name: "cachedHTTPMethods", structure: false)]
     property cached_http_methods : String?
     # <p>An object that describes the cookies that are forwarded to the origin. Your content is
     # cached based on the cookies that are forwarded.</p>
-    @[Protocol::Field(location: :body, name: "forwardedCookies", required: false)]
+    @[Protocol::Field(location: :body, name: "forwardedCookies", structure: true)]
     property forwarded_cookies : CookieObjectStruct?
     # <p>An object that describes the headers that are forwarded to the origin. Your content is
     # cached based on the headers that are forwarded.</p>
-    @[Protocol::Field(location: :body, name: "forwardedHeaders", required: false)]
+    @[Protocol::Field(location: :body, name: "forwardedHeaders", structure: true)]
     property forwarded_headers : HeaderObjectStruct?
     # <p>An object that describes the query strings that are forwarded to the origin. Your content
     # is cached based on the query strings that are forwarded.</p>
-    @[Protocol::Field(location: :body, name: "forwardedQueryStrings", required: false)]
+    @[Protocol::Field(location: :body, name: "forwardedQueryStrings", structure: true)]
     property forwarded_query_strings : QueryStringObjectStruct?
+
+    def initialize(@default_ttl = nil , @minimum_ttl = nil , @maximum_ttl = nil , @allowed_http_methods = nil , @cached_http_methods = nil , @forwarded_cookies = nil , @forwarded_headers = nil , @forwarded_query_strings = nil )
+    end
   end
 
-  class CacheBehaviorPerPathStruct
-    include JSON1_1
+  class CacheBehaviorPerPathStruct 
+    include JSON1_1::Structure
 
     # <p>The path to a directory or file to cached, or not cache. Use an asterisk symbol to specify
     # wildcard directories (<code>path/to/assets/*</code>), and file types (<code>*.html, *jpg,
@@ -5125,7 +4257,7 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "path", required: false)]
+    @[Protocol::Field(location: :body, name: "path", structure: false)]
     property path : String?
     # <p>The cache behavior for the specified path.</p>
     # <p>You can specify one of the following per-path cache behaviors:</p>
@@ -5147,77 +4279,86 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "behavior", required: false)]
+    @[Protocol::Field(location: :body, name: "behavior", structure: false)]
     property behavior : String?
+
+    def initialize(@path = nil , @behavior = nil )
+    end
   end
 
-  class CreateDistributionRequest
-    include JSON1_1
+  class CreateDistributionRequest 
+    include JSON1_1::Structure
 
     # <p>The name for the distribution.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: true)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
     # <p>An object that describes the origin resource for the distribution, such as a Lightsail
     # instance or load balancer.</p>
     # <p>The distribution pulls, caches, and serves content from the origin.</p>
-    @[Protocol::Field(location: :body, name: "origin", required: true)]
+    @[Protocol::Field(location: :body, name: "origin", structure: true)]
     property origin : InputOriginStruct
     # <p>An object that describes the default cache behavior for the distribution.</p>
-    @[Protocol::Field(location: :body, name: "defaultCacheBehavior", required: true)]
+    @[Protocol::Field(location: :body, name: "defaultCacheBehavior", structure: true)]
     property default_cache_behavior : CacheBehaviorStruct
     # <p>An object that describes the cache behavior settings for the distribution.</p>
-    @[Protocol::Field(location: :body, name: "cacheBehaviorSettings", required: false)]
+    @[Protocol::Field(location: :body, name: "cacheBehaviorSettings", structure: true)]
     property cache_behavior_settings : CacheSettingsStruct?
     # <p>An array of objects that describe the per-path cache behavior for the distribution.</p>
-    @[Protocol::Field(location: :body, name: "cacheBehaviors", required: false)]
+    @[Protocol::Field(location: :body, name: "cacheBehaviors", structure: false)]
     property cache_behaviors : Array(CacheBehaviorPerPathStruct)?
     # <p>The bundle ID to use for the distribution.</p>
     # <p>A distribution bundle describes the specifications of your distribution, such as the
     # monthly cost and monthly network transfer quota.</p>
     # <p>Use the <code>GetDistributionBundles</code> action to get a list of distribution bundle
     # IDs that you can specify.</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: true)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String
     # <p>The tag keys and optional values to add to the distribution during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@distribution_name, @origin, @default_cache_behavior, @bundle_id, @cache_behavior_settings = nil , @cache_behaviors = nil , @tags = nil )
+    end
   end
 
-  class OriginStruct
-    include JSON1_1
+  class OriginStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the origin resource.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The resource type of the origin resource (e.g., <i>Instance</i>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The AWS Region name of the origin resource.</p>
-    @[Protocol::Field(location: :body, name: "regionName", required: false)]
+    @[Protocol::Field(location: :body, name: "regionName", structure: false)]
     property region_name : String?
     # <p>The protocol that your Amazon Lightsail distribution uses when establishing a connection
     # with your origin to pull content.</p>
-    @[Protocol::Field(location: :body, name: "protocolPolicy", required: false)]
+    @[Protocol::Field(location: :body, name: "protocolPolicy", structure: false)]
     property protocol_policy : String?
+
+    def initialize(@name = nil , @resource_type = nil , @region_name = nil , @protocol_policy = nil )
+    end
   end
 
-  class LightsailDistributionStruct
-    include JSON1_1
+  class LightsailDistributionStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail distribution. This code enables our support team to look up your Lightsail
     # information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the distribution was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>An object that describes the location of the distribution, such as the AWS Region and
     # Availability Zone.</p>
@@ -5226,73 +4367,79 @@ module AWSSdk::Lightsail_20161128
     # Region, and distribute its content globally. However, all distributions are located in the
     # <code>us-east-1</code> Region.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>Distribution</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The alternate domain names of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "alternativeDomainNames", required: false)]
+    @[Protocol::Field(location: :body, name: "alternativeDomainNames", structure: false)]
     property alternative_domain_names : Array(String)?
     # <p>The status of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>Indicates whether the distribution is enabled.</p>
-    @[Protocol::Field(location: :body, name: "isEnabled", required: false)]
+    @[Protocol::Field(location: :body, name: "isEnabled", structure: false)]
     property is_enabled : Bool?
     # <p>The domain name of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
     # <p>The ID of the bundle currently applied to the distribution.</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
     # <p>The name of the SSL/TLS certificate attached to the distribution, if any.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String?
     # <p>An object that describes the origin resource of the distribution, such as a Lightsail
     # instance or load balancer.</p>
     # <p>The distribution pulls, caches, and serves content from the origin.</p>
-    @[Protocol::Field(location: :body, name: "origin", required: false)]
+    @[Protocol::Field(location: :body, name: "origin", structure: true)]
     property origin : OriginStruct?
     # <p>The public DNS of the origin.</p>
-    @[Protocol::Field(location: :body, name: "originPublicDNS", required: false)]
+    @[Protocol::Field(location: :body, name: "originPublicDNS", structure: false)]
     property origin_public_dns : String?
     # <p>An object that describes the default cache behavior of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "defaultCacheBehavior", required: false)]
+    @[Protocol::Field(location: :body, name: "defaultCacheBehavior", structure: true)]
     property default_cache_behavior : CacheBehaviorStruct?
     # <p>An object that describes the cache behavior settings of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "cacheBehaviorSettings", required: false)]
+    @[Protocol::Field(location: :body, name: "cacheBehaviorSettings", structure: true)]
     property cache_behavior_settings : CacheSettingsStruct?
     # <p>An array of objects that describe the per-path cache behavior of the distribution.</p>
-    @[Protocol::Field(location: :body, name: "cacheBehaviors", required: false)]
+    @[Protocol::Field(location: :body, name: "cacheBehaviors", structure: false)]
     property cache_behaviors : Array(CacheBehaviorPerPathStruct)?
     # <p>Indicates whether the bundle that is currently applied to your distribution, specified
     # using the <code>distributionName</code> parameter, can be changed to another bundle.</p>
     # <p>Use the <code>UpdateDistributionBundle</code> action to change your distribution's
     # bundle.</p>
-    @[Protocol::Field(location: :body, name: "ableToUpdateBundle", required: false)]
+    @[Protocol::Field(location: :body, name: "ableToUpdateBundle", structure: false)]
     property able_to_update_bundle : Bool?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@name = nil , @able_to_update_bundle = nil , @cache_behaviors = nil , @cache_behavior_settings = nil , @default_cache_behavior = nil , @origin_public_dns = nil , @origin = nil , @certificate_name = nil , @bundle_id = nil , @domain_name = nil , @is_enabled = nil , @status = nil , @alternative_domain_names = nil , @resource_type = nil , @location = nil , @created_at = nil , @support_code = nil , @arn = nil , @tags = nil )
+    end
   end
 
-  class CreateDistributionResultStruct
-    include JSON1_1
+  class CreateDistributionResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the distribution created.</p>
-    @[Protocol::Field(location: :body, name: "distribution", required: false)]
+    @[Protocol::Field(location: :body, name: "distribution", structure: true)]
     property distribution : LightsailDistributionStruct?
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@distribution = nil , @operation = nil )
+    end
   end
 
-  class CreateDomainRequest
-    include JSON1_1
+  class CreateDomainRequest 
+    include JSON1_1::Structure
 
     # <p>The domain name to manage (e.g., <code>example.com</code>).</p>
     # <note>
@@ -5301,43 +4448,49 @@ module AWSSdk::Lightsail_20161128
     # domain, you can enter its name in this parameter to manage the DNS records for that
     # domain.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@domain_name, @tags = nil )
+    end
   end
 
-  class CreateDomainResultStruct
-    include JSON1_1
+  class CreateDomainResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class DomainEntryStruct
-    include JSON1_1
+  class DomainEntryStruct 
+    include JSON1_1::Structure
 
     # <p>The ID of the domain recordset entry.</p>
-    @[Protocol::Field(location: :body, name: "id", required: false)]
+    @[Protocol::Field(location: :body, name: "id", structure: false)]
     property id : String?
     # <p>The name of the domain.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The target AWS name server (e.g., <code>ns-111.awsdns-22.com.</code>).</p>
     # <p>For Lightsail load balancers, the value looks like
     # <code>ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com</code>. Be sure
     # to also set <code>isAlias</code> to <code>true</code> when setting up an A record for a load
     # balancer.</p>
-    @[Protocol::Field(location: :body, name: "target", required: false)]
+    @[Protocol::Field(location: :body, name: "target", structure: false)]
     property target : String?
     # <p>When <code>true</code>, specifies whether the domain entry is an alias used by the
     # Lightsail load balancer. You can include an alias (A type) record in your request, which
     # points to a load balancer DNS name and routes traffic to your load balancer.</p>
-    @[Protocol::Field(location: :body, name: "isAlias", required: false)]
+    @[Protocol::Field(location: :body, name: "isAlias", structure: false)]
     property is_alias : Bool?
     # <p>The type of domain entry, such as address (A), canonical name (CNAME), mail exchanger
     # (MX), name server (NS), start of authority (SOA), service locator (SRV), or text (TXT).</p>
@@ -5379,60 +4532,69 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "type", required: false)]
+    @[Protocol::Field(location: :body, name: "type", structure: false)]
     property type : String?
     # <p>(Deprecated) The options for the domain entry.</p>
     # <note>
     # <p>In releases prior to November 29, 2017, this parameter was not included in the API
     # response. It is now deprecated.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "options", required: false)]
+    @[Protocol::Field(location: :body, name: "options", structure: false)]
     property options : Hash(String, String)?
+
+    def initialize(@id = nil , @name = nil , @target = nil , @is_alias = nil , @type = nil , @options = nil )
+    end
   end
 
-  class CreateDomainEntryRequest
-    include JSON1_1
+  class CreateDomainEntryRequest 
+    include JSON1_1::Structure
 
     # <p>The domain name (e.g., <code>example.com</code>) for which you want to create the domain
     # entry.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
     # <p>An array of key-value pairs containing information about the domain entry request.</p>
-    @[Protocol::Field(location: :body, name: "domainEntry", required: true)]
+    @[Protocol::Field(location: :body, name: "domainEntry", structure: true)]
     property domain_entry : DomainEntryStruct
+
+    def initialize(@domain_name, @domain_entry)
+    end
   end
 
-  class CreateDomainEntryResultStruct
-    include JSON1_1
+  class CreateDomainEntryResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class CreateInstancesRequest
-    include JSON1_1
+  class CreateInstancesRequest 
+    include JSON1_1::Structure
 
     # <p>The names to use for your new Lightsail instances. Separate multiple values using
     # quotation marks and commas, for example:
     # <code>["MyFirstInstance","MySecondInstance"]</code>
     # </p>
-    @[Protocol::Field(location: :body, name: "instanceNames", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceNames", structure: false)]
     property instance_names : Array(String)
     # <p>The Availability Zone in which to create your instance. Use the following format:
     # <code>us-east-2a</code> (case sensitive). You can get a list of Availability Zones by using
     # the <a href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
     # regions</a> operation. Be sure to add the <code>include Availability Zones</code>
     # parameter to your request.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: true)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String
     # <p>(Deprecated) The name for your custom image.</p>
     # <note>
     # <p>In releases prior to June 12, 2017, this parameter was ignored by the API. It is now
     # deprecated.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "customImageName", required: false)]
+    @[Protocol::Field(location: :body, name: "customImageName", structure: false)]
     property custom_image_name : String?
     # <p>The ID for a virtual private server image (e.g., <code>app_wordpress_4_4</code> or
     # <code>app_lamp_7_0</code>). Use the <code>get blueprints</code> operation to return a list
@@ -5443,12 +4605,12 @@ module AWSSdk::Lightsail_20161128
     # instances. Blueprints are marked inactive when they become outdated due to operating system
     # updates or new application releases.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "blueprintId", required: true)]
+    @[Protocol::Field(location: :body, name: "blueprintId", structure: false)]
     property blueprint_id : String
     # <p>The bundle of specification information for your virtual private server (or
     # <i>instance</i>), including the pricing plan (e.g.,
     # <code>micro_1_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: true)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String
     # <p>A launch script you can create that configures a server with additional user data. For
     # example, you might want to run <code>apt-get -y update</code>.</p>
@@ -5458,56 +4620,65 @@ module AWSSdk::Lightsail_20161128
     # <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the
     # <a href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev Guide</a>.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "userData", required: false)]
+    @[Protocol::Field(location: :body, name: "userData", structure: false)]
     property user_data : String?
     # <p>The name of your key pair.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: false)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>An array of objects representing the add-ons to enable for the new instance.</p>
-    @[Protocol::Field(location: :body, name: "addOns", required: false)]
+    @[Protocol::Field(location: :body, name: "addOns", structure: false)]
     property add_ons : Array(AddOnRequest)?
+
+    def initialize(@instance_names, @availability_zone, @blueprint_id, @bundle_id, @custom_image_name = nil , @user_data = nil , @key_pair_name = nil , @tags = nil , @add_ons = nil )
+    end
   end
 
-  class CreateInstancesResultStruct
-    include JSON1_1
+  class CreateInstancesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DiskMapStruct
-    include JSON1_1
+  class DiskMapStruct 
+    include JSON1_1::Structure
 
     # <p>The original disk path exposed to the instance (for example,
     # <code>/dev/sdh</code>).</p>
-    @[Protocol::Field(location: :body, name: "originalDiskPath", required: false)]
+    @[Protocol::Field(location: :body, name: "originalDiskPath", structure: false)]
     property original_disk_path : String?
     # <p>The new disk name (e.g., <code>my-new-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "newDiskName", required: false)]
+    @[Protocol::Field(location: :body, name: "newDiskName", structure: false)]
     property new_disk_name : String?
+
+    def initialize(@original_disk_path = nil , @new_disk_name = nil )
+    end
   end
 
-  class CreateInstancesFromSnapshotRequest
-    include JSON1_1
+  class CreateInstancesFromSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The names for your new instances.</p>
-    @[Protocol::Field(location: :body, name: "instanceNames", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceNames", structure: false)]
     property instance_names : Array(String)
     # <p>An object containing information about one or more disk mappings.</p>
-    @[Protocol::Field(location: :body, name: "attachedDiskMapping", required: false)]
+    @[Protocol::Field(location: :body, name: "attachedDiskMapping", structure: false)]
     property attached_disk_mapping : Hash(String, Array(DiskMapStruct))?
     # <p>The Availability Zone where you want to create your instances. Use the following
     # formatting: <code>us-east-2a</code> (case sensitive). You can get a list of Availability Zones
     # by using the <a href="http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html">get
     # regions</a> operation. Be sure to add the <code>include Availability Zones</code>
     # parameter to your request.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: true)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String
     # <p>The name of the instance snapshot on which you are basing your new instances. Use the get
     # instance snapshots operation to return information about your existing snapshots.</p>
@@ -5519,12 +4690,12 @@ module AWSSdk::Lightsail_20161128
     # parameters are mutually exclusive.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "instanceSnapshotName", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshotName", structure: false)]
     property instance_snapshot_name : String?
     # <p>The bundle of specification information for your virtual private server (or
     # <i>instance</i>), including the pricing plan (e.g.,
     # <code>micro_1_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: true)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String
     # <p>You can create a launch script that configures a server with additional user data. For
     # example, <code>apt-get -y update</code>.</p>
@@ -5534,17 +4705,17 @@ module AWSSdk::Lightsail_20161128
     # <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the
     # <a href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev Guide</a>.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "userData", required: false)]
+    @[Protocol::Field(location: :body, name: "userData", structure: false)]
     property user_data : String?
     # <p>The name for your key pair.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: false)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>An array of objects representing the add-ons to enable for the new instance.</p>
-    @[Protocol::Field(location: :body, name: "addOns", required: false)]
+    @[Protocol::Field(location: :body, name: "addOns", structure: false)]
     property add_ons : Array(AddOnRequest)?
     # <p>The name of the source instance from which the source automatic snapshot was
     # created.</p>
@@ -5560,7 +4731,7 @@ module AWSSdk::Lightsail_20161128
     # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "sourceInstanceName", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceInstanceName", structure: false)]
     property source_instance_name : String?
     # <p>The date of the automatic snapshot to use for the new instance. Use the <code>get auto
     # snapshots</code> operation to identify the dates of the available automatic
@@ -5580,7 +4751,7 @@ module AWSSdk::Lightsail_20161128
     # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "restoreDate", required: false)]
+    @[Protocol::Field(location: :body, name: "restoreDate", structure: false)]
     property restore_date : String?
     # <p>A Boolean value to indicate whether to use the latest available automatic snapshot.</p>
     # <p>Constraints:</p>
@@ -5595,194 +4766,227 @@ module AWSSdk::Lightsail_20161128
     # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "useLatestRestorableAutoSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "useLatestRestorableAutoSnapshot", structure: false)]
     property use_latest_restorable_auto_snapshot : Bool?
+
+    def initialize(@instance_names, @availability_zone, @bundle_id, @attached_disk_mapping = nil , @instance_snapshot_name = nil , @user_data = nil , @key_pair_name = nil , @tags = nil , @add_ons = nil , @source_instance_name = nil , @restore_date = nil , @use_latest_restorable_auto_snapshot = nil )
+    end
   end
 
-  class CreateInstancesFromSnapshotResultStruct
-    include JSON1_1
+  class CreateInstancesFromSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateInstanceSnapshotRequest
-    include JSON1_1
+  class CreateInstanceSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name for your new snapshot.</p>
-    @[Protocol::Field(location: :body, name: "instanceSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshotName", structure: false)]
     property instance_snapshot_name : String
     # <p>The Lightsail instance on which to base your snapshot.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@instance_snapshot_name, @instance_name, @tags = nil )
+    end
   end
 
-  class CreateInstanceSnapshotResultStruct
-    include JSON1_1
+  class CreateInstanceSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateKeyPairRequest
-    include JSON1_1
+  class CreateKeyPairRequest 
+    include JSON1_1::Structure
 
     # <p>The name for your new key pair.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: true)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@key_pair_name, @tags = nil )
+    end
   end
 
-  class KeyPairStruct
-    include JSON1_1
+  class KeyPairStruct 
+    include JSON1_1::Structure
 
     # <p>The friendly name of the SSH key pair.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the key pair (e.g.,
     # <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The region name and Availability Zone where the key pair was created.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The resource type (usually <code>KeyPair</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The RSA fingerprint of the key pair.</p>
-    @[Protocol::Field(location: :body, name: "fingerprint", required: false)]
+    @[Protocol::Field(location: :body, name: "fingerprint", structure: false)]
     property fingerprint : String?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @tags = nil , @fingerprint = nil )
+    end
   end
 
-  class CreateKeyPairResultStruct
-    include JSON1_1
+  class CreateKeyPairResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the new key pair you just
     # created.</p>
-    @[Protocol::Field(location: :body, name: "keyPair", required: false)]
+    @[Protocol::Field(location: :body, name: "keyPair", structure: true)]
     property key_pair : KeyPairStruct?
     # <p>A base64-encoded public key of the <code>ssh-rsa</code> type.</p>
-    @[Protocol::Field(location: :body, name: "publicKeyBase64", required: false)]
+    @[Protocol::Field(location: :body, name: "publicKeyBase64", structure: false)]
     property public_key_base64 : String?
     # <p>A base64-encoded RSA private key.</p>
-    @[Protocol::Field(location: :body, name: "privateKeyBase64", required: false)]
+    @[Protocol::Field(location: :body, name: "privateKeyBase64", structure: false)]
     property private_key_base64 : String?
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@key_pair = nil , @public_key_base64 = nil , @private_key_base64 = nil , @operation = nil )
+    end
   end
 
-  class CreateLoadBalancerRequest
-    include JSON1_1
+  class CreateLoadBalancerRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your load balancer.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>The instance port where you're creating your load balancer.</p>
-    @[Protocol::Field(location: :body, name: "instancePort", required: true)]
+    @[Protocol::Field(location: :body, name: "instancePort", structure: false)]
     property instance_port : Int32
     # <p>The path you provided to perform the load balancer health check. If you didn't specify a
     # health check path, Lightsail uses the root path of your website (e.g.,
     # <code>"/"</code>).</p>
     # <p>You may want to specify a custom health check path other than the root of your application
     # if your home page loads slowly or has a lot of media or scripting on it.</p>
-    @[Protocol::Field(location: :body, name: "healthCheckPath", required: false)]
+    @[Protocol::Field(location: :body, name: "healthCheckPath", structure: false)]
     property health_check_path : String?
     # <p>The name of the SSL/TLS certificate.</p>
     # <p>If you specify <code>certificateName</code>, then <code>certificateDomainName</code> is
     # required (and vice-versa).</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String?
     # <p>The domain name with which your certificate is associated (e.g.,
     # <code>example.com</code>).</p>
     # <p>If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is
     # required (and vice-versa).</p>
-    @[Protocol::Field(location: :body, name: "certificateDomainName", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateDomainName", structure: false)]
     property certificate_domain_name : String?
     # <p>The optional alternative domains and subdomains to use with your SSL/TLS certificate
     # (e.g., <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>,
     # <code>blog.example.com</code>).</p>
-    @[Protocol::Field(location: :body, name: "certificateAlternativeNames", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateAlternativeNames", structure: false)]
     property certificate_alternative_names : Array(String)?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@load_balancer_name, @instance_port, @health_check_path = nil , @certificate_name = nil , @certificate_domain_name = nil , @certificate_alternative_names = nil , @tags = nil )
+    end
   end
 
-  class CreateLoadBalancerResultStruct
-    include JSON1_1
+  class CreateLoadBalancerResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateLoadBalancerTlsCertificateRequest
-    include JSON1_1
+  class CreateLoadBalancerTlsCertificateRequest 
+    include JSON1_1::Structure
 
     # <p>The load balancer name where you want to create the SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>The SSL/TLS certificate name.</p>
     # <p>You can have up to 10 certificates in your account at one time. Each Lightsail load
     # balancer can have up to 2 certificates associated with it at one time. There is also an
     # overall limit to the number of certificates that can be issue in a 365-day period. For more
     # information, see <a href="http://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a>.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String
     # <p>The domain name (e.g., <code>example.com</code>) for your SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "certificateDomainName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateDomainName", structure: false)]
     property certificate_domain_name : String
     # <p>An array of strings listing alternative domains and subdomains for your SSL/TLS
     # certificate. Lightsail will de-dupe the names for you. You can have a maximum of 9
     # alternative names (in addition to the 1 primary domain). We do not support wildcards (e.g.,
     # <code>*.example.com</code>).</p>
-    @[Protocol::Field(location: :body, name: "certificateAlternativeNames", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateAlternativeNames", structure: false)]
     property certificate_alternative_names : Array(String)?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@load_balancer_name, @certificate_name, @certificate_domain_name, @certificate_alternative_names = nil , @tags = nil )
+    end
   end
 
-  class CreateLoadBalancerTlsCertificateResultStruct
-    include JSON1_1
+  class CreateLoadBalancerTlsCertificateResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateRelationalDatabaseRequest
-    include JSON1_1
+  class CreateRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name to use for your new database.</p>
     # <p>Constraints:</p>
@@ -5794,26 +4998,26 @@ module AWSSdk::Lightsail_20161128
     # <p>The first and last character must be a letter or number.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The Availability Zone in which to create your new database. Use the
     # <code>us-east-2a</code> case-sensitive format.</p>
     # <p>You can get a list of Availability Zones by using the <code>get regions</code> operation.
     # Be sure to add the <code>include relational database Availability Zones</code> parameter to
     # your request.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: false)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String?
     # <p>The blueprint ID for your new database. A blueprint describes the major engine version of
     # a database.</p>
     # <p>You can get a list of database blueprints IDs by using the <code>get relational database
     # blueprints</code> operation.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseBlueprintId", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseBlueprintId", structure: false)]
     property relational_database_blueprint_id : String
     # <p>The bundle ID for your new database. A bundle describes the performance specifications for
     # your database.</p>
     # <p>You can get a list of database bundle IDs by using the <code>get relational database
     # bundles</code> operation.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseBundleId", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseBundleId", structure: false)]
     property relational_database_bundle_id : String
     # <p>The name of the master database created when the Lightsail database resource is
     # created.</p>
@@ -5826,7 +5030,7 @@ module AWSSdk::Lightsail_20161128
     # <p>Cannot be a word reserved by the specified database engine</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "masterDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "masterDatabaseName", structure: false)]
     property master_database_name : String
     # <p>The master user name for your new database.</p>
     # <p>Constraints:</p>
@@ -5847,12 +5051,12 @@ module AWSSdk::Lightsail_20161128
     # respectively.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "masterUsername", required: true)]
+    @[Protocol::Field(location: :body, name: "masterUsername", structure: false)]
     property master_username : String
     # <p>The password for the master user of your new database. The password can include any
     # printable ASCII character except "/", """, or "@".</p>
     # <p>Constraints: Must contain 8 to 41 characters.</p>
-    @[Protocol::Field(location: :body, name: "masterUserPassword", required: false)]
+    @[Protocol::Field(location: :body, name: "masterUserPassword", structure: false)]
     property master_user_password : String?
     # <p>The daily time range during which automated backups are created for your new database if
     # automated backups are enabled.</p>
@@ -5876,7 +5080,7 @@ module AWSSdk::Lightsail_20161128
     # <p>Must be at least 30 minutes.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "preferredBackupWindow", required: false)]
+    @[Protocol::Field(location: :body, name: "preferredBackupWindow", structure: false)]
     property preferred_backup_window : String?
     # <p>The weekly time range during which system maintenance can occur on your new
     # database.</p>
@@ -5901,31 +5105,37 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "preferredMaintenanceWindow", required: false)]
+    @[Protocol::Field(location: :body, name: "preferredMaintenanceWindow", structure: false)]
     property preferred_maintenance_window : String?
     # <p>Specifies the accessibility options for your new database. A value of <code>true</code>
     # specifies a database that is available to resources outside of your Lightsail account. A
     # value of <code>false</code> specifies a database that is available only to your Lightsail
     # resources in the same region as your database.</p>
-    @[Protocol::Field(location: :body, name: "publiclyAccessible", required: false)]
+    @[Protocol::Field(location: :body, name: "publiclyAccessible", structure: false)]
     property publicly_accessible : Bool?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@relational_database_name, @relational_database_blueprint_id, @relational_database_bundle_id, @master_database_name, @master_username, @availability_zone = nil , @master_user_password = nil , @preferred_backup_window = nil , @preferred_maintenance_window = nil , @publicly_accessible = nil , @tags = nil )
+    end
   end
 
-  class CreateRelationalDatabaseResultStruct
-    include JSON1_1
+  class CreateRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateRelationalDatabaseFromSnapshotRequest
-    include JSON1_1
+  class CreateRelationalDatabaseFromSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name to use for your new database.</p>
     # <p>Constraints:</p>
@@ -5937,23 +5147,23 @@ module AWSSdk::Lightsail_20161128
     # <p>The first and last character must be a letter or number.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The Availability Zone in which to create your new database. Use the
     # <code>us-east-2a</code> case-sensitive format.</p>
     # <p>You can get a list of Availability Zones by using the <code>get regions</code> operation.
     # Be sure to add the <code>include relational database Availability Zones</code> parameter to
     # your request.</p>
-    @[Protocol::Field(location: :body, name: "availabilityZone", required: false)]
+    @[Protocol::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String?
     # <p>Specifies the accessibility options for your new database. A value of <code>true</code>
     # specifies a database that is available to resources outside of your Lightsail account. A
     # value of <code>false</code> specifies a database that is available only to your Lightsail
     # resources in the same region as your database.</p>
-    @[Protocol::Field(location: :body, name: "publiclyAccessible", required: false)]
+    @[Protocol::Field(location: :body, name: "publiclyAccessible", structure: false)]
     property publicly_accessible : Bool?
     # <p>The name of the database snapshot from which to create your new database.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", structure: false)]
     property relational_database_snapshot_name : String?
     # <p>The bundle ID for your new database. A bundle describes the performance specifications for
     # your database.</p>
@@ -5961,10 +5171,10 @@ module AWSSdk::Lightsail_20161128
     # bundles</code> operation.</p>
     # <p>When creating a new database from a snapshot, you cannot choose a bundle that is smaller
     # than the bundle of the source database.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseBundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseBundleId", structure: false)]
     property relational_database_bundle_id : String?
     # <p>The name of the source database.</p>
-    @[Protocol::Field(location: :body, name: "sourceRelationalDatabaseName", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceRelationalDatabaseName", structure: false)]
     property source_relational_database_name : String?
     # <p>The date and time to restore your database from.</p>
     # <p>Constraints:</p>
@@ -5985,7 +5195,7 @@ module AWSSdk::Lightsail_20161128
     # you input <code>1538424000</code> as the restore time.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "restoreTime", required: false)]
+    @[Protocol::Field(location: :body, name: "restoreTime", structure: false)]
     property restore_time : Time?
     # <p>Specifies whether your database is restored from the latest backup time. A value of
     # <code>true</code> restores from the latest backup time. </p>
@@ -5993,28 +5203,34 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # <p>Constraints: Cannot be specified if the <code>restore time</code> parameter is
     # provided.</p>
-    @[Protocol::Field(location: :body, name: "useLatestRestorableTime", required: false)]
+    @[Protocol::Field(location: :body, name: "useLatestRestorableTime", structure: false)]
     property use_latest_restorable_time : Bool?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@relational_database_name, @availability_zone = nil , @publicly_accessible = nil , @relational_database_snapshot_name = nil , @relational_database_bundle_id = nil , @source_relational_database_name = nil , @restore_time = nil , @use_latest_restorable_time = nil , @tags = nil )
+    end
   end
 
-  class CreateRelationalDatabaseFromSnapshotResultStruct
-    include JSON1_1
+  class CreateRelationalDatabaseFromSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class CreateRelationalDatabaseSnapshotRequest
-    include JSON1_1
+  class CreateRelationalDatabaseSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the database on which to base your new snapshot.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The name for your new database snapshot.</p>
     # <p>Constraints:</p>
@@ -6026,84 +5242,108 @@ module AWSSdk::Lightsail_20161128
     # <p>The first and last character must be a letter or number.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", structure: false)]
     property relational_database_snapshot_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
+
+    def initialize(@relational_database_name, @relational_database_snapshot_name, @tags = nil )
+    end
   end
 
-  class CreateRelationalDatabaseSnapshotResultStruct
-    include JSON1_1
+  class CreateRelationalDatabaseSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteAlarmRequest
-    include JSON1_1
+  class DeleteAlarmRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the alarm to delete.</p>
-    @[Protocol::Field(location: :body, name: "alarmName", required: true)]
+    @[Protocol::Field(location: :body, name: "alarmName", structure: false)]
     property alarm_name : String
+
+    def initialize(@alarm_name)
+    end
   end
 
-  class DeleteAlarmResultStruct
-    include JSON1_1
+  class DeleteAlarmResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteAutoSnapshotRequest
-    include JSON1_1
+  class DeleteAutoSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the source instance or disk from which to delete the automatic
     # snapshot.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
     # <p>The date of the automatic snapshot to delete in <code>YYYY-MM-DD</code> format. Use the
     # <code>get auto snapshots</code> operation to get the available automatic snapshots for a
     # resource.</p>
-    @[Protocol::Field(location: :body, name: "date", required: true)]
+    @[Protocol::Field(location: :body, name: "date", structure: false)]
     property date : String
+
+    def initialize(@resource_name, @date)
+    end
   end
 
-  class DeleteAutoSnapshotResultStruct
-    include JSON1_1
+  class DeleteAutoSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteCertificateRequest
-    include JSON1_1
+  class DeleteCertificateRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the certificate to delete.</p>
     # <p>Use the <code>GetCertificates</code> action to get a list of certificate names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String
+
+    def initialize(@certificate_name)
+    end
   end
 
-  class DeleteCertificateResultStruct
-    include JSON1_1
+  class DeleteCertificateResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteContactMethodRequest
-    include JSON1_1
+  class DeleteContactMethodRequest 
+    include JSON1_1::Structure
 
     # <p>The protocol that will be deleted, such as <code>Email</code> or <code>SMS</code> (text
     # messaging).</p>
@@ -6112,30 +5352,36 @@ module AWSSdk::Lightsail_20161128
     # both, you must run separate <code>DeleteContactMethod</code> actions to delete each
     # protocol.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "protocol", required: true)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String
+
+    def initialize(@protocol)
+    end
   end
 
-  class DeleteContactMethodResultStruct
-    include JSON1_1
+  class DeleteContactMethodResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteContainerImageRequest
-    include JSON1_1
+  class DeleteContainerImageRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to delete a registered container image.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The name of the container image to delete from the container service.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerImages</code> action to get the name of the container images
     # that are registered to a container service.</p>
-    #
+    # 
     # <note>
     # <p>Container images sourced from your Lightsail container service, that are registered
     # and stored on your service, start with a colon (<code>:</code>). For example,
@@ -6143,241 +5389,319 @@ module AWSSdk::Lightsail_20161128
     # public registry like Docker Hub don't start with a colon. For example,
     # <code>nginx:latest</code> or <code>nginx</code>.</p>
     # </note>
-    @[Protocol::Field(location: :uri, name: "image", required: true)]
+    @[Protocol::Field(location: :uri, name: "image", structure: false)]
     property image : String
+
+    def initialize(@service_name, @image)
+    end
   end
 
-  class DeleteContainerImageResultStruct
-    include JSON1_1
+  class DeleteContainerImageResultStruct 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class DeleteContainerServiceRequest
-    include JSON1_1
+  class DeleteContainerServiceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service to delete.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
+
+    def initialize(@service_name)
+    end
   end
 
-  class DeleteContainerServiceResultStruct
-    include JSON1_1
+  class DeleteContainerServiceResultStruct 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class DeleteDiskRequest
-    include JSON1_1
+  class DeleteDiskRequest 
+    include JSON1_1::Structure
 
     # <p>The unique name of the disk you want to delete (e.g., <code>my-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String
     # <p>A Boolean value to indicate whether to delete the enabled add-ons for the disk.</p>
-    @[Protocol::Field(location: :body, name: "forceDeleteAddOns", required: false)]
+    @[Protocol::Field(location: :body, name: "forceDeleteAddOns", structure: false)]
     property force_delete_add_ons : Bool?
+
+    def initialize(@disk_name, @force_delete_add_ons = nil )
+    end
   end
 
-  class DeleteDiskResultStruct
-    include JSON1_1
+  class DeleteDiskResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteDiskSnapshotRequest
-    include JSON1_1
+  class DeleteDiskSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the disk snapshot you want to delete (e.g.,
     # <code>my-disk-snapshot</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskSnapshotName", structure: false)]
     property disk_snapshot_name : String
+
+    def initialize(@disk_snapshot_name)
+    end
   end
 
-  class DeleteDiskSnapshotResultStruct
-    include JSON1_1
+  class DeleteDiskSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteDistributionRequest
-    include JSON1_1
+  class DeleteDistributionRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution to delete.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: false)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
+
+    def initialize(@distribution_name = nil )
+    end
   end
 
-  class DeleteDistributionResultStruct
-    include JSON1_1
+  class DeleteDistributionResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the result of the action, such as the status of the request, the
     # timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class DeleteDomainRequest
-    include JSON1_1
+  class DeleteDomainRequest 
+    include JSON1_1::Structure
 
     # <p>The specific domain name to delete.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
+
+    def initialize(@domain_name)
+    end
   end
 
-  class DeleteDomainResultStruct
-    include JSON1_1
+  class DeleteDomainResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class DeleteDomainEntryRequest
-    include JSON1_1
+  class DeleteDomainEntryRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the domain entry to delete.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
     # <p>An array of key-value pairs containing information about your domain entries.</p>
-    @[Protocol::Field(location: :body, name: "domainEntry", required: true)]
+    @[Protocol::Field(location: :body, name: "domainEntry", structure: true)]
     property domain_entry : DomainEntryStruct
+
+    def initialize(@domain_name, @domain_entry)
+    end
   end
 
-  class DeleteDomainEntryResultStruct
-    include JSON1_1
+  class DeleteDomainEntryResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class DeleteInstanceRequest
-    include JSON1_1
+  class DeleteInstanceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance to delete.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
     # <p>A Boolean value to indicate whether to delete the enabled add-ons for the disk.</p>
-    @[Protocol::Field(location: :body, name: "forceDeleteAddOns", required: false)]
+    @[Protocol::Field(location: :body, name: "forceDeleteAddOns", structure: false)]
     property force_delete_add_ons : Bool?
+
+    def initialize(@instance_name, @force_delete_add_ons = nil )
+    end
   end
 
-  class DeleteInstanceResultStruct
-    include JSON1_1
+  class DeleteInstanceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteInstanceSnapshotRequest
-    include JSON1_1
+  class DeleteInstanceSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the snapshot to delete.</p>
-    @[Protocol::Field(location: :body, name: "instanceSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshotName", structure: false)]
     property instance_snapshot_name : String
+
+    def initialize(@instance_snapshot_name)
+    end
   end
 
-  class DeleteInstanceSnapshotResultStruct
-    include JSON1_1
+  class DeleteInstanceSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteKeyPairRequest
-    include JSON1_1
+  class DeleteKeyPairRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the key pair to delete.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: true)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String
+
+    def initialize(@key_pair_name)
+    end
   end
 
-  class DeleteKeyPairResultStruct
-    include JSON1_1
+  class DeleteKeyPairResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class DeleteKnownHostKeysRequest
-    include JSON1_1
+  class DeleteKnownHostKeysRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance for which you want to reset the host key or certificate.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@instance_name)
+    end
   end
 
-  class DeleteKnownHostKeysResultStruct
-    include JSON1_1
+  class DeleteKnownHostKeysResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteLoadBalancerRequest
-    include JSON1_1
+  class DeleteLoadBalancerRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer you want to delete.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
+
+    def initialize(@load_balancer_name)
+    end
   end
 
-  class DeleteLoadBalancerResultStruct
-    include JSON1_1
+  class DeleteLoadBalancerResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteLoadBalancerTlsCertificateRequest
-    include JSON1_1
+  class DeleteLoadBalancerTlsCertificateRequest 
+    include JSON1_1::Structure
 
     # <p>The load balancer name.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>The SSL/TLS certificate name.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: true)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String
     # <p>When <code>true</code>, forces the deletion of an SSL/TLS certificate.</p>
     # <p>There can be two certificates associated with a Lightsail load balancer: the primary and
     # the backup. The <code>force</code> parameter is required when the primary SSL/TLS certificate
     # is in use by an instance attached to the load balancer.</p>
-    @[Protocol::Field(location: :body, name: "force", required: false)]
+    @[Protocol::Field(location: :body, name: "force", structure: false)]
     property force : Bool?
+
+    def initialize(@load_balancer_name, @certificate_name, @force = nil )
+    end
   end
 
-  class DeleteLoadBalancerTlsCertificateResultStruct
-    include JSON1_1
+  class DeleteLoadBalancerTlsCertificateResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteRelationalDatabaseRequest
-    include JSON1_1
+  class DeleteRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the database that you are deleting.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>Determines whether a final database snapshot is created before your database is deleted.
     # If <code>true</code> is specified, no database snapshot is created. If <code>false</code> is
@@ -6386,7 +5710,7 @@ module AWSSdk::Lightsail_20161128
     # <code>skip final snapshot</code> parameter is <code>false</code>.</p>
     # <p>Default: <code>false</code>
     # </p>
-    @[Protocol::Field(location: :body, name: "skipFinalSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "skipFinalSnapshot", structure: false)]
     property skip_final_snapshot : Bool?
     # <p>The name of the database snapshot created if <code>skip final snapshot</code> is
     # <code>false</code>, which is the default value for that parameter.</p>
@@ -6403,286 +5727,358 @@ module AWSSdk::Lightsail_20161128
     # <p>The first and last character must be a letter or number.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "finalRelationalDatabaseSnapshotName", required: false)]
+    @[Protocol::Field(location: :body, name: "finalRelationalDatabaseSnapshotName", structure: false)]
     property final_relational_database_snapshot_name : String?
+
+    def initialize(@relational_database_name, @skip_final_snapshot = nil , @final_relational_database_snapshot_name = nil )
+    end
   end
 
-  class DeleteRelationalDatabaseResultStruct
-    include JSON1_1
+  class DeleteRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DeleteRelationalDatabaseSnapshotRequest
-    include JSON1_1
+  class DeleteRelationalDatabaseSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the database snapshot that you are deleting.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", structure: false)]
     property relational_database_snapshot_name : String
+
+    def initialize(@relational_database_snapshot_name)
+    end
   end
 
-  class DeleteRelationalDatabaseSnapshotResultStruct
-    include JSON1_1
+  class DeleteRelationalDatabaseSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DetachCertificateFromDistributionRequest
-    include JSON1_1
+  class DetachCertificateFromDistributionRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution from which to detach the certificate.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: true)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
+
+    def initialize(@distribution_name)
+    end
   end
 
-  class DetachCertificateFromDistributionResultStruct
-    include JSON1_1
+  class DetachCertificateFromDistributionResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes the result of the action, such as the status of the request, the
     # timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class DetachDiskRequest
-    include JSON1_1
+  class DetachDiskRequest 
+    include JSON1_1::Structure
 
     # <p>The unique name of the disk you want to detach from your instance (e.g.,
     # <code>my-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String
+
+    def initialize(@disk_name)
+    end
   end
 
-  class DetachDiskResultStruct
-    include JSON1_1
+  class DetachDiskResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DetachInstancesFromLoadBalancerRequest
-    include JSON1_1
+  class DetachInstancesFromLoadBalancerRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the Lightsail load balancer.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>An array of strings containing the names of the instances you want to detach from the load
     # balancer.</p>
-    @[Protocol::Field(location: :body, name: "instanceNames", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceNames", structure: false)]
     property instance_names : Array(String)
+
+    def initialize(@load_balancer_name, @instance_names)
+    end
   end
 
-  class DetachInstancesFromLoadBalancerResultStruct
-    include JSON1_1
+  class DetachInstancesFromLoadBalancerResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DetachStaticIpRequest
-    include JSON1_1
+  class DetachStaticIpRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the static IP to detach from the instance.</p>
-    @[Protocol::Field(location: :body, name: "staticIpName", required: true)]
+    @[Protocol::Field(location: :body, name: "staticIpName", structure: false)]
     property static_ip_name : String
+
+    def initialize(@static_ip_name)
+    end
   end
 
-  class DetachStaticIpResultStruct
-    include JSON1_1
+  class DetachStaticIpResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DisableAddOnRequest
-    include JSON1_1
+  class DisableAddOnRequest 
+    include JSON1_1::Structure
 
     # <p>The add-on type to disable.</p>
-    @[Protocol::Field(location: :body, name: "addOnType", required: true)]
+    @[Protocol::Field(location: :body, name: "addOnType", structure: false)]
     property add_on_type : String
     # <p>The name of the source resource for which to disable the add-on.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
+
+    def initialize(@add_on_type, @resource_name)
+    end
   end
 
-  class DisableAddOnResultStruct
-    include JSON1_1
+  class DisableAddOnResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class DownloadDefaultKeyPairRequest
-    include JSON1_1
+  class DownloadDefaultKeyPairRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class DownloadDefaultKeyPairResultStruct
-    include JSON1_1
+  class DownloadDefaultKeyPairResultStruct 
+    include JSON1_1::Structure
 
     # <p>A base64-encoded public key of the <code>ssh-rsa</code> type.</p>
-    @[Protocol::Field(location: :body, name: "publicKeyBase64", required: false)]
+    @[Protocol::Field(location: :body, name: "publicKeyBase64", structure: false)]
     property public_key_base64 : String?
     # <p>A base64-encoded RSA private key.</p>
-    @[Protocol::Field(location: :body, name: "privateKeyBase64", required: false)]
+    @[Protocol::Field(location: :body, name: "privateKeyBase64", structure: false)]
     property private_key_base64 : String?
+
+    def initialize(@public_key_base64 = nil , @private_key_base64 = nil )
+    end
   end
 
-  class EnableAddOnRequest
-    include JSON1_1
+  class EnableAddOnRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the source resource for which to enable or modify the add-on.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
     # <p>An array of strings representing the add-on to enable or modify.</p>
-    @[Protocol::Field(location: :body, name: "addOnRequest", required: true)]
+    @[Protocol::Field(location: :body, name: "addOnRequest", structure: true)]
     property add_on_request : AddOnRequest
+
+    def initialize(@resource_name, @add_on_request)
+    end
   end
 
-  class EnableAddOnResultStruct
-    include JSON1_1
+  class EnableAddOnResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class ExportSnapshotRequest
-    include JSON1_1
+  class ExportSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance or disk snapshot to be exported to Amazon EC2.</p>
-    @[Protocol::Field(location: :body, name: "sourceSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "sourceSnapshotName", structure: false)]
     property source_snapshot_name : String
+
+    def initialize(@source_snapshot_name)
+    end
   end
 
-  class ExportSnapshotResultStruct
-    include JSON1_1
+  class ExportSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class GetActiveNamesRequest
-    include JSON1_1
+  class GetActiveNamesRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetActiveNames</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetActiveNamesResultStruct
-    include JSON1_1
+  class GetActiveNamesResultStruct 
+    include JSON1_1::Structure
 
     # <p>The list of active names returned by the get active names request.</p>
-    @[Protocol::Field(location: :body, name: "activeNames", required: false)]
+    @[Protocol::Field(location: :body, name: "activeNames", structure: false)]
     property active_names : Array(String)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetActiveNames</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@active_names = nil , @next_page_token = nil )
+    end
   end
 
-  class GetAlarmsRequest
-    include JSON1_1
+  class GetAlarmsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the alarm.</p>
     # <p>Specify an alarm name to return information about a specific alarm.</p>
-    @[Protocol::Field(location: :body, name: "alarmName", required: false)]
+    @[Protocol::Field(location: :body, name: "alarmName", structure: false)]
     property alarm_name : String?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetAlarms</code> request. If your results
     # are paginated, the response will return a next page token that you can specify as the page
     # token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
     # <p>The name of the Lightsail resource being monitored by the alarm.</p>
     # <p>Specify a monitored resource name to return information about all alarms for a specific
     # resource.</p>
-    @[Protocol::Field(location: :body, name: "monitoredResourceName", required: false)]
+    @[Protocol::Field(location: :body, name: "monitoredResourceName", structure: false)]
     property monitored_resource_name : String?
+
+    def initialize(@alarm_name = nil , @page_token = nil , @monitored_resource_name = nil )
+    end
   end
 
-  class MonitoredResourceInfoStruct
-    include JSON1_1
+  class MonitoredResourceInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The Amazon Resource Name (ARN) of the resource being monitored.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The name of the Lightsail resource being monitored.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Lightsail resource type of the resource being monitored.</p>
     # <p>Instances, load balancers, and relational databases are the only Lightsail resources
     # that can currently be monitored by alarms.</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
+
+    def initialize(@arn = nil , @name = nil , @resource_type = nil )
+    end
   end
 
-  class AlarmStruct
-    include JSON1_1
+  class AlarmStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the alarm.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the alarm.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The timestamp when the alarm was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>An object that lists information about the location of the alarm.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>Alarm</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail alarm. This code enables our support team to look up your Lightsail
     # information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>An object that lists information about the resource monitored by the alarm.</p>
-    @[Protocol::Field(location: :body, name: "monitoredResourceInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "monitoredResourceInfo", structure: true)]
     property monitored_resource_info : MonitoredResourceInfoStruct?
     # <p>The arithmetic operation used when comparing the specified statistic and threshold.</p>
-    @[Protocol::Field(location: :body, name: "comparisonOperator", required: false)]
+    @[Protocol::Field(location: :body, name: "comparisonOperator", structure: false)]
     property comparison_operator : String?
     # <p>The number of periods over which data is compared to the specified threshold.</p>
-    @[Protocol::Field(location: :body, name: "evaluationPeriods", required: false)]
+    @[Protocol::Field(location: :body, name: "evaluationPeriods", structure: false)]
     property evaluation_periods : Int32?
     # <p>The period, in seconds, over which the statistic is applied.</p>
-    @[Protocol::Field(location: :body, name: "period", required: false)]
+    @[Protocol::Field(location: :body, name: "period", structure: false)]
     property period : Int32?
     # <p>The value against which the specified statistic is compared.</p>
-    @[Protocol::Field(location: :body, name: "threshold", required: false)]
+    @[Protocol::Field(location: :body, name: "threshold", structure: false)]
     property threshold : Float64?
     # <p>The number of data points that must not within the specified threshold to trigger the
     # alarm.</p>
-    @[Protocol::Field(location: :body, name: "datapointsToAlarm", required: false)]
+    @[Protocol::Field(location: :body, name: "datapointsToAlarm", structure: false)]
     property datapoints_to_alarm : Int32?
     # <p>Specifies how the alarm handles missing data points.</p>
     # <p>An alarm can treat missing data in the following ways:</p>
@@ -6708,7 +6104,7 @@ module AWSSdk::Lightsail_20161128
     # <code>missing</code> - Missing data is treated as missing.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "treatMissingData", required: false)]
+    @[Protocol::Field(location: :body, name: "treatMissingData", structure: false)]
     property treat_missing_data : String?
     # <p>The statistic for the metric associated with the alarm.</p>
     # <p>The following statistics are available:</p>
@@ -6741,10 +6137,10 @@ module AWSSdk::Lightsail_20161128
     # statistical calculation.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "statistic", required: false)]
+    @[Protocol::Field(location: :body, name: "statistic", structure: false)]
     property statistic : String?
     # <p>The name of the metric associated with the alarm.</p>
-    @[Protocol::Field(location: :body, name: "metricName", required: false)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>The current state of the alarm.</p>
     # <p>An alarm has the following possible states:</p>
@@ -6764,374 +6160,434 @@ module AWSSdk::Lightsail_20161128
     # <code>OK</code> - The metric is within the defined threshold.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The unit of the metric associated with the alarm.</p>
-    @[Protocol::Field(location: :body, name: "unit", required: false)]
+    @[Protocol::Field(location: :body, name: "unit", structure: false)]
     property unit : String?
     # <p>The contact protocols for the alarm, such as <code>Email</code>, <code>SMS</code> (text
     # messaging), or both.</p>
-    @[Protocol::Field(location: :body, name: "contactProtocols", required: false)]
+    @[Protocol::Field(location: :body, name: "contactProtocols", structure: false)]
     property contact_protocols : Array(String)?
     # <p>The alarm states that trigger a notification.</p>
-    @[Protocol::Field(location: :body, name: "notificationTriggers", required: false)]
+    @[Protocol::Field(location: :body, name: "notificationTriggers", structure: false)]
     property notification_triggers : Array(String)?
     # <p>Indicates whether the alarm is enabled.</p>
-    @[Protocol::Field(location: :body, name: "notificationEnabled", required: false)]
+    @[Protocol::Field(location: :body, name: "notificationEnabled", structure: false)]
     property notification_enabled : Bool?
+
+    def initialize(@name = nil , @notification_triggers = nil , @contact_protocols = nil , @unit = nil , @state = nil , @metric_name = nil , @statistic = nil , @treat_missing_data = nil , @datapoints_to_alarm = nil , @threshold = nil , @period = nil , @evaluation_periods = nil , @comparison_operator = nil , @monitored_resource_info = nil , @support_code = nil , @resource_type = nil , @location = nil , @created_at = nil , @arn = nil , @notification_enabled = nil )
+    end
   end
 
-  class GetAlarmsResultStruct
-    include JSON1_1
+  class GetAlarmsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the alarms.</p>
-    @[Protocol::Field(location: :body, name: "alarms", required: false)]
+    @[Protocol::Field(location: :body, name: "alarms", structure: false)]
     property alarms : Array(AlarmStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetAlarms</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@alarms = nil , @next_page_token = nil )
+    end
   end
 
-  class GetAutoSnapshotsRequest
-    include JSON1_1
+  class GetAutoSnapshotsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the source instance or disk from which to get automatic snapshot
     # information.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
+
+    def initialize(@resource_name)
+    end
   end
 
-  class AttachedDiskStruct
-    include JSON1_1
+  class AttachedDiskStruct 
+    include JSON1_1::Structure
 
     # <p>The path of the disk (e.g., <code>/dev/xvdf</code>).</p>
-    @[Protocol::Field(location: :body, name: "path", required: false)]
+    @[Protocol::Field(location: :body, name: "path", structure: false)]
     property path : String?
     # <p>The size of the disk in GB.</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
+
+    def initialize(@path = nil , @size_in_gb = nil )
+    end
   end
 
-  class AutoSnapshotDetailsStruct
-    include JSON1_1
+  class AutoSnapshotDetailsStruct 
+    include JSON1_1::Structure
 
     # <p>The date of the automatic snapshot in <code>YYYY-MM-DD</code> format.</p>
-    @[Protocol::Field(location: :body, name: "date", required: false)]
+    @[Protocol::Field(location: :body, name: "date", structure: false)]
     property date : String?
     # <p>The timestamp when the automatic snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The status of the automatic snapshot.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>An array of objects that describe the block storage disks attached to the instance when
     # the automatic snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "fromAttachedDisks", required: false)]
+    @[Protocol::Field(location: :body, name: "fromAttachedDisks", structure: false)]
     property from_attached_disks : Array(AttachedDiskStruct)?
+
+    def initialize(@date = nil , @created_at = nil , @status = nil , @from_attached_disks = nil )
+    end
   end
 
-  class GetAutoSnapshotsResultStruct
-    include JSON1_1
+  class GetAutoSnapshotsResultStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the source instance or disk for the automatic snapshots.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String?
     # <p>The resource type (e.g., <code>Instance</code> or <code>Disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>An array of objects that describe the automatic snapshots that are available for the
     # specified source instance or disk.</p>
-    @[Protocol::Field(location: :body, name: "autoSnapshots", required: false)]
+    @[Protocol::Field(location: :body, name: "autoSnapshots", structure: false)]
     property auto_snapshots : Array(AutoSnapshotDetailsStruct)?
+
+    def initialize(@resource_name = nil , @resource_type = nil , @auto_snapshots = nil )
+    end
   end
 
-  class GetBlueprintsRequest
-    include JSON1_1
+  class GetBlueprintsRequest 
+    include JSON1_1::Structure
 
     # <p>A Boolean value indicating whether to include inactive results in your request.</p>
-    @[Protocol::Field(location: :body, name: "includeInactive", required: false)]
+    @[Protocol::Field(location: :body, name: "includeInactive", structure: false)]
     property include_inactive : Bool?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetBlueprints</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@include_inactive = nil , @page_token = nil )
+    end
   end
 
-  class BlueprintStruct
-    include JSON1_1
+  class BlueprintStruct 
+    include JSON1_1::Structure
 
     # <p>The ID for the virtual private server image (e.g., <code>app_wordpress_4_4</code> or
     # <code>app_lamp_7_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "blueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "blueprintId", structure: false)]
     property blueprint_id : String?
     # <p>The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The group name of the blueprint (e.g., <code>amazon-linux</code>).</p>
-    @[Protocol::Field(location: :body, name: "group", required: false)]
+    @[Protocol::Field(location: :body, name: "group", structure: false)]
     property group : String?
     # <p>The type of the blueprint (e.g., <code>os</code> or <code>app</code>).</p>
-    @[Protocol::Field(location: :body, name: "type", required: false)]
+    @[Protocol::Field(location: :body, name: "type", structure: false)]
     property type : String?
     # <p>The description of the blueprint.</p>
-    @[Protocol::Field(location: :body, name: "description", required: false)]
+    @[Protocol::Field(location: :body, name: "description", structure: false)]
     property description : String?
     # <p>A Boolean value indicating whether the blueprint is active. Inactive blueprints are listed
     # to support customers with existing instances but are not necessarily available for launch of
     # new instances. Blueprints are marked inactive when they become outdated due to operating
     # system updates or new application releases.</p>
-    @[Protocol::Field(location: :body, name: "isActive", required: false)]
+    @[Protocol::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
     # <p>The minimum bundle power required to run this blueprint. For example, you need a bundle
     # with a power value of 500 or more to create an instance that uses a blueprint with a minimum
     # power value of 500. <code>0</code> indicates that the blueprint runs on all instance sizes.
     # </p>
-    @[Protocol::Field(location: :body, name: "minPower", required: false)]
+    @[Protocol::Field(location: :body, name: "minPower", structure: false)]
     property min_power : Int32?
     # <p>The version number of the operating system, application, or stack (e.g.,
     # <code>2016.03.0</code>).</p>
-    @[Protocol::Field(location: :body, name: "version", required: false)]
+    @[Protocol::Field(location: :body, name: "version", structure: false)]
     property version : String?
     # <p>The version code.</p>
-    @[Protocol::Field(location: :body, name: "versionCode", required: false)]
+    @[Protocol::Field(location: :body, name: "versionCode", structure: false)]
     property version_code : String?
     # <p>The product URL to learn more about the image or blueprint.</p>
-    @[Protocol::Field(location: :body, name: "productUrl", required: false)]
+    @[Protocol::Field(location: :body, name: "productUrl", structure: false)]
     property product_url : String?
     # <p>The end-user license agreement URL for the image or blueprint.</p>
-    @[Protocol::Field(location: :body, name: "licenseUrl", required: false)]
+    @[Protocol::Field(location: :body, name: "licenseUrl", structure: false)]
     property license_url : String?
     # <p>The operating system platform (either Linux/Unix-based or Windows Server-based) of the
     # blueprint.</p>
-    @[Protocol::Field(location: :body, name: "platform", required: false)]
+    @[Protocol::Field(location: :body, name: "platform", structure: false)]
     property platform : String?
+
+    def initialize(@blueprint_id = nil , @name = nil , @group = nil , @type = nil , @description = nil , @is_active = nil , @min_power = nil , @version = nil , @version_code = nil , @product_url = nil , @license_url = nil , @platform = nil )
+    end
   end
 
-  class GetBlueprintsResultStruct
-    include JSON1_1
+  class GetBlueprintsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs that contains information about the available
     # blueprints.</p>
-    @[Protocol::Field(location: :body, name: "blueprints", required: false)]
+    @[Protocol::Field(location: :body, name: "blueprints", structure: false)]
     property blueprints : Array(BlueprintStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetBlueprints</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@blueprints = nil , @next_page_token = nil )
+    end
   end
 
-  class GetBundlesRequest
-    include JSON1_1
+  class GetBundlesRequest 
+    include JSON1_1::Structure
 
     # <p>A Boolean value that indicates whether to include inactive bundle results in your
     # request.</p>
-    @[Protocol::Field(location: :body, name: "includeInactive", required: false)]
+    @[Protocol::Field(location: :body, name: "includeInactive", structure: false)]
     property include_inactive : Bool?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetBundles</code> request. If your results
     # are paginated, the response will return a next page token that you can specify as the page
     # token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@include_inactive = nil , @page_token = nil )
+    end
   end
 
-  class BundleStruct
-    include JSON1_1
+  class BundleStruct 
+    include JSON1_1::Structure
 
     # <p>The price in US dollars (e.g., <code>5.0</code>) of the bundle.</p>
-    @[Protocol::Field(location: :body, name: "price", required: false)]
+    @[Protocol::Field(location: :body, name: "price", structure: false)]
     property price : Float32?
     # <p>The number of vCPUs included in the bundle (e.g., <code>2</code>).</p>
-    @[Protocol::Field(location: :body, name: "cpuCount", required: false)]
+    @[Protocol::Field(location: :body, name: "cpuCount", structure: false)]
     property cpu_count : Int32?
     # <p>The size of the SSD (e.g., <code>30</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSizeInGb", structure: false)]
     property disk_size_in_gb : Int32?
     # <p>The bundle ID (e.g., <code>micro_1_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
     # <p>The Amazon EC2 instance type (e.g., <code>t2.micro</code>).</p>
-    @[Protocol::Field(location: :body, name: "instanceType", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceType", structure: false)]
     property instance_type : String?
     # <p>A Boolean value indicating whether the bundle is active.</p>
-    @[Protocol::Field(location: :body, name: "isActive", required: false)]
+    @[Protocol::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
     # <p>A friendly name for the bundle (e.g., <code>Micro</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>A numeric value that represents the power of the bundle (e.g., <code>500</code>). You can
     # use the bundle's power value in conjunction with a blueprint's minimum power value to
     # determine whether the blueprint will run on the bundle. For example, you need a bundle with a
     # power value of 500 or more to create an instance that uses a blueprint with a minimum power
     # value of 500.</p>
-    @[Protocol::Field(location: :body, name: "power", required: false)]
+    @[Protocol::Field(location: :body, name: "power", structure: false)]
     property power : Int32?
     # <p>The amount of RAM in GB (e.g., <code>2.0</code>).</p>
-    @[Protocol::Field(location: :body, name: "ramSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
     # <p>The data transfer rate per month in GB (e.g., <code>2000</code>).</p>
-    @[Protocol::Field(location: :body, name: "transferPerMonthInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "transferPerMonthInGb", structure: false)]
     property transfer_per_month_in_gb : Int32?
     # <p>The operating system platform (Linux/Unix-based or Windows Server-based) that the bundle
     # supports. You can only launch a <code>WINDOWS</code> bundle on a blueprint that supports the
     # <code>WINDOWS</code> platform. <code>LINUX_UNIX</code> blueprints require a
     # <code>LINUX_UNIX</code> bundle.</p>
-    @[Protocol::Field(location: :body, name: "supportedPlatforms", required: false)]
+    @[Protocol::Field(location: :body, name: "supportedPlatforms", structure: false)]
     property supported_platforms : Array(String)?
+
+    def initialize(@price = nil , @cpu_count = nil , @disk_size_in_gb = nil , @bundle_id = nil , @instance_type = nil , @is_active = nil , @name = nil , @power = nil , @ram_size_in_gb = nil , @transfer_per_month_in_gb = nil , @supported_platforms = nil )
+    end
   end
 
-  class GetBundlesResultStruct
-    include JSON1_1
+  class GetBundlesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs that contains information about the available bundles.</p>
-    @[Protocol::Field(location: :body, name: "bundles", required: false)]
+    @[Protocol::Field(location: :body, name: "bundles", structure: false)]
     property bundles : Array(BundleStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetBundles</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@bundles = nil , @next_page_token = nil )
+    end
   end
 
-  class GetCertificatesRequest
-    include JSON1_1
+  class GetCertificatesRequest 
+    include JSON1_1::Structure
 
     # <p>The status of the certificates for which to return information.</p>
     # <p>For example, specify <code>ISSUED</code> to return only certificates with an
     # <code>ISSUED</code> status.</p>
     # <p>When omitted, the response includes all of your certificates in the AWS Region where the
     # request is made, regardless of their current status.</p>
-    @[Protocol::Field(location: :body, name: "certificateStatuses", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateStatuses", structure: false)]
     property certificate_statuses : Array(String)?
     # <p>Indicates whether to include detailed information about the certificates in the
     # response.</p>
     # <p>When omitted, the response includes only the certificate names, Amazon Resource Names
     # (ARNs), domain names, and tags.</p>
-    @[Protocol::Field(location: :body, name: "includeCertificateDetails", required: false)]
+    @[Protocol::Field(location: :body, name: "includeCertificateDetails", structure: false)]
     property include_certificate_details : Bool?
     # <p>The name for the certificate for which to return information.</p>
     # <p>When omitted, the response includes all of your certificates in the AWS Region where the
     # request is made.</p>
-    @[Protocol::Field(location: :body, name: "certificateName", required: false)]
+    @[Protocol::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String?
+
+    def initialize(@certificate_statuses = nil , @include_certificate_details = nil , @certificate_name = nil )
+    end
   end
 
-  class GetCertificatesResultStruct
-    include JSON1_1
+  class GetCertificatesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes certificates.</p>
-    @[Protocol::Field(location: :body, name: "certificates", required: false)]
+    @[Protocol::Field(location: :body, name: "certificates", structure: false)]
     property certificates : Array(CertificateSummaryStruct)?
+
+    def initialize(@certificates = nil )
+    end
   end
 
-  class GetCloudFormationStackRecordsRequest
-    include JSON1_1
+  class GetCloudFormationStackRecordsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetClouFormationStackRecords</code> request.
     # If your results are paginated, the response will return a next page token that you can specify
     # as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class CloudFormationStackRecordSourceInfoStruct
-    include JSON1_1
+  class CloudFormationStackRecordSourceInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The Lightsail resource type (e.g., <code>ExportSnapshotRecord</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The name of the record.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the export snapshot record.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
+
+    def initialize(@resource_type = nil , @name = nil , @arn = nil )
+    end
   end
 
-  class DestinationInfoStruct
-    include JSON1_1
+  class DestinationInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The ID of the resource created at the destination.</p>
-    @[Protocol::Field(location: :body, name: "id", required: false)]
+    @[Protocol::Field(location: :body, name: "id", structure: false)]
     property id : String?
     # <p>The destination service of the record.</p>
-    @[Protocol::Field(location: :body, name: "service", required: false)]
+    @[Protocol::Field(location: :body, name: "service", structure: false)]
     property service : String?
+
+    def initialize(@id = nil , @service = nil )
+    end
   end
 
-  class CloudFormationStackRecordStruct
-    include JSON1_1
+  class CloudFormationStackRecordStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the CloudFormation stack record. It starts with
     # <code>CloudFormationStackRecord</code> followed by a GUID.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the CloudFormation stack record.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The date when the CloudFormation stack record was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>A list of objects describing the Availability Zone and AWS Region of the CloudFormation
     # stack record.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The current state of the CloudFormation stack record.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>A list of objects describing the source of the CloudFormation stack record.</p>
-    @[Protocol::Field(location: :body, name: "sourceInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceInfo", structure: false)]
     property source_info : Array(CloudFormationStackRecordSourceInfoStruct)?
     # <p>A list of objects describing the destination service, which is AWS CloudFormation, and the Amazon
     # Resource Name (ARN) of the AWS CloudFormation stack.</p>
-    @[Protocol::Field(location: :body, name: "destinationInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "destinationInfo", structure: true)]
     property destination_info : DestinationInfoStruct?
+
+    def initialize(@name = nil , @arn = nil , @created_at = nil , @location = nil , @resource_type = nil , @state = nil , @source_info = nil , @destination_info = nil )
+    end
   end
 
-  class GetCloudFormationStackRecordsResultStruct
-    include JSON1_1
+  class GetCloudFormationStackRecordsResultStruct 
+    include JSON1_1::Structure
 
     # <p>A list of objects describing the CloudFormation stack records.</p>
-    @[Protocol::Field(location: :body, name: "cloudFormationStackRecords", required: false)]
+    @[Protocol::Field(location: :body, name: "cloudFormationStackRecords", structure: false)]
     property cloud_formation_stack_records : Array(CloudFormationStackRecordStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another
     # <code>GetCloudFormationStackRecords</code> request and specify the next page token using the
     # <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@cloud_formation_stack_records = nil , @next_page_token = nil )
+    end
   end
 
-  class GetContactMethodsRequest
-    include JSON1_1
+  class GetContactMethodsRequest 
+    include JSON1_1::Structure
 
     # <p>The protocols used to send notifications, such as <code>Email</code>, or <code>SMS</code>
     # (text messaging).</p>
     # <p>Specify a protocol in your request to return information about a specific contact method
     # protocol.</p>
-    @[Protocol::Field(location: :body, name: "protocols", required: false)]
+    @[Protocol::Field(location: :body, name: "protocols", structure: false)]
     property protocols : Array(String)?
+
+    def initialize(@protocols = nil )
+    end
   end
 
-  class ContactMethodStruct
-    include JSON1_1
+  class ContactMethodStruct 
+    include JSON1_1::Structure
 
     # <p>The destination of the contact method, such as an email address or a mobile phone
     # number.</p>
-    @[Protocol::Field(location: :body, name: "contactEndpoint", required: false)]
+    @[Protocol::Field(location: :body, name: "contactEndpoint", structure: false)]
     property contact_endpoint : String?
     # <p>The current status of the contact method.</p>
     # <p>A contact method has the following possible status:</p>
@@ -7151,136 +6607,157 @@ module AWSSdk::Lightsail_20161128
     # verification has expired.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The protocol of the contact method, such as email or SMS (text messaging).</p>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
     # <p>The name of the contact method.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the contact method.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The timestamp when the contact method was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
-    #
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>ContactMethod</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail contact method. This code enables our support team to look up your
     # Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
+
+    def initialize(@contact_endpoint = nil , @status = nil , @protocol = nil , @name = nil , @arn = nil , @created_at = nil , @location = nil , @resource_type = nil , @support_code = nil )
+    end
   end
 
-  class GetContactMethodsResultStruct
-    include JSON1_1
+  class GetContactMethodsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the contact methods.</p>
-    @[Protocol::Field(location: :body, name: "contactMethods", required: false)]
+    @[Protocol::Field(location: :body, name: "contactMethods", structure: false)]
     property contact_methods : Array(ContactMethodStruct)?
+
+    def initialize(@contact_methods = nil )
+    end
   end
 
-  class GetContainerAPIMetadataRequest
-    include JSON1_1
+  class GetContainerAPIMetadataRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class GetContainerAPIMetadataResultStruct
-    include JSON1_1
+  class GetContainerAPIMetadataResultStruct 
+    include JSON1_1::Structure
 
     # <p>Metadata about Lightsail containers, such as the current version of the Lightsail
     # Control (lightsailctl) plugin.</p>
-    @[Protocol::Field(location: :body, name: "metadata", required: false)]
+    @[Protocol::Field(location: :body, name: "metadata", structure: false)]
     property metadata : Array(Hash(String, String))?
+
+    def initialize(@metadata = nil )
+    end
   end
 
-  class GetContainerImagesRequest
-    include JSON1_1
+  class GetContainerImagesRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to return registered container images.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
+
+    def initialize(@service_name)
+    end
   end
 
-  class ContainerImageStruct
-    include JSON1_1
+  class ContainerImageStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the container image.</p>
-    @[Protocol::Field(location: :body, name: "image", required: false)]
+    @[Protocol::Field(location: :body, name: "image", structure: false)]
     property image : String?
     # <p>The digest of the container image.</p>
-    @[Protocol::Field(location: :body, name: "digest", required: false)]
+    @[Protocol::Field(location: :body, name: "digest", structure: false)]
     property digest : String?
     # <p>The timestamp when the container image was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
+
+    def initialize(@image = nil , @digest = nil , @created_at = nil )
+    end
   end
 
-  class GetContainerImagesResultStruct
-    include JSON1_1
+  class GetContainerImagesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe container images that are registered to the container
     # service.</p>
-    @[Protocol::Field(location: :body, name: "containerImages", required: false)]
+    @[Protocol::Field(location: :body, name: "containerImages", structure: false)]
     property container_images : Array(ContainerImageStruct)?
+
+    def initialize(@container_images = nil )
+    end
   end
 
-  class GetContainerLogRequest
-    include JSON1_1
+  class GetContainerLogRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to get a container log.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The name of the container that is either running or previously ran on the container
     # service for which to return a log.</p>
-    @[Protocol::Field(location: :uri, name: "containerName", required: true)]
+    @[Protocol::Field(location: :uri, name: "containerName", structure: false)]
     property container_name : String
     # <p>The start of the time interval for which to get log data.</p>
-    #
+    # 
     # <p>Constraints:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>Specified in Coordinated Universal Time (UTC).</p>
     # </li>
     # <li>
     # <p>Specified in the Unix time format.</p>
-    #
+    # 
     # <p>For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify
     # <code>1538424000</code> as the start time.</p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
-    @[Protocol::Field(location: :query, name: "startTime", required: false)]
+    @[Protocol::Field(location: :query, name: "startTime", structure: false)]
     property start_time : Time?
     # <p>The end of the time interval for which to get log data.</p>
-    #
+    # 
     # <p>Constraints:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>Specified in Coordinated Universal Time (UTC).</p>
     # </li>
     # <li>
     # <p>Specified in the Unix time format.</p>
-    #
+    # 
     # <p>For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify
     # <code>1538427600</code> as the end time.</p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
-    @[Protocol::Field(location: :query, name: "endTime", required: false)]
+    @[Protocol::Field(location: :query, name: "endTime", structure: false)]
     property end_time : Time?
     # <p>The pattern to use to filter the returned log events to a specific term.</p>
-    #
+    # 
     # <p>The following are a few examples of filter patterns that you can specify:</p>
     # <ul>
     # <li>
@@ -7305,71 +6782,86 @@ module AWSSdk::Lightsail_20161128
     # <code>"?ERROR ?Exception"</code>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :query, name: "filterPattern", required: false)]
+    @[Protocol::Field(location: :query, name: "filterPattern", structure: false)]
     property filter_pattern : String?
     # <p>The token to advance to the next page of results from your request.</p>
-    #
+    # 
     # <p>To get a page token, perform an initial <code>GetContainerLog</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :query, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :query, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@service_name, @container_name, @start_time = nil , @end_time = nil , @filter_pattern = nil , @page_token = nil )
+    end
   end
 
-  class ContainerServiceLogEventStruct
-    include JSON1_1
+  class ContainerServiceLogEventStruct 
+    include JSON1_1::Structure
 
     # <p>The timestamp when the container service log event was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The message of the container service log event.</p>
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
+
+    def initialize(@created_at = nil , @message = nil )
+    end
   end
 
-  class GetContainerLogResultStruct
-    include JSON1_1
+  class GetContainerLogResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the log events of a container.</p>
-    @[Protocol::Field(location: :body, name: "logEvents", required: false)]
+    @[Protocol::Field(location: :body, name: "logEvents", structure: false)]
     property log_events : Array(ContainerServiceLogEventStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
-    #
+    # 
     # <p>A next page token is not returned if there are no more results to display.</p>
-    #
+    # 
     # <p>To get the next page of results, perform another <code>GetContainerLog</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@log_events = nil , @next_page_token = nil )
+    end
   end
 
-  class GetContainerServiceDeploymentsRequest
-    include JSON1_1
+  class GetContainerServiceDeploymentsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to return deployments.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
+
+    def initialize(@service_name)
+    end
   end
 
-  class GetContainerServiceDeploymentsResultStruct
-    include JSON1_1
+  class GetContainerServiceDeploymentsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe deployments for a container service.</p>
-    @[Protocol::Field(location: :body, name: "deployments", required: false)]
+    @[Protocol::Field(location: :body, name: "deployments", structure: false)]
     property deployments : Array(ContainerServiceDeploymentStruct)?
+
+    def initialize(@deployments = nil )
+    end
   end
 
-  class GetContainerServiceMetricDataRequest
-    include JSON1_1
+  class GetContainerServiceMetricDataRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to get metric data.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The metric for which you want to return information.</p>
-    #
+    # 
     # <p>Valid container service metric names are listed below, along with the most useful
     # statistics to include in your request, and the published unit value.</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>
@@ -7390,24 +6882,24 @@ module AWSSdk::Lightsail_20161128
     # <p>Unit: The published unit is <code>Percent</code>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :query, name: "metricName", required: true)]
+    @[Protocol::Field(location: :query, name: "metricName", structure: false)]
     property metric_name : String
     # <p>The start time of the time period.</p>
-    @[Protocol::Field(location: :query, name: "startTime", required: true)]
+    @[Protocol::Field(location: :query, name: "startTime", structure: false)]
     property start_time : Time
     # <p>The end time of the time period.</p>
-    @[Protocol::Field(location: :query, name: "endTime", required: true)]
+    @[Protocol::Field(location: :query, name: "endTime", structure: false)]
     property end_time : Time
     # <p>The granularity, in seconds, of the returned data points.</p>
-    #
+    # 
     # <p>All container service metric data is available in 5-minute (300 seconds)
     # granularity.</p>
-    @[Protocol::Field(location: :query, name: "period", required: true)]
+    @[Protocol::Field(location: :query, name: "period", structure: false)]
     property period : Int32
     # <p>The statistic for the metric.</p>
-    #
+    # 
     # <p>The following statistics are available:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>
@@ -7438,189 +6930,219 @@ module AWSSdk::Lightsail_20161128
     # statistical calculation.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :query, name: "statistics", required: true)]
+    @[Protocol::Field(location: :query, name: "statistics", structure: false)]
     property statistics : Array(String)
+
+    def initialize(@service_name, @metric_name, @start_time, @end_time, @period, @statistics)
+    end
   end
 
-  class MetricDatapointStruct
-    include JSON1_1
+  class MetricDatapointStruct 
+    include JSON1_1::Structure
 
     # <p>The average.</p>
-    @[Protocol::Field(location: :body, name: "average", required: false)]
+    @[Protocol::Field(location: :body, name: "average", structure: false)]
     property average : Float64?
     # <p>The maximum.</p>
-    @[Protocol::Field(location: :body, name: "maximum", required: false)]
+    @[Protocol::Field(location: :body, name: "maximum", structure: false)]
     property maximum : Float64?
     # <p>The minimum.</p>
-    @[Protocol::Field(location: :body, name: "minimum", required: false)]
+    @[Protocol::Field(location: :body, name: "minimum", structure: false)]
     property minimum : Float64?
     # <p>The sample count.</p>
-    @[Protocol::Field(location: :body, name: "sampleCount", required: false)]
+    @[Protocol::Field(location: :body, name: "sampleCount", structure: false)]
     property sample_count : Float64?
     # <p>The sum.</p>
-    @[Protocol::Field(location: :body, name: "sum", required: false)]
+    @[Protocol::Field(location: :body, name: "sum", structure: false)]
     property sum : Float64?
     # <p>The timestamp (e.g., <code>1479816991.349</code>).</p>
-    @[Protocol::Field(location: :body, name: "timestamp", required: false)]
+    @[Protocol::Field(location: :body, name: "timestamp", structure: false)]
     property timestamp : Time?
     # <p>The unit. </p>
-    @[Protocol::Field(location: :body, name: "unit", required: false)]
+    @[Protocol::Field(location: :body, name: "unit", structure: false)]
     property unit : String?
+
+    def initialize(@average = nil , @maximum = nil , @minimum = nil , @sample_count = nil , @sum = nil , @timestamp = nil , @unit = nil )
+    end
   end
 
-  class GetContainerServiceMetricDataResultStruct
-    include JSON1_1
+  class GetContainerServiceMetricDataResultStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the metric returned. </p>
-    @[Protocol::Field(location: :body, name: "metricName", required: false)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[Protocol::Field(location: :body, name: "metricData", required: false)]
+    @[Protocol::Field(location: :body, name: "metricData", structure: false)]
     property metric_data : Array(MetricDatapointStruct)?
+
+    def initialize(@metric_name = nil , @metric_data = nil )
+    end
   end
 
-  class GetContainerServicePowersRequest
-    include JSON1_1
+  class GetContainerServicePowersRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class ContainerServicePowerStruct
-    include JSON1_1
+  class ContainerServicePowerStruct 
+    include JSON1_1::Structure
 
     # <p>The ID of the power (e.g., <code>nano-1</code>).</p>
-    @[Protocol::Field(location: :body, name: "powerId", required: false)]
+    @[Protocol::Field(location: :body, name: "powerId", structure: false)]
     property power_id : String?
     # <p>The monthly price of the power in USD.</p>
-    @[Protocol::Field(location: :body, name: "price", required: false)]
+    @[Protocol::Field(location: :body, name: "price", structure: false)]
     property price : Float32?
     # <p>The number of vCPUs included in the power.</p>
-    @[Protocol::Field(location: :body, name: "cpuCount", required: false)]
+    @[Protocol::Field(location: :body, name: "cpuCount", structure: false)]
     property cpu_count : Float32?
     # <p>The amount of RAM (in GB) of the power.</p>
-    @[Protocol::Field(location: :body, name: "ramSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
     # <p>The friendly name of the power (e.g., <code>nano</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>A Boolean value indicating whether the power is active and can be specified for container
     # services.</p>
-    @[Protocol::Field(location: :body, name: "isActive", required: false)]
+    @[Protocol::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
+
+    def initialize(@power_id = nil , @price = nil , @cpu_count = nil , @ram_size_in_gb = nil , @name = nil , @is_active = nil )
+    end
   end
 
-  class GetContainerServicePowersResultStruct
-    include JSON1_1
+  class GetContainerServicePowersResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the powers that can be specified for a container
     # service.</p>
-    @[Protocol::Field(location: :body, name: "powers", required: false)]
+    @[Protocol::Field(location: :body, name: "powers", structure: false)]
     property powers : Array(ContainerServicePowerStruct)?
+
+    def initialize(@powers = nil )
+    end
   end
 
-  class GetContainerServicesRequest
-    include JSON1_1
+  class GetContainerServicesRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to return information.</p>
-    #
+    # 
     # <p>When omitted, the response includes all of your container services in the AWS Region
     # where the request is made.</p>
-    @[Protocol::Field(location: :query, name: "serviceName", required: false)]
+    @[Protocol::Field(location: :query, name: "serviceName", structure: false)]
     property service_name : String?
+
+    def initialize(@service_name = nil )
+    end
   end
 
-  class ContainerServicesListResultStruct
-    include JSON1_1
+  class ContainerServicesListResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe one or more container services.</p>
-    @[Protocol::Field(location: :body, name: "containerServices", required: false)]
+    @[Protocol::Field(location: :body, name: "containerServices", structure: false)]
     property container_services : Array(ContainerServiceStruct)?
+
+    def initialize(@container_services = nil )
+    end
   end
 
-  class GetDiskRequest
-    include JSON1_1
+  class GetDiskRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the disk (e.g., <code>my-disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskName", structure: false)]
     property disk_name : String
+
+    def initialize(@disk_name)
+    end
   end
 
-  class AddOnStruct
-    include JSON1_1
+  class AddOnStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the add-on.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The status of the add-on.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The daily time when an automatic snapshot is created.</p>
     # <p>The time shown is in <code>HH:00</code> format, and in Coordinated Universal Time
     # (UTC).</p>
     # <p>The snapshot is automatically created between the time shown and up to 45 minutes
     # after.</p>
-    @[Protocol::Field(location: :body, name: "snapshotTimeOfDay", required: false)]
+    @[Protocol::Field(location: :body, name: "snapshotTimeOfDay", structure: false)]
     property snapshot_time_of_day : String?
     # <p>The next daily time an automatic snapshot will be created.</p>
     # <p>The time shown is in <code>HH:00</code> format, and in Coordinated Universal Time
     # (UTC).</p>
     # <p>The snapshot is automatically created between the time shown and up to 45 minutes
     # after.</p>
-    @[Protocol::Field(location: :body, name: "nextSnapshotTimeOfDay", required: false)]
+    @[Protocol::Field(location: :body, name: "nextSnapshotTimeOfDay", structure: false)]
     property next_snapshot_time_of_day : String?
+
+    def initialize(@name = nil , @status = nil , @snapshot_time_of_day = nil , @next_snapshot_time_of_day = nil )
+    end
   end
 
-  class DiskStruct
-    include JSON1_1
+  class DiskStruct 
+    include JSON1_1::Structure
 
     # <p>The unique name of the disk.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the disk.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The date when the disk was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region and Availability Zone where the disk is located.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>Disk</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>An array of objects representing the add-ons enabled on the disk.</p>
-    @[Protocol::Field(location: :body, name: "addOns", required: false)]
+    @[Protocol::Field(location: :body, name: "addOns", structure: false)]
     property add_ons : Array(AddOnStruct)?
     # <p>The size of the disk in GB.</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
     # <p>A Boolean value indicating whether this disk is a system disk (has an operating system
     # loaded on it).</p>
-    @[Protocol::Field(location: :body, name: "isSystemDisk", required: false)]
+    @[Protocol::Field(location: :body, name: "isSystemDisk", structure: false)]
     property is_system_disk : Bool?
     # <p>The input/output operations per second (IOPS) of the disk.</p>
-    @[Protocol::Field(location: :body, name: "iops", required: false)]
+    @[Protocol::Field(location: :body, name: "iops", structure: false)]
     property iops : Int32?
     # <p>The disk path.</p>
-    @[Protocol::Field(location: :body, name: "path", required: false)]
+    @[Protocol::Field(location: :body, name: "path", structure: false)]
     property path : String?
     # <p>Describes the status of the disk.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The resources to which the disk is attached.</p>
-    @[Protocol::Field(location: :body, name: "attachedTo", required: false)]
+    @[Protocol::Field(location: :body, name: "attachedTo", structure: false)]
     property attached_to : String?
     # <p>A Boolean value indicating whether the disk is attached.</p>
-    @[Protocol::Field(location: :body, name: "isAttached", required: false)]
+    @[Protocol::Field(location: :body, name: "isAttached", structure: false)]
     property is_attached : Bool?
     # <p>(Deprecated) The attachment state of the disk.</p>
     # <note>
@@ -7628,185 +7150,221 @@ module AWSSdk::Lightsail_20161128
     # for system disks in the API response. It is now deprecated, but still included in the
     # response. Use <code>isAttached</code> instead.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "attachmentState", required: false)]
+    @[Protocol::Field(location: :body, name: "attachmentState", structure: false)]
     property attachment_state : String?
     # <p>(Deprecated) The number of GB in use by the disk.</p>
     # <note>
     # <p>In releases prior to November 14, 2017, this parameter was not included in the API
     # response. It is now deprecated.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "gbInUse", required: false)]
+    @[Protocol::Field(location: :body, name: "gbInUse", structure: false)]
     property gb_in_use : Int32?
+
+    def initialize(@name = nil , @attachment_state = nil , @is_attached = nil , @attached_to = nil , @state = nil , @path = nil , @iops = nil , @is_system_disk = nil , @size_in_gb = nil , @add_ons = nil , @tags = nil , @resource_type = nil , @location = nil , @created_at = nil , @support_code = nil , @arn = nil , @gb_in_use = nil )
+    end
   end
 
-  class GetDiskResultStruct
-    include JSON1_1
+  class GetDiskResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object containing information about the disk.</p>
-    @[Protocol::Field(location: :body, name: "disk", required: false)]
+    @[Protocol::Field(location: :body, name: "disk", structure: true)]
     property disk : DiskStruct?
+
+    def initialize(@disk = nil )
+    end
   end
 
-  class GetDisksRequest
-    include JSON1_1
+  class GetDisksRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetDisks</code> request. If your results are
     # paginated, the response will return a next page token that you can specify as the page token
     # in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetDisksResultStruct
-    include JSON1_1
+  class GetDisksResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects containing information about all block storage disks.</p>
-    @[Protocol::Field(location: :body, name: "disks", required: false)]
+    @[Protocol::Field(location: :body, name: "disks", structure: false)]
     property disks : Array(DiskStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetDisks</code> request and specify
     # the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@disks = nil , @next_page_token = nil )
+    end
   end
 
-  class GetDiskSnapshotRequest
-    include JSON1_1
+  class GetDiskSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).</p>
-    @[Protocol::Field(location: :body, name: "diskSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "diskSnapshotName", structure: false)]
     property disk_snapshot_name : String
+
+    def initialize(@disk_snapshot_name)
+    end
   end
 
-  class DiskSnapshotStruct
-    include JSON1_1
+  class DiskSnapshotStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the disk snapshot.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The date when the disk snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region and Availability Zone where the disk snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>DiskSnapshot</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The size of the disk in GB.</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
     # <p>The status of the disk snapshot operation.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The progress of the disk snapshot operation.</p>
-    @[Protocol::Field(location: :body, name: "progress", required: false)]
+    @[Protocol::Field(location: :body, name: "progress", structure: false)]
     property progress : String?
     # <p>The unique name of the source disk from which the disk snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "fromDiskName", required: false)]
+    @[Protocol::Field(location: :body, name: "fromDiskName", structure: false)]
     property from_disk_name : String?
     # <p>The Amazon Resource Name (ARN) of the source disk from which the disk snapshot was
     # created.</p>
-    @[Protocol::Field(location: :body, name: "fromDiskArn", required: false)]
+    @[Protocol::Field(location: :body, name: "fromDiskArn", structure: false)]
     property from_disk_arn : String?
     # <p>The unique name of the source instance from which the disk (system volume) snapshot was
     # created.</p>
-    @[Protocol::Field(location: :body, name: "fromInstanceName", required: false)]
+    @[Protocol::Field(location: :body, name: "fromInstanceName", structure: false)]
     property from_instance_name : String?
     # <p>The Amazon Resource Name (ARN) of the source instance from which the disk (system volume)
     # snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "fromInstanceArn", required: false)]
+    @[Protocol::Field(location: :body, name: "fromInstanceArn", structure: false)]
     property from_instance_arn : String?
     # <p>A Boolean value indicating whether the snapshot was created from an automatic
     # snapshot.</p>
-    @[Protocol::Field(location: :body, name: "isFromAutoSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "isFromAutoSnapshot", structure: false)]
     property is_from_auto_snapshot : Bool?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @tags = nil , @size_in_gb = nil , @state = nil , @progress = nil , @from_disk_name = nil , @from_disk_arn = nil , @from_instance_name = nil , @from_instance_arn = nil , @is_from_auto_snapshot = nil )
+    end
   end
 
-  class GetDiskSnapshotResultStruct
-    include JSON1_1
+  class GetDiskSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object containing information about the disk snapshot.</p>
-    @[Protocol::Field(location: :body, name: "diskSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSnapshot", structure: true)]
     property disk_snapshot : DiskSnapshotStruct?
+
+    def initialize(@disk_snapshot = nil )
+    end
   end
 
-  class GetDiskSnapshotsRequest
-    include JSON1_1
+  class GetDiskSnapshotsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetDiskSnapshots</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetDiskSnapshotsResultStruct
-    include JSON1_1
+  class GetDiskSnapshotsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects containing information about all block storage disk snapshots.</p>
-    @[Protocol::Field(location: :body, name: "diskSnapshots", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSnapshots", structure: false)]
     property disk_snapshots : Array(DiskSnapshotStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetDiskSnapshots</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@disk_snapshots = nil , @next_page_token = nil )
+    end
   end
 
-  class GetDistributionBundlesRequest
-    include JSON1_1
+  class GetDistributionBundlesRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class DistributionBundleStruct
-    include JSON1_1
+  class DistributionBundleStruct 
+    include JSON1_1::Structure
 
     # <p>The ID of the bundle.</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
     # <p>The name of the distribution bundle.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The monthly price, in US dollars, of the bundle.</p>
-    @[Protocol::Field(location: :body, name: "price", required: false)]
+    @[Protocol::Field(location: :body, name: "price", structure: false)]
     property price : Float32?
     # <p>The monthly network transfer quota of the bundle.</p>
-    @[Protocol::Field(location: :body, name: "transferPerMonthInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "transferPerMonthInGb", structure: false)]
     property transfer_per_month_in_gb : Int32?
     # <p>Indicates whether the bundle is active, and can be specified for a new
     # distribution.</p>
-    @[Protocol::Field(location: :body, name: "isActive", required: false)]
+    @[Protocol::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
+
+    def initialize(@bundle_id = nil , @name = nil , @price = nil , @transfer_per_month_in_gb = nil , @is_active = nil )
+    end
   end
 
-  class GetDistributionBundlesResultStruct
-    include JSON1_1
+  class GetDistributionBundlesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes a distribution bundle.</p>
-    @[Protocol::Field(location: :body, name: "bundles", required: false)]
+    @[Protocol::Field(location: :body, name: "bundles", structure: false)]
     property bundles : Array(DistributionBundleStruct)?
+
+    def initialize(@bundles = nil )
+    end
   end
 
-  class GetDistributionLatestCacheResetRequest
-    include JSON1_1
+  class GetDistributionLatestCacheResetRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution for which to return the timestamp of the last cache
     # reset.</p>
@@ -7814,29 +7372,35 @@ module AWSSdk::Lightsail_20161128
     # can specify.</p>
     # <p>When omitted, the response includes the latest cache reset timestamp of all your
     # distributions.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: false)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
+
+    def initialize(@distribution_name = nil )
+    end
   end
 
-  class GetDistributionLatestCacheResetResultStruct
-    include JSON1_1
+  class GetDistributionLatestCacheResetResultStruct 
+    include JSON1_1::Structure
 
     # <p>The status of the last cache reset.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The timestamp of the last cache reset (e.g., <code>1479734909.17</code>) in Unix time
     # format.</p>
-    @[Protocol::Field(location: :body, name: "createTime", required: false)]
+    @[Protocol::Field(location: :body, name: "createTime", structure: false)]
     property create_time : Time?
+
+    def initialize(@status = nil , @create_time = nil )
+    end
   end
 
-  class GetDistributionMetricDataRequest
-    include JSON1_1
+  class GetDistributionMetricDataRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution for which to get metric data.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: true)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
     # <p>The metric for which you want to return information.</p>
     # <p>Valid distribution metric names are listed below, along with the most useful
@@ -7916,7 +7480,7 @@ module AWSSdk::Lightsail_20161128
     # <code>Unit</code>: The published unit is <code>Percent</code>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "metricName", required: true)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String
     # <p>The start of the time interval for which to get metric data.</p>
     # <p>Constraints:</p>
@@ -7931,7 +7495,7 @@ module AWSSdk::Lightsail_20161128
     # </li>
     # </ul>
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
-    @[Protocol::Field(location: :body, name: "startTime", required: true)]
+    @[Protocol::Field(location: :body, name: "startTime", structure: false)]
     property start_time : Time
     # <p>The end of the time interval for which to get metric data.</p>
     # <p>Constraints:</p>
@@ -7946,15 +7510,15 @@ module AWSSdk::Lightsail_20161128
     # </li>
     # </ul>
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
-    @[Protocol::Field(location: :body, name: "endTime", required: true)]
+    @[Protocol::Field(location: :body, name: "endTime", structure: false)]
     property end_time : Time
     # <p>The granularity, in seconds, for the metric data points that will be returned.</p>
-    @[Protocol::Field(location: :body, name: "period", required: true)]
+    @[Protocol::Field(location: :body, name: "period", structure: false)]
     property period : Int32
     # <p>The unit for the metric data request.</p>
     # <p>Valid units depend on the metric data being requested. For the valid units with each
     # available metric, see the <code>metricName</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "unit", required: true)]
+    @[Protocol::Field(location: :body, name: "unit", structure: false)]
     property unit : String
     # <p>The statistic for the metric.</p>
     # <p>The following statistics are available:</p>
@@ -7987,286 +7551,343 @@ module AWSSdk::Lightsail_20161128
     # statistical calculation.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "statistics", required: true)]
+    @[Protocol::Field(location: :body, name: "statistics", structure: false)]
     property statistics : Array(String)
+
+    def initialize(@distribution_name, @metric_name, @start_time, @end_time, @period, @unit, @statistics)
+    end
   end
 
-  class GetDistributionMetricDataResultStruct
-    include JSON1_1
+  class GetDistributionMetricDataResultStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the metric returned.</p>
-    @[Protocol::Field(location: :body, name: "metricName", required: false)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[Protocol::Field(location: :body, name: "metricData", required: false)]
+    @[Protocol::Field(location: :body, name: "metricData", structure: false)]
     property metric_data : Array(MetricDatapointStruct)?
+
+    def initialize(@metric_name = nil , @metric_data = nil )
+    end
   end
 
-  class GetDistributionsRequest
-    include JSON1_1
+  class GetDistributionsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution for which to return information.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
     # <p>When omitted, the response includes all of your distributions in the AWS Region where
     # the request is made.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: false)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetDistributions</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@distribution_name = nil , @page_token = nil )
+    end
   end
 
-  class GetDistributionsResultStruct
-    include JSON1_1
+  class GetDistributionsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe your distributions.</p>
-    @[Protocol::Field(location: :body, name: "distributions", required: false)]
+    @[Protocol::Field(location: :body, name: "distributions", structure: false)]
     property distributions : Array(LightsailDistributionStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetDistributions</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@distributions = nil , @next_page_token = nil )
+    end
   end
 
-  class GetDomainRequest
-    include JSON1_1
+  class GetDomainRequest 
+    include JSON1_1::Structure
 
     # <p>The domain name for which your want to return information about.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
+
+    def initialize(@domain_name)
+    end
   end
 
-  class DomainStruct
-    include JSON1_1
+  class DomainStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the domain.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the domain recordset (e.g.,
     # <code>arn:aws:lightsail:global:123456789101:Domain/824cede0-abc7-4f84-8dbc-12345EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The date when the domain recordset was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region and Availability Zones where the domain recordset was created.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The resource type. </p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>An array of key-value pairs containing information about the domain entries.</p>
-    @[Protocol::Field(location: :body, name: "domainEntries", required: false)]
+    @[Protocol::Field(location: :body, name: "domainEntries", structure: false)]
     property domain_entries : Array(DomainEntryStruct)?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @tags = nil , @domain_entries = nil )
+    end
   end
 
-  class GetDomainResultStruct
-    include JSON1_1
+  class GetDomainResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about your get domain request.</p>
-    @[Protocol::Field(location: :body, name: "domain", required: false)]
+    @[Protocol::Field(location: :body, name: "domain", structure: true)]
     property domain : DomainStruct?
+
+    def initialize(@domain = nil )
+    end
   end
 
-  class GetDomainsRequest
-    include JSON1_1
+  class GetDomainsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetDomains</code> request. If your results
     # are paginated, the response will return a next page token that you can specify as the page
     # token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetDomainsResultStruct
-    include JSON1_1
+  class GetDomainsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about each of the domain entries in the
     # user's account.</p>
-    @[Protocol::Field(location: :body, name: "domains", required: false)]
+    @[Protocol::Field(location: :body, name: "domains", structure: false)]
     property domains : Array(DomainStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetDomains</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@domains = nil , @next_page_token = nil )
+    end
   end
 
-  class GetExportSnapshotRecordsRequest
-    include JSON1_1
+  class GetExportSnapshotRecordsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetExportSnapshotRecords</code> request. If
     # your results are paginated, the response will return a next page token that you can specify as
     # the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class DiskInfoStruct
-    include JSON1_1
+  class DiskInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The disk name.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The disk path.</p>
-    @[Protocol::Field(location: :body, name: "path", required: false)]
+    @[Protocol::Field(location: :body, name: "path", structure: false)]
     property path : String?
     # <p>The size of the disk in GB (e.g., <code>32</code>).</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
     # <p>A Boolean value indicating whether this disk is a system disk (has an operating system
     # loaded on it).</p>
-    @[Protocol::Field(location: :body, name: "isSystemDisk", required: false)]
+    @[Protocol::Field(location: :body, name: "isSystemDisk", structure: false)]
     property is_system_disk : Bool?
+
+    def initialize(@name = nil , @path = nil , @size_in_gb = nil , @is_system_disk = nil )
+    end
   end
 
-  class InstanceSnapshotInfoStruct
-    include JSON1_1
+  class InstanceSnapshotInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The bundle ID from which the source instance was created (e.g.,
     # <code>micro_1_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "fromBundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "fromBundleId", structure: false)]
     property from_bundle_id : String?
     # <p>The blueprint ID from which the source instance (e.g., <code>os_debian_8_3</code>).</p>
-    @[Protocol::Field(location: :body, name: "fromBlueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "fromBlueprintId", structure: false)]
     property from_blueprint_id : String?
     # <p>A list of objects describing the disks that were attached to the source instance.</p>
-    @[Protocol::Field(location: :body, name: "fromDiskInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "fromDiskInfo", structure: false)]
     property from_disk_info : Array(DiskInfoStruct)?
+
+    def initialize(@from_bundle_id = nil , @from_blueprint_id = nil , @from_disk_info = nil )
+    end
   end
 
-  class DiskSnapshotInfoStruct
-    include JSON1_1
+  class DiskSnapshotInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The size of the disk in GB (e.g., <code>32</code>).</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
+
+    def initialize(@size_in_gb = nil )
+    end
   end
 
-  class ExportSnapshotRecordSourceInfoStruct
-    include JSON1_1
+  class ExportSnapshotRecordSourceInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The Lightsail resource type (e.g., <code>InstanceSnapshot</code> or
     # <code>DiskSnapshot</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The date when the source instance or disk snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The name of the source instance or disk snapshot.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the source instance or disk snapshot.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The name of the snapshot's source instance or disk.</p>
-    @[Protocol::Field(location: :body, name: "fromResourceName", required: false)]
+    @[Protocol::Field(location: :body, name: "fromResourceName", structure: false)]
     property from_resource_name : String?
     # <p>The Amazon Resource Name (ARN) of the snapshot's source instance or disk.</p>
-    @[Protocol::Field(location: :body, name: "fromResourceArn", required: false)]
+    @[Protocol::Field(location: :body, name: "fromResourceArn", structure: false)]
     property from_resource_arn : String?
     # <p>A list of objects describing an instance snapshot.</p>
-    @[Protocol::Field(location: :body, name: "instanceSnapshotInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshotInfo", structure: true)]
     property instance_snapshot_info : InstanceSnapshotInfoStruct?
     # <p>A list of objects describing a disk snapshot.</p>
-    @[Protocol::Field(location: :body, name: "diskSnapshotInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSnapshotInfo", structure: true)]
     property disk_snapshot_info : DiskSnapshotInfoStruct?
+
+    def initialize(@resource_type = nil , @created_at = nil , @name = nil , @arn = nil , @from_resource_name = nil , @from_resource_arn = nil , @instance_snapshot_info = nil , @disk_snapshot_info = nil )
+    end
   end
 
-  class ExportSnapshotRecordStruct
-    include JSON1_1
+  class ExportSnapshotRecordStruct 
+    include JSON1_1::Structure
 
     # <p>The export snapshot record name.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the export snapshot record.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The date when the export snapshot record was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region and Availability Zone where the export snapshot record is located.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>ExportSnapshotRecord</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The state of the export snapshot record.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>A list of objects describing the source of the export snapshot record.</p>
-    @[Protocol::Field(location: :body, name: "sourceInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "sourceInfo", structure: true)]
     property source_info : ExportSnapshotRecordSourceInfoStruct?
     # <p>A list of objects describing the destination of the export snapshot record.</p>
-    @[Protocol::Field(location: :body, name: "destinationInfo", required: false)]
+    @[Protocol::Field(location: :body, name: "destinationInfo", structure: true)]
     property destination_info : DestinationInfoStruct?
+
+    def initialize(@name = nil , @arn = nil , @created_at = nil , @location = nil , @resource_type = nil , @state = nil , @source_info = nil , @destination_info = nil )
+    end
   end
 
-  class GetExportSnapshotRecordsResultStruct
-    include JSON1_1
+  class GetExportSnapshotRecordsResultStruct 
+    include JSON1_1::Structure
 
     # <p>A list of objects describing the export snapshot records.</p>
-    @[Protocol::Field(location: :body, name: "exportSnapshotRecords", required: false)]
+    @[Protocol::Field(location: :body, name: "exportSnapshotRecords", structure: false)]
     property export_snapshot_records : Array(ExportSnapshotRecordStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetExportSnapshotRecords</code>
     # request and specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@export_snapshot_records = nil , @next_page_token = nil )
+    end
   end
 
-  class GetInstanceRequest
-    include JSON1_1
+  class GetInstanceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@instance_name)
+    end
   end
 
-  class InstanceHardwareStruct
-    include JSON1_1
+  class InstanceHardwareStruct 
+    include JSON1_1::Structure
 
     # <p>The number of vCPUs the instance has.</p>
-    @[Protocol::Field(location: :body, name: "cpuCount", required: false)]
+    @[Protocol::Field(location: :body, name: "cpuCount", structure: false)]
     property cpu_count : Int32?
     # <p>The disks attached to the instance.</p>
-    @[Protocol::Field(location: :body, name: "disks", required: false)]
+    @[Protocol::Field(location: :body, name: "disks", structure: false)]
     property disks : Array(DiskStruct)?
     # <p>The amount of RAM in GB on the instance (e.g., <code>1.0</code>).</p>
-    @[Protocol::Field(location: :body, name: "ramSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
+
+    def initialize(@cpu_count = nil , @disks = nil , @ram_size_in_gb = nil )
+    end
   end
 
-  class MonthlyTransferStruct
-    include JSON1_1
+  class MonthlyTransferStruct 
+    include JSON1_1::Structure
 
     # <p>The amount allocated per month (in GB).</p>
-    @[Protocol::Field(location: :body, name: "gbPerMonthAllocated", required: false)]
+    @[Protocol::Field(location: :body, name: "gbPerMonthAllocated", structure: false)]
     property gb_per_month_allocated : Int32?
+
+    def initialize(@gb_per_month_allocated = nil )
+    end
   end
 
-  class InstancePortInfoStruct
-    include JSON1_1
+  class InstancePortInfoStruct 
+    include JSON1_1::Structure
 
     # <p>The first port in a range of open ports on an instance.</p>
     # <p>Allowed ports:</p>
@@ -8281,7 +7902,7 @@ module AWSSdk::Lightsail_20161128
     # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "fromPort", required: false)]
+    @[Protocol::Field(location: :body, name: "fromPort", structure: false)]
     property from_port : Int32?
     # <p>The last port in a range of open ports on an instance.</p>
     # <p>Allowed ports:</p>
@@ -8296,7 +7917,7 @@ module AWSSdk::Lightsail_20161128
     # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "toPort", required: false)]
+    @[Protocol::Field(location: :body, name: "toPort", structure: false)]
     property to_port : Int32?
     # <p>The IP protocol name.</p>
     # <p>The name can be one of the following:</p>
@@ -8333,154 +7954,172 @@ module AWSSdk::Lightsail_20161128
     # <code>toPort</code> parameter.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
     # <p>The location from which access is allowed. For example, <code>Anywhere (0.0.0.0/0)</code>,
     # or <code>Custom</code> if a specific IP address or range of IP addresses is allowed.</p>
-    @[Protocol::Field(location: :body, name: "accessFrom", required: false)]
+    @[Protocol::Field(location: :body, name: "accessFrom", structure: false)]
     property access_from : String?
     # <p>The type of access (<code>Public</code> or <code>Private</code>).</p>
-    @[Protocol::Field(location: :body, name: "accessType", required: false)]
+    @[Protocol::Field(location: :body, name: "accessType", structure: false)]
     property access_type : String?
     # <p>The common name of the port information.</p>
-    @[Protocol::Field(location: :body, name: "commonName", required: false)]
+    @[Protocol::Field(location: :body, name: "commonName", structure: false)]
     property common_name : String?
     # <p>The access direction (<code>inbound</code> or <code>outbound</code>).</p>
     # <note>
     # <p>Lightsail currently supports only <code>inbound</code> access direction.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "accessDirection", required: false)]
+    @[Protocol::Field(location: :body, name: "accessDirection", structure: false)]
     property access_direction : String?
     # <p>The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to
     # an instance through the ports, and the protocol. Lightsail supports IPv4 addresses.</p>
     # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
     # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
-    @[Protocol::Field(location: :body, name: "cidrs", required: false)]
+    @[Protocol::Field(location: :body, name: "cidrs", structure: false)]
     property cidrs : Array(String)?
     # <p>An alias that defines access for a preconfigured range of IP addresses.</p>
     # <p>The only alias currently supported is <code>lightsail-connect</code>, which allows IP
     # addresses of the browser-based RDP/SSH client in the Lightsail console to connect to your
     # instance.</p>
-    @[Protocol::Field(location: :body, name: "cidrListAliases", required: false)]
+    @[Protocol::Field(location: :body, name: "cidrListAliases", structure: false)]
     property cidr_list_aliases : Array(String)?
+
+    def initialize(@from_port = nil , @to_port = nil , @protocol = nil , @access_from = nil , @access_type = nil , @common_name = nil , @access_direction = nil , @cidrs = nil , @cidr_list_aliases = nil )
+    end
   end
 
-  class InstanceNetworkingStruct
-    include JSON1_1
+  class InstanceNetworkingStruct 
+    include JSON1_1::Structure
 
     # <p>The amount of data in GB allocated for monthly data transfers.</p>
-    @[Protocol::Field(location: :body, name: "monthlyTransfer", required: false)]
+    @[Protocol::Field(location: :body, name: "monthlyTransfer", structure: true)]
     property monthly_transfer : MonthlyTransferStruct?
     # <p>An array of key-value pairs containing information about the ports on the instance.</p>
-    @[Protocol::Field(location: :body, name: "ports", required: false)]
+    @[Protocol::Field(location: :body, name: "ports", structure: false)]
     property ports : Array(InstancePortInfoStruct)?
+
+    def initialize(@monthly_transfer = nil , @ports = nil )
+    end
   end
 
-  class InstanceStateStruct
-    include JSON1_1
+  class InstanceStateStruct 
+    include JSON1_1::Structure
 
     # <p>The status code for the instance.</p>
-    @[Protocol::Field(location: :body, name: "code", required: false)]
+    @[Protocol::Field(location: :body, name: "code", structure: false)]
     property code : Int32?
     # <p>The state of the instance (e.g., <code>running</code> or <code>pending</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
+
+    def initialize(@code = nil , @name = nil )
+    end
   end
 
-  class InstanceStruct
-    include JSON1_1
+  class InstanceStruct 
+    include JSON1_1::Structure
 
     # <p>The name the user gave the instance (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the instance (e.g.,
     # <code>arn:aws:lightsail:us-east-2:123456789101:Instance/244ad76f-8aad-4741-809f-12345EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the instance was created (e.g., <code>1479734909.17</code>) in Unix
     # time format.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The region name and Availability Zone where the instance is located.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The type of resource (usually <code>Instance</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).</p>
-    @[Protocol::Field(location: :body, name: "blueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "blueprintId", structure: false)]
     property blueprint_id : String?
     # <p>The friendly name of the blueprint (e.g., <code>Amazon Linux</code>).</p>
-    @[Protocol::Field(location: :body, name: "blueprintName", required: false)]
+    @[Protocol::Field(location: :body, name: "blueprintName", structure: false)]
     property blueprint_name : String?
     # <p>The bundle for the instance (e.g., <code>micro_1_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
     # <p>An array of objects representing the add-ons enabled on the instance.</p>
-    @[Protocol::Field(location: :body, name: "addOns", required: false)]
+    @[Protocol::Field(location: :body, name: "addOns", structure: false)]
     property add_ons : Array(AddOnStruct)?
     # <p>A Boolean value indicating whether this instance has a static IP assigned to it.</p>
-    @[Protocol::Field(location: :body, name: "isStaticIp", required: false)]
+    @[Protocol::Field(location: :body, name: "isStaticIp", structure: false)]
     property is_static_ip : Bool?
     # <p>The private IP address of the instance.</p>
-    @[Protocol::Field(location: :body, name: "privateIpAddress", required: false)]
+    @[Protocol::Field(location: :body, name: "privateIpAddress", structure: false)]
     property private_ip_address : String?
     # <p>The public IP address of the instance.</p>
-    @[Protocol::Field(location: :body, name: "publicIpAddress", required: false)]
+    @[Protocol::Field(location: :body, name: "publicIpAddress", structure: false)]
     property public_ip_address : String?
     # <p>The IPv6 address of the instance.</p>
-    @[Protocol::Field(location: :body, name: "ipv6Address", required: false)]
+    @[Protocol::Field(location: :body, name: "ipv6Address", structure: false)]
     property ipv6_address : String?
     # <p>The size of the vCPU and the amount of RAM for the instance.</p>
-    @[Protocol::Field(location: :body, name: "hardware", required: false)]
+    @[Protocol::Field(location: :body, name: "hardware", structure: true)]
     property hardware : InstanceHardwareStruct?
     # <p>Information about the public ports and monthly data transfer rates for the
     # instance.</p>
-    @[Protocol::Field(location: :body, name: "networking", required: false)]
+    @[Protocol::Field(location: :body, name: "networking", structure: true)]
     property networking : InstanceNetworkingStruct?
     # <p>The status code and the state (e.g., <code>running</code>) for the instance.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: true)]
     property state : InstanceStateStruct?
     # <p>The user name for connecting to the instance (e.g., <code>ec2-user</code>).</p>
-    @[Protocol::Field(location: :body, name: "username", required: false)]
+    @[Protocol::Field(location: :body, name: "username", structure: false)]
     property username : String?
     # <p>The name of the SSH key being used to connect to the instance (e.g.,
     # <code>LightsailDefaultKeyPair</code>).</p>
-    @[Protocol::Field(location: :body, name: "sshKeyName", required: false)]
+    @[Protocol::Field(location: :body, name: "sshKeyName", structure: false)]
     property ssh_key_name : String?
+
+    def initialize(@name = nil , @username = nil , @state = nil , @networking = nil , @hardware = nil , @ipv6_address = nil , @public_ip_address = nil , @private_ip_address = nil , @is_static_ip = nil , @add_ons = nil , @bundle_id = nil , @blueprint_name = nil , @blueprint_id = nil , @tags = nil , @resource_type = nil , @location = nil , @created_at = nil , @support_code = nil , @arn = nil , @ssh_key_name = nil )
+    end
   end
 
-  class GetInstanceResultStruct
-    include JSON1_1
+  class GetInstanceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the specified instance.</p>
-    @[Protocol::Field(location: :body, name: "instance", required: false)]
+    @[Protocol::Field(location: :body, name: "instance", structure: true)]
     property instance : InstanceStruct?
+
+    def initialize(@instance = nil )
+    end
   end
 
-  class GetInstanceAccessDetailsRequest
-    include JSON1_1
+  class GetInstanceAccessDetailsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance to access.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
     # <p>The protocol to use to connect to your instance. Defaults to <code>ssh</code>.</p>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
+
+    def initialize(@instance_name, @protocol = nil )
+    end
   end
 
-  class PasswordDataStruct
-    include JSON1_1
+  class PasswordDataStruct 
+    include JSON1_1::Structure
 
     # <p>The encrypted password. Ciphertext will be an empty string if access to your new instance
     # is not ready yet. When you create an instance, it can take up to 15 minutes for the instance
@@ -8493,7 +8132,7 @@ module AWSSdk::Lightsail_20161128
     # return the original ciphertext value. When accessing the instance using RDP, you need to
     # manually enter the Administrator password after changing it from the default.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "ciphertext", required: false)]
+    @[Protocol::Field(location: :body, name: "ciphertext", structure: false)]
     property ciphertext : String?
     # <p>The name of the key pair that you used when creating your instance. If no key pair name
     # was specified when creating the instance, Lightsail uses the default key pair
@@ -8501,24 +8140,27 @@ module AWSSdk::Lightsail_20161128
     # <p>If you are using a custom key pair, you need to use your own means of decrypting your
     # password using the <code>ciphertext</code>. Lightsail creates the ciphertext by encrypting
     # your password with the public key part of this key pair.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: false)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String?
+
+    def initialize(@ciphertext = nil , @key_pair_name = nil )
+    end
   end
 
-  class HostKeyAttributesStruct
-    include JSON1_1
+  class HostKeyAttributesStruct 
+    include JSON1_1::Structure
 
     # <p>The SSH host key algorithm or the RDP certificate format.</p>
     # <p>For SSH host keys, the algorithm may be <code>ssh-rsa</code>,
     # <code>ecdsa-sha2-nistp256</code>, <code>ssh-ed25519</code>, etc. For RDP certificates, the
     # algorithm is always <code>x509-cert</code>.</p>
-    @[Protocol::Field(location: :body, name: "algorithm", required: false)]
+    @[Protocol::Field(location: :body, name: "algorithm", structure: false)]
     property algorithm : String?
     # <p>The public SSH host key or the RDP certificate.</p>
-    @[Protocol::Field(location: :body, name: "publicKey", required: false)]
+    @[Protocol::Field(location: :body, name: "publicKey", structure: false)]
     property public_key : String?
     # <p>The time that the SSH host key or RDP certificate was recorded by Lightsail.</p>
-    @[Protocol::Field(location: :body, name: "witnessedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "witnessedAt", structure: false)]
     property witnessed_at : Time?
     # <p>The SHA-1 fingerprint of the returned SSH host key or RDP certificate.</p>
     # <ul>
@@ -8535,7 +8177,7 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "fingerprintSHA1", required: false)]
+    @[Protocol::Field(location: :body, name: "fingerprintSHA1", structure: false)]
     property fingerprint_sha1 : String?
     # <p>The SHA-256 fingerprint of the returned SSH host key or RDP certificate.</p>
     # <ul>
@@ -8552,30 +8194,33 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "fingerprintSHA256", required: false)]
+    @[Protocol::Field(location: :body, name: "fingerprintSHA256", structure: false)]
     property fingerprint_sha256 : String?
     # <p>The returned RDP certificate is valid after this point in time.</p>
     # <p>This value is listed only for RDP certificates.</p>
-    @[Protocol::Field(location: :body, name: "notValidBefore", required: false)]
+    @[Protocol::Field(location: :body, name: "notValidBefore", structure: false)]
     property not_valid_before : Time?
     # <p>The returned RDP certificate is not valid after this point in time.</p>
     # <p>This value is listed only for RDP certificates.</p>
-    @[Protocol::Field(location: :body, name: "notValidAfter", required: false)]
+    @[Protocol::Field(location: :body, name: "notValidAfter", structure: false)]
     property not_valid_after : Time?
+
+    def initialize(@algorithm = nil , @public_key = nil , @witnessed_at = nil , @fingerprint_sha1 = nil , @fingerprint_sha256 = nil , @not_valid_before = nil , @not_valid_after = nil )
+    end
   end
 
-  class InstanceAccessDetailsStruct
-    include JSON1_1
+  class InstanceAccessDetailsStruct 
+    include JSON1_1::Structure
 
     # <p>For SSH access, the public key to use when accessing your instance For OpenSSH clients
     # (e.g., command line SSH), you should save this value to <code>tempkey-cert.pub</code>.</p>
-    @[Protocol::Field(location: :body, name: "certKey", required: false)]
+    @[Protocol::Field(location: :body, name: "certKey", structure: false)]
     property cert_key : String?
     # <p>For SSH access, the date on which the temporary keys expire.</p>
-    @[Protocol::Field(location: :body, name: "expiresAt", required: false)]
+    @[Protocol::Field(location: :body, name: "expiresAt", structure: false)]
     property expires_at : Time?
     # <p>The public IP address of the Amazon Lightsail instance.</p>
-    @[Protocol::Field(location: :body, name: "ipAddress", required: false)]
+    @[Protocol::Field(location: :body, name: "ipAddress", structure: false)]
     property ip_address : String?
     # <p>For RDP access, the password for your Amazon Lightsail instance. Password will be an empty
     # string if the password for your new instance is not ready yet. When you create an instance, it
@@ -8588,46 +8233,52 @@ module AWSSdk::Lightsail_20161128
     # return the original password value. When accessing the instance using RDP, you need to
     # manually enter the Administrator password after changing it from the default.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "password", required: false)]
+    @[Protocol::Field(location: :body, name: "password", structure: false)]
     property password : String?
     # <p>For a Windows Server-based instance, an object with the data you can use to retrieve your
     # password. This is only needed if <code>password</code> is empty and the instance is not new
     # (and therefore the password is not ready yet). When you create an instance, it can take up to
     # 15 minutes for the instance to be ready.</p>
-    @[Protocol::Field(location: :body, name: "passwordData", required: false)]
+    @[Protocol::Field(location: :body, name: "passwordData", structure: true)]
     property password_data : PasswordDataStruct?
     # <p>For SSH access, the temporary private key. For OpenSSH clients (e.g., command line SSH),
     # you should save this value to <code>tempkey</code>).</p>
-    @[Protocol::Field(location: :body, name: "privateKey", required: false)]
+    @[Protocol::Field(location: :body, name: "privateKey", structure: false)]
     property private_key : String?
     # <p>The protocol for these Amazon Lightsail instance access details.</p>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
     # <p>The name of this Amazon Lightsail instance.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String?
     # <p>The user name to use when logging in to the Amazon Lightsail instance.</p>
-    @[Protocol::Field(location: :body, name: "username", required: false)]
+    @[Protocol::Field(location: :body, name: "username", structure: false)]
     property username : String?
     # <p>Describes the public SSH host keys or the RDP certificate.</p>
-    @[Protocol::Field(location: :body, name: "hostKeys", required: false)]
+    @[Protocol::Field(location: :body, name: "hostKeys", structure: false)]
     property host_keys : Array(HostKeyAttributesStruct)?
+
+    def initialize(@cert_key = nil , @expires_at = nil , @ip_address = nil , @password = nil , @password_data = nil , @private_key = nil , @protocol = nil , @instance_name = nil , @username = nil , @host_keys = nil )
+    end
   end
 
-  class GetInstanceAccessDetailsResultStruct
-    include JSON1_1
+  class GetInstanceAccessDetailsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about a get instance access
     # request.</p>
-    @[Protocol::Field(location: :body, name: "accessDetails", required: false)]
+    @[Protocol::Field(location: :body, name: "accessDetails", structure: true)]
     property access_details : InstanceAccessDetailsStruct?
+
+    def initialize(@access_details = nil )
+    end
   end
 
-  class GetInstanceMetricDataRequest
-    include JSON1_1
+  class GetInstanceMetricDataRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance for which you want to get metrics data.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
     # <p>The metric for which you want to return information.</p>
     # <p>Valid instance metric names are listed below, along with the most useful
@@ -8751,25 +8402,25 @@ module AWSSdk::Lightsail_20161128
     # <code>Unit</code>: The published unit is <code>Count</code>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "metricName", required: true)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String
     # <p>The granularity, in seconds, of the returned data points.</p>
     # <p>The <code>StatusCheckFailed</code>, <code>StatusCheckFailed_Instance</code>, and
     # <code>StatusCheckFailed_System</code> instance metric data is available in 1-minute (60
     # seconds) granularity. All other instance metric data is available in 5-minute (300 seconds)
     # granularity.</p>
-    @[Protocol::Field(location: :body, name: "period", required: true)]
+    @[Protocol::Field(location: :body, name: "period", structure: false)]
     property period : Int32
     # <p>The start time of the time period.</p>
-    @[Protocol::Field(location: :body, name: "startTime", required: true)]
+    @[Protocol::Field(location: :body, name: "startTime", structure: false)]
     property start_time : Time
     # <p>The end time of the time period.</p>
-    @[Protocol::Field(location: :body, name: "endTime", required: true)]
+    @[Protocol::Field(location: :body, name: "endTime", structure: false)]
     property end_time : Time
     # <p>The unit for the metric data request. Valid units depend on the metric data being
     # requested. For the valid units to specify with each available metric, see the
     # <code>metricName</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "unit", required: true)]
+    @[Protocol::Field(location: :body, name: "unit", structure: false)]
     property unit : String
     # <p>The statistic for the metric.</p>
     # <p>The following statistics are available:</p>
@@ -8802,31 +8453,40 @@ module AWSSdk::Lightsail_20161128
     # statistical calculation.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "statistics", required: true)]
+    @[Protocol::Field(location: :body, name: "statistics", structure: false)]
     property statistics : Array(String)
+
+    def initialize(@instance_name, @metric_name, @period, @start_time, @end_time, @unit, @statistics)
+    end
   end
 
-  class GetInstanceMetricDataResultStruct
-    include JSON1_1
+  class GetInstanceMetricDataResultStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the metric returned.</p>
-    @[Protocol::Field(location: :body, name: "metricName", required: false)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[Protocol::Field(location: :body, name: "metricData", required: false)]
+    @[Protocol::Field(location: :body, name: "metricData", structure: false)]
     property metric_data : Array(MetricDatapointStruct)?
+
+    def initialize(@metric_name = nil , @metric_data = nil )
+    end
   end
 
-  class GetInstancePortStatesRequest
-    include JSON1_1
+  class GetInstancePortStatesRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance for which to return firewall port states.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@instance_name)
+    end
   end
 
-  class InstancePortStateStruct
-    include JSON1_1
+  class InstancePortStateStruct 
+    include JSON1_1::Structure
 
     # <p>The first port in a range of open ports on an instance.</p>
     # <p>Allowed ports:</p>
@@ -8841,7 +8501,7 @@ module AWSSdk::Lightsail_20161128
     # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "fromPort", required: false)]
+    @[Protocol::Field(location: :body, name: "fromPort", structure: false)]
     property from_port : Int32?
     # <p>The last port in a range of open ports on an instance.</p>
     # <p>Allowed ports:</p>
@@ -8856,7 +8516,7 @@ module AWSSdk::Lightsail_20161128
     # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "toPort", required: false)]
+    @[Protocol::Field(location: :body, name: "toPort", structure: false)]
     property to_port : Int32?
     # <p>The IP protocol name.</p>
     # <p>The name can be one of the following:</p>
@@ -8893,241 +8553,289 @@ module AWSSdk::Lightsail_20161128
     # <code>toPort</code> parameter.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
     # <p>Specifies whether the instance port is <code>open</code> or <code>closed</code>.</p>
     # <note>
     # <p>The port state for Lightsail instances is always <code>open</code>.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to
     # an instance through the ports, and the protocol. Lightsail supports IPv4 addresses.</p>
     # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
     # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
-    @[Protocol::Field(location: :body, name: "cidrs", required: false)]
+    @[Protocol::Field(location: :body, name: "cidrs", structure: false)]
     property cidrs : Array(String)?
     # <p>An alias that defines access for a preconfigured range of IP addresses.</p>
     # <p>The only alias currently supported is <code>lightsail-connect</code>, which allows IP
     # addresses of the browser-based RDP/SSH client in the Lightsail console to connect to your
     # instance.</p>
-    @[Protocol::Field(location: :body, name: "cidrListAliases", required: false)]
+    @[Protocol::Field(location: :body, name: "cidrListAliases", structure: false)]
     property cidr_list_aliases : Array(String)?
+
+    def initialize(@from_port = nil , @to_port = nil , @protocol = nil , @state = nil , @cidrs = nil , @cidr_list_aliases = nil )
+    end
   end
 
-  class GetInstancePortStatesResultStruct
-    include JSON1_1
+  class GetInstancePortStatesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the firewall port states for the specified
     # instance.</p>
-    @[Protocol::Field(location: :body, name: "portStates", required: false)]
+    @[Protocol::Field(location: :body, name: "portStates", structure: false)]
     property port_states : Array(InstancePortStateStruct)?
+
+    def initialize(@port_states = nil )
+    end
   end
 
-  class GetInstancesRequest
-    include JSON1_1
+  class GetInstancesRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetInstances</code> request. If your results
     # are paginated, the response will return a next page token that you can specify as the page
     # token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetInstancesResultStruct
-    include JSON1_1
+  class GetInstancesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about your instances.</p>
-    @[Protocol::Field(location: :body, name: "instances", required: false)]
+    @[Protocol::Field(location: :body, name: "instances", structure: false)]
     property instances : Array(InstanceStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetInstances</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@instances = nil , @next_page_token = nil )
+    end
   end
 
-  class GetInstanceSnapshotRequest
-    include JSON1_1
+  class GetInstanceSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the snapshot for which you are requesting information.</p>
-    @[Protocol::Field(location: :body, name: "instanceSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshotName", structure: false)]
     property instance_snapshot_name : String
+
+    def initialize(@instance_snapshot_name)
+    end
   end
 
-  class InstanceSnapshotStruct
-    include JSON1_1
+  class InstanceSnapshotStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the snapshot.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the snapshot (e.g.,
     # <code>arn:aws:lightsail:us-east-2:123456789101:InstanceSnapshot/d23b5706-3322-4d83-81e5-12345EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the snapshot was created (e.g., <code>1479907467.024</code>).</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The region name and Availability Zone where you created the snapshot.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The type of resource (usually <code>InstanceSnapshot</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The state the snapshot is in.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The progress of the snapshot.</p>
-    @[Protocol::Field(location: :body, name: "progress", required: false)]
+    @[Protocol::Field(location: :body, name: "progress", structure: false)]
     property progress : String?
     # <p>An array of disk objects containing information about all block storage disks.</p>
-    @[Protocol::Field(location: :body, name: "fromAttachedDisks", required: false)]
+    @[Protocol::Field(location: :body, name: "fromAttachedDisks", structure: false)]
     property from_attached_disks : Array(DiskStruct)?
     # <p>The instance from which the snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "fromInstanceName", required: false)]
+    @[Protocol::Field(location: :body, name: "fromInstanceName", structure: false)]
     property from_instance_name : String?
     # <p>The Amazon Resource Name (ARN) of the instance from which the snapshot was created (e.g.,
     # <code>arn:aws:lightsail:us-east-2:123456789101:Instance/64b8404c-ccb1-430b-8daf-12345EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "fromInstanceArn", required: false)]
+    @[Protocol::Field(location: :body, name: "fromInstanceArn", structure: false)]
     property from_instance_arn : String?
     # <p>The blueprint ID from which you created the snapshot (e.g., <code>os_debian_8_3</code>). A
     # blueprint is a virtual private server (or <i>instance</i>) image used to create
     # instances quickly.</p>
-    @[Protocol::Field(location: :body, name: "fromBlueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "fromBlueprintId", structure: false)]
     property from_blueprint_id : String?
     # <p>The bundle ID from which you created the snapshot (e.g., <code>micro_1_0</code>).</p>
-    @[Protocol::Field(location: :body, name: "fromBundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "fromBundleId", structure: false)]
     property from_bundle_id : String?
     # <p>A Boolean value indicating whether the snapshot was created from an automatic
     # snapshot.</p>
-    @[Protocol::Field(location: :body, name: "isFromAutoSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "isFromAutoSnapshot", structure: false)]
     property is_from_auto_snapshot : Bool?
     # <p>The size in GB of the SSD.</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @tags = nil , @state = nil , @progress = nil , @from_attached_disks = nil , @from_instance_name = nil , @from_instance_arn = nil , @from_blueprint_id = nil , @from_bundle_id = nil , @is_from_auto_snapshot = nil , @size_in_gb = nil )
+    end
   end
 
-  class GetInstanceSnapshotResultStruct
-    include JSON1_1
+  class GetInstanceSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the results of your get instance
     # snapshot request.</p>
-    @[Protocol::Field(location: :body, name: "instanceSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshot", structure: true)]
     property instance_snapshot : InstanceSnapshotStruct?
+
+    def initialize(@instance_snapshot = nil )
+    end
   end
 
-  class GetInstanceSnapshotsRequest
-    include JSON1_1
+  class GetInstanceSnapshotsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetInstanceSnapshots</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetInstanceSnapshotsResultStruct
-    include JSON1_1
+  class GetInstanceSnapshotsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the results of your get instance
     # snapshots request.</p>
-    @[Protocol::Field(location: :body, name: "instanceSnapshots", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceSnapshots", structure: false)]
     property instance_snapshots : Array(InstanceSnapshotStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetInstanceSnapshots</code> request
     # and specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@instance_snapshots = nil , @next_page_token = nil )
+    end
   end
 
-  class GetInstanceStateRequest
-    include JSON1_1
+  class GetInstanceStateRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance to get state information about.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@instance_name)
+    end
   end
 
-  class GetInstanceStateResultStruct
-    include JSON1_1
+  class GetInstanceStateResultStruct 
+    include JSON1_1::Structure
 
     # <p>The state of the instance.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: true)]
     property state : InstanceStateStruct?
+
+    def initialize(@state = nil )
+    end
   end
 
-  class GetKeyPairRequest
-    include JSON1_1
+  class GetKeyPairRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the key pair for which you are requesting information.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: true)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String
+
+    def initialize(@key_pair_name)
+    end
   end
 
-  class GetKeyPairResultStruct
-    include JSON1_1
+  class GetKeyPairResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the key pair.</p>
-    @[Protocol::Field(location: :body, name: "keyPair", required: false)]
+    @[Protocol::Field(location: :body, name: "keyPair", structure: true)]
     property key_pair : KeyPairStruct?
+
+    def initialize(@key_pair = nil )
+    end
   end
 
-  class GetKeyPairsRequest
-    include JSON1_1
+  class GetKeyPairsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results
     # are paginated, the response will return a next page token that you can specify as the page
     # token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetKeyPairsResultStruct
-    include JSON1_1
+  class GetKeyPairsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the key pairs.</p>
-    @[Protocol::Field(location: :body, name: "keyPairs", required: false)]
+    @[Protocol::Field(location: :body, name: "keyPairs", structure: false)]
     property key_pairs : Array(KeyPairStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetKeyPairs</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@key_pairs = nil , @next_page_token = nil )
+    end
   end
 
-  class GetLoadBalancerRequest
-    include JSON1_1
+  class GetLoadBalancerRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
+
+    def initialize(@load_balancer_name)
+    end
   end
 
-  class InstanceHealthSummaryStruct
-    include JSON1_1
+  class InstanceHealthSummaryStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the Lightsail instance for which you are requesting health check
     # data.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String?
     # <p>Describes the overall instance health. Valid values are below.</p>
-    @[Protocol::Field(location: :body, name: "instanceHealth", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceHealth", structure: false)]
     property instance_health : String?
     # <p>More information about the instance health. If the <code>instanceHealth</code> is
     # <code>healthy</code>, then an <code>instanceHealthReason</code> value is not
@@ -9250,102 +8958,114 @@ module AWSSdk::Lightsail_20161128
     # period has not expired.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "instanceHealthReason", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceHealthReason", structure: false)]
     property instance_health_reason : String?
+
+    def initialize(@instance_name = nil , @instance_health = nil , @instance_health_reason = nil )
+    end
   end
 
-  class LoadBalancerTlsCertificateSummaryStruct
-    include JSON1_1
+  class LoadBalancerTlsCertificateSummaryStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>When <code>true</code>, the SSL/TLS certificate is attached to the Lightsail load
     # balancer.</p>
-    @[Protocol::Field(location: :body, name: "isAttached", required: false)]
+    @[Protocol::Field(location: :body, name: "isAttached", structure: false)]
     property is_attached : Bool?
+
+    def initialize(@name = nil , @is_attached = nil )
+    end
   end
 
-  class LoadBalancerStruct
-    include JSON1_1
+  class LoadBalancerStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer (e.g., <code>my-load-balancer</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the load balancer.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail load balancer. This code enables our support team to look up your Lightsail
     # information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The date when your load balancer was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region where your load balancer was created (e.g., <code>us-east-2a</code>).
     # Lightsail automatically creates your load balancer across Availability Zones.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The resource type (e.g., <code>LoadBalancer</code>.</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The DNS name of your Lightsail load balancer.</p>
-    @[Protocol::Field(location: :body, name: "dnsName", required: false)]
+    @[Protocol::Field(location: :body, name: "dnsName", structure: false)]
     property dns_name : String?
     # <p>The status of your load balancer. Valid values are below.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The protocol you have enabled for your load balancer. Valid values are below.</p>
     # <p>You can't just have <code>HTTP_HTTPS</code>, but you can have just
     # <code>HTTP</code>.</p>
-    @[Protocol::Field(location: :body, name: "protocol", required: false)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
     # <p>An array of public port settings for your load balancer. For HTTP, use port 80. For HTTPS,
     # use port 443.</p>
-    @[Protocol::Field(location: :body, name: "publicPorts", required: false)]
+    @[Protocol::Field(location: :body, name: "publicPorts", structure: false)]
     property public_ports : Array(Int32)?
     # <p>The path you specified to perform your health checks. If no path is specified, the load
     # balancer tries to make a request to the default (root) page.</p>
-    @[Protocol::Field(location: :body, name: "healthCheckPath", required: false)]
+    @[Protocol::Field(location: :body, name: "healthCheckPath", structure: false)]
     property health_check_path : String?
     # <p>The port where the load balancer will direct traffic to your Lightsail instances. For
     # HTTP traffic, it's port 80. For HTTPS traffic, it's port 443.</p>
-    @[Protocol::Field(location: :body, name: "instancePort", required: false)]
+    @[Protocol::Field(location: :body, name: "instancePort", structure: false)]
     property instance_port : Int32?
     # <p>An array of InstanceHealthSummary objects describing the health of the load
     # balancer.</p>
-    @[Protocol::Field(location: :body, name: "instanceHealthSummary", required: false)]
+    @[Protocol::Field(location: :body, name: "instanceHealthSummary", structure: false)]
     property instance_health_summary : Array(InstanceHealthSummaryStruct)?
     # <p>An array of LoadBalancerTlsCertificateSummary objects that provide additional information
     # about the SSL/TLS certificates. For example, if <code>true</code>, the certificate is attached
     # to the load balancer.</p>
-    @[Protocol::Field(location: :body, name: "tlsCertificateSummaries", required: false)]
+    @[Protocol::Field(location: :body, name: "tlsCertificateSummaries", structure: false)]
     property tls_certificate_summaries : Array(LoadBalancerTlsCertificateSummaryStruct)?
     # <p>A string to string map of the configuration options for your load balancer. Valid values
     # are listed below.</p>
-    @[Protocol::Field(location: :body, name: "configurationOptions", required: false)]
+    @[Protocol::Field(location: :body, name: "configurationOptions", structure: false)]
     property configuration_options : Hash(String, String)?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @tags = nil , @dns_name = nil , @state = nil , @protocol = nil , @public_ports = nil , @health_check_path = nil , @instance_port = nil , @instance_health_summary = nil , @tls_certificate_summaries = nil , @configuration_options = nil )
+    end
   end
 
-  class GetLoadBalancerResultStruct
-    include JSON1_1
+  class GetLoadBalancerResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object containing information about your load balancer.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancer", required: false)]
+    @[Protocol::Field(location: :body, name: "loadBalancer", structure: true)]
     property load_balancer : LoadBalancerStruct?
+
+    def initialize(@load_balancer = nil )
+    end
   end
 
-  class GetLoadBalancerMetricDataRequest
-    include JSON1_1
+  class GetLoadBalancerMetricDataRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>The metric for which you want to return information.</p>
     # <p>Valid load balancer metric names are listed below, along with the most useful
@@ -9516,21 +9236,21 @@ module AWSSdk::Lightsail_20161128
     # <code>Unit</code>: The published unit is <code>Count</code>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "metricName", required: true)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String
     # <p>The granularity, in seconds, of the returned data points.</p>
-    @[Protocol::Field(location: :body, name: "period", required: true)]
+    @[Protocol::Field(location: :body, name: "period", structure: false)]
     property period : Int32
     # <p>The start time of the period.</p>
-    @[Protocol::Field(location: :body, name: "startTime", required: true)]
+    @[Protocol::Field(location: :body, name: "startTime", structure: false)]
     property start_time : Time
     # <p>The end time of the period.</p>
-    @[Protocol::Field(location: :body, name: "endTime", required: true)]
+    @[Protocol::Field(location: :body, name: "endTime", structure: false)]
     property end_time : Time
     # <p>The unit for the metric data request. Valid units depend on the metric data being
     # requested. For the valid units with each available metric, see the <code>metricName</code>
     # parameter.</p>
-    @[Protocol::Field(location: :body, name: "unit", required: true)]
+    @[Protocol::Field(location: :body, name: "unit", structure: false)]
     property unit : String
     # <p>The statistic for the metric.</p>
     # <p>The following statistics are available:</p>
@@ -9563,89 +9283,110 @@ module AWSSdk::Lightsail_20161128
     # statistical calculation.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "statistics", required: true)]
+    @[Protocol::Field(location: :body, name: "statistics", structure: false)]
     property statistics : Array(String)
+
+    def initialize(@load_balancer_name, @metric_name, @period, @start_time, @end_time, @unit, @statistics)
+    end
   end
 
-  class GetLoadBalancerMetricDataResultStruct
-    include JSON1_1
+  class GetLoadBalancerMetricDataResultStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the metric returned.</p>
-    @[Protocol::Field(location: :body, name: "metricName", required: false)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[Protocol::Field(location: :body, name: "metricData", required: false)]
+    @[Protocol::Field(location: :body, name: "metricData", structure: false)]
     property metric_data : Array(MetricDatapointStruct)?
+
+    def initialize(@metric_name = nil , @metric_data = nil )
+    end
   end
 
-  class GetLoadBalancersRequest
-    include JSON1_1
+  class GetLoadBalancersRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetLoadBalancers</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetLoadBalancersResultStruct
-    include JSON1_1
+  class GetLoadBalancersResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of LoadBalancer objects describing your load balancers.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancers", required: false)]
+    @[Protocol::Field(location: :body, name: "loadBalancers", structure: false)]
     property load_balancers : Array(LoadBalancerStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetLoadBalancers</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@load_balancers = nil , @next_page_token = nil )
+    end
   end
 
-  class GetLoadBalancerTlsCertificatesRequest
-    include JSON1_1
+  class GetLoadBalancerTlsCertificatesRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer you associated with your SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
+
+    def initialize(@load_balancer_name)
+    end
   end
 
-  class LoadBalancerTlsCertificateDomainValidationRecordStruct
-    include JSON1_1
+  class LoadBalancerTlsCertificateDomainValidationRecordStruct 
+    include JSON1_1::Structure
 
     # <p>A fully qualified domain name in the certificate. For example,
     # <code>example.com</code>.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The type of validation record. For example, <code>CNAME</code> for domain
     # validation.</p>
-    @[Protocol::Field(location: :body, name: "type", required: false)]
+    @[Protocol::Field(location: :body, name: "type", structure: false)]
     property type : String?
     # <p>The value for that type.</p>
-    @[Protocol::Field(location: :body, name: "value", required: false)]
+    @[Protocol::Field(location: :body, name: "value", structure: false)]
     property value : String?
     # <p>The validation status. Valid values are listed below.</p>
-    @[Protocol::Field(location: :body, name: "validationStatus", required: false)]
+    @[Protocol::Field(location: :body, name: "validationStatus", structure: false)]
     property validation_status : String?
     # <p>The domain name against which your SSL/TLS certificate was validated.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
+
+    def initialize(@name = nil , @type = nil , @value = nil , @validation_status = nil , @domain_name = nil )
+    end
   end
 
-  class LoadBalancerTlsCertificateDomainValidationOptionStruct
-    include JSON1_1
+  class LoadBalancerTlsCertificateDomainValidationOptionStruct 
+    include JSON1_1::Structure
 
     # <p>The fully qualified domain name in the certificate request.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
     # <p>The status of the domain validation. Valid values are listed below.</p>
-    @[Protocol::Field(location: :body, name: "validationStatus", required: false)]
+    @[Protocol::Field(location: :body, name: "validationStatus", structure: false)]
     property validation_status : String?
+
+    def initialize(@domain_name = nil , @validation_status = nil )
+    end
   end
 
-  class LoadBalancerTlsCertificateRenewalSummaryStruct
-    include JSON1_1
+  class LoadBalancerTlsCertificateRenewalSummaryStruct 
+    include JSON1_1::Structure
 
     # <p>The renewal status of the certificate.</p>
     # <p>The following renewal status are possible:</p>
@@ -9686,34 +9427,37 @@ module AWSSdk::Lightsail_20161128
     # action.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "renewalStatus", required: false)]
+    @[Protocol::Field(location: :body, name: "renewalStatus", structure: false)]
     property renewal_status : String?
     # <p>Contains information about the validation of each domain name in the certificate, as it
     # pertains to Lightsail's managed renewal. This is different from the initial validation that
     # occurs as a result of the RequestCertificate request.</p>
-    @[Protocol::Field(location: :body, name: "domainValidationOptions", required: false)]
+    @[Protocol::Field(location: :body, name: "domainValidationOptions", structure: false)]
     property domain_validation_options : Array(LoadBalancerTlsCertificateDomainValidationOptionStruct)?
+
+    def initialize(@renewal_status = nil , @domain_validation_options = nil )
+    end
   end
 
-  class LoadBalancerTlsCertificateStruct
-    include JSON1_1
+  class LoadBalancerTlsCertificateStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the SSL/TLS certificate (e.g., <code>my-certificate</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail load balancer or SSL/TLS certificate. This code enables our support team to
     # look up your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The time when you created your SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The AWS Region and Availability Zone where you created your certificate.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The resource type (e.g., <code>LoadBalancerTlsCertificate</code>).</p>
     # <ul>
@@ -9785,32 +9529,32 @@ module AWSSdk::Lightsail_20161128
     # snapshot</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The load balancer name where your SSL/TLS certificate is attached.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: false)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String?
     # <p>When <code>true</code>, the SSL/TLS certificate is attached to the Lightsail load
     # balancer.</p>
-    @[Protocol::Field(location: :body, name: "isAttached", required: false)]
+    @[Protocol::Field(location: :body, name: "isAttached", structure: false)]
     property is_attached : Bool?
     # <p>The validation status of the SSL/TLS certificate. Valid values are below.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The domain name for your SSL/TLS certificate.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: false)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
     # <p>An array of LoadBalancerTlsCertificateDomainValidationRecord objects describing the
     # records.</p>
-    @[Protocol::Field(location: :body, name: "domainValidationRecords", required: false)]
+    @[Protocol::Field(location: :body, name: "domainValidationRecords", structure: false)]
     property domain_validation_records : Array(LoadBalancerTlsCertificateDomainValidationRecordStruct)?
     # <p>The validation failure reason, if any, of the certificate.</p>
-    #
+    # 
     # <p>The following failure reasons are possible:</p>
     # <ul>
     # <li>
@@ -9873,123 +9617,144 @@ module AWSSdk::Lightsail_20161128
     # were in the failed request. </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "failureReason", required: false)]
+    @[Protocol::Field(location: :body, name: "failureReason", structure: false)]
     property failure_reason : String?
     # <p>The time when the SSL/TLS certificate was issued.</p>
-    @[Protocol::Field(location: :body, name: "issuedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "issuedAt", structure: false)]
     property issued_at : Time?
     # <p>The issuer of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "issuer", required: false)]
+    @[Protocol::Field(location: :body, name: "issuer", structure: false)]
     property issuer : String?
     # <p>The algorithm used to generate the key pair (the public and private key).</p>
-    @[Protocol::Field(location: :body, name: "keyAlgorithm", required: false)]
+    @[Protocol::Field(location: :body, name: "keyAlgorithm", structure: false)]
     property key_algorithm : String?
     # <p>The timestamp when the SSL/TLS certificate expires.</p>
-    @[Protocol::Field(location: :body, name: "notAfter", required: false)]
+    @[Protocol::Field(location: :body, name: "notAfter", structure: false)]
     property not_after : Time?
     # <p>The timestamp when the SSL/TLS certificate is first valid.</p>
-    @[Protocol::Field(location: :body, name: "notBefore", required: false)]
+    @[Protocol::Field(location: :body, name: "notBefore", structure: false)]
     property not_before : Time?
     # <p>An object that describes the status of the certificate renewal managed by
     # Lightsail.</p>
-    @[Protocol::Field(location: :body, name: "renewalSummary", required: false)]
+    @[Protocol::Field(location: :body, name: "renewalSummary", structure: true)]
     property renewal_summary : LoadBalancerTlsCertificateRenewalSummaryStruct?
     # <p>The reason the certificate was revoked. This value is present only when the certificate
     # status is <code>REVOKED</code>.</p>
-    @[Protocol::Field(location: :body, name: "revocationReason", required: false)]
+    @[Protocol::Field(location: :body, name: "revocationReason", structure: false)]
     property revocation_reason : String?
     # <p>The timestamp when the certificate was revoked. This value is present only when the
     # certificate status is <code>REVOKED</code>.</p>
-    @[Protocol::Field(location: :body, name: "revokedAt", required: false)]
+    @[Protocol::Field(location: :body, name: "revokedAt", structure: false)]
     property revoked_at : Time?
     # <p>The serial number of the certificate.</p>
-    @[Protocol::Field(location: :body, name: "serial", required: false)]
+    @[Protocol::Field(location: :body, name: "serial", structure: false)]
     property serial : String?
     # <p>The algorithm that was used to sign the certificate.</p>
-    @[Protocol::Field(location: :body, name: "signatureAlgorithm", required: false)]
+    @[Protocol::Field(location: :body, name: "signatureAlgorithm", structure: false)]
     property signature_algorithm : String?
     # <p>The name of the entity that is associated with the public key contained in the
     # certificate.</p>
-    @[Protocol::Field(location: :body, name: "subject", required: false)]
+    @[Protocol::Field(location: :body, name: "subject", structure: false)]
     property subject : String?
     # <p>An array of strings that specify the alternate domains (e.g., <code>example2.com</code>)
     # and subdomains (e.g., <code>blog.example.com</code>) for the certificate.</p>
-    @[Protocol::Field(location: :body, name: "subjectAlternativeNames", required: false)]
+    @[Protocol::Field(location: :body, name: "subjectAlternativeNames", structure: false)]
     property subject_alternative_names : Array(String)?
+
+    def initialize(@name = nil , @subject = nil , @signature_algorithm = nil , @serial = nil , @revoked_at = nil , @revocation_reason = nil , @renewal_summary = nil , @not_before = nil , @not_after = nil , @key_algorithm = nil , @issuer = nil , @issued_at = nil , @failure_reason = nil , @domain_validation_records = nil , @domain_name = nil , @status = nil , @is_attached = nil , @load_balancer_name = nil , @tags = nil , @resource_type = nil , @location = nil , @created_at = nil , @support_code = nil , @arn = nil , @subject_alternative_names = nil )
+    end
   end
 
-  class GetLoadBalancerTlsCertificatesResultStruct
-    include JSON1_1
+  class GetLoadBalancerTlsCertificatesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of LoadBalancerTlsCertificate objects describing your SSL/TLS
     # certificates.</p>
-    @[Protocol::Field(location: :body, name: "tlsCertificates", required: false)]
+    @[Protocol::Field(location: :body, name: "tlsCertificates", structure: false)]
     property tls_certificates : Array(LoadBalancerTlsCertificateStruct)?
+
+    def initialize(@tls_certificates = nil )
+    end
   end
 
-  class GetOperationRequest
-    include JSON1_1
+  class GetOperationRequest 
+    include JSON1_1::Structure
 
     # <p>A GUID used to identify the operation.</p>
-    @[Protocol::Field(location: :body, name: "operationId", required: true)]
+    @[Protocol::Field(location: :body, name: "operationId", structure: false)]
     property operation_id : String
+
+    def initialize(@operation_id)
+    end
   end
 
-  class GetOperationResultStruct
-    include JSON1_1
+  class GetOperationResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class GetOperationsRequest
-    include JSON1_1
+  class GetOperationsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetOperations</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetOperationsResultStruct
-    include JSON1_1
+  class GetOperationsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetOperations</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@operations = nil , @next_page_token = nil )
+    end
   end
 
-  class GetOperationsForResourceRequest
-    include JSON1_1
+  class GetOperationsForResourceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the resource for which you are requesting information.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetOperationsForResource</code> request. If
     # your results are paginated, the response will return a next page token that you can specify as
     # the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@resource_name, @page_token = nil )
+    end
   end
 
-  class GetOperationsForResourceResultStruct
-    include JSON1_1
+  class GetOperationsForResourceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
     # <p>(Deprecated) Returns the number of pages of results that remain.</p>
     # <note>
@@ -9997,413 +9762,476 @@ module AWSSdk::Lightsail_20161128
     # API. It is now deprecated, and the API returns the <code>next page token</code> parameter
     # instead.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "nextPageCount", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageCount", structure: false)]
     property next_page_count : String?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetOperationsForResource</code>
     # request and specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@operations = nil , @next_page_count = nil , @next_page_token = nil )
+    end
   end
 
-  class GetRegionsRequest
-    include JSON1_1
+  class GetRegionsRequest 
+    include JSON1_1::Structure
 
     # <p>A Boolean value indicating whether to also include Availability Zones in your get regions
     # request. Availability Zones are indicated with a letter: e.g., <code>us-east-2a</code>.</p>
-    @[Protocol::Field(location: :body, name: "includeAvailabilityZones", required: false)]
+    @[Protocol::Field(location: :body, name: "includeAvailabilityZones", structure: false)]
     property include_availability_zones : Bool?
     # <p>A Boolean value indicating whether to also include Availability Zones for databases in
     # your get regions request. Availability Zones are indicated with a letter (e.g.,
     # <code>us-east-2a</code>).</p>
-    @[Protocol::Field(location: :body, name: "includeRelationalDatabaseAvailabilityZones", required: false)]
+    @[Protocol::Field(location: :body, name: "includeRelationalDatabaseAvailabilityZones", structure: false)]
     property include_relational_database_availability_zones : Bool?
+
+    def initialize(@include_availability_zones = nil , @include_relational_database_availability_zones = nil )
+    end
   end
 
-  class AvailabilityZoneStruct
-    include JSON1_1
+  class AvailabilityZoneStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the Availability Zone. The format is <code>us-east-2a</code>
     # (case-sensitive).</p>
-    @[Protocol::Field(location: :body, name: "zoneName", required: false)]
+    @[Protocol::Field(location: :body, name: "zoneName", structure: false)]
     property zone_name : String?
     # <p>The state of the Availability Zone.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
+
+    def initialize(@zone_name = nil , @state = nil )
+    end
   end
 
-  class RegionStruct
-    include JSON1_1
+  class RegionStruct 
+    include JSON1_1::Structure
 
     # <p>The continent code (e.g., <code>NA</code>, meaning North America).</p>
-    @[Protocol::Field(location: :body, name: "continentCode", required: false)]
+    @[Protocol::Field(location: :body, name: "continentCode", structure: false)]
     property continent_code : String?
     # <p>The description of the AWS Region (e.g., <code>This region is recommended to serve users
     # in the eastern United States and eastern Canada</code>).</p>
-    @[Protocol::Field(location: :body, name: "description", required: false)]
+    @[Protocol::Field(location: :body, name: "description", structure: false)]
     property description : String?
     # <p>The display name (e.g., <code>Ohio</code>).</p>
-    @[Protocol::Field(location: :body, name: "displayName", required: false)]
+    @[Protocol::Field(location: :body, name: "displayName", structure: false)]
     property display_name : String?
     # <p>The region name (e.g., <code>us-east-2</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Availability Zones. Follows the format <code>us-east-2a</code>
     # (case-sensitive).</p>
-    @[Protocol::Field(location: :body, name: "availabilityZones", required: false)]
+    @[Protocol::Field(location: :body, name: "availabilityZones", structure: false)]
     property availability_zones : Array(AvailabilityZoneStruct)?
     # <p>The Availability Zones for databases. Follows the format <code>us-east-2a</code>
     # (case-sensitive).</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseAvailabilityZones", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseAvailabilityZones", structure: false)]
     property relational_database_availability_zones : Array(AvailabilityZoneStruct)?
+
+    def initialize(@continent_code = nil , @description = nil , @display_name = nil , @name = nil , @availability_zones = nil , @relational_database_availability_zones = nil )
+    end
   end
 
-  class GetRegionsResultStruct
-    include JSON1_1
+  class GetRegionsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about your get regions request.</p>
-    @[Protocol::Field(location: :body, name: "regions", required: false)]
+    @[Protocol::Field(location: :body, name: "regions", structure: false)]
     property regions : Array(RegionStruct)?
+
+    def initialize(@regions = nil )
+    end
   end
 
-  class GetRelationalDatabaseRequest
-    include JSON1_1
+  class GetRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the database that you are looking up.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
+
+    def initialize(@relational_database_name)
+    end
   end
 
-  class RelationalDatabaseHardwareStruct
-    include JSON1_1
+  class RelationalDatabaseHardwareStruct 
+    include JSON1_1::Structure
 
     # <p>The number of vCPUs for the database.</p>
-    @[Protocol::Field(location: :body, name: "cpuCount", required: false)]
+    @[Protocol::Field(location: :body, name: "cpuCount", structure: false)]
     property cpu_count : Int32?
     # <p>The size of the disk for the database.</p>
-    @[Protocol::Field(location: :body, name: "diskSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSizeInGb", structure: false)]
     property disk_size_in_gb : Int32?
     # <p>The amount of RAM in GB for the database.</p>
-    @[Protocol::Field(location: :body, name: "ramSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
+
+    def initialize(@cpu_count = nil , @disk_size_in_gb = nil , @ram_size_in_gb = nil )
+    end
   end
 
-  class PendingModifiedRelationalDatabaseValuesStruct
-    include JSON1_1
+  class PendingModifiedRelationalDatabaseValuesStruct 
+    include JSON1_1::Structure
 
     # <p>The password for the master user of the database.</p>
-    @[Protocol::Field(location: :body, name: "masterUserPassword", required: false)]
+    @[Protocol::Field(location: :body, name: "masterUserPassword", structure: false)]
     property master_user_password : String?
     # <p>The database engine version.</p>
-    @[Protocol::Field(location: :body, name: "engineVersion", required: false)]
+    @[Protocol::Field(location: :body, name: "engineVersion", structure: false)]
     property engine_version : String?
     # <p>A Boolean value indicating whether automated backup retention is enabled.</p>
-    @[Protocol::Field(location: :body, name: "backupRetentionEnabled", required: false)]
+    @[Protocol::Field(location: :body, name: "backupRetentionEnabled", structure: false)]
     property backup_retention_enabled : Bool?
+
+    def initialize(@master_user_password = nil , @engine_version = nil , @backup_retention_enabled = nil )
+    end
   end
 
-  class RelationalDatabaseEndpointStruct
-    include JSON1_1
+  class RelationalDatabaseEndpointStruct 
+    include JSON1_1::Structure
 
     # <p>Specifies the port that the database is listening on.</p>
-    @[Protocol::Field(location: :body, name: "port", required: false)]
+    @[Protocol::Field(location: :body, name: "port", structure: false)]
     property port : Int32?
     # <p>Specifies the DNS address of the database.</p>
-    @[Protocol::Field(location: :body, name: "address", required: false)]
+    @[Protocol::Field(location: :body, name: "address", structure: false)]
     property address : String?
+
+    def initialize(@port = nil , @address = nil )
+    end
   end
 
-  class PendingMaintenanceActionStruct
-    include JSON1_1
+  class PendingMaintenanceActionStruct 
+    include JSON1_1::Structure
 
     # <p>The type of pending database maintenance action.</p>
-    @[Protocol::Field(location: :body, name: "action", required: false)]
+    @[Protocol::Field(location: :body, name: "action", structure: false)]
     property action : String?
     # <p>Additional detail about the pending database maintenance action.</p>
-    @[Protocol::Field(location: :body, name: "description", required: false)]
+    @[Protocol::Field(location: :body, name: "description", structure: false)]
     property description : String?
     # <p>The effective date of the pending database maintenance action.</p>
-    @[Protocol::Field(location: :body, name: "currentApplyDate", required: false)]
+    @[Protocol::Field(location: :body, name: "currentApplyDate", structure: false)]
     property current_apply_date : Time?
+
+    def initialize(@action = nil , @description = nil , @current_apply_date = nil )
+    end
   end
 
-  class RelationalDatabaseStruct
-    include JSON1_1
+  class RelationalDatabaseStruct 
+    include JSON1_1::Structure
 
     # <p>The unique name of the database resource in Lightsail.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the database.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code for the database. Include this code in your email to support when you
     # have questions about a database in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the database was created. Formatted in Unix time.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The Region name and Availability Zone where the database is located.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type for the database (for example,
     # <code>RelationalDatabase</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The blueprint ID for the database. A blueprint describes the major engine version of a
     # database.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseBlueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseBlueprintId", structure: false)]
     property relational_database_blueprint_id : String?
     # <p>The bundle ID for the database. A bundle describes the performance specifications for your
     # database.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseBundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseBundleId", structure: false)]
     property relational_database_bundle_id : String?
     # <p>The name of the master database created when the Lightsail database resource is
     # created.</p>
-    @[Protocol::Field(location: :body, name: "masterDatabaseName", required: false)]
+    @[Protocol::Field(location: :body, name: "masterDatabaseName", structure: false)]
     property master_database_name : String?
     # <p>Describes the hardware of the database.</p>
-    @[Protocol::Field(location: :body, name: "hardware", required: false)]
+    @[Protocol::Field(location: :body, name: "hardware", structure: true)]
     property hardware : RelationalDatabaseHardwareStruct?
     # <p>Describes the current state of the database.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>Describes the secondary Availability Zone of a high availability database.</p>
     # <p>The secondary database is used for failover support of a high availability
     # database.</p>
-    @[Protocol::Field(location: :body, name: "secondaryAvailabilityZone", required: false)]
+    @[Protocol::Field(location: :body, name: "secondaryAvailabilityZone", structure: false)]
     property secondary_availability_zone : String?
     # <p>A Boolean value indicating whether automated backup retention is enabled for the
     # database.</p>
-    @[Protocol::Field(location: :body, name: "backupRetentionEnabled", required: false)]
+    @[Protocol::Field(location: :body, name: "backupRetentionEnabled", structure: false)]
     property backup_retention_enabled : Bool?
     # <p>Describes pending database value modifications.</p>
-    @[Protocol::Field(location: :body, name: "pendingModifiedValues", required: false)]
+    @[Protocol::Field(location: :body, name: "pendingModifiedValues", structure: true)]
     property pending_modified_values : PendingModifiedRelationalDatabaseValuesStruct?
     # <p>The database software (for example, <code>MySQL</code>).</p>
-    @[Protocol::Field(location: :body, name: "engine", required: false)]
+    @[Protocol::Field(location: :body, name: "engine", structure: false)]
     property engine : String?
     # <p>The database engine version (for example, <code>5.7.23</code>).</p>
-    @[Protocol::Field(location: :body, name: "engineVersion", required: false)]
+    @[Protocol::Field(location: :body, name: "engineVersion", structure: false)]
     property engine_version : String?
     # <p>The latest point in time to which the database can be restored. Formatted in Unix
     # time.</p>
-    @[Protocol::Field(location: :body, name: "latestRestorableTime", required: false)]
+    @[Protocol::Field(location: :body, name: "latestRestorableTime", structure: false)]
     property latest_restorable_time : Time?
     # <p>The master user name of the database.</p>
-    @[Protocol::Field(location: :body, name: "masterUsername", required: false)]
+    @[Protocol::Field(location: :body, name: "masterUsername", structure: false)]
     property master_username : String?
     # <p>The status of parameter updates for the database.</p>
-    @[Protocol::Field(location: :body, name: "parameterApplyStatus", required: false)]
+    @[Protocol::Field(location: :body, name: "parameterApplyStatus", structure: false)]
     property parameter_apply_status : String?
     # <p>The daily time range during which automated backups are created for the database (for
     # example, <code>16:00-16:30</code>).</p>
-    @[Protocol::Field(location: :body, name: "preferredBackupWindow", required: false)]
+    @[Protocol::Field(location: :body, name: "preferredBackupWindow", structure: false)]
     property preferred_backup_window : String?
     # <p>The weekly time range during which system maintenance can occur on the database.</p>
     # <p>In the format <code>ddd:hh24:mi-ddd:hh24:mi</code>. For example,
     # <code>Tue:17:00-Tue:17:30</code>.</p>
-    @[Protocol::Field(location: :body, name: "preferredMaintenanceWindow", required: false)]
+    @[Protocol::Field(location: :body, name: "preferredMaintenanceWindow", structure: false)]
     property preferred_maintenance_window : String?
     # <p>A Boolean value indicating whether the database is publicly accessible.</p>
-    @[Protocol::Field(location: :body, name: "publiclyAccessible", required: false)]
+    @[Protocol::Field(location: :body, name: "publiclyAccessible", structure: false)]
     property publicly_accessible : Bool?
     # <p>The master endpoint for the database.</p>
-    @[Protocol::Field(location: :body, name: "masterEndpoint", required: false)]
+    @[Protocol::Field(location: :body, name: "masterEndpoint", structure: true)]
     property master_endpoint : RelationalDatabaseEndpointStruct?
     # <p>Describes the pending maintenance actions for the database.</p>
-    @[Protocol::Field(location: :body, name: "pendingMaintenanceActions", required: false)]
+    @[Protocol::Field(location: :body, name: "pendingMaintenanceActions", structure: false)]
     property pending_maintenance_actions : Array(PendingMaintenanceActionStruct)?
     # <p>The certificate associated with the database.</p>
-    @[Protocol::Field(location: :body, name: "caCertificateIdentifier", required: false)]
+    @[Protocol::Field(location: :body, name: "caCertificateIdentifier", structure: false)]
     property ca_certificate_identifier : String?
+
+    def initialize(@name = nil , @pending_maintenance_actions = nil , @master_endpoint = nil , @publicly_accessible = nil , @preferred_maintenance_window = nil , @preferred_backup_window = nil , @parameter_apply_status = nil , @master_username = nil , @latest_restorable_time = nil , @engine_version = nil , @engine = nil , @pending_modified_values = nil , @backup_retention_enabled = nil , @secondary_availability_zone = nil , @state = nil , @hardware = nil , @master_database_name = nil , @relational_database_bundle_id = nil , @relational_database_blueprint_id = nil , @tags = nil , @resource_type = nil , @location = nil , @created_at = nil , @support_code = nil , @arn = nil , @ca_certificate_identifier = nil )
+    end
   end
 
-  class GetRelationalDatabaseResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the specified database.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabase", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabase", structure: true)]
     property relational_database : RelationalDatabaseStruct?
+
+    def initialize(@relational_database = nil )
+    end
   end
 
-  class GetRelationalDatabaseBlueprintsRequest
-    include JSON1_1
+  class GetRelationalDatabaseBlueprintsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabaseBlueprints</code>
     # request. If your results are paginated, the response will return a next page token that you
     # can specify as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class RelationalDatabaseBlueprintStruct
-    include JSON1_1
+  class RelationalDatabaseBlueprintStruct 
+    include JSON1_1::Structure
 
     # <p>The ID for the database blueprint.</p>
-    @[Protocol::Field(location: :body, name: "blueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "blueprintId", structure: false)]
     property blueprint_id : String?
     # <p>The database software of the database blueprint (for example, <code>MySQL</code>).</p>
-    @[Protocol::Field(location: :body, name: "engine", required: false)]
+    @[Protocol::Field(location: :body, name: "engine", structure: false)]
     property engine : String?
     # <p>The database engine version for the database blueprint (for example,
     # <code>5.7.23</code>).</p>
-    @[Protocol::Field(location: :body, name: "engineVersion", required: false)]
+    @[Protocol::Field(location: :body, name: "engineVersion", structure: false)]
     property engine_version : String?
     # <p>The description of the database engine for the database blueprint.</p>
-    @[Protocol::Field(location: :body, name: "engineDescription", required: false)]
+    @[Protocol::Field(location: :body, name: "engineDescription", structure: false)]
     property engine_description : String?
     # <p>The description of the database engine version for the database blueprint.</p>
-    @[Protocol::Field(location: :body, name: "engineVersionDescription", required: false)]
+    @[Protocol::Field(location: :body, name: "engineVersionDescription", structure: false)]
     property engine_version_description : String?
     # <p>A Boolean value indicating whether the engine version is the default for the database
     # blueprint.</p>
-    @[Protocol::Field(location: :body, name: "isEngineDefault", required: false)]
+    @[Protocol::Field(location: :body, name: "isEngineDefault", structure: false)]
     property is_engine_default : Bool?
+
+    def initialize(@blueprint_id = nil , @engine = nil , @engine_version = nil , @engine_description = nil , @engine_version_description = nil , @is_engine_default = nil )
+    end
   end
 
-  class GetRelationalDatabaseBlueprintsResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseBlueprintsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database blueprints request.</p>
-    @[Protocol::Field(location: :body, name: "blueprints", required: false)]
+    @[Protocol::Field(location: :body, name: "blueprints", structure: false)]
     property blueprints : Array(RelationalDatabaseBlueprintStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another
     # <code>GetRelationalDatabaseBlueprints</code> request and specify the next page token using
     # the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@blueprints = nil , @next_page_token = nil )
+    end
   end
 
-  class GetRelationalDatabaseBundlesRequest
-    include JSON1_1
+  class GetRelationalDatabaseBundlesRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request.
     # If your results are paginated, the response will return a next page token that you can specify
     # as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class RelationalDatabaseBundleStruct
-    include JSON1_1
+  class RelationalDatabaseBundleStruct 
+    include JSON1_1::Structure
 
     # <p>The ID for the database bundle.</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
     # <p>The name for the database bundle.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The cost of the database bundle in US currency.</p>
-    @[Protocol::Field(location: :body, name: "price", required: false)]
+    @[Protocol::Field(location: :body, name: "price", structure: false)]
     property price : Float32?
     # <p>The amount of RAM in GB (for example, <code>2.0</code>) for the database bundle.</p>
-    @[Protocol::Field(location: :body, name: "ramSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
     # <p>The size of the disk for the database bundle.</p>
-    @[Protocol::Field(location: :body, name: "diskSizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "diskSizeInGb", structure: false)]
     property disk_size_in_gb : Int32?
     # <p>The data transfer rate per month in GB for the database bundle.</p>
-    @[Protocol::Field(location: :body, name: "transferPerMonthInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "transferPerMonthInGb", structure: false)]
     property transfer_per_month_in_gb : Int32?
     # <p>The number of virtual CPUs (vCPUs) for the database bundle.</p>
-    @[Protocol::Field(location: :body, name: "cpuCount", required: false)]
+    @[Protocol::Field(location: :body, name: "cpuCount", structure: false)]
     property cpu_count : Int32?
     # <p>A Boolean value indicating whether the database bundle is encrypted.</p>
-    @[Protocol::Field(location: :body, name: "isEncrypted", required: false)]
+    @[Protocol::Field(location: :body, name: "isEncrypted", structure: false)]
     property is_encrypted : Bool?
     # <p>A Boolean value indicating whether the database bundle is active.</p>
-    @[Protocol::Field(location: :body, name: "isActive", required: false)]
+    @[Protocol::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
+
+    def initialize(@bundle_id = nil , @name = nil , @price = nil , @ram_size_in_gb = nil , @disk_size_in_gb = nil , @transfer_per_month_in_gb = nil , @cpu_count = nil , @is_encrypted = nil , @is_active = nil )
+    end
   end
 
-  class GetRelationalDatabaseBundlesResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseBundlesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database bundles request.</p>
-    @[Protocol::Field(location: :body, name: "bundles", required: false)]
+    @[Protocol::Field(location: :body, name: "bundles", structure: false)]
     property bundles : Array(RelationalDatabaseBundleStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetRelationalDatabaseBundles</code>
     # request and specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@bundles = nil , @next_page_token = nil )
+    end
   end
 
-  class GetRelationalDatabaseEventsRequest
-    include JSON1_1
+  class GetRelationalDatabaseEventsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the database from which to get events.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The number of minutes in the past from which to retrieve events. For example, to get all
     # events from the past 2 hours, enter 120.</p>
     # <p>Default: <code>60</code>
     # </p>
     # <p>The minimum is 1 and the maximum is 14 days (20160 minutes).</p>
-    @[Protocol::Field(location: :body, name: "durationInMinutes", required: false)]
+    @[Protocol::Field(location: :body, name: "durationInMinutes", structure: false)]
     property duration_in_minutes : Int32?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabaseEvents</code> request.
     # If your results are paginated, the response will return a next page token that you can specify
     # as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@relational_database_name, @duration_in_minutes = nil , @page_token = nil )
+    end
   end
 
-  class RelationalDatabaseEventStruct
-    include JSON1_1
+  class RelationalDatabaseEventStruct 
+    include JSON1_1::Structure
 
     # <p>The database that the database event relates to.</p>
-    @[Protocol::Field(location: :body, name: "resource", required: false)]
+    @[Protocol::Field(location: :body, name: "resource", structure: false)]
     property resource : String?
     # <p>The timestamp when the database event was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The message of the database event.</p>
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
     # <p>The category that the database event belongs to.</p>
-    @[Protocol::Field(location: :body, name: "eventCategories", required: false)]
+    @[Protocol::Field(location: :body, name: "eventCategories", structure: false)]
     property event_categories : Array(String)?
+
+    def initialize(@resource = nil , @created_at = nil , @message = nil , @event_categories = nil )
+    end
   end
 
-  class GetRelationalDatabaseEventsResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseEventsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database events request.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseEvents", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseEvents", structure: false)]
     property relational_database_events : Array(RelationalDatabaseEventStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetRelationalDatabaseEvents</code>
     # request and specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@relational_database_events = nil , @next_page_token = nil )
+    end
   end
 
-  class GetRelationalDatabaseLogEventsRequest
-    include JSON1_1
+  class GetRelationalDatabaseLogEventsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database for which to get log events.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The name of the log stream.</p>
     # <p>Use the <code>get relational database log streams</code> operation to get a list of
     # available log streams.</p>
-    @[Protocol::Field(location: :body, name: "logStreamName", required: true)]
+    @[Protocol::Field(location: :body, name: "logStreamName", structure: false)]
     property log_stream_name : String
     # <p>The start of the time interval from which to get log events.</p>
     # <p>Constraints:</p>
@@ -10417,7 +10245,7 @@ module AWSSdk::Lightsail_20161128
     # input <code>1538424000</code> as the start time.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "startTime", required: false)]
+    @[Protocol::Field(location: :body, name: "startTime", structure: false)]
     property start_time : Time?
     # <p>The end of the time interval from which to get log events.</p>
     # <p>Constraints:</p>
@@ -10429,10 +10257,10 @@ module AWSSdk::Lightsail_20161128
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the end time.</p>
-    #
+    # 
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "endTime", required: false)]
+    @[Protocol::Field(location: :body, name: "endTime", structure: false)]
     property end_time : Time?
     # <p>Parameter to specify if the log should start from head or tail. If <code>true</code> is
     # specified, the log event starts from the head of the log. If <code>false</code> is specified,
@@ -10441,65 +10269,80 @@ module AWSSdk::Lightsail_20161128
     # <p>For PostgreSQL, the default value of <code>false</code> is the only option
     # available.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "startFromHead", required: false)]
+    @[Protocol::Field(location: :body, name: "startFromHead", structure: false)]
     property start_from_head : Bool?
     # <p>The token to advance to the next or previous page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabaseLogEvents</code>
     # request. If your results are paginated, the response will return a next forward token and/or
     # next backward token that you can specify as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@relational_database_name, @log_stream_name, @start_time = nil , @end_time = nil , @start_from_head = nil , @page_token = nil )
+    end
   end
 
-  class LogEventStruct
-    include JSON1_1
+  class LogEventStruct 
+    include JSON1_1::Structure
 
     # <p>The timestamp when the database log event was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The message of the database log event.</p>
-    @[Protocol::Field(location: :body, name: "message", required: false)]
+    @[Protocol::Field(location: :body, name: "message", structure: false)]
     property message : String?
+
+    def initialize(@created_at = nil , @message = nil )
+    end
   end
 
-  class GetRelationalDatabaseLogEventsResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseLogEventsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database log events request.</p>
-    @[Protocol::Field(location: :body, name: "resourceLogEvents", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceLogEvents", structure: false)]
     property resource_log_events : Array(LogEventStruct)?
     # <p>A token used for advancing to the previous page of results from your get relational
     # database log events request.</p>
-    @[Protocol::Field(location: :body, name: "nextBackwardToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextBackwardToken", structure: false)]
     property next_backward_token : String?
     # <p>A token used for advancing to the next page of results from your get relational database
     # log events request.</p>
-    @[Protocol::Field(location: :body, name: "nextForwardToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextForwardToken", structure: false)]
     property next_forward_token : String?
+
+    def initialize(@resource_log_events = nil , @next_backward_token = nil , @next_forward_token = nil )
+    end
   end
 
-  class GetRelationalDatabaseLogStreamsRequest
-    include JSON1_1
+  class GetRelationalDatabaseLogStreamsRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database for which to get log streams.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
+
+    def initialize(@relational_database_name)
+    end
   end
 
-  class GetRelationalDatabaseLogStreamsResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseLogStreamsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database log streams
     # request.</p>
-    @[Protocol::Field(location: :body, name: "logStreams", required: false)]
+    @[Protocol::Field(location: :body, name: "logStreams", structure: false)]
     property log_streams : Array(String)?
+
+    def initialize(@log_streams = nil )
+    end
   end
 
-  class GetRelationalDatabaseMasterUserPasswordRequest
-    include JSON1_1
+  class GetRelationalDatabaseMasterUserPasswordRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database for which to get the master user password.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The password version to return.</p>
     # <p>Specifying <code>CURRENT</code> or <code>PREVIOUS</code> returns the current or previous
@@ -10509,26 +10352,32 @@ module AWSSdk::Lightsail_20161128
     # available.</p>
     # <p>Default: <code>CURRENT</code>
     # </p>
-    @[Protocol::Field(location: :body, name: "passwordVersion", required: false)]
+    @[Protocol::Field(location: :body, name: "passwordVersion", structure: false)]
     property password_version : String?
+
+    def initialize(@relational_database_name, @password_version = nil )
+    end
   end
 
-  class GetRelationalDatabaseMasterUserPasswordResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseMasterUserPasswordResultStruct 
+    include JSON1_1::Structure
 
     # <p>The master user password for the <code>password version</code> specified.</p>
-    @[Protocol::Field(location: :body, name: "masterUserPassword", required: false)]
+    @[Protocol::Field(location: :body, name: "masterUserPassword", structure: false)]
     property master_user_password : String?
     # <p>The timestamp when the specified version of the master user password was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
+
+    def initialize(@master_user_password = nil , @created_at = nil )
+    end
   end
 
-  class GetRelationalDatabaseMetricDataRequest
-    include JSON1_1
+  class GetRelationalDatabaseMetricDataRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database from which to get metric data.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The metric for which you want to return information.</p>
     # <p>Valid relational database metric names are listed below, along with the most useful
@@ -10607,12 +10456,12 @@ module AWSSdk::Lightsail_20161128
     # <code>Unit</code>: The published unit is <code>Bytes/Second</code>.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "metricName", required: true)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String
     # <p>The granularity, in seconds, of the returned data points.</p>
     # <p>All relational database metric data is available in 1-minute (60 seconds)
     # granularity.</p>
-    @[Protocol::Field(location: :body, name: "period", required: true)]
+    @[Protocol::Field(location: :body, name: "period", structure: false)]
     property period : Int32
     # <p>The start of the time interval from which to get metric data.</p>
     # <p>Constraints:</p>
@@ -10624,10 +10473,10 @@ module AWSSdk::Lightsail_20161128
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the start time.</p>
-    #
+    # 
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "startTime", required: true)]
+    @[Protocol::Field(location: :body, name: "startTime", structure: false)]
     property start_time : Time
     # <p>The end of the time interval from which to get metric data.</p>
     # <p>Constraints:</p>
@@ -10639,15 +10488,15 @@ module AWSSdk::Lightsail_20161128
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the end time.</p>
-    #
+    # 
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "endTime", required: true)]
+    @[Protocol::Field(location: :body, name: "endTime", structure: false)]
     property end_time : Time
     # <p>The unit for the metric data request. Valid units depend on the metric data being
     # requested. For the valid units with each available metric, see the <code>metricName</code>
     # parameter.</p>
-    @[Protocol::Field(location: :body, name: "unit", required: true)]
+    @[Protocol::Field(location: :body, name: "unit", structure: false)]
     property unit : String
     # <p>The statistic for the metric.</p>
     # <p>The following statistics are available:</p>
@@ -10680,357 +10529,432 @@ module AWSSdk::Lightsail_20161128
     # statistical calculation.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "statistics", required: true)]
+    @[Protocol::Field(location: :body, name: "statistics", structure: false)]
     property statistics : Array(String)
+
+    def initialize(@relational_database_name, @metric_name, @period, @start_time, @end_time, @unit, @statistics)
+    end
   end
 
-  class GetRelationalDatabaseMetricDataResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseMetricDataResultStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the metric returned.</p>
-    @[Protocol::Field(location: :body, name: "metricName", required: false)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[Protocol::Field(location: :body, name: "metricData", required: false)]
+    @[Protocol::Field(location: :body, name: "metricData", structure: false)]
     property metric_data : Array(MetricDatapointStruct)?
+
+    def initialize(@metric_name = nil , @metric_data = nil )
+    end
   end
 
-  class GetRelationalDatabaseParametersRequest
-    include JSON1_1
+  class GetRelationalDatabaseParametersRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database for which to get parameters.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabaseParameters</code>
     # request. If your results are paginated, the response will return a next page token that you
     # can specify as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@relational_database_name, @page_token = nil )
+    end
   end
 
-  class RelationalDatabaseParameterStruct
-    include JSON1_1
+  class RelationalDatabaseParameterStruct 
+    include JSON1_1::Structure
 
     # <p>Specifies the valid range of values for the parameter.</p>
-    @[Protocol::Field(location: :body, name: "allowedValues", required: false)]
+    @[Protocol::Field(location: :body, name: "allowedValues", structure: false)]
     property allowed_values : String?
     # <p>Indicates when parameter updates are applied.</p>
     # <p>Can be <code>immediate</code> or <code>pending-reboot</code>.</p>
-    @[Protocol::Field(location: :body, name: "applyMethod", required: false)]
+    @[Protocol::Field(location: :body, name: "applyMethod", structure: false)]
     property apply_method : String?
     # <p>Specifies the engine-specific parameter type.</p>
-    @[Protocol::Field(location: :body, name: "applyType", required: false)]
+    @[Protocol::Field(location: :body, name: "applyType", structure: false)]
     property apply_type : String?
     # <p>Specifies the valid data type for the parameter.</p>
-    @[Protocol::Field(location: :body, name: "dataType", required: false)]
+    @[Protocol::Field(location: :body, name: "dataType", structure: false)]
     property data_type : String?
     # <p>Provides a description of the parameter.</p>
-    @[Protocol::Field(location: :body, name: "description", required: false)]
+    @[Protocol::Field(location: :body, name: "description", structure: false)]
     property description : String?
     # <p>A Boolean value indicating whether the parameter can be modified.</p>
-    @[Protocol::Field(location: :body, name: "isModifiable", required: false)]
+    @[Protocol::Field(location: :body, name: "isModifiable", structure: false)]
     property is_modifiable : Bool?
     # <p>Specifies the name of the parameter.</p>
-    @[Protocol::Field(location: :body, name: "parameterName", required: false)]
+    @[Protocol::Field(location: :body, name: "parameterName", structure: false)]
     property parameter_name : String?
     # <p>Specifies the value of the parameter.</p>
-    @[Protocol::Field(location: :body, name: "parameterValue", required: false)]
+    @[Protocol::Field(location: :body, name: "parameterValue", structure: false)]
     property parameter_value : String?
+
+    def initialize(@allowed_values = nil , @apply_method = nil , @apply_type = nil , @data_type = nil , @description = nil , @is_modifiable = nil , @parameter_name = nil , @parameter_value = nil )
+    end
   end
 
-  class GetRelationalDatabaseParametersResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseParametersResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database parameters request.</p>
-    @[Protocol::Field(location: :body, name: "parameters", required: false)]
+    @[Protocol::Field(location: :body, name: "parameters", structure: false)]
     property parameters : Array(RelationalDatabaseParameterStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another
     # <code>GetRelationalDatabaseParameters</code> request and specify the next page token using
     # the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@parameters = nil , @next_page_token = nil )
+    end
   end
 
-  class GetRelationalDatabasesRequest
-    include JSON1_1
+  class GetRelationalDatabasesRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabases</code> request. If
     # your results are paginated, the response will return a next page token that you can specify as
     # the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetRelationalDatabasesResultStruct
-    include JSON1_1
+  class GetRelationalDatabasesResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational databases request.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabases", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabases", structure: false)]
     property relational_databases : Array(RelationalDatabaseStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetRelationalDatabases</code>
     # request and specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@relational_databases = nil , @next_page_token = nil )
+    end
   end
 
-  class GetRelationalDatabaseSnapshotRequest
-    include JSON1_1
+  class GetRelationalDatabaseSnapshotRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the database snapshot for which to get information.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", structure: false)]
     property relational_database_snapshot_name : String
+
+    def initialize(@relational_database_snapshot_name)
+    end
   end
 
-  class RelationalDatabaseSnapshotStruct
-    include JSON1_1
+  class RelationalDatabaseSnapshotStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the database snapshot.</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the database snapshot.</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code for the database snapshot. Include this code in your email to support
     # when you have questions about a database snapshot in Lightsail. This code enables our
     # support team to look up your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the database snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The Region name and Availability Zone where the database snapshot is located.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type.</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
     # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
     # Dev Guide</a>.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: false)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)?
     # <p>The software of the database snapshot (for example, <code>MySQL</code>)</p>
-    @[Protocol::Field(location: :body, name: "engine", required: false)]
+    @[Protocol::Field(location: :body, name: "engine", structure: false)]
     property engine : String?
     # <p>The database engine version for the database snapshot (for example,
     # <code>5.7.23</code>).</p>
-    @[Protocol::Field(location: :body, name: "engineVersion", required: false)]
+    @[Protocol::Field(location: :body, name: "engineVersion", structure: false)]
     property engine_version : String?
     # <p>The size of the disk in GB (for example, <code>32</code>) for the database
     # snapshot.</p>
-    @[Protocol::Field(location: :body, name: "sizeInGb", required: false)]
+    @[Protocol::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
     # <p>The state of the database snapshot.</p>
-    @[Protocol::Field(location: :body, name: "state", required: false)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The name of the source database from which the database snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseName", required: false)]
+    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseName", structure: false)]
     property from_relational_database_name : String?
     # <p>The Amazon Resource Name (ARN) of the database from which the database snapshot was
     # created.</p>
-    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseArn", required: false)]
+    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseArn", structure: false)]
     property from_relational_database_arn : String?
     # <p>The bundle ID of the database from which the database snapshot was created.</p>
-    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseBundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseBundleId", structure: false)]
     property from_relational_database_bundle_id : String?
     # <p>The blueprint ID of the database from which the database snapshot was created. A blueprint
     # describes the major engine version of a database.</p>
-    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseBlueprintId", required: false)]
+    @[Protocol::Field(location: :body, name: "fromRelationalDatabaseBlueprintId", structure: false)]
     property from_relational_database_blueprint_id : String?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @tags = nil , @engine = nil , @engine_version = nil , @size_in_gb = nil , @state = nil , @from_relational_database_name = nil , @from_relational_database_arn = nil , @from_relational_database_bundle_id = nil , @from_relational_database_blueprint_id = nil )
+    end
   end
 
-  class GetRelationalDatabaseSnapshotResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseSnapshotResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the specified database snapshot.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshot", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshot", structure: true)]
     property relational_database_snapshot : RelationalDatabaseSnapshotStruct?
+
+    def initialize(@relational_database_snapshot = nil )
+    end
   end
 
-  class GetRelationalDatabaseSnapshotsRequest
-    include JSON1_1
+  class GetRelationalDatabaseSnapshotsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetRelationalDatabaseSnapshots</code>
     # request. If your results are paginated, the response will return a next page token that you
     # can specify as the page token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetRelationalDatabaseSnapshotsResultStruct
-    include JSON1_1
+  class GetRelationalDatabaseSnapshotsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database snapshots request.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshots", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshots", structure: false)]
     property relational_database_snapshots : Array(RelationalDatabaseSnapshotStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another
     # <code>GetRelationalDatabaseSnapshots</code> request and specify the next page token using
     # the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@relational_database_snapshots = nil , @next_page_token = nil )
+    end
   end
 
-  class GetStaticIpRequest
-    include JSON1_1
+  class GetStaticIpRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the static IP in Lightsail.</p>
-    @[Protocol::Field(location: :body, name: "staticIpName", required: true)]
+    @[Protocol::Field(location: :body, name: "staticIpName", structure: false)]
     property static_ip_name : String
+
+    def initialize(@static_ip_name)
+    end
   end
 
-  class StaticIpStruct
-    include JSON1_1
+  class StaticIpStruct 
+    include JSON1_1::Structure
 
     # <p>The name of the static IP (e.g., <code>StaticIP-Ohio-EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "name", required: false)]
+    @[Protocol::Field(location: :body, name: "name", structure: false)]
     property name : String?
     # <p>The Amazon Resource Name (ARN) of the static IP (e.g.,
     # <code>arn:aws:lightsail:us-east-2:123456789101:StaticIp/9cbb4a9e-f8e3-4dfe-b57e-12345EXAMPLE</code>).</p>
-    @[Protocol::Field(location: :body, name: "arn", required: false)]
+    @[Protocol::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
     # <p>The support code. Include this code in your email to support when you have questions about
     # an instance or another resource in Lightsail. This code enables our support team to look up
     # your Lightsail information more easily.</p>
-    @[Protocol::Field(location: :body, name: "supportCode", required: false)]
+    @[Protocol::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
     # <p>The timestamp when the static IP was created (e.g., <code>1479735304.222</code>).</p>
-    @[Protocol::Field(location: :body, name: "createdAt", required: false)]
+    @[Protocol::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
     # <p>The region and Availability Zone where the static IP was created.</p>
-    @[Protocol::Field(location: :body, name: "location", required: false)]
+    @[Protocol::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The resource type (usually <code>StaticIp</code>).</p>
-    @[Protocol::Field(location: :body, name: "resourceType", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The static IP address.</p>
-    @[Protocol::Field(location: :body, name: "ipAddress", required: false)]
+    @[Protocol::Field(location: :body, name: "ipAddress", structure: false)]
     property ip_address : String?
     # <p>The instance where the static IP is attached (e.g.,
     # <code>Amazon_Linux-1GB-Ohio-1</code>).</p>
-    @[Protocol::Field(location: :body, name: "attachedTo", required: false)]
+    @[Protocol::Field(location: :body, name: "attachedTo", structure: false)]
     property attached_to : String?
     # <p>A Boolean value indicating whether the static IP is attached.</p>
-    @[Protocol::Field(location: :body, name: "isAttached", required: false)]
+    @[Protocol::Field(location: :body, name: "isAttached", structure: false)]
     property is_attached : Bool?
+
+    def initialize(@name = nil , @arn = nil , @support_code = nil , @created_at = nil , @location = nil , @resource_type = nil , @ip_address = nil , @attached_to = nil , @is_attached = nil )
+    end
   end
 
-  class GetStaticIpResultStruct
-    include JSON1_1
+  class GetStaticIpResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the requested static IP.</p>
-    @[Protocol::Field(location: :body, name: "staticIp", required: false)]
+    @[Protocol::Field(location: :body, name: "staticIp", structure: true)]
     property static_ip : StaticIpStruct?
+
+    def initialize(@static_ip = nil )
+    end
   end
 
-  class GetStaticIpsRequest
-    include JSON1_1
+  class GetStaticIpsRequest 
+    include JSON1_1::Structure
 
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>To get a page token, perform an initial <code>GetStaticIps</code> request. If your results
     # are paginated, the response will return a next page token that you can specify as the page
     # token in a subsequent request.</p>
-    @[Protocol::Field(location: :body, name: "pageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+
+    def initialize(@page_token = nil )
+    end
   end
 
-  class GetStaticIpsResultStruct
-    include JSON1_1
+  class GetStaticIpsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about your get static IPs
     # request.</p>
-    @[Protocol::Field(location: :body, name: "staticIps", required: false)]
+    @[Protocol::Field(location: :body, name: "staticIps", structure: false)]
     property static_ips : Array(StaticIpStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
     # <p>To get the next page of results, perform another <code>GetStaticIps</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
-    @[Protocol::Field(location: :body, name: "nextPageToken", required: false)]
+    @[Protocol::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
+
+    def initialize(@static_ips = nil , @next_page_token = nil )
+    end
   end
 
-  class ImportKeyPairRequest
-    include JSON1_1
+  class ImportKeyPairRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the key pair for which you want to import the public key.</p>
-    @[Protocol::Field(location: :body, name: "keyPairName", required: true)]
+    @[Protocol::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String
     # <p>A base64-encoded public key of the <code>ssh-rsa</code> type.</p>
-    @[Protocol::Field(location: :body, name: "publicKeyBase64", required: true)]
+    @[Protocol::Field(location: :body, name: "publicKeyBase64", structure: false)]
     property public_key_base64 : String
+
+    def initialize(@key_pair_name, @public_key_base64)
+    end
   end
 
-  class ImportKeyPairResultStruct
-    include JSON1_1
+  class ImportKeyPairResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class IsVpcPeeredRequest
-    include JSON1_1
+  class IsVpcPeeredRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class IsVpcPeeredResultStruct
-    include JSON1_1
+  class IsVpcPeeredResultStruct 
+    include JSON1_1::Structure
 
     # <p>Returns <code>true</code> if the Lightsail VPC is peered; otherwise,
     # <code>false</code>.</p>
-    @[Protocol::Field(location: :body, name: "isPeered", required: false)]
+    @[Protocol::Field(location: :body, name: "isPeered", structure: false)]
     property is_peered : Bool?
+
+    def initialize(@is_peered = nil )
+    end
   end
 
-  class OpenInstancePublicPortsRequest
-    include JSON1_1
+  class OpenInstancePublicPortsRequest 
+    include JSON1_1::Structure
 
     # <p>An object to describe the ports to open for the specified instance.</p>
-    @[Protocol::Field(location: :body, name: "portInfo", required: true)]
+    @[Protocol::Field(location: :body, name: "portInfo", structure: true)]
     property port_info : PortInfoStruct
     # <p>The name of the instance for which to open ports.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@port_info, @instance_name)
+    end
   end
 
-  class OpenInstancePublicPortsResultStruct
-    include JSON1_1
+  class OpenInstancePublicPortsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class PeerVpcRequest
-    include JSON1_1
+  class PeerVpcRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class PeerVpcResultStruct
-    include JSON1_1
+  class PeerVpcResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class PutAlarmRequest
-    include JSON1_1
+  class PutAlarmRequest 
+    include JSON1_1::Structure
 
     # <p>The name for the alarm. Specify the name of an existing alarm to update, and overwrite the
     # previous configuration of the alarm.</p>
-    @[Protocol::Field(location: :body, name: "alarmName", required: true)]
+    @[Protocol::Field(location: :body, name: "alarmName", structure: false)]
     property alarm_name : String
     # <p>The name of the metric to associate with the alarm.</p>
     # <p>You can configure up to two alarms per metric.</p>
@@ -11063,19 +10987,19 @@ module AWSSdk::Lightsail_20161128
     # </li>
     # </ul>
     # <p>For more information about these metrics, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-resource-health-metrics#available-metrics">Metrics available in Lightsail</a>.</p>
-    @[Protocol::Field(location: :body, name: "metricName", required: true)]
+    @[Protocol::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String
     # <p>The name of the Lightsail resource that will be monitored.</p>
     # <p>Instances, load balancers, and relational databases are the only Lightsail resources
     # that can currently be monitored by alarms.</p>
-    @[Protocol::Field(location: :body, name: "monitoredResourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "monitoredResourceName", structure: false)]
     property monitored_resource_name : String
     # <p>The arithmetic operation to use when comparing the specified statistic to the threshold.
     # The specified statistic value is used as the first operand.</p>
-    @[Protocol::Field(location: :body, name: "comparisonOperator", required: true)]
+    @[Protocol::Field(location: :body, name: "comparisonOperator", structure: false)]
     property comparison_operator : String
     # <p>The value against which the specified statistic is compared.</p>
-    @[Protocol::Field(location: :body, name: "threshold", required: true)]
+    @[Protocol::Field(location: :body, name: "threshold", structure: false)]
     property threshold : Float64
     # <p>The number of most recent periods over which data is compared to the specified threshold.
     # If you are setting an "M out of N" alarm, this value (<code>evaluationPeriods</code>) is the
@@ -11087,12 +11011,12 @@ module AWSSdk::Lightsail_20161128
     # 24 to evaluate a metric over a rolling period of two hours.</p>
     # <p>You can specify a minimum valuation period of 1 (5 minutes), and a maximum evaluation
     # period of 288 (24 hours).</p>
-    @[Protocol::Field(location: :body, name: "evaluationPeriods", required: true)]
+    @[Protocol::Field(location: :body, name: "evaluationPeriods", structure: false)]
     property evaluation_periods : Int32
     # <p>The number of data points that must be not within the specified threshold to trigger the
     # alarm. If you are setting an "M out of N" alarm, this value (<code>datapointsToAlarm</code>)
     # is the M.</p>
-    @[Protocol::Field(location: :body, name: "datapointsToAlarm", required: false)]
+    @[Protocol::Field(location: :body, name: "datapointsToAlarm", structure: false)]
     property datapoints_to_alarm : Int32?
     # <p>Sets how this alarm will handle missing data points.</p>
     # <p>An alarm can treat missing data in the following ways:</p>
@@ -11120,7 +11044,7 @@ module AWSSdk::Lightsail_20161128
     # </ul>
     # <p>If <code>treatMissingData</code> is not specified, the default behavior of
     # <code>missing</code> is used.</p>
-    @[Protocol::Field(location: :body, name: "treatMissingData", required: false)]
+    @[Protocol::Field(location: :body, name: "treatMissingData", structure: false)]
     property treat_missing_data : String?
     # <p>The contact protocols to use for the alarm, such as <code>Email</code>, <code>SMS</code>
     # (text messaging), or both.</p>
@@ -11131,7 +11055,7 @@ module AWSSdk::Lightsail_20161128
     # for the alarm using the <code>notificationEnabled</code> paramater.</p>
     # <p>Use the <code>CreateContactMethod</code> action to configure a contact protocol in an
     # AWS Region.</p>
-    @[Protocol::Field(location: :body, name: "contactProtocols", required: false)]
+    @[Protocol::Field(location: :body, name: "contactProtocols", structure: false)]
     property contact_protocols : Array(String)?
     # <p>The alarm states that trigger a notification.</p>
     # <p>An alarm has the following possible states:</p>
@@ -11169,88 +11093,112 @@ module AWSSdk::Lightsail_20161128
     # </ul>
     # <p>The notification trigger defaults to <code>ALARM</code> if you don't specify this
     # parameter.</p>
-    @[Protocol::Field(location: :body, name: "notificationTriggers", required: false)]
+    @[Protocol::Field(location: :body, name: "notificationTriggers", structure: false)]
     property notification_triggers : Array(String)?
     # <p>Indicates whether the alarm is enabled.</p>
     # <p>Notifications are enabled by default if you don't specify this parameter.</p>
-    @[Protocol::Field(location: :body, name: "notificationEnabled", required: false)]
+    @[Protocol::Field(location: :body, name: "notificationEnabled", structure: false)]
     property notification_enabled : Bool?
+
+    def initialize(@alarm_name, @metric_name, @monitored_resource_name, @comparison_operator, @threshold, @evaluation_periods, @datapoints_to_alarm = nil , @treat_missing_data = nil , @contact_protocols = nil , @notification_triggers = nil , @notification_enabled = nil )
+    end
   end
 
-  class PutAlarmResultStruct
-    include JSON1_1
+  class PutAlarmResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class PutInstancePublicPortsRequest
-    include JSON1_1
+  class PutInstancePublicPortsRequest 
+    include JSON1_1::Structure
 
     # <p>An array of objects to describe the ports to open for the specified instance.</p>
-    @[Protocol::Field(location: :body, name: "portInfos", required: true)]
+    @[Protocol::Field(location: :body, name: "portInfos", structure: false)]
     property port_infos : Array(PortInfoStruct)
     # <p>The name of the instance for which to open ports.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@port_infos, @instance_name)
+    end
   end
 
-  class PutInstancePublicPortsResultStruct
-    include JSON1_1
+  class PutInstancePublicPortsResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class RebootInstanceRequest
-    include JSON1_1
+  class RebootInstanceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance to reboot.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@instance_name)
+    end
   end
 
-  class RebootInstanceResultStruct
-    include JSON1_1
+  class RebootInstanceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class RebootRelationalDatabaseRequest
-    include JSON1_1
+  class RebootRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database to reboot.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
+
+    def initialize(@relational_database_name)
+    end
   end
 
-  class RebootRelationalDatabaseResultStruct
-    include JSON1_1
+  class RebootRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class RegisterContainerImageRequest
-    include JSON1_1
+  class RegisterContainerImageRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service for which to register a container image.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The label for the container image when it's registered to the container service.</p>
-    #
+    # 
     # <p>Use a descriptive label that you can use to track the different versions of your
     # registered container images.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerImages</code> action to return the container images registered
     # to a Lightsail container service. The label is the <code><imagelabel></code> portion
     # of the following image name example:</p>
@@ -11261,131 +11209,167 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>If the name of your container service is <code>mycontainerservice</code>, and the label
     # that you specify is <code>mystaticwebsite</code>, then the name of the registered container
     # image will be <code>:mycontainerservice.mystaticwebsite.1</code>.</p>
-    #
+    # 
     # <p>The number at the end of these image name examples represents the version of the
     # registered container image. If you push and register another container image to the same
     # Lightsail container service, with the same label, then the version number for the new
     # registered container image will be <code>2</code>. If you push and register another container
     # image, the version number will be <code>3</code>, and so on.</p>
-    @[Protocol::Field(location: :body, name: "label", required: true)]
+    @[Protocol::Field(location: :body, name: "label", structure: false)]
     property label : String
     # <p>The digest of the container image to be registered.</p>
-    @[Protocol::Field(location: :body, name: "digest", required: true)]
+    @[Protocol::Field(location: :body, name: "digest", structure: false)]
     property digest : String
+
+    def initialize(@service_name, @label, @digest)
+    end
   end
 
-  class RegisterContainerImageResultStruct
-    include JSON1_1
+  class RegisterContainerImageResultStruct 
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "containerImage", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "containerImage", structure: true)]
     property container_image : ContainerImageStruct?
+
+    def initialize(@container_image = nil )
+    end
   end
 
-  class ReleaseStaticIpRequest
-    include JSON1_1
+  class ReleaseStaticIpRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the static IP to delete.</p>
-    @[Protocol::Field(location: :body, name: "staticIpName", required: true)]
+    @[Protocol::Field(location: :body, name: "staticIpName", structure: false)]
     property static_ip_name : String
+
+    def initialize(@static_ip_name)
+    end
   end
 
-  class ReleaseStaticIpResultStruct
-    include JSON1_1
+  class ReleaseStaticIpResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class ResetDistributionCacheRequest
-    include JSON1_1
+  class ResetDistributionCacheRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution for which to reset cache.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: false)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
+
+    def initialize(@distribution_name = nil )
+    end
   end
 
-  class ResetDistributionCacheResultStruct
-    include JSON1_1
+  class ResetDistributionCacheResultStruct 
+    include JSON1_1::Structure
 
     # <p>The status of the reset cache request.</p>
-    @[Protocol::Field(location: :body, name: "status", required: false)]
+    @[Protocol::Field(location: :body, name: "status", structure: false)]
     property status : String?
     # <p>The timestamp of the reset cache request (e.g., <code>1479734909.17</code>) in Unix time
     # format.</p>
-    @[Protocol::Field(location: :body, name: "createTime", required: false)]
+    @[Protocol::Field(location: :body, name: "createTime", structure: false)]
     property create_time : Time?
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@status = nil , @create_time = nil , @operation = nil )
+    end
   end
 
-  class SendContactMethodVerificationRequest
-    include JSON1_1
+  class SendContactMethodVerificationRequest 
+    include JSON1_1::Structure
 
     # <p>The protocol to verify, such as <code>Email</code> or <code>SMS</code> (text
     # messaging).</p>
-    @[Protocol::Field(location: :body, name: "protocol", required: true)]
+    @[Protocol::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String
+
+    def initialize(@protocol)
+    end
   end
 
-  class SendContactMethodVerificationResultStruct
-    include JSON1_1
+  class SendContactMethodVerificationResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class StartInstanceRequest
-    include JSON1_1
+  class StartInstanceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance (a virtual private server) to start.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
+
+    def initialize(@instance_name)
+    end
   end
 
-  class StartInstanceResultStruct
-    include JSON1_1
+  class StartInstanceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class StartRelationalDatabaseRequest
-    include JSON1_1
+  class StartRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database to start.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
+
+    def initialize(@relational_database_name)
+    end
   end
 
-  class StartRelationalDatabaseResultStruct
-    include JSON1_1
+  class StartRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class StopInstanceRequest
-    include JSON1_1
+  class StopInstanceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the instance (a virtual private server) to stop.</p>
-    @[Protocol::Field(location: :body, name: "instanceName", required: true)]
+    @[Protocol::Field(location: :body, name: "instanceName", structure: false)]
     property instance_name : String
     # <p>When set to <code>True</code>, forces a Lightsail instance that is stuck in a
     # <code>stopping</code> state to stop.</p>
@@ -11394,67 +11378,85 @@ module AWSSdk::Lightsail_20161128
     # <code>stopping</code> state. In any other state, your instance should stop normally
     # without adding this parameter to your API request.</p>
     # </important>
-    @[Protocol::Field(location: :body, name: "force", required: false)]
+    @[Protocol::Field(location: :body, name: "force", structure: false)]
     property force : Bool?
+
+    def initialize(@instance_name, @force = nil )
+    end
   end
 
-  class StopInstanceResultStruct
-    include JSON1_1
+  class StopInstanceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class StopRelationalDatabaseRequest
-    include JSON1_1
+  class StopRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database to stop.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The name of your new database snapshot to be created before stopping your database.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", required: false)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseSnapshotName", structure: false)]
     property relational_database_snapshot_name : String?
+
+    def initialize(@relational_database_name, @relational_database_snapshot_name = nil )
+    end
   end
 
-  class StopRelationalDatabaseResultStruct
-    include JSON1_1
+  class StopRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class TagResourceRequest
-    include JSON1_1
+  class TagResourceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the resource to which you are adding tags.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
     # <p>The Amazon Resource Name (ARN) of the resource to which you want to add a tag.</p>
-    @[Protocol::Field(location: :body, name: "resourceArn", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceArn", structure: false)]
     property resource_arn : String?
     # <p>The tag key and optional value.</p>
-    @[Protocol::Field(location: :body, name: "tags", required: true)]
+    @[Protocol::Field(location: :body, name: "tags", structure: false)]
     property tags : Array(TagStruct)
+
+    def initialize(@resource_name, @tags, @resource_arn = nil )
+    end
   end
 
-  class TagResourceResultStruct
-    include JSON1_1
+  class TagResourceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class TestAlarmRequest
-    include JSON1_1
+  class TestAlarmRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the alarm to test.</p>
-    @[Protocol::Field(location: :body, name: "alarmName", required: true)]
+    @[Protocol::Field(location: :body, name: "alarmName", structure: false)]
     property alarm_name : String
     # <p>The alarm state to test.</p>
     # <p>An alarm has the following possible states that can be tested:</p>
@@ -11474,131 +11476,155 @@ module AWSSdk::Lightsail_20161128
     # <code>OK</code> - The metric is within the defined threshold.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "state", required: true)]
+    @[Protocol::Field(location: :body, name: "state", structure: false)]
     property state : String
+
+    def initialize(@alarm_name, @state)
+    end
   end
 
-  class TestAlarmResultStruct
-    include JSON1_1
+  class TestAlarmResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class UnpeerVpcRequest
-    include JSON1_1
+  class UnpeerVpcRequest 
+    include JSON1_1::Structure
 
+
+    def initialize()
+    end
   end
 
-  class UnpeerVpcResultStruct
-    include JSON1_1
+  class UnpeerVpcResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class UntagResourceRequest
-    include JSON1_1
+  class UntagResourceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the resource from which you are removing a tag.</p>
-    @[Protocol::Field(location: :body, name: "resourceName", required: true)]
+    @[Protocol::Field(location: :body, name: "resourceName", structure: false)]
     property resource_name : String
     # <p>The Amazon Resource Name (ARN) of the resource from which you want to remove a tag.</p>
-    @[Protocol::Field(location: :body, name: "resourceArn", required: false)]
+    @[Protocol::Field(location: :body, name: "resourceArn", structure: false)]
     property resource_arn : String?
     # <p>The tag keys to delete from the specified resource.</p>
-    @[Protocol::Field(location: :body, name: "tagKeys", required: true)]
+    @[Protocol::Field(location: :body, name: "tagKeys", structure: false)]
     property tag_keys : Array(String)
+
+    def initialize(@resource_name, @tag_keys, @resource_arn = nil )
+    end
   end
 
-  class UntagResourceResultStruct
-    include JSON1_1
+  class UntagResourceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class UpdateContainerServiceRequest
-    include JSON1_1
+  class UpdateContainerServiceRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the container service to update.</p>
-    @[Protocol::Field(location: :uri, name: "serviceName", required: true)]
+    @[Protocol::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The power for the container service.</p>
-    #
+    # 
     # <p>The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the
     # container service. The <code>power</code> and <code>scale</code> of a container service makes
     # up its configured capacity. To determine the monthly price of your container service, multiply
     # the base price of the <code>power</code> with the <code>scale</code> (the number of nodes) of
     # the service.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerServicePowers</code> action to view the specifications of each
     # power option.</p>
-    @[Protocol::Field(location: :body, name: "power", required: false)]
+    @[Protocol::Field(location: :body, name: "power", structure: false)]
     property power : String?
     # <p>The scale for the container service.</p>
-    #
+    # 
     # <p>The scale specifies the allocated compute nodes of the container service. The
     # <code>power</code> and <code>scale</code> of a container service makes up its configured
     # capacity. To determine the monthly price of your container service, multiply the base price of
     # the <code>power</code> with the <code>scale</code> (the number of nodes) of the
     # service.</p>
-    @[Protocol::Field(location: :body, name: "scale", required: false)]
+    @[Protocol::Field(location: :body, name: "scale", structure: false)]
     property scale : Int32?
     # <p>A Boolean value to indicate whether the container service is disabled.</p>
-    @[Protocol::Field(location: :body, name: "isDisabled", required: false)]
+    @[Protocol::Field(location: :body, name: "isDisabled", structure: false)]
     property is_disabled : Bool?
     # <p>The public domain names to use with the container service, such as
     # <code>example.com</code> and <code>www.example.com</code>.</p>
-    #
+    # 
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    #
+    # 
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    #
+    # 
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    #
+    # 
     # <p>You can specify public domain names using a string to array map as shown in the example
     # later on this page.</p>
-    @[Protocol::Field(location: :body, name: "publicDomainNames", required: false)]
+    @[Protocol::Field(location: :body, name: "publicDomainNames", structure: false)]
     property public_domain_names : Hash(String, Array(String))?
+
+    def initialize(@service_name, @power = nil , @scale = nil , @is_disabled = nil , @public_domain_names = nil )
+    end
   end
 
-  class UpdateContainerServiceResultStruct
-    include JSON1_1
+  class UpdateContainerServiceResultStruct 
+    include JSON1_1::Structure
 
     # <p>An object that describes a container service.</p>
-    @[Protocol::Field(location: :body, name: "containerService", required: false)]
+    @[Protocol::Field(location: :body, name: "containerService", structure: true)]
     property container_service : ContainerServiceStruct?
+
+    def initialize(@container_service = nil )
+    end
   end
 
-  class UpdateDistributionRequest
-    include JSON1_1
+  class UpdateDistributionRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution to update.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: true)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
     # <p>An object that describes the origin resource for the distribution, such as a Lightsail
     # instance or load balancer.</p>
     # <p>The distribution pulls, caches, and serves content from the origin.</p>
-    @[Protocol::Field(location: :body, name: "origin", required: false)]
+    @[Protocol::Field(location: :body, name: "origin", structure: true)]
     property origin : InputOriginStruct?
     # <p>An object that describes the default cache behavior for the distribution.</p>
-    @[Protocol::Field(location: :body, name: "defaultCacheBehavior", required: false)]
+    @[Protocol::Field(location: :body, name: "defaultCacheBehavior", structure: true)]
     property default_cache_behavior : CacheBehaviorStruct?
     # <p>An object that describes the cache behavior settings for the distribution.</p>
     # <note>
@@ -11606,108 +11632,132 @@ module AWSSdk::Lightsail_20161128
     # <code>UpdateDistributionRequest</code> will replace your distribution's existing
     # settings.</p>
     # </note>
-    @[Protocol::Field(location: :body, name: "cacheBehaviorSettings", required: false)]
+    @[Protocol::Field(location: :body, name: "cacheBehaviorSettings", structure: true)]
     property cache_behavior_settings : CacheSettingsStruct?
     # <p>An array of objects that describe the per-path cache behavior for the distribution.</p>
-    @[Protocol::Field(location: :body, name: "cacheBehaviors", required: false)]
+    @[Protocol::Field(location: :body, name: "cacheBehaviors", structure: false)]
     property cache_behaviors : Array(CacheBehaviorPerPathStruct)?
     # <p>Indicates whether to enable the distribution.</p>
-    @[Protocol::Field(location: :body, name: "isEnabled", required: false)]
+    @[Protocol::Field(location: :body, name: "isEnabled", structure: false)]
     property is_enabled : Bool?
+
+    def initialize(@distribution_name, @origin = nil , @default_cache_behavior = nil , @cache_behavior_settings = nil , @cache_behaviors = nil , @is_enabled = nil )
+    end
   end
 
-  class UpdateDistributionResultStruct
-    include JSON1_1
+  class UpdateDistributionResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class UpdateDistributionBundleRequest
-    include JSON1_1
+  class UpdateDistributionBundleRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the distribution for which to update the bundle.</p>
     # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
     # can specify.</p>
-    @[Protocol::Field(location: :body, name: "distributionName", required: false)]
+    @[Protocol::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
     # <p>The bundle ID of the new bundle to apply to your distribution.</p>
     # <p>Use the <code>GetDistributionBundles</code> action to get a list of distribution bundle
     # IDs that you can specify.</p>
-    @[Protocol::Field(location: :body, name: "bundleId", required: false)]
+    @[Protocol::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
+
+    def initialize(@distribution_name = nil , @bundle_id = nil )
+    end
   end
 
-  class UpdateDistributionBundleResultStruct
-    include JSON1_1
+  class UpdateDistributionBundleResultStruct 
+    include JSON1_1::Structure
 
-    #
-    @[Protocol::Field(location: :body, name: "operation", required: false)]
+    # 
+    @[Protocol::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
+
+    def initialize(@operation = nil )
+    end
   end
 
-  class UpdateDomainEntryRequest
-    include JSON1_1
+  class UpdateDomainEntryRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the domain recordset to update.</p>
-    @[Protocol::Field(location: :body, name: "domainName", required: true)]
+    @[Protocol::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
     # <p>An array of key-value pairs containing information about the domain entry.</p>
-    @[Protocol::Field(location: :body, name: "domainEntry", required: true)]
+    @[Protocol::Field(location: :body, name: "domainEntry", structure: true)]
     property domain_entry : DomainEntryStruct
+
+    def initialize(@domain_name, @domain_entry)
+    end
   end
 
-  class UpdateDomainEntryResultStruct
-    include JSON1_1
+  class UpdateDomainEntryResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class UpdateLoadBalancerAttributeRequest
-    include JSON1_1
+  class UpdateLoadBalancerAttributeRequest 
+    include JSON1_1::Structure
 
     # <p>The name of the load balancer that you want to modify (e.g.,
     # <code>my-load-balancer</code>.</p>
-    @[Protocol::Field(location: :body, name: "loadBalancerName", required: true)]
+    @[Protocol::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
     # <p>The name of the attribute you want to update. Valid values are below.</p>
-    @[Protocol::Field(location: :body, name: "attributeName", required: true)]
+    @[Protocol::Field(location: :body, name: "attributeName", structure: false)]
     property attribute_name : String
     # <p>The value that you want to specify for the attribute name.</p>
-    @[Protocol::Field(location: :body, name: "attributeValue", required: true)]
+    @[Protocol::Field(location: :body, name: "attributeValue", structure: false)]
     property attribute_value : String
+
+    def initialize(@load_balancer_name, @attribute_name, @attribute_value)
+    end
   end
 
-  class UpdateLoadBalancerAttributeResultStruct
-    include JSON1_1
+  class UpdateLoadBalancerAttributeResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class UpdateRelationalDatabaseRequest
-    include JSON1_1
+  class UpdateRelationalDatabaseRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database to update.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The password for the master user of your database. The password can include any printable
     # ASCII character except "/", """, or "@".</p>
     # <p>Constraints: Must contain 8 to 41 characters.</p>
-    @[Protocol::Field(location: :body, name: "masterUserPassword", required: false)]
+    @[Protocol::Field(location: :body, name: "masterUserPassword", structure: false)]
     property master_user_password : String?
     # <p>When <code>true</code>, the master user password is changed to a new strong password
     # generated by Lightsail.</p>
     # <p>Use the <code>get relational database master user password</code> operation to get the new
     # password.</p>
-    @[Protocol::Field(location: :body, name: "rotateMasterUserPassword", required: false)]
+    @[Protocol::Field(location: :body, name: "rotateMasterUserPassword", structure: false)]
     property rotate_master_user_password : Bool?
     # <p>The daily time range during which automated backups are created for your database if
     # automated backups are enabled.</p>
@@ -11728,7 +11778,7 @@ module AWSSdk::Lightsail_20161128
     # <p>Must be at least 30 minutes.</p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "preferredBackupWindow", required: false)]
+    @[Protocol::Field(location: :body, name: "preferredBackupWindow", structure: false)]
     property preferred_backup_window : String?
     # <p>The weekly time range during which system maintenance can occur on your database.</p>
     # <p>The default is a 30-minute window selected at random from an 8-hour block of time for each
@@ -11752,12 +11802,12 @@ module AWSSdk::Lightsail_20161128
     # </p>
     # </li>
     # </ul>
-    @[Protocol::Field(location: :body, name: "preferredMaintenanceWindow", required: false)]
+    @[Protocol::Field(location: :body, name: "preferredMaintenanceWindow", structure: false)]
     property preferred_maintenance_window : String?
     # <p>When <code>true</code>, enables automated backup retention for your database.</p>
     # <p>Updates are applied during the next maintenance window because this can result in an
     # outage.</p>
-    @[Protocol::Field(location: :body, name: "enableBackupRetention", required: false)]
+    @[Protocol::Field(location: :body, name: "enableBackupRetention", structure: false)]
     property enable_backup_retention : Bool?
     # <p>When <code>true</code>, disables automated backup retention for your database.</p>
     # <p>Disabling backup retention deletes all automated database backups. Before disabling this,
@@ -11765,52 +11815,64 @@ module AWSSdk::Lightsail_20161128
     # snapshot</code> operation.</p>
     # <p>Updates are applied during the next maintenance window because this can result in an
     # outage.</p>
-    @[Protocol::Field(location: :body, name: "disableBackupRetention", required: false)]
+    @[Protocol::Field(location: :body, name: "disableBackupRetention", structure: false)]
     property disable_backup_retention : Bool?
     # <p>Specifies the accessibility options for your database. A value of <code>true</code>
     # specifies a database that is available to resources outside of your Lightsail account. A
     # value of <code>false</code> specifies a database that is available only to your Lightsail
     # resources in the same region as your database.</p>
-    @[Protocol::Field(location: :body, name: "publiclyAccessible", required: false)]
+    @[Protocol::Field(location: :body, name: "publiclyAccessible", structure: false)]
     property publicly_accessible : Bool?
     # <p>When <code>true</code>, applies changes immediately. When <code>false</code>, applies
     # changes during the preferred maintenance window. Some changes may cause an outage.</p>
     # <p>Default: <code>false</code>
     # </p>
-    @[Protocol::Field(location: :body, name: "applyImmediately", required: false)]
+    @[Protocol::Field(location: :body, name: "applyImmediately", structure: false)]
     property apply_immediately : Bool?
     # <p>Indicates the certificate that needs to be associated with the database.</p>
-    @[Protocol::Field(location: :body, name: "caCertificateIdentifier", required: false)]
+    @[Protocol::Field(location: :body, name: "caCertificateIdentifier", structure: false)]
     property ca_certificate_identifier : String?
+
+    def initialize(@relational_database_name, @master_user_password = nil , @rotate_master_user_password = nil , @preferred_backup_window = nil , @preferred_maintenance_window = nil , @enable_backup_retention = nil , @disable_backup_retention = nil , @publicly_accessible = nil , @apply_immediately = nil , @ca_certificate_identifier = nil )
+    end
   end
 
-  class UpdateRelationalDatabaseResultStruct
-    include JSON1_1
+  class UpdateRelationalDatabaseResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
-  class UpdateRelationalDatabaseParametersRequest
-    include JSON1_1
+  class UpdateRelationalDatabaseParametersRequest 
+    include JSON1_1::Structure
 
     # <p>The name of your database for which to update parameters.</p>
-    @[Protocol::Field(location: :body, name: "relationalDatabaseName", required: true)]
+    @[Protocol::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The database parameters to update.</p>
-    @[Protocol::Field(location: :body, name: "parameters", required: true)]
+    @[Protocol::Field(location: :body, name: "parameters", structure: false)]
     property parameters : Array(RelationalDatabaseParameterStruct)
+
+    def initialize(@relational_database_name, @parameters)
+    end
   end
 
-  class UpdateRelationalDatabaseParametersResultStruct
-    include JSON1_1
+  class UpdateRelationalDatabaseParametersResultStruct 
+    include JSON1_1::Structure
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[Protocol::Field(location: :body, name: "operations", required: false)]
+    @[Protocol::Field(location: :body, name: "operations", structure: false)]
     property operations : Array(OperationStruct)?
+
+    def initialize(@operations = nil )
+    end
   end
 
 

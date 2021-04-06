@@ -1,4 +1,5 @@
 require "./protocol.cr"
+require "xml"
 
 module AWSSdk
   module RestXML
@@ -70,14 +71,49 @@ module AWSSdk
           {% end %}
         {% end %}
       end
-      def process(request : HTTP::Request)
-        {% for name, props in properties %}
-          {% if props[:location] == :query %}
-            request.query[{{props[:name]}}] = @{{name.id}}
-          {% elsif props[:location] == :header %}
-            request.headers[{{props[:name]}}] = @{{name.id}}
+      macro included
+        def process(request : HTTP::Request)
+          {% for name, props in properties %}
+            {% if props[:location] == :query %}
+              request.query_params[{{props[:name]}}] = @{{name.id}}
+            {% elsif props[:location] == :body_io %}
+              {% if props[:structure] == true %}
+                request.body = XML.build do |x|
+                  x.element({{props[:name]}}) do
+                    {{name.id}}.serialize(xml)
+                  end
+                end
+              {% else %}
+                request.body_io << {{name.id}}
+                request.headers["Content-Length"] = "#{{{name.id}}.size}"
+              {% end %}
+            {% elsif props[:location] == :header %}
+              request.headers[{{props[:name]}}] = @{{name.id}}
+            {% end %}
           {% end %}
-        {% end %}
+          request
+        end
+        def self.from_response(request : HTTP::Client::Response)
+          node = XML.parse(request.body)
+          new(
+            {% for name, props in properties %}
+            {% if props[:location] == :body_io %}
+              {% if props[:structure] == true %}
+                {{name.id}}: {{props[:type]}}.deserialize(
+                  node.xpath_node({{props[:name]}}).not_nil!
+                ),
+              {% else %}
+                {{name.id}}: request.body.bytes,
+              {% end %}
+            {% elsif props[:location] == :header %}
+              {%if props[:type] == String %}
+                {{name.id}}: request.headers[{{props[:name]}}],
+              {% end %}
+            {% end %}
+          {% end %}
+          )
+
+        end
       end
       {% end %}
     end

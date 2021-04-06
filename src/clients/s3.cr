@@ -1,8 +1,8 @@
-require "http"
+
 require "../protocols/rest_xml"
 
+require "./baseclient"
 module AWSSdk::AmazonS3
-  extend self
   ENDPOINT_PREFIX = "s3"
 
 
@@ -59,9 +59,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
-    AbortMultipartUploadOutput.from_request(request)
+    AbortMultipartUploadOutput.from_response(response)
   end
 
 
@@ -87,8 +87,8 @@ module AWSSdk::AmazonS3
   # Upload</a>.</p>
   # <p>For information about permissions required to use the multipart upload API, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and
   # Permissions</a>.</p>
-  #
-  #
+  # 
+  # 
   # <p>
   # <code>CompleteMultipartUpload</code> has the following special errors:</p>
   # <ul>
@@ -147,7 +147,7 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
+  # 
   # <p>The following operations are related to <code>CompleteMultipartUpload</code>:</p>
   # <ul>
   # <li>
@@ -190,9 +190,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    CompleteMultipartUploadOutput.from_request(request)
+    CompleteMultipartUploadOutput.from_response(response)
   end
 
 
@@ -287,7 +287,7 @@ module AWSSdk::AmazonS3
   # false</p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>If both the <code>x-amz-copy-source-if-none-match</code> and
   # <code>x-amz-copy-source-if-modified-since</code> headers are present in the request and
   # evaluate as follows, Amazon S3 returns the <code>412 Precondition Failed</code> response
@@ -303,7 +303,7 @@ module AWSSdk::AmazonS3
   # true</p>
   # </li>
   # </ul>
-  #
+  # 
   # <note>
   # <p>All headers with the <code>x-amz-</code> prefix, including
   # <code>x-amz-copy-source</code>, must be signed.</p>
@@ -325,7 +325,7 @@ module AWSSdk::AmazonS3
   # defined by Amazon S3. These permissions are then added to the ACL on the object. For more
   # information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Access Control List (ACL) Overview</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-using-rest-api.html">Managing ACLs Using the REST
   # API</a>. </p>
-  #
+  # 
   # <p>
   # <b>Storage Class Options</b>
   # </p>
@@ -377,9 +377,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    CopyObjectOutput.from_request(request)
+    CopyObjectOutput.from_response(response)
   end
 
 
@@ -481,8 +481,8 @@ module AWSSdk::AmazonS3
   # <p>You can use either a canned ACL or specify access permissions explicitly. You cannot
   # do both.</p>
   # </note>
-  #
-  #
+  # 
+  # 
   # <p>The following operations are related to <code>CreateBucket</code>:</p>
   # <ul>
   # <li>
@@ -505,9 +505,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    CreateBucketOutput.from_request(request)
+    CreateBucketOutput.from_response(response)
   end
 
 
@@ -517,32 +517,32 @@ module AWSSdk::AmazonS3
   # upload ID in each of your subsequent upload part requests (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html">UploadPart</a>). You also include this
   # upload ID in the final request to either complete or abort the multipart upload
   # request.</p>
-  #
+  # 
   # <p>For more information about multipart uploads, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html">Multipart Upload Overview</a>.</p>
-  #
+  # 
   # <p>If you have configured a lifecycle rule to abort incomplete multipart uploads, the
   # upload must complete within the number of days specified in the bucket lifecycle
   # configuration. Otherwise, the incomplete multipart upload becomes eligible for an abort
   # operation and Amazon S3 aborts the multipart upload. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config">Aborting
   # Incomplete Multipart Uploads Using a Bucket Lifecycle Policy</a>.</p>
-  #
+  # 
   # <p>For information about the permissions required to use the multipart upload API, see
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and
   # Permissions</a>.</p>
-  #
+  # 
   # <p>For request signing, multipart upload is just a series of regular requests. You initiate
   # a multipart upload, send one or more requests to upload parts, and then complete the
   # multipart upload process. You sign each request individually. There is nothing special
   # about signing multipart upload requests. For more information about signing, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">Authenticating
   # Requests (AWS Signature Version 4)</a>.</p>
-  #
+  # 
   # <note>
   # <p> After you initiate a multipart upload and upload one or more parts, to stop being
   # charged for storing the uploaded parts, you must either complete or abort the multipart
   # upload. Amazon S3 frees up the space used to store the parts and stop charging you for
   # storing them only after you either complete or abort a multipart upload. </p>
   # </note>
-  #
+  # 
   # <p>You can optionally request server-side encryption. For server-side encryption, Amazon S3
   # encrypts your data as it writes it to disks in its data centers and decrypts it when you
   # access it. You can provide your own encryption key, or use AWS Key Management Service (AWS
@@ -555,16 +555,16 @@ module AWSSdk::AmazonS3
   # <code>kms:DescribeKey</code> actions on the key. These permissions are required because
   # Amazon S3 must decrypt and read data from the encrypted file parts before it completes the
   # multipart upload.</p>
-  #
+  # 
   # <p>If your AWS Identity and Access Management (IAM) user or role is in the same AWS account
   # as the AWS KMS CMK, then you must have these permissions on the key policy. If your IAM
   # user or role belongs to a different account than the key, then you must have the
   # permissions on both the key policy and your IAM user or role.</p>
-  #
-  #
+  # 
+  # 
   # <p> For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html">Protecting
   # Data Using Server-Side Encryption</a>.</p>
-  #
+  # 
   # <dl>
   # <dt>Access Permissions</dt>
   # <dd>
@@ -742,10 +742,10 @@ module AWSSdk::AmazonS3
   # </p>
   # </li>
   # </ul>
-  #
+  # 
   # </dd>
   # </dl>
-  #
+  # 
   # <p>The following operations are related to <code>CreateMultipartUpload</code>:</p>
   # <ul>
   # <li>
@@ -788,16 +788,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    CreateMultipartUploadOutput.from_request(request)
+    CreateMultipartUploadOutput.from_response(response)
   end
 
 
 
       # <p>Deletes the S3 bucket. All objects (including all object versions and delete markers) in
   # the bucket must be deleted before the bucket itself can be deleted.</p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -822,7 +822,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -836,10 +836,10 @@ module AWSSdk::AmazonS3
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For information about the Amazon S3 analytics feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html">Amazon S3 Analytics – Storage Class
   # Analysis</a>. </p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>DeleteBucketAnalyticsConfiguration</code>:</p>
   # <ul>
@@ -868,7 +868,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -881,7 +881,7 @@ module AWSSdk::AmazonS3
   # and can grant this permission to others. </p>
   # <p>For information about <code>cors</code>, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html">Enabling
   # Cross-Origin Resource Sharing</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources:</b>
   # </p>
@@ -906,7 +906,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -921,7 +921,7 @@ module AWSSdk::AmazonS3
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to your Amazon S3
   # Resources</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -946,7 +946,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -985,7 +985,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1027,7 +1027,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1041,10 +1041,10 @@ module AWSSdk::AmazonS3
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:PutLifecycleConfiguration</code> action. By default, the bucket owner has this
   # permission and the bucket owner can grant this permission to others.</p>
-  #
+  # 
   # <p>There is usually some time lag before lifecycle configuration deletion is fully
   # propagated to all the Amazon S3 systems.</p>
-  #
+  # 
   # <p>For more information about the object expiration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#intro-lifecycle-rules-actions">Elements to
   # Describe Lifecycle Actions</a>.</p>
   # <p>Related actions include:</p>
@@ -1069,7 +1069,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1079,13 +1079,13 @@ module AWSSdk::AmazonS3
       # <p>Deletes a metrics configuration for the Amazon CloudWatch request metrics (specified by the
   # metrics configuration ID) from the bucket. Note that this doesn't include the daily storage
   # metrics.</p>
-  #
+  # 
   # <p> To use this operation, you must have permissions to perform the
   # <code>s3:PutMetricsConfiguration</code> action. The bucket owner has this permission by
   # default. The bucket owner can grant this permission to others. For more information about
   # permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For information about CloudWatch request metrics for Amazon S3, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html">Monitoring Metrics with Amazon CloudWatch</a>. </p>
   # <p>The following operations are related to
   # <code>DeleteBucketMetricsConfiguration</code>:</p>
@@ -1121,7 +1121,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1156,7 +1156,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1168,19 +1168,19 @@ module AWSSdk::AmazonS3
   # AWS account that owns the bucket, the calling identity must have the
   # <code>DeleteBucketPolicy</code> permissions on the specified bucket and belong to the
   # bucket owner's account to use this operation. </p>
-  #
+  # 
   # <p>If you don't have <code>DeleteBucketPolicy</code> permissions, Amazon S3 returns a <code>403
   # Access Denied</code> error. If you have the correct permissions, but you're not using an
   # identity that belongs to the bucket owner's account, Amazon S3 returns a <code>405 Method Not
   # Allowed</code> error. </p>
-  #
-  #
+  # 
+  # 
   # <important>
   # <p>As a security precaution, the root user of the AWS account that owns a bucket can
   # always use this operation, even if the policy explicitly denies the root user the
   # ability to perform this action.</p>
   # </important>
-  #
+  # 
   # <p>For more information about bucket policies, see <a href=" https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">Using Bucket Policies and
   # UserPolicies</a>. </p>
   # <p>The following operations are related to <code>DeleteBucketPolicy</code>
@@ -1206,7 +1206,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1223,10 +1223,10 @@ module AWSSdk::AmazonS3
   # <p>It can take a while for the deletion of a replication configuration to fully
   # propagate.</p>
   # </note>
-  #
+  # 
   # <p> For information about replication configuration, see <a href=" https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon S3 Developer
   # Guide</i>. </p>
-  #
+  # 
   # <p>The following operations are related to <code>DeleteBucketReplication</code>:</p>
   # <ul>
   # <li>
@@ -1249,7 +1249,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1257,7 +1257,7 @@ module AWSSdk::AmazonS3
 
 
       # <p>Deletes the tags from the bucket.</p>
-  #
+  # 
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:PutBucketTagging</code> action. By default, the bucket owner has this
   # permission and can grant this permission to others. </p>
@@ -1283,7 +1283,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1295,15 +1295,15 @@ module AWSSdk::AmazonS3
   # bucket. You will get a <code>200 OK</code> response if the website configuration you are
   # trying to delete does not exist on the bucket. Amazon S3 returns a <code>404</code> response if
   # the bucket specified in the request does not exist.</p>
-  #
+  # 
   # <p>This DELETE operation requires the <code>S3:DeleteBucketWebsite</code> permission. By
   # default, only the bucket owner can delete the website configuration attached to a bucket.
   # However, bucket owners can grant other users permission to delete the website configuration
   # by writing a bucket policy granting them the <code>S3:DeleteBucketWebsite</code>
   # permission. </p>
-  #
+  # 
   # <p>For more information about hosting websites, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html">Hosting Websites on Amazon S3</a>. </p>
-  #
+  # 
   # <p>The following operations are related to <code>DeleteBucketWebsite</code>:</p>
   # <ul>
   # <li>
@@ -1326,7 +1326,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1336,26 +1336,26 @@ module AWSSdk::AmazonS3
       # <p>Removes the null version (if there is one) of an object and inserts a delete marker,
   # which becomes the latest version of the object. If there isn't a null version, Amazon S3 does
   # not remove any objects.</p>
-  #
+  # 
   # <p>To remove a specific version, you must be the bucket owner and you must use the version
   # Id subresource. Using this subresource permanently deletes the version. If the object
   # deleted is a delete marker, Amazon S3 sets the response header,
   # <code>x-amz-delete-marker</code>, to true. </p>
-  #
+  # 
   # <p>If the object you want to delete is in a bucket where the bucket versioning
   # configuration is MFA Delete enabled, you must include the <code>x-amz-mfa</code> request
   # header in the DELETE <code>versionId</code> request. Requests that include
   # <code>x-amz-mfa</code> must use HTTPS. </p>
-  #
+  # 
   # <p> For more information about MFA Delete, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMFADelete.html">Using MFA Delete</a>. To see sample requests that use versioning, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectDELETE.html#ExampleVersionObjectDelete">Sample Request</a>. </p>
-  #
+  # 
   # <p>You can delete objects by explicitly calling the DELETE Object API or configure its
   # lifecycle (<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html">PutBucketLifecycle</a>) to
   # enable Amazon S3 to remove them for you. If you want to block users or accounts from removing or
   # deleting objects from your bucket, you must deny them the <code>s3:DeleteObject</code>,
   # <code>s3:DeleteObjectVersion</code>, and <code>s3:PutLifeCycleConfiguration</code>
   # actions. </p>
-  #
+  # 
   # <p>The following operation is related to <code>DeleteObject</code>:</p>
   # <ul>
   # <li>
@@ -1378,9 +1378,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
-    DeleteObjectOutput.from_request(request)
+    DeleteObjectOutput.from_response(response)
   end
 
 
@@ -1389,31 +1389,31 @@ module AWSSdk::AmazonS3
   # request. If you know the object keys that you want to delete, then this operation provides
   # a suitable alternative to sending individual delete requests, reducing per-request
   # overhead.</p>
-  #
+  # 
   # <p>The request contains a list of up to 1000 keys that you want to delete. In the XML, you
   # provide the object key names, and optionally, version IDs if you want to delete a specific
   # version of the object from a versioning-enabled bucket. For each key, Amazon S3 performs a
   # delete operation and returns the result of that delete, success, or failure, in the
   # response. Note that if the object specified in the request is not found, Amazon S3 returns the
   # result as deleted.</p>
-  #
+  # 
   # <p> The operation supports two modes for the response: verbose and quiet. By default, the
   # operation uses verbose mode in which the response includes the result of deletion of each
   # key in your request. In quiet mode the response includes only keys where the delete
   # operation encountered an error. For a successful deletion, the operation does not return
   # any information about the delete in the response body.</p>
-  #
+  # 
   # <p>When performing this operation on an MFA Delete enabled bucket, that attempts to delete
   # any versioned objects, you must include an MFA token. If you do not provide one, the entire
   # request will fail, even if there are non-versioned objects you are trying to delete. If you
   # provide an invalid token, whether there are versioned keys in the request or not, the
   # entire Multi-Object Delete request will fail. For information about MFA Delete, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html#MultiFactorAuthenticationDelete"> MFA
   # Delete</a>.</p>
-  #
+  # 
   # <p>Finally, the Content-MD5 header is required for all Multi-Object Delete requests. Amazon
   # S3 uses the header value to ensure that your request body has not been altered in
   # transit.</p>
-  #
+  # 
   # <p>The following operations are related to <code>DeleteObjects</code>:</p>
   # <ul>
   # <li>
@@ -1451,9 +1451,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    DeleteObjectsOutput.from_request(request)
+    DeleteObjectsOutput.from_response(response)
   end
 
 
@@ -1461,14 +1461,14 @@ module AWSSdk::AmazonS3
       # <p>Removes the entire tag set from the specified object. For more information about
   # managing object tags, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html"> Object
   # Tagging</a>.</p>
-  #
+  # 
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:DeleteObjectTagging</code> action.</p>
-  #
+  # 
   # <p>To delete tags of a specific object version, add the <code>versionId</code> query
   # parameter in the request. You will need permission for the
   # <code>s3:DeleteObjectVersionTagging</code> action.</p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>DeleteBucketMetricsConfiguration</code>:</p>
   # <ul>
@@ -1497,9 +1497,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
-    DeleteObjectTaggingOutput.from_request(request)
+    DeleteObjectTaggingOutput.from_response(response)
   end
 
 
@@ -1508,7 +1508,7 @@ module AWSSdk::AmazonS3
   # operation, you must have the <code>s3:PutBucketPublicAccessBlock</code> permission. For
   # more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>DeletePublicAccessBlock</code>:</p>
   # <ul>
   # <li>
@@ -1542,7 +1542,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("DELETE", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 204)
+    response = AWSSdk::Client.send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -1563,7 +1563,7 @@ module AWSSdk::AmazonS3
   # <p>A GET <code>accelerate</code> request does not return a state value for a bucket that
   # has no transfer acceleration state. A bucket has no Transfer Acceleration state if a state
   # has never been set on the bucket. </p>
-  #
+  # 
   # <p>For more information about transfer acceleration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html">Transfer Acceleration</a> in the
   # Amazon Simple Storage Service Developer Guide.</p>
   # <p class="title">
@@ -1585,9 +1585,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketAccelerateConfigurationOutput.from_request(request)
+    GetBucketAccelerateConfigurationOutput.from_response(response)
   end
 
 
@@ -1597,7 +1597,7 @@ module AWSSdk::AmazonS3
   # return the ACL of the bucket, you must have <code>READ_ACP</code> access to the bucket. If
   # <code>READ_ACP</code> permission is granted to the anonymous user, you can return the
   # ACL of the bucket without using an authorization header.</p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -1617,9 +1617,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketAclOutput.from_request(request)
+    GetBucketAclOutput.from_response(response)
   end
 
 
@@ -1633,7 +1633,7 @@ module AWSSdk::AmazonS3
   # Resources</a> in the <i>Amazon Simple Storage Service Developer Guide</i>. </p>
   # <p>For information about Amazon S3 analytics feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html">Amazon S3 Analytics – Storage Class
   # Analysis</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -1663,21 +1663,21 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketAnalyticsConfigurationOutput.from_request(request)
+    GetBucketAnalyticsConfigurationOutput.from_response(response)
   end
 
 
 
       # <p>Returns the cors configuration information set for the bucket.</p>
-  #
+  # 
   # <p> To use this operation, you must have permission to perform the s3:GetBucketCORS action.
   # By default, the bucket owner has this permission and can grant it to others.</p>
-  #
+  # 
   # <p> For more information about cors, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html"> Enabling
   # Cross-Origin Resource Sharing</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketCors</code>:</p>
   # <ul>
   # <li>
@@ -1700,16 +1700,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketCorsOutput.from_request(request)
+    GetBucketCorsOutput.from_response(response)
   end
 
 
 
       # <p>Returns the default encryption configuration for an Amazon S3 bucket. For information about
   # the Amazon S3 default encryption feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon S3 Default Bucket Encryption</a>.</p>
-  #
+  # 
   # <p> To use this operation, you must have permission to perform the
   # <code>s3:GetEncryptionConfiguration</code> action. The bucket owner has this permission
   # by default. The bucket owner can grant this permission to others. For more information
@@ -1737,9 +1737,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketEncryptionOutput.from_request(request)
+    GetBucketEncryptionOutput.from_response(response)
   end
 
 
@@ -1776,24 +1776,24 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketIntelligentTieringConfigurationOutput.from_request(request)
+    GetBucketIntelligentTieringConfigurationOutput.from_response(response)
   end
 
 
 
       # <p>Returns an inventory configuration (identified by the inventory configuration ID) from
   # the bucket.</p>
-  #
+  # 
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:GetInventoryConfiguration</code> action. The bucket owner has this permission
   # by default and can grant this permission to others. For more information about permissions,
   # see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For information about the Amazon S3 inventory feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html">Amazon S3 Inventory</a>.</p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>GetBucketInventoryConfiguration</code>:</p>
   # <ul>
@@ -1822,9 +1822,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketInventoryConfigurationOutput.from_request(request)
+    GetBucketInventoryConfigurationOutput.from_response(response)
   end
 
 
@@ -1840,13 +1840,13 @@ module AWSSdk::AmazonS3
   # <p>Returns the lifecycle configuration information set on the bucket. For information about
   # lifecycle configuration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html">Object
   # Lifecycle Management</a>.</p>
-  #
+  # 
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:GetLifecycleConfiguration</code> action. The bucket owner has this permission,
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>
   # <code>GetBucketLifecycleConfiguration</code> has the following special error:</p>
   # <ul>
@@ -1894,9 +1894,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketLifecycleConfigurationOutput.from_request(request)
+    GetBucketLifecycleConfigurationOutput.from_response(response)
   end
 
 
@@ -1904,9 +1904,9 @@ module AWSSdk::AmazonS3
       # <p>Returns the Region the bucket resides in. You set the bucket's Region using the
   # <code>LocationConstraint</code> request parameter in a <code>CreateBucket</code>
   # request. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html">CreateBucket</a>.</p>
-  #
+  # 
   # <p> To use this implementation of the operation, you must be the bucket owner.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketLocation</code>:</p>
   # <ul>
   # <li>
@@ -1929,16 +1929,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketLocationOutput.from_request(request)
+    GetBucketLocationOutput.from_response(response)
   end
 
 
 
       # <p>Returns the logging status of a bucket and the permissions users have to view and modify
   # that status. To use GET, you must be the bucket owner.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketLogging</code>:</p>
   # <ul>
   # <li>
@@ -1961,25 +1961,25 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketLoggingOutput.from_request(request)
+    GetBucketLoggingOutput.from_response(response)
   end
 
 
 
       # <p>Gets a metrics configuration (specified by the metrics configuration ID) from the
   # bucket. Note that this doesn't include the daily storage metrics.</p>
-  #
+  # 
   # <p> To use this operation, you must have permissions to perform the
   # <code>s3:GetMetricsConfiguration</code> action. The bucket owner has this permission by
   # default. The bucket owner can grant this permission to others. For more information about
   # permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p> For information about CloudWatch request metrics for Amazon S3, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html">Monitoring Metrics with Amazon
   # CloudWatch</a>.</p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>GetBucketMetricsConfiguration</code>:</p>
   # <ul>
@@ -2014,9 +2014,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketMetricsConfigurationOutput.from_request(request)
+    GetBucketMetricsConfigurationOutput.from_response(response)
   end
 
 
@@ -2024,16 +2024,16 @@ module AWSSdk::AmazonS3
       # <p>Returns the notification configuration of a bucket.</p>
   # <p>If notifications are not enabled on the bucket, the operation returns an empty
   # <code>NotificationConfiguration</code> element.</p>
-  #
+  # 
   # <p>By default, you must be the bucket owner to read the notification configuration of a
   # bucket. However, the bucket owner can use a bucket policy to grant permission to other
   # users to read this configuration with the <code>s3:GetBucketNotification</code>
   # permission.</p>
-  #
+  # 
   # <p>For more information about setting and reading the notification configuration on a
   # bucket, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Setting Up Notification of
   # Bucket Events</a>. For more information about bucket policies, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">Using Bucket Policies</a>.</p>
-  #
+  # 
   # <p>The following operation is related to <code>GetBucketNotification</code>:</p>
   # <ul>
   # <li>
@@ -2051,9 +2051,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    NotificationConfiguration.from_request(request)
+    NotificationConfiguration.from_response(response)
   end
 
 
@@ -2085,9 +2085,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketOwnershipControlsOutput.from_request(request)
+    GetBucketOwnershipControlsOutput.from_response(response)
   end
 
 
@@ -2096,21 +2096,21 @@ module AWSSdk::AmazonS3
   # root user of the AWS account that owns the bucket, the calling identity must have the
   # <code>GetBucketPolicy</code> permissions on the specified bucket and belong to the
   # bucket owner's account in order to use this operation.</p>
-  #
+  # 
   # <p>If you don't have <code>GetBucketPolicy</code> permissions, Amazon S3 returns a <code>403
   # Access Denied</code> error. If you have the correct permissions, but you're not using an
   # identity that belongs to the bucket owner's account, Amazon S3 returns a <code>405 Method Not
   # Allowed</code> error.</p>
-  #
+  # 
   # <important>
   # <p>As a security precaution, the root user of the AWS account that owns a bucket can
   # always use this operation, even if the policy explicitly denies the root user the
   # ability to perform this action.</p>
   # </important>
-  #
+  # 
   # <p>For more information about bucket policies, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">Using Bucket Policies and User
   # Policies</a>.</p>
-  #
+  # 
   # <p>The following operation is related to <code>GetBucketPolicy</code>:</p>
   # <ul>
   # <li>
@@ -2128,9 +2128,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketPolicyOutput.from_request(request)
+    GetBucketPolicyOutput.from_response(response)
   end
 
 
@@ -2139,9 +2139,9 @@ module AWSSdk::AmazonS3
   # In order to use this operation, you must have the <code>s3:GetBucketPolicyStatus</code>
   # permission. For more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a
   # Policy</a>.</p>
-  #
+  # 
   # <p> For more information about when Amazon S3 considers a bucket public, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status">The Meaning of "Public"</a>. </p>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketPolicyStatus</code>:</p>
   # <ul>
   # <li>
@@ -2175,9 +2175,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketPolicyStatusOutput.from_request(request)
+    GetBucketPolicyStatusOutput.from_response(response)
   end
 
 
@@ -2190,20 +2190,20 @@ module AWSSdk::AmazonS3
   # </note>
   # <p> For information about replication configuration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the
   # <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p>This operation requires permissions for the <code>s3:GetReplicationConfiguration</code>
   # action. For more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">Using Bucket Policies and User
   # Policies</a>.</p>
-  #
+  # 
   # <p>If you include the <code>Filter</code> element in a replication configuration, you must
   # also include the <code>DeleteMarkerReplication</code> and <code>Priority</code> elements.
   # The response also returns those elements.</p>
-  #
+  # 
   # <p>For information about <code>GetBucketReplication</code> errors, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ReplicationErrorCodeList">List of
   # replication-related error codes</a>
   # </p>
-  #
-  #
+  # 
+  # 
   # <p>The following operations are related to <code>GetBucketReplication</code>:</p>
   # <ul>
   # <li>
@@ -2226,16 +2226,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketReplicationOutput.from_request(request)
+    GetBucketReplicationOutput.from_response(response)
   end
 
 
 
       # <p>Returns the request payment configuration of a bucket. To use this version of the
   # operation, you must be the bucket owner. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketRequestPayment</code>:</p>
   # <ul>
   # <li>
@@ -2253,9 +2253,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketRequestPaymentOutput.from_request(request)
+    GetBucketRequestPaymentOutput.from_response(response)
   end
 
 
@@ -2264,7 +2264,7 @@ module AWSSdk::AmazonS3
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:GetBucketTagging</code> action. By default, the bucket owner has this
   # permission and can grant this permission to others.</p>
-  #
+  # 
   # <p>
   # <code>GetBucketTagging</code> has the following special error:</p>
   # <ul>
@@ -2278,7 +2278,7 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketTagging</code>:</p>
   # <ul>
   # <li>
@@ -2301,20 +2301,20 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketTaggingOutput.from_request(request)
+    GetBucketTaggingOutput.from_response(response)
   end
 
 
 
       # <p>Returns the versioning state of a bucket.</p>
   # <p>To retrieve the versioning state of a bucket, you must be the bucket owner.</p>
-  #
+  # 
   # <p>This implementation also returns the MFA Delete status of the versioning state. If the
   # MFA Delete status is <code>enabled</code>, the bucket owner must use an authentication
   # device to change the versioning state of the bucket.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetBucketVersioning</code>:</p>
   # <ul>
   # <li>
@@ -2342,9 +2342,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketVersioningOutput.from_request(request)
+    GetBucketVersioningOutput.from_response(response)
   end
 
 
@@ -2379,9 +2379,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetBucketWebsiteOutput.from_request(request)
+    GetBucketWebsiteOutput.from_response(response)
   end
 
 
@@ -2389,12 +2389,12 @@ module AWSSdk::AmazonS3
       # <p>Retrieves objects from Amazon S3. To use <code>GET</code>, you must have <code>READ</code>
   # access to the object. If you grant <code>READ</code> access to the anonymous user, you can
   # return the object without using an authorization header.</p>
-  #
+  # 
   # <p>An Amazon S3 bucket has no directory hierarchy such as you would find in a typical computer
   # file system. You can, however, create a logical hierarchy by using object key names that
   # imply a folder structure. For example, instead of naming an object <code>sample.jpg</code>,
   # you can name it <code>photos/2006/February/sample.jpg</code>.</p>
-  #
+  # 
   # <p>To get an object from such a logical hierarchy, specify the full key name for the object
   # in the <code>GET</code> operation. For a virtual hosted-style request example, if you have
   # the object <code>photos/2006/February/sample.jpg</code>, specify the resource as
@@ -2403,11 +2403,11 @@ module AWSSdk::AmazonS3
   # <code>examplebucket</code>, specify the resource as
   # <code>/examplebucket/photos/2006/February/sample.jpg</code>. For more information about
   # request types, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingSpecifyBucket">HTTP Host Header Bucket Specification</a>.</p>
-  #
+  # 
   # <p>To distribute large files to many people, you can save bandwidth costs by using
   # BitTorrent. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html">Amazon S3
   # Torrent</a>. For more information about returning the ACL of an object, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html">GetObjectAcl</a>.</p>
-  #
+  # 
   # <p>If the object you are retrieving is stored in the S3 Glacier or
   # S3 Glacier Deep Archive storage class, or S3 Intelligent-Tiering Archive or
   # S3 Intelligent-Tiering Deep Archive tiers, before you can retrieve the object you must first restore a
@@ -2415,7 +2415,7 @@ module AWSSdk::AmazonS3
   # <code>InvalidObjectStateError</code> error. For information about restoring archived
   # objects, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/restoring-objects.html">Restoring Archived
   # Objects</a>.</p>
-  #
+  # 
   # <p>Encryption request headers, like <code>x-amz-server-side-encryption</code>, should not
   # be sent for GET requests if your object uses server-side encryption with CMKs stored in AWS
   # KMS (SSE-KMS) or server-side encryption with Amazon S3–managed encryption keys (SSE-S3). If your
@@ -2436,13 +2436,13 @@ module AWSSdk::AmazonS3
   # </ul>
   # <p>For more information about SSE-C, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">Server-Side Encryption (Using
   # Customer-Provided Encryption Keys)</a>.</p>
-  #
+  # 
   # <p>Assuming you have permission to read object tags (permission for the
   # <code>s3:GetObjectVersionTagging</code> action), the response also returns the
   # <code>x-amz-tagging-count</code> header that provides the count of number of tags
   # associated with the object. You can use <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html">GetObjectTagging</a> to retrieve
   # the tag set associated with an object.</p>
-  #
+  # 
   # <p>
   # <b>Permissions</b>
   # </p>
@@ -2460,30 +2460,30 @@ module AWSSdk::AmazonS3
   # HTTP status code 403 ("access denied") error.</p>
   # </li>
   # </ul>
-  #
-  #
+  # 
+  # 
   # <p>
   # <b>Versioning</b>
   # </p>
   # <p>By default, the GET operation returns the current version of an object. To return a
   # different version, use the <code>versionId</code> subresource.</p>
-  #
+  # 
   # <note>
   # <p>If the current version of the object is a delete marker, Amazon S3 behaves as if the
   # object was deleted and includes <code>x-amz-delete-marker: true</code> in the
   # response.</p>
   # </note>
-  #
-  #
+  # 
+  # 
   # <p>For more information about versioning, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html">PutBucketVersioning</a>. </p>
-  #
+  # 
   # <p>
   # <b>Overriding Response Header Values</b>
   # </p>
   # <p>There are times when you want to override certain response header values in a GET
   # response. For example, you might override the Content-Disposition response header value in
   # your GET request.</p>
-  #
+  # 
   # <p>You can override values for a set of response headers using the following query
   # parameters. These response header values are sent only on a successful request, that is,
   # when status code 200 OK is returned. The set of headers you can override using these
@@ -2492,7 +2492,7 @@ module AWSSdk::AmazonS3
   # <code>Content-Language</code>, <code>Expires</code>, <code>Cache-Control</code>,
   # <code>Content-Disposition</code>, and <code>Content-Encoding</code>. To override these
   # header values in the GET response, you use the following request parameters.</p>
-  #
+  # 
   # <note>
   # <p>You must sign the request, either using an Authorization header or a presigned URL,
   # when using these parameters. They cannot be used with an unsigned (anonymous)
@@ -2530,23 +2530,23 @@ module AWSSdk::AmazonS3
   # </p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>
   # <b>Additional Considerations about Request Headers</b>
   # </p>
-  #
+  # 
   # <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code> headers are
   # present in the request as follows: <code>If-Match</code> condition evaluates to
   # <code>true</code>, and; <code>If-Unmodified-Since</code> condition evaluates to
   # <code>false</code>; then, S3 returns 200 OK and the data requested. </p>
-  #
+  # 
   # <p>If both of the <code>If-None-Match</code> and <code>If-Modified-Since</code> headers are
   # present in the request as follows:<code> If-None-Match</code> condition evaluates to
   # <code>false</code>, and; <code>If-Modified-Since</code> condition evaluates to
   # <code>true</code>; then, S3 returns 304 Not Modified response code.</p>
-  #
+  # 
   # <p>For more information about conditional requests, see <a href="https://tools.ietf.org/html/rfc7232">RFC 7232</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetObject</code>:</p>
   # <ul>
   # <li>
@@ -2574,9 +2574,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectOutput.from_request(request)
+    GetObjectOutput.from_response(response)
   end
 
 
@@ -2589,7 +2589,7 @@ module AWSSdk::AmazonS3
   # </p>
   # <p>By default, GET returns ACL information about the current version of an object. To
   # return ACL information about a different version, use the versionId subresource.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetObjectAcl</code>:</p>
   # <ul>
   # <li>
@@ -2622,9 +2622,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectAclOutput.from_request(request)
+    GetObjectAclOutput.from_response(response)
   end
 
 
@@ -2645,9 +2645,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectLegalHoldOutput.from_request(request)
+    GetObjectLegalHoldOutput.from_response(response)
   end
 
 
@@ -2665,9 +2665,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectLockConfigurationOutput.from_request(request)
+    GetObjectLockConfigurationOutput.from_response(response)
   end
 
 
@@ -2688,28 +2688,28 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectRetentionOutput.from_request(request)
+    GetObjectRetentionOutput.from_response(response)
   end
 
 
 
       # <p>Returns the tag-set of an object. You send the GET request against the tagging
   # subresource associated with the object.</p>
-  #
+  # 
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:GetObjectTagging</code> action. By default, the GET operation returns
   # information about current version of an object. For a versioned bucket, you can have
   # multiple versions of an object in your bucket. To retrieve tags of any other version, use
   # the versionId query parameter. You also need permission for the
   # <code>s3:GetObjectVersionTagging</code> action.</p>
-  #
+  # 
   # <p> By default, the bucket owner has this permission and can grant this permission to
   # others.</p>
-  #
+  # 
   # <p> For information about the Amazon S3 object tagging feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html">Object Tagging</a>.</p>
-  #
+  # 
   # <p>The following operation is related to <code>GetObjectTagging</code>:</p>
   # <ul>
   # <li>
@@ -2732,9 +2732,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectTaggingOutput.from_request(request)
+    GetObjectTaggingOutput.from_response(response)
   end
 
 
@@ -2770,9 +2770,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetObjectTorrentOutput.from_request(request)
+    GetObjectTorrentOutput.from_response(response)
   end
 
 
@@ -2781,7 +2781,7 @@ module AWSSdk::AmazonS3
   # this operation, you must have the <code>s3:GetBucketPublicAccessBlock</code> permission.
   # For more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a
   # Policy</a>.</p>
-  #
+  # 
   # <important>
   # <p>When Amazon S3 evaluates the <code>PublicAccessBlock</code> configuration for a bucket or
   # an object, it checks the <code>PublicAccessBlock</code> configuration for both the
@@ -2790,9 +2790,9 @@ module AWSSdk::AmazonS3
   # account, Amazon S3 uses the most restrictive combination of the bucket-level and
   # account-level settings.</p>
   # </important>
-  #
+  # 
   # <p>For more information about when Amazon S3 considers a bucket or an object public, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status">The Meaning of "Public"</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>GetPublicAccessBlock</code>:</p>
   # <ul>
   # <li>
@@ -2826,9 +2826,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    GetPublicAccessBlockOutput.from_request(request)
+    GetPublicAccessBlockOutput.from_response(response)
   end
 
 
@@ -2837,7 +2837,7 @@ module AWSSdk::AmazonS3
   # access it. The operation returns a <code>200 OK</code> if the bucket exists and you have
   # permission to access it. Otherwise, the operation might return responses such as <code>404
   # Not Found</code> and <code>403 Forbidden</code>. </p>
-  #
+  # 
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:ListBucket</code> action. The bucket owner has this permission by default and
   # can grant this permission to others. For more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
@@ -2851,7 +2851,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("HEAD", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -2861,11 +2861,11 @@ module AWSSdk::AmazonS3
       # <p>The HEAD operation retrieves metadata from an object without returning the object
   # itself. This operation is useful if you're only interested in an object's metadata. To use
   # HEAD, you must have READ access to the object.</p>
-  #
+  # 
   # <p>A <code>HEAD</code> request has the same options as a <code>GET</code> operation on an
   # object. The response is identical to the <code>GET</code> response except that there is no
   # response body.</p>
-  #
+  # 
   # <p>If you encrypt an object by using server-side encryption with customer-provided
   # encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the
   # metadata from the object, you must use the following headers:</p>
@@ -2889,13 +2889,13 @@ module AWSSdk::AmazonS3
   # (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 BadRequest
   # error.</p>
   # </note>
-  #
-  #
-  #
-  #
-  #
-  #
-  #
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
   # <p>Request headers are limited to 8 KB in size. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html">Common Request
   # Headers</a>.</p>
   # <p>Consider the following when using request headers:</p>
@@ -2936,9 +2936,9 @@ module AWSSdk::AmazonS3
   # <p>Then Amazon S3 returns the <code>304 Not Modified</code> response code.</p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>For more information about conditional requests, see <a href="https://tools.ietf.org/html/rfc7232">RFC 7232</a>.</p>
-  #
+  # 
   # <p>
   # <b>Permissions</b>
   # </p>
@@ -2956,7 +2956,7 @@ module AWSSdk::AmazonS3
   # status code 403 ("access denied") error.</p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>The following operation is related to <code>HeadObject</code>:</p>
   # <ul>
   # <li>
@@ -2979,16 +2979,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("HEAD", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    HeadObjectOutput.from_request(request)
+    HeadObjectOutput.from_response(response)
   end
 
 
 
       # <p>Lists the analytics configurations for the bucket. You can have up to 1,000 analytics
   # configurations per bucket.</p>
-  #
+  # 
   # <p>This operation supports list pagination and does not return more than 100 configurations
   # at a time. You should always check the <code>IsTruncated</code> element in the response. If
   # there are no more configurations to list, <code>IsTruncated</code> is set to false. If
@@ -2997,16 +2997,16 @@ module AWSSdk::AmazonS3
   # <code>NextContinuationToken</code> value to continue the pagination of the list by
   # passing the value in continuation-token in the request to <code>GET</code> the next
   # page.</p>
-  #
+  # 
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:GetAnalyticsConfiguration</code> action. The bucket owner has this permission
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For information about Amazon S3 analytics feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html">Amazon S3 Analytics – Storage Class
   # Analysis</a>. </p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>ListBucketAnalyticsConfigurations</code>:</p>
   # <ul>
@@ -3035,9 +3035,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListBucketAnalyticsConfigurationsOutput.from_request(request)
+    ListBucketAnalyticsConfigurationsOutput.from_response(response)
   end
 
 
@@ -3074,16 +3074,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListBucketIntelligentTieringConfigurationsOutput.from_request(request)
+    ListBucketIntelligentTieringConfigurationsOutput.from_response(response)
   end
 
 
 
       # <p>Returns a list of inventory configurations for the bucket. You can have up to 1,000
   # analytics configurations per bucket.</p>
-  #
+  # 
   # <p>This operation supports list pagination and does not return more than 100 configurations
   # at a time. Always check the <code>IsTruncated</code> element in the response. If there are
   # no more configurations to list, <code>IsTruncated</code> is set to false. If there are more
@@ -3091,16 +3091,16 @@ module AWSSdk::AmazonS3
   # <code>NextContinuationToken</code>. You use the <code>NextContinuationToken</code> value
   # to continue the pagination of the list by passing the value in continuation-token in the
   # request to <code>GET</code> the next page.</p>
-  #
+  # 
   # <p> To use this operation, you must have permissions to perform the
   # <code>s3:GetInventoryConfiguration</code> action. The bucket owner has this permission
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For information about the Amazon S3 inventory feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html">Amazon S3 Inventory</a>
   # </p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>ListBucketInventoryConfigurations</code>:</p>
   # <ul>
@@ -3129,9 +3129,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListBucketInventoryConfigurationsOutput.from_request(request)
+    ListBucketInventoryConfigurationsOutput.from_response(response)
   end
 
 
@@ -3139,7 +3139,7 @@ module AWSSdk::AmazonS3
       # <p>Lists the metrics configurations for the bucket. The metrics configurations are only for
   # the request metrics of the bucket and do not provide information on daily storage metrics.
   # You can have up to 1,000 configurations per bucket.</p>
-  #
+  # 
   # <p>This operation supports list pagination and does not return more than 100 configurations
   # at a time. Always check the <code>IsTruncated</code> element in the response. If there are
   # no more configurations to list, <code>IsTruncated</code> is set to false. If there are more
@@ -3147,17 +3147,17 @@ module AWSSdk::AmazonS3
   # <code>NextContinuationToken</code>. You use the <code>NextContinuationToken</code> value
   # to continue the pagination of the list by passing the value in
   # <code>continuation-token</code> in the request to <code>GET</code> the next page.</p>
-  #
+  # 
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:GetMetricsConfiguration</code> action. The bucket owner has this permission by
   # default. The bucket owner can grant this permission to others. For more information about
   # permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For more information about metrics configurations and CloudWatch request metrics, see
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html">Monitoring Metrics with Amazon
   # CloudWatch</a>.</p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>ListBucketMetricsConfigurations</code>:</p>
   # <ul>
@@ -3186,9 +3186,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListBucketMetricsConfigurationsOutput.from_request(request)
+    ListBucketMetricsConfigurationsOutput.from_response(response)
   end
 
 
@@ -3197,10 +3197,9 @@ module AWSSdk::AmazonS3
   def list_buckets() : ListBucketsOutput
     path = "/"
     request = HTTP::Request.new("GET", path)
-    request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListBucketsOutput.from_request(request)
+    ListBucketsOutput.from_response(response)
   end
 
 
@@ -3208,7 +3207,7 @@ module AWSSdk::AmazonS3
       # <p>This operation lists in-progress multipart uploads. An in-progress multipart upload is a
   # multipart upload that has been initiated using the Initiate Multipart Upload request, but
   # has not yet been completed or aborted.</p>
-  #
+  # 
   # <p>This operation returns at most 1,000 multipart uploads in the response. 1,000 multipart
   # uploads is the maximum number of uploads a response can include, which is also the default
   # value. You can further limit the number of uploads in a response by specifying the
@@ -3216,18 +3215,18 @@ module AWSSdk::AmazonS3
   # satisfy the list criteria, the response will contain an <code>IsTruncated</code> element
   # with the value true. To list the additional multipart uploads, use the
   # <code>key-marker</code> and <code>upload-id-marker</code> request parameters.</p>
-  #
+  # 
   # <p>In the response, the uploads are sorted by key. If your application has initiated more
   # than one multipart upload using the same object key, then uploads in the response are first
   # sorted by key. Additionally, uploads are sorted in ascending order within each key by the
   # upload initiation time.</p>
-  #
+  # 
   # <p>For more information on multipart uploads, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html">Uploading Objects Using Multipart
   # Upload</a>.</p>
-  #
+  # 
   # <p>For information on permissions required to use the multipart upload API, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and
   # Permissions</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>ListMultipartUploads</code>:</p>
   # <ul>
   # <li>
@@ -3265,9 +3264,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListMultipartUploadsOutput.from_request(request)
+    ListMultipartUploadsOutput.from_response(response)
   end
 
 
@@ -3280,8 +3279,8 @@ module AWSSdk::AmazonS3
   # <p>This API has been revised. We recommend that you use the newer version, <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html">ListObjectsV2</a>, when developing applications. For backward compatibility,
   # Amazon S3 continues to support <code>ListObjects</code>.</p>
   # </important>
-  #
-  #
+  # 
+  # 
   # <p>The following operations are related to <code>ListObjects</code>:</p>
   # <ul>
   # <li>
@@ -3319,9 +3318,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListObjectsOutput.from_request(request)
+    ListObjectsOutput.from_response(response)
   end
 
 
@@ -3330,9 +3329,9 @@ module AWSSdk::AmazonS3
   # parameters as selection criteria to return a subset of the objects in a bucket. A <code>200
   # OK</code> response can contain valid or invalid XML. Make sure to design your
   # application to parse the contents of the response and handle it appropriately.</p>
-  #
+  # 
   # <p>To use this operation, you must have READ access to the bucket.</p>
-  #
+  # 
   # <p>To use this operation in an AWS Identity and Access Management (IAM) policy, you must
   # have permissions to perform the <code>s3:ListBucket</code> action. The bucket owner has
   # this permission by default and can grant this permission to others. For more information
@@ -3343,9 +3342,9 @@ module AWSSdk::AmazonS3
   # revised API for application development. For backward compatibility, Amazon S3 continues to
   # support the prior version of this API, <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html">ListObjects</a>.</p>
   # </important>
-  #
+  # 
   # <p>To get a list of your buckets, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html">ListBuckets</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>ListObjectsV2</code>:</p>
   # <ul>
   # <li>
@@ -3373,9 +3372,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListObjectsV2Output.from_request(request)
+    ListObjectsV2Output.from_response(response)
   end
 
 
@@ -3422,9 +3421,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListObjectVersionsOutput.from_request(request)
+    ListObjectVersionsOutput.from_response(response)
   end
 
 
@@ -3439,13 +3438,13 @@ module AWSSdk::AmazonS3
   # and a <code>NextPartNumberMarker</code> element. In subsequent <code>ListParts</code>
   # requests you can include the part-number-marker query string parameter and set its value to
   # the <code>NextPartNumberMarker</code> field value from the previous response.</p>
-  #
+  # 
   # <p>For more information on multipart uploads, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html">Uploading Objects Using Multipart
   # Upload</a>.</p>
-  #
+  # 
   # <p>For information on permissions required to use the multipart upload API, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and
   # Permissions</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>ListParts</code>:</p>
   # <ul>
   # <li>
@@ -3488,22 +3487,22 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    ListPartsOutput.from_request(request)
+    ListPartsOutput.from_response(response)
   end
 
 
 
       # <p>Sets the accelerate configuration of an existing bucket. Amazon S3 Transfer Acceleration is a
   # bucket-level feature that enables you to perform faster data transfers to Amazon S3.</p>
-  #
+  # 
   # <p> To use this operation, you must have permission to perform the
   # s3:PutAccelerateConfiguration action. The bucket owner has this permission by default. The
   # bucket owner can grant this permission to others. For more information about permissions,
   # see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p> The Transfer Acceleration state of a bucket can be set to one of the following two
   # values:</p>
   # <ul>
@@ -3514,19 +3513,19 @@ module AWSSdk::AmazonS3
   # <p> Suspended – Disables accelerated data transfers to the bucket.</p>
   # </li>
   # </ul>
-  #
-  #
+  # 
+  # 
   # <p>The <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAccelerateConfiguration.html">GetBucketAccelerateConfiguration</a> operation returns the transfer acceleration
   # state of a bucket.</p>
-  #
+  # 
   # <p>After setting the Transfer Acceleration state of a bucket to Enabled, it might take up
   # to thirty minutes before the data transfer rates to the bucket increase.</p>
-  #
+  # 
   # <p> The name of the bucket used for Transfer Acceleration must be DNS-compliant and must
   # not contain periods (".").</p>
-  #
+  # 
   # <p> For more information about transfer acceleration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html">Transfer Acceleration</a>.</p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>PutBucketAccelerateConfiguration</code>:</p>
   # <ul>
@@ -3550,7 +3549,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -3560,7 +3559,7 @@ module AWSSdk::AmazonS3
       # <p>Sets the permissions on an existing bucket using access control lists (ACL). For more
   # information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html">Using ACLs</a>. To set
   # the ACL of a bucket, you must have <code>WRITE_ACP</code> permission.</p>
-  #
+  # 
   # <p>You can use one of the following two ways to set a bucket's permissions:</p>
   # <ul>
   # <li>
@@ -3570,18 +3569,18 @@ module AWSSdk::AmazonS3
   # <p>Specify permissions using request headers</p>
   # </li>
   # </ul>
-  #
+  # 
   # <note>
   # <p>You cannot specify access permission using both the body and the request
   # headers.</p>
   # </note>
-  #
+  # 
   # <p>Depending on your application needs, you may choose to set the ACL on a bucket using
   # either the request body or the headers. For example, if you have an existing application
   # that updates a bucket ACL using the request body, then you can continue to use that
   # approach.</p>
-  #
-  #
+  # 
+  # 
   # <p>
   # <b>Access Permissions</b>
   # </p>
@@ -3659,7 +3658,7 @@ module AWSSdk::AmazonS3
   # <code>x-amz-grant-write: uri="http://acs.amazonaws.com/groups/s3/LogDelivery",
   # id="111122223333", id="555566667777" </code>
   # </p>
-  #
+  # 
   # </li>
   # </ul>
   # <p>You can use either a canned ACL or specify access permissions explicitly. You cannot do
@@ -3726,8 +3725,8 @@ module AWSSdk::AmazonS3
   # </note>
   # </li>
   # </ul>
-  #
-  #
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -3757,7 +3756,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -3766,7 +3765,7 @@ module AWSSdk::AmazonS3
 
       # <p>Sets an analytics configuration for the bucket (specified by the analytics configuration
   # ID). You can have up to 1,000 analytics configurations per bucket.</p>
-  #
+  # 
   # <p>You can choose to have storage class analysis export analysis reports sent to a
   # comma-separated values (CSV) flat file. See the <code>DataExport</code> request element.
   # Reports are updated daily and are based on the object filters that you configure. When
@@ -3775,20 +3774,20 @@ module AWSSdk::AmazonS3
   # account. However, the destination bucket must be in the same Region as the bucket that you
   # are making the PUT analytics configuration to. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html">Amazon S3 Analytics – Storage Class
   # Analysis</a>. </p>
-  #
+  # 
   # <important>
   # <p>You must create a bucket policy on the destination bucket where the exported file is
   # written to grant permissions to Amazon S3 to write objects to the bucket. For an example
   # policy, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html#example-bucket-policies-use-case-9">Granting Permissions for Amazon S3 Inventory and Storage Class Analysis</a>.</p>
   # </important>
-  #
+  # 
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:PutAnalyticsConfiguration</code> action. The bucket owner has this permission
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
-  #
+  # 
+  # 
   # <p class="title">
   # <b>Special Errors</b>
   # </p>
@@ -3854,12 +3853,12 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
-  #
-  #
-  #
-  #
-  #
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -3889,7 +3888,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -3932,7 +3931,7 @@ module AWSSdk::AmazonS3
   # </ul>
   # <p> For more information about CORS, go to <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html">Enabling
   # Cross-Origin Resource Sharing</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -3962,7 +3961,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -3986,7 +3985,7 @@ module AWSSdk::AmazonS3
   # by default. The bucket owner can grant this permission to others. For more information
   # about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a> in the Amazon Simple Storage Service Developer Guide. </p>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -4011,7 +4010,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4050,7 +4049,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4083,7 +4082,7 @@ module AWSSdk::AmazonS3
   # by default and can grant this permission to others. For more information about permissions,
   # see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a> in the Amazon Simple Storage Service Developer Guide.</p>
-  #
+  # 
   # <p class="title">
   # <b>Special Errors</b>
   # </p>
@@ -4137,7 +4136,7 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -4167,7 +4166,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4177,7 +4176,7 @@ module AWSSdk::AmazonS3
       # <p>Creates a new lifecycle configuration for the bucket or replaces an existing lifecycle
   # configuration. For information about lifecycle configuration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <note>
   # <p>Bucket lifecycle configuration now supports specifying a lifecycle rule using an
   # object key name prefix, one or more object tags, or a combination of both. Accordingly,
@@ -4185,16 +4184,16 @@ module AWSSdk::AmazonS3
   # filtering based only on an object key name prefix, which is supported for backward
   # compatibility. For the related API description, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html">PutBucketLifecycle</a>.</p>
   # </note>
-  #
-  #
-  #
+  # 
+  # 
+  # 
   # <p>
   # <b>Rules</b>
   # </p>
   # <p>You specify the lifecycle configuration in your request body. The lifecycle
   # configuration is specified as XML consisting of one or more rules. Each rule consists of
   # the following:</p>
-  #
+  # 
   # <ul>
   # <li>
   # <p>Filter identifying a subset of objects to which the rule applies. The filter can
@@ -4212,27 +4211,27 @@ module AWSSdk::AmazonS3
   # versions.</p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html">Object
   # Lifecycle Management</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html">Lifecycle Configuration Elements</a>.</p>
-  #
-  #
+  # 
+  # 
   # <p>
   # <b>Permissions</b>
   # </p>
-  #
-  #
+  # 
+  # 
   # <p>By default, all Amazon S3 resources are private, including buckets, objects, and related
   # subresources (for example, lifecycle configuration and website configuration). Only the
   # resource owner (that is, the AWS account that created it) can access the resource. The
   # resource owner can optionally grant access permissions to others by writing an access
   # policy. For this operation, a user must get the s3:PutLifecycleConfiguration
   # permission.</p>
-  #
+  # 
   # <p>You can also explicitly deny permissions. Explicit deny also supersedes any other
   # permissions. If you want to block users or accounts from removing or deleting objects from
   # your bucket, you must deny them permissions for the following actions:</p>
-  #
+  # 
   # <ul>
   # <li>
   # <p>s3:DeleteObject</p>
@@ -4244,11 +4243,11 @@ module AWSSdk::AmazonS3
   # <p>s3:PutLifecycleConfiguration</p>
   # </li>
   # </ul>
-  #
-  #
+  # 
+  # 
   # <p>For more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>The following are related to <code>PutBucketLifecycleConfiguration</code>:</p>
   # <ul>
   # <li>
@@ -4277,7 +4276,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4287,18 +4286,18 @@ module AWSSdk::AmazonS3
       # <p>Set the logging parameters for a bucket and to specify permissions for who can view and
   # modify the logging parameters. All logs are saved to buckets in the same AWS Region as the
   # source bucket. To set the logging status of a bucket, you must be the bucket owner.</p>
-  #
+  # 
   # <p>The bucket owner is automatically granted FULL_CONTROL to all logs. You use the
   # <code>Grantee</code> request element to grant access to other people. The
   # <code>Permissions</code> request element specifies the kind of access the grantee has to
   # the logs.</p>
-  #
+  # 
   # <p>
   # <b>Grantee Values</b>
   # </p>
   # <p>You can specify the person (grantee) to whom you're assigning access rights (using
   # request elements) in the following ways:</p>
-  #
+  # 
   # <ul>
   # <li>
   # <p>By the person's ID:</p>
@@ -4326,21 +4325,21 @@ module AWSSdk::AmazonS3
   # </p>
   # </li>
   # </ul>
-  #
-  #
+  # 
+  # 
   # <p>To enable logging, you use LoggingEnabled and its children request elements. To disable
   # logging, you use an empty BucketLoggingStatus request element:</p>
-  #
+  # 
   # <p>
   # <code><BucketLoggingStatus xmlns="http://doc.s3.amazonaws.com/2006-03-01"
   # /></code>
   # </p>
-  #
+  # 
   # <p>For more information about server access logging, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html">Server Access Logging</a>. </p>
-  #
+  # 
   # <p>For more information about creating a bucket, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html">CreateBucket</a>. For more
   # information about returning the logging status of a bucket, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLogging.html">GetBucketLogging</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>PutBucketLogging</code>:</p>
   # <ul>
   # <li>
@@ -4373,7 +4372,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4384,16 +4383,16 @@ module AWSSdk::AmazonS3
   # You can have up to 1,000 metrics configurations per bucket. If you're updating an existing
   # metrics configuration, note that this is a full replacement of the existing metrics
   # configuration. If you don't include the elements you want to keep, they are erased.</p>
-  #
+  # 
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:PutMetricsConfiguration</code> action. The bucket owner has this permission by
   # default. The bucket owner can grant this permission to others. For more information about
   # permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>For information about CloudWatch request metrics for Amazon S3, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html">Monitoring Metrics with Amazon
   # CloudWatch</a>.</p>
-  #
+  # 
   # <p>The following operations are related to
   # <code>PutBucketMetricsConfiguration</code>:</p>
   # <ul>
@@ -4413,12 +4412,12 @@ module AWSSdk::AmazonS3
   # </p>
   # </li>
   # </ul>
-  #
-  #
-  #
-  #
-  #
-  #
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
   # <p>
   # <code>GetBucketLifecycle</code> has the following special error:</p>
   # <ul>
@@ -4445,7 +4444,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4455,15 +4454,15 @@ module AWSSdk::AmazonS3
       # <p>Enables notifications of specified events for a bucket. For more information about event
   # notifications, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Configuring Event
   # Notifications</a>.</p>
-  #
+  # 
   # <p>Using this API, you can replace an existing notification configuration. The
   # configuration is an XML file that defines the event types that you want Amazon S3 to publish and
   # the destination where you want Amazon S3 to publish an event notification when it detects an
   # event of the specified type.</p>
-  #
+  # 
   # <p>By default, your bucket has no event notifications configured. That is, the notification
   # configuration will be an empty <code>NotificationConfiguration</code>.</p>
-  #
+  # 
   # <p>
   # <code><NotificationConfiguration></code>
   # </p>
@@ -4472,7 +4471,7 @@ module AWSSdk::AmazonS3
   # </p>
   # <p>This operation replaces the existing notification configuration with the configuration
   # you include in the request body.</p>
-  #
+  # 
   # <p>After Amazon S3 receives this request, it first verifies that any Amazon Simple Notification
   # Service (Amazon SNS) or Amazon Simple Queue Service (Amazon SQS) destination exists, and
   # that the bucket owner has permission to publish to it by sending a test notification. In
@@ -4480,14 +4479,14 @@ module AWSSdk::AmazonS3
   # grant Amazon S3 permission to invoke the function from the Amazon S3 bucket. For more information,
   # see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Configuring Notifications for Amazon S3
   # Events</a>.</p>
-  #
+  # 
   # <p>You can disable notifications by adding the empty NotificationConfiguration
   # element.</p>
-  #
+  # 
   # <p>By default, only the bucket owner can configure notifications on a bucket. However,
   # bucket owners can use a bucket policy to grant permission to other users to set this
   # configuration with <code>s3:PutBucketNotification</code> permission.</p>
-  #
+  # 
   # <note>
   # <p>The PUT notification is an atomic operation. For example, suppose your notification
   # configuration includes SNS topic, SQS queue, and Lambda function configurations. When
@@ -4495,7 +4494,7 @@ module AWSSdk::AmazonS3
   # topic. If the message fails, the entire PUT operation will fail, and Amazon S3 will not add
   # the configuration to your bucket.</p>
   # </note>
-  #
+  # 
   # <p>
   # <b>Responses</b>
   # </p>
@@ -4504,7 +4503,7 @@ module AWSSdk::AmazonS3
   # <code>s3:ReducedRedundancyLostObject</code> event type, the response will also include
   # the <code>x-amz-sns-test-message-id</code> header containing the message ID of the test
   # notification sent to the topic.</p>
-  #
+  # 
   # <p>The following operation is related to
   # <code>PutBucketNotificationConfiguration</code>:</p>
   # <ul>
@@ -4523,7 +4522,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4556,7 +4555,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4567,22 +4566,22 @@ module AWSSdk::AmazonS3
   # the root user of the AWS account that owns the bucket, the calling identity must have the
   # <code>PutBucketPolicy</code> permissions on the specified bucket and belong to the
   # bucket owner's account in order to use this operation.</p>
-  #
+  # 
   # <p>If you don't have <code>PutBucketPolicy</code> permissions, Amazon S3 returns a <code>403
   # Access Denied</code> error. If you have the correct permissions, but you're not using an
   # identity that belongs to the bucket owner's account, Amazon S3 returns a <code>405 Method Not
   # Allowed</code> error.</p>
-  #
+  # 
   # <important>
   # <p> As a security precaution, the root user of the AWS account that owns a bucket can
   # always use this operation, even if the policy explicitly denies the root user the
   # ability to perform this action. </p>
   # </important>
-  #
-  #
+  # 
+  # 
   # <p>For more information about bucket policies, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html">Using Bucket Policies and User
   # Policies</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>PutBucketPolicy</code>:</p>
   # <ul>
   # <li>
@@ -4605,7 +4604,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4622,13 +4621,13 @@ module AWSSdk::AmazonS3
   # configuration, you provide the name of the destination bucket or buckets where you want
   # Amazon S3 to replicate objects, the IAM role that Amazon S3 can assume to replicate objects on your
   # behalf, and other relevant information.</p>
-  #
-  #
+  # 
+  # 
   # <p>A replication configuration must include at least one rule, and can contain a maximum of
   # 1,000. Each rule identifies a subset of objects to replicate by filtering the objects in
   # the source bucket. To choose additional subsets of objects to replicate, add a rule for
   # each subset.</p>
-  #
+  # 
   # <p>To specify a subset of the objects in the source bucket to apply a replication rule to,
   # add the Filter element as a child of the Rule element. You can filter objects based on an
   # object key prefix, one or more object tags, or both. When you add the Filter element in the
@@ -4640,13 +4639,13 @@ module AWSSdk::AmazonS3
   # replication of delete markers differently. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-backward-compat-considerations">Backward Compatibility</a>.</p>
   # </note>
   # <p>For information about enabling versioning on a bucket, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html">Using Versioning</a>.</p>
-  #
+  # 
   # <p>By default, a resource owner, in this case the AWS account that created the bucket, can
   # perform this operation. The resource owner can also grant others permissions to perform the
   # operation. For more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a Policy</a>
   # and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your
   # Amazon S3 Resources</a>.</p>
-  #
+  # 
   # <p>
   # <b>Handling Replication of Encrypted Objects</b>
   # </p>
@@ -4657,12 +4656,12 @@ module AWSSdk::AmazonS3
   # <code>ReplicaKmsKeyID</code>. For information about replication configuration, see
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-config-for-kms-objects.html">Replicating Objects
   # Created with SSE Using CMKs stored in AWS KMS</a>.</p>
-  #
+  # 
   # <p>For information on <code>PutBucketReplication</code> errors, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ReplicationErrorCodeList">List of
   # replication-related error codes</a>
   # </p>
-  #
-  #
+  # 
+  # 
   # <p>The following operations are related to <code>PutBucketReplication</code>:</p>
   # <ul>
   # <li>
@@ -4685,7 +4684,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4697,7 +4696,7 @@ module AWSSdk::AmazonS3
   # to specify that the person requesting the download will be charged for the download. For
   # more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays
   # Buckets</a>.</p>
-  #
+  # 
   # <p>The following operations are related to <code>PutBucketRequestPayment</code>:</p>
   # <ul>
   # <li>
@@ -4720,7 +4719,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4735,7 +4734,7 @@ module AWSSdk::AmazonS3
   # name, and then organize your billing information to see the total cost of that application
   # across several services. For more information, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Cost Allocation
   # and Tagging</a>.</p>
-  #
+  # 
   # <note>
   # <p>Within a bucket, if you add a tag that has the same key as an existing tag, the new
   # value overwrites the old value. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/CostAllocTagging.html">Using Cost Allocation in Amazon S3 Bucket
@@ -4745,7 +4744,7 @@ module AWSSdk::AmazonS3
   # <code>s3:PutBucketTagging</code> action. The bucket owner has this permission by default
   # and can grant this permission to others. For more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
-  #
+  # 
   # <p>
   # <code>PutBucketTagging</code> has the following special errors:</p>
   # <ul>
@@ -4790,8 +4789,8 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
-  #
+  # 
+  # 
   # <p>The following operations are related to <code>PutBucketTagging</code>:</p>
   # <ul>
   # <li>
@@ -4814,7 +4813,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4824,23 +4823,23 @@ module AWSSdk::AmazonS3
       # <p>Sets the versioning state of an existing bucket. To set the versioning state, you must
   # be the bucket owner.</p>
   # <p>You can set the versioning state with one of the following values:</p>
-  #
+  # 
   # <p>
   # <b>Enabled</b>—Enables versioning for the objects in the
   # bucket. All objects added to the bucket receive a unique version ID.</p>
-  #
+  # 
   # <p>
   # <b>Suspended</b>—Disables versioning for the objects in the
   # bucket. All objects added to the bucket receive the version ID null.</p>
-  #
+  # 
   # <p>If the versioning state has never been set on a bucket, it has no versioning state; a
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html">GetBucketVersioning</a> request does not return a versioning state value.</p>
-  #
+  # 
   # <p>If the bucket owner enables MFA Delete in the bucket versioning configuration, the
   # bucket owner must include the <code>x-amz-mfa request</code> header and the
   # <code>Status</code> and the <code>MfaDelete</code> request elements in a request to set
   # the versioning state of the bucket.</p>
-  #
+  # 
   # <important>
   # <p>If you have an object expiration lifecycle policy in your non-versioned bucket and
   # you want to maintain the same permanent delete behavior when you enable versioning, you
@@ -4849,7 +4848,7 @@ module AWSSdk::AmazonS3
   # version-enabled bucket maintains one current and zero or more noncurrent object
   # versions.) For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-and-other-bucket-config">Lifecycle and Versioning</a>.</p>
   # </important>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -4879,7 +4878,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -4890,12 +4889,12 @@ module AWSSdk::AmazonS3
   # subresource. To configure a bucket as a website, you can add this subresource on the bucket
   # with website configuration information such as the file name of the index document and any
   # redirect rules. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html">Hosting Websites on Amazon S3</a>.</p>
-  #
+  # 
   # <p>This PUT operation requires the <code>S3:PutBucketWebsite</code> permission. By default,
   # only the bucket owner can configure the website attached to a bucket; however, bucket
   # owners can allow other users to set the website configuration by writing a bucket policy
   # that grants them the <code>S3:PutBucketWebsite</code> permission.</p>
-  #
+  # 
   # <p>To redirect all website requests sent to the bucket's website endpoint, you add a
   # website configuration with the following elements. Because all requests are sent to another
   # website, you don't need to provide index document name for the bucket.</p>
@@ -4921,7 +4920,7 @@ module AWSSdk::AmazonS3
   # </p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>If you want granular control over redirects, you can use the following elements to add
   # routing rules that describe conditions for redirecting requests and information about the
   # redirect destination. In this case, the website configuration must provide an index
@@ -5008,7 +5007,7 @@ module AWSSdk::AmazonS3
   # </p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>Amazon S3 has a limitation of 50 routing rules per website configuration. If you require more
   # than 50 routing rules, you can use object redirect. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html">Configuring an
   # Object Redirect</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
@@ -5021,7 +5020,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -5030,16 +5029,16 @@ module AWSSdk::AmazonS3
 
       # <p>Adds an object to a bucket. You must have WRITE permissions on a bucket to add an object
   # to it.</p>
-  #
-  #
+  # 
+  # 
   # <p>Amazon S3 never adds partial objects; if you receive a success response, Amazon S3 added the
   # entire object to the bucket.</p>
-  #
+  # 
   # <p>Amazon S3 is a distributed system. If it receives multiple write requests for the same object
   # simultaneously, it overwrites all but the last object written. Amazon S3 does not provide object
   # locking; if you need this, make sure to build it into your application layer or use
   # versioning instead.</p>
-  #
+  # 
   # <p>To ensure that data is not corrupted traversing the network, use the
   # <code>Content-MD5</code> header. When you use this header, Amazon S3 checks the object
   # against the provided MD5 value and, if they do not match, returns an error. Additionally,
@@ -5051,8 +5050,8 @@ module AWSSdk::AmazonS3
   # Amazon S3 Object Lock, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html">Amazon S3 Object Lock Overview</a>
   # in the <i>Amazon Simple Storage Service Developer Guide</i>. </p>
   # </note>
-  #
-  #
+  # 
+  # 
   # <p>
   # <b>Server-side Encryption</b>
   # </p>
@@ -5071,7 +5070,7 @@ module AWSSdk::AmazonS3
   # permissions are then added to the ACL on the object. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Access Control List
   # (ACL) Overview</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-using-rest-api.html">Managing ACLs Using the REST
   # API</a>. </p>
-  #
+  # 
   # <p>
   # <b>Storage Class Options</b>
   # </p>
@@ -5080,8 +5079,8 @@ module AWSSdk::AmazonS3
   # performance needs, you can specify a different Storage Class. Amazon S3 on Outposts only uses
   # the OUTPOSTS Storage Class. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">Storage Classes</a> in the <i>Amazon S3
   # Service Developer Guide</i>.</p>
-  #
-  #
+  # 
+  # 
   # <p>
   # <b>Versioning</b>
   # </p>
@@ -5092,8 +5091,8 @@ module AWSSdk::AmazonS3
   # <p>For more information about versioning, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/AddingObjectstoVersioningEnabledBuckets.html">Adding Objects to
   # Versioning Enabled Buckets</a>. For information about returning the versioning state
   # of a bucket, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html">GetBucketVersioning</a>. </p>
-  #
-  #
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -5123,9 +5122,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    PutObjectOutput.from_request(request)
+    PutObjectOutput.from_response(response)
   end
 
 
@@ -5140,9 +5139,9 @@ module AWSSdk::AmazonS3
   # an existing application that updates a bucket ACL using the request body, you can continue
   # to use that approach. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Access Control List (ACL) Overview</a> in the <i>Amazon S3 Developer
   # Guide</i>.</p>
-  #
-  #
-  #
+  # 
+  # 
+  # 
   # <p>
   # <b>Access Permissions</b>
   # </p>
@@ -5164,7 +5163,7 @@ module AWSSdk::AmazonS3
   # <code>x-amz-acl</code> header to set a canned ACL. These parameters map to the set
   # of permissions that Amazon S3 supports in an ACL. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Access Control List (ACL)
   # Overview</a>.</p>
-  #
+  # 
   # <p>You specify each grantee as a type=value pair, where the type is one of the
   # following:</p>
   # <ul>
@@ -5221,7 +5220,7 @@ module AWSSdk::AmazonS3
   # <code>x-amz-grant-read: emailAddress="xyz@amazon.com",
   # emailAddress="abc@amazon.com" </code>
   # </p>
-  #
+  # 
   # </li>
   # </ul>
   # <p>You can use either a canned ACL or specify access permissions explicitly. You cannot do
@@ -5323,9 +5322,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    PutObjectAclOutput.from_request(request)
+    PutObjectAclOutput.from_response(response)
   end
 
 
@@ -5356,9 +5355,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    PutObjectLegalHoldOutput.from_request(request)
+    PutObjectLegalHoldOutput.from_response(response)
   end
 
 
@@ -5391,9 +5390,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    PutObjectLockConfigurationOutput.from_request(request)
+    PutObjectLockConfigurationOutput.from_response(response)
   end
 
 
@@ -5424,9 +5423,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    PutObjectRetentionOutput.from_request(request)
+    PutObjectRetentionOutput.from_response(response)
   end
 
 
@@ -5435,21 +5434,21 @@ module AWSSdk::AmazonS3
   # <p>A tag is a key-value pair. You can associate tags with an object by sending a PUT
   # request against the tagging subresource that is associated with the object. You can
   # retrieve tags by sending a GET request. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html">GetObjectTagging</a>.</p>
-  #
+  # 
   # <p>For tagging-related restrictions related to characters and encodings, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html">Tag
   # Restrictions</a>. Note that Amazon S3 limits the maximum number of tags to 10 tags per
   # object.</p>
-  #
+  # 
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:PutObjectTagging</code> action. By default, the bucket owner has this
   # permission and can grant this permission to others.</p>
-  #
+  # 
   # <p>To put tags of any other version, use the <code>versionId</code> query parameter. You
   # also need permission for the <code>s3:PutObjectVersionTagging</code> action.</p>
-  #
+  # 
   # <p>For information about the Amazon S3 object tagging feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html">Object Tagging</a>.</p>
-  #
-  #
+  # 
+  # 
   # <p class="title">
   # <b>Special Errors</b>
   # </p>
@@ -5514,12 +5513,12 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
-  #
-  #
-  #
-  #
-  #
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -5544,9 +5543,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    PutObjectTaggingOutput.from_request(request)
+    PutObjectTaggingOutput.from_response(response)
   end
 
 
@@ -5555,7 +5554,7 @@ module AWSSdk::AmazonS3
   # To use this operation, you must have the <code>s3:PutBucketPublicAccessBlock</code>
   # permission. For more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a
   # Policy</a>.</p>
-  #
+  # 
   # <important>
   # <p>When Amazon S3 evaluates the <code>PublicAccessBlock</code> configuration for a bucket or
   # an object, it checks the <code>PublicAccessBlock</code> configuration for both the
@@ -5564,12 +5563,12 @@ module AWSSdk::AmazonS3
   # the account, Amazon S3 uses the most restrictive combination of the bucket-level and
   # account-level settings.</p>
   # </important>
-  #
-  #
+  # 
+  # 
   # <p>For more information about when Amazon S3 considers a bucket or an object public, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status">The Meaning of "Public"</a>.</p>
-  #
-  #
-  #
+  # 
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -5605,7 +5604,7 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
     nil
   end
@@ -5881,7 +5880,7 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -5918,9 +5917,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    RestoreObjectOutput.from_request(request)
+    RestoreObjectOutput.from_response(response)
   end
 
 
@@ -5985,7 +5984,7 @@ module AWSSdk::AmazonS3
   # Server-Side Encryption</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
   # </li>
   # </ul>
-  #
+  # 
   # <p>
   # <b>Working with the Response Body</b>
   # </p>
@@ -5994,7 +5993,7 @@ module AWSSdk::AmazonS3
   # its value in the response. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTSelectObjectAppendix.html">Appendix: SelectObjectContent
   # Response</a>
   # .</p>
-  #
+  # 
   # <p></p>
   # <p>
   # <b>GetObject Support</b>
@@ -6019,7 +6018,7 @@ module AWSSdk::AmazonS3
   # <p>
   # <b>Special Errors</b>
   # </p>
-  #
+  # 
   # <p>For a list of special errors for this operation, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#SelectObjectContentErrorCodeList">List of
   # SELECT Object Content Error Codes</a>
   # </p>
@@ -6057,9 +6056,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    SelectObjectContentOutput.from_request(request)
+    SelectObjectContentOutput.from_response(response)
   end
 
 
@@ -6071,7 +6070,7 @@ module AWSSdk::AmazonS3
   # upload a part from an existing object, you use the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html">UploadPartCopy</a> operation.
   # </p>
   # </note>
-  #
+  # 
   # <p>You must initiate a multipart upload (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html">CreateMultipartUpload</a>)
   # before you can upload any part. In response to your initiate request, Amazon S3 returns an
   # upload ID, a unique identifier, that you must include in your upload part request.</p>
@@ -6083,27 +6082,27 @@ module AWSSdk::AmazonS3
   # <p>To ensure that data is not corrupted when traversing the network, specify the
   # <code>Content-MD5</code> header in the upload part request. Amazon S3 checks the part data
   # against the provided MD5 value. If they do not match, Amazon S3 returns an error. </p>
-  #
+  # 
   # <p>If the upload request is signed with Signature Version 4, then AWS S3 uses the
   # <code>x-amz-content-sha256</code> header as a checksum instead of
   # <code>Content-MD5</code>. For more information see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html">Authenticating Requests: Using the Authorization Header (AWS Signature Version
   # 4)</a>. </p>
-  #
-  #
-  #
+  # 
+  # 
+  # 
   # <p>
   # <b>Note:</b> After you initiate multipart upload and upload
   # one or more parts, you must either complete or abort multipart upload in order to stop
   # getting charged for storage of the uploaded parts. Only after you either complete or abort
   # multipart upload, Amazon S3 frees up the parts storage and stops charging you for the parts
   # storage.</p>
-  #
+  # 
   # <p>For more information on multipart uploads, go to <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html">Multipart Upload Overview</a> in the
   # <i>Amazon Simple Storage Service Developer Guide </i>.</p>
   # <p>For information on the permissions required to use the multipart upload API, go to
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and
   # Permissions</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p>You can optionally request server-side encryption where Amazon S3 encrypts your data as it
   # writes it to disks in its data centers and decrypts it for you when you access it. You have
   # the option of providing your own encryption key, or you can use the AWS managed encryption
@@ -6111,18 +6110,18 @@ module AWSSdk::AmazonS3
   # the request must match the headers you used in the request to initiate the upload by using
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html">CreateMultipartUpload</a>. For more information, go to <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html">Using Server-Side Encryption</a> in
   # the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-  #
+  # 
   # <p>Server-side encryption is supported by the S3 Multipart Upload actions. Unless you are
   # using a customer-provided encryption key, you don't need to specify the encryption
   # parameters in each UploadPart request. Instead, you only need to specify the server-side
   # encryption parameters in the initial Initiate Multipart request. For more information, see
   # <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html">CreateMultipartUpload</a>.</p>
-  #
+  # 
   # <p>If you requested server-side encryption using a customer-provided encryption key in your
   # initiate multipart upload request, you must provide identical encryption information in
   # each part upload using the following headers.</p>
-  #
-  #
+  # 
+  # 
   # <ul>
   # <li>
   # <p>x-amz-server-side-encryption-customer-algorithm</p>
@@ -6134,7 +6133,7 @@ module AWSSdk::AmazonS3
   # <p>x-amz-server-side-encryption-customer-key-MD5</p>
   # </li>
   # </ul>
-  #
+  # 
   # <p class="title">
   # <b>Special Errors</b>
   # </p>
@@ -6166,12 +6165,12 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
-  #
-  #
-  #
-  #
-  #
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -6216,9 +6215,9 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    UploadPartOutput.from_request(request)
+    UploadPartOutput.from_response(response)
   end
 
 
@@ -6234,13 +6233,13 @@ module AWSSdk::AmazonS3
   # <p>Instead of using an existing object as part data, you might use the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html">UploadPart</a>
   # operation and provide data in your request.</p>
   # </note>
-  #
+  # 
   # <p>You must initiate a multipart upload before you can upload any part. In response to your
   # initiate request. Amazon S3 returns a unique identifier, the upload ID, that you must include in
   # your upload part request.</p>
   # <p>For more information about using the <code>UploadPartCopy</code> operation, see the
   # following:</p>
-  #
+  # 
   # <ul>
   # <li>
   # <p>For conceptual information about multipart uploads, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html">Uploading Objects Using Multipart
@@ -6281,7 +6280,7 @@ module AWSSdk::AmazonS3
   # <code>false</code>;</p>
   # <p>Amazon S3 returns <code>200 OK</code> and copies the data.
   # </p>
-  #
+  # 
   # </li>
   # <li>
   # <p>
@@ -6314,7 +6313,7 @@ module AWSSdk::AmazonS3
   # <p>
   # <code>x-amz-copy-source: /bucket/object?versionId=version id</code>
   # </p>
-  #
+  # 
   # <p class="title">
   # <b>Special Errors</b>
   # </p>
@@ -6361,12 +6360,12 @@ module AWSSdk::AmazonS3
   # </ul>
   # </li>
   # </ul>
-  #
-  #
-  #
-  #
-  #
-  #
+  # 
+  # 
+  # 
+  # 
+  # 
+  # 
   # <p class="title">
   # <b>Related Resources</b>
   # </p>
@@ -6416,16 +6415,16 @@ module AWSSdk::AmazonS3
     end
     request = HTTP::Request.new("PUT", path)
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: 200)
+    response = AWSSdk::Client.send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
 
-    UploadPartCopyOutput.from_request(request)
+    UploadPartCopyOutput.from_response(response)
   end
 
 
 
 
 
-  class AbortMultipartUploadRequest
+  class AbortMultipartUploadRequest 
     include RestXML::Structure
 
     # <p>The bucket name to which the upload was taking place. </p>
@@ -6439,7 +6438,7 @@ module AWSSdk::AmazonS3
     # <p>Upload ID that identifies the multipart upload.</p>
     @[Protocol::Field(location: :query, name: "uploadId", structure: false)]
     property upload_id : String
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -6450,10 +6449,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AbortMultipartUploadOutput
+  class AbortMultipartUploadOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -6469,7 +6468,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CompletedPartStruct
+  class CompletedPartStruct 
     include RestXML::Structure
 
     # <p>Entity tag returned when the part was uploaded.</p>
@@ -6484,7 +6483,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CompletedMultipartUploadStruct
+  class CompletedMultipartUploadStruct 
     include RestXML::Structure
 
     # <p>Array of CompletedPart data types.</p>
@@ -6495,7 +6494,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CompleteMultipartUploadRequest
+  class CompleteMultipartUploadRequest 
     include RestXML::Structure
 
     # <p>Name of the bucket to which the multipart upload was initiated.</p>
@@ -6505,12 +6504,12 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :uri, name: "Key", structure: false)]
     property key : String
     # <p>The container for the multipart upload request information.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "CompletedMultipartUpload", structure: true)]
     property multipart_upload : CompletedMultipartUploadStruct?
     # <p>ID for the initiated multipart upload.</p>
     @[Protocol::Field(location: :query, name: "uploadId", structure: false)]
     property upload_id : String
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -6521,7 +6520,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CompleteMultipartUploadOutput
+  class CompleteMultipartUploadOutput 
     include RestXML::Structure
 
     # <p>The URI that identifies the newly created object.</p>
@@ -6563,7 +6562,7 @@ module AWSSdk::AmazonS3
     # <p>Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -6571,7 +6570,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CopyObjectRequest
+  class CopyObjectRequest 
     include RestXML::Structure
 
     # <p>The canned ACL to apply to the object.</p>
@@ -6737,7 +6736,7 @@ module AWSSdk::AmazonS3
     # without error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-copy-source-server-side-encryption-customer-key-MD5", structure: false)]
     property copy_source_sse_customer_key_md5 : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The tag-set for the object destination object this value must be used in conjunction
@@ -6765,7 +6764,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CopyObjectResultStruct
+  class CopyObjectResultStruct 
     include RestXML::Structure
 
     # <p>Returns the ETag of the new object. The ETag reflects only changes to the contents of an
@@ -6781,11 +6780,11 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CopyObjectOutput
+  class CopyObjectOutput 
     include RestXML::Structure
 
     # <p>Container for all response elements.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "CopyObjectResult", structure: true)]
     property copy_object_result : CopyObjectResultStruct?
     # <p>If the object expiration is configured, the response includes this header.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expiration", structure: false)]
@@ -6821,7 +6820,7 @@ module AWSSdk::AmazonS3
     # <p>Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -6837,7 +6836,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CreateBucketConfigurationStruct
+  class CreateBucketConfigurationStruct 
     include RestXML::Structure
 
     # <p>Specifies the Region where the bucket will be created. If you don't specify a Region,
@@ -6849,7 +6848,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CreateBucketRequest
+  class CreateBucketRequest 
     include RestXML::Structure
 
     # <p>The canned ACL to apply to the bucket.</p>
@@ -6859,7 +6858,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
     # <p>The configuration information for the bucket.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "CreateBucketConfiguration", structure: true)]
     property create_bucket_configuration : CreateBucketConfigurationStruct?
     # <p>Allows grantee the read, write, read ACP, and write ACP permissions on the
     # bucket.</p>
@@ -6885,7 +6884,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CreateBucketOutput
+  class CreateBucketOutput 
     include RestXML::Structure
 
     # <p>Specifies the Region where the bucket will be created. If you are creating a bucket on
@@ -6914,7 +6913,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CreateMultipartUploadRequest
+  class CreateMultipartUploadRequest 
     include RestXML::Structure
 
     # <p>The canned ACL to apply to the object.</p>
@@ -7018,7 +7017,7 @@ module AWSSdk::AmazonS3
     # <p>Specifying this header with an object operation doesn’t affect bucket-level settings for S3 Bucket Key.</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The tag-set for the object. The tag-set must be encoded as URL Query parameters.</p>
@@ -7041,7 +7040,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CreateMultipartUploadOutput
+  class CreateMultipartUploadOutput 
     include RestXML::Structure
 
     # <p>If the bucket has a lifecycle rule configured with an action to abort incomplete
@@ -7049,7 +7048,7 @@ module AWSSdk::AmazonS3
     # request, the response includes this header. The header indicates when the initiated
     # multipart upload becomes eligible for an abort operation. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config">
     # Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy</a>.</p>
-    #
+    # 
     # <p>The response also includes the <code>x-amz-abort-rule-id</code> header that provides the
     # ID of the lifecycle configuration rule that defines this action.</p>
     @[Protocol::Field(location: :header, name: "x-amz-abort-date", structure: false)]
@@ -7095,7 +7094,7 @@ module AWSSdk::AmazonS3
     # <p>Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -7103,7 +7102,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketRequest
+  class DeleteBucketRequest 
     include RestXML::Structure
 
     # <p>Specifies the bucket being deleted.</p>
@@ -7117,7 +7116,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketAnalyticsConfigurationRequest
+  class DeleteBucketAnalyticsConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket from which an analytics configuration is deleted.</p>
@@ -7134,7 +7133,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketCorsRequest
+  class DeleteBucketCorsRequest 
     include RestXML::Structure
 
     # <p>Specifies the bucket whose <code>cors</code> configuration is being deleted.</p>
@@ -7148,7 +7147,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketEncryptionRequest
+  class DeleteBucketEncryptionRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the server-side encryption configuration to
@@ -7163,7 +7162,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketIntelligentTieringConfigurationRequest
+  class DeleteBucketIntelligentTieringConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -7177,7 +7176,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketInventoryConfigurationRequest
+  class DeleteBucketInventoryConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the inventory configuration to delete.</p>
@@ -7194,7 +7193,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketLifecycleRequest
+  class DeleteBucketLifecycleRequest 
     include RestXML::Structure
 
     # <p>The bucket name of the lifecycle to delete.</p>
@@ -7208,7 +7207,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketMetricsConfigurationRequest
+  class DeleteBucketMetricsConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the metrics configuration to delete.</p>
@@ -7225,7 +7224,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketOwnershipControlsRequest
+  class DeleteBucketOwnershipControlsRequest 
     include RestXML::Structure
 
     # <p>The Amazon S3 bucket whose <code>OwnershipControls</code> you want to delete. </p>
@@ -7239,7 +7238,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketPolicyRequest
+  class DeleteBucketPolicyRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -7253,7 +7252,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketReplicationRequest
+  class DeleteBucketReplicationRequest 
     include RestXML::Structure
 
     # <p> The bucket name. </p>
@@ -7267,7 +7266,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketTaggingRequest
+  class DeleteBucketTaggingRequest 
     include RestXML::Structure
 
     # <p>The bucket that has the tag set to be removed.</p>
@@ -7281,7 +7280,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteBucketWebsiteRequest
+  class DeleteBucketWebsiteRequest 
     include RestXML::Structure
 
     # <p>The bucket name for which you want to remove the website configuration. </p>
@@ -7295,7 +7294,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteObjectRequest
+  class DeleteObjectRequest 
     include RestXML::Structure
 
     # <p>The bucket name of the bucket containing the object. </p>
@@ -7314,7 +7313,7 @@ module AWSSdk::AmazonS3
     # <p>VersionId used to reference a specific version of the object.</p>
     @[Protocol::Field(location: :query, name: "versionId", structure: false)]
     property version_id : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process
@@ -7329,7 +7328,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteObjectOutput
+  class DeleteObjectOutput 
     include RestXML::Structure
 
     # <p>Specifies whether the versioned object that was permanently deleted was (true) or was
@@ -7340,7 +7339,7 @@ module AWSSdk::AmazonS3
     # operation.</p>
     @[Protocol::Field(location: :header, name: "x-amz-version-id", structure: false)]
     property version_id : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -7348,7 +7347,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectIdentifierStruct
+  class ObjectIdentifierStruct 
     include RestXML::Structure
 
     # <p>Key name of the object to delete.</p>
@@ -7362,7 +7361,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteStruct
+  class DeleteStruct 
     include RestXML::Structure
 
     # <p>The objects to delete.</p>
@@ -7377,7 +7376,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteObjectsRequest
+  class DeleteObjectsRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the objects to delete. </p>
@@ -7386,14 +7385,14 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
     # <p>Container for the request.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "Delete", structure: true)]
     property delete : DeleteStruct
     # <p>The concatenation of the authentication device's serial number, a space, and the value
     # that is displayed on your authentication device. Required to permanently delete a versioned
     # object if versioning is configured with MFA delete enabled.</p>
     @[Protocol::Field(location: :header, name: "x-amz-mfa", structure: false)]
     property mfa : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>Specifies whether you want to delete this object even if it has a Governance-type Object
@@ -7408,7 +7407,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeletedObjectStruct
+  class DeletedObjectStruct 
     include RestXML::Structure
 
     # <p>The name of the deleted object.</p>
@@ -7432,7 +7431,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ErrorStruct
+  class ErrorStruct 
     include RestXML::Structure
 
     # <p>The error key.</p>
@@ -9318,14 +9317,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteObjectsOutput
+  class DeleteObjectsOutput 
     include RestXML::Structure
 
     # <p>Container element for a successful delete. It identifies the object that was
     # successfully deleted.</p>
     @[Protocol::Field(location: :body, name: "Deleted", structure: false)]
     property deleted : Array(DeletedObjectStruct)?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
     # <p>Container for a failed delete operation that describes the object that Amazon S3 attempted to
@@ -9337,7 +9336,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteObjectTaggingRequest
+  class DeleteObjectTaggingRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the objects from which to remove the tags. </p>
@@ -9359,7 +9358,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteObjectTaggingOutput
+  class DeleteObjectTaggingOutput 
     include RestXML::Structure
 
     # <p>The versionId of the object the tag-set was removed from.</p>
@@ -9370,7 +9369,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeletePublicAccessBlockRequest
+  class DeletePublicAccessBlockRequest 
     include RestXML::Structure
 
     # <p>The Amazon S3 bucket whose <code>PublicAccessBlock</code> configuration you want to delete.
@@ -9385,7 +9384,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketAccelerateConfigurationRequest
+  class GetBucketAccelerateConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which the accelerate configuration is retrieved.</p>
@@ -9399,7 +9398,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketAccelerateConfigurationOutput
+  class GetBucketAccelerateConfigurationOutput 
     include RestXML::Structure
 
     # <p>The accelerate configuration of the bucket.</p>
@@ -9410,7 +9409,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketAclRequest
+  class GetBucketAclRequest 
     include RestXML::Structure
 
     # <p>Specifies the S3 bucket whose ACL is being requested.</p>
@@ -9424,7 +9423,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class OwnerStruct
+  class OwnerStruct 
     include RestXML::Structure
 
     # <p>Container for the display name of the owner.</p>
@@ -9438,7 +9437,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GranteeStruct
+  class GranteeStruct 
     include RestXML::Structure
 
     # <p>Screen name of the grantee.</p>
@@ -9491,7 +9490,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GrantStruct
+  class GrantStruct 
     include RestXML::Structure
 
     # <p>The person being granted permissions.</p>
@@ -9505,7 +9504,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketAclOutput
+  class GetBucketAclOutput 
     include RestXML::Structure
 
     # <p>Container for the bucket owner's display name and ID.</p>
@@ -9519,7 +9518,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketAnalyticsConfigurationRequest
+  class GetBucketAnalyticsConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket from which an analytics configuration is retrieved.</p>
@@ -9536,7 +9535,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class TagStruct
+  class TagStruct 
     include RestXML::Structure
 
     # <p>Name of the object key.</p>
@@ -9550,7 +9549,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AnalyticsAndOperatorStruct
+  class AnalyticsAndOperatorStruct 
     include RestXML::Structure
 
     # <p>The prefix to use when evaluating an AND predicate: The prefix that an object must have
@@ -9565,7 +9564,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AnalyticsS3BucketDestinationStruct
+  class AnalyticsS3BucketDestinationStruct 
     include RestXML::Structure
 
     # <p>Specifies the file format used when exporting data to Amazon S3.</p>
@@ -9590,7 +9589,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AnalyticsExportDestinationStruct
+  class AnalyticsExportDestinationStruct 
     include RestXML::Structure
 
     # <p>A destination signifying output to an S3 bucket.</p>
@@ -9601,7 +9600,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class StorageClassAnalysisDataExportStruct
+  class StorageClassAnalysisDataExportStruct 
     include RestXML::Structure
 
     # <p>The version of the output schema to use when exporting data. Must be
@@ -9616,7 +9615,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class StorageClassAnalysisStruct
+  class StorageClassAnalysisStruct 
     include RestXML::Structure
 
     # <p>Specifies how data related to the storage class analysis for an Amazon S3 bucket should be
@@ -9628,7 +9627,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AnalyticsConfigurationStruct
+  class AnalyticsConfigurationStruct 
     include RestXML::Structure
 
     # <p>The ID that identifies the analytics configuration.</p>
@@ -9648,18 +9647,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketAnalyticsConfigurationOutput
+  class GetBucketAnalyticsConfigurationOutput 
     include RestXML::Structure
 
     # <p>The configuration and any analyses for the analytics filter.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "AnalyticsConfiguration", structure: true)]
     property analytics_configuration : AnalyticsConfigurationStruct?
 
     def initialize(@analytics_configuration = nil )
     end
   end
 
-  class GetBucketCorsRequest
+  class GetBucketCorsRequest 
     include RestXML::Structure
 
     # <p>The bucket name for which to get the cors configuration.</p>
@@ -9673,7 +9672,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CORSRuleStruct
+  class CORSRuleStruct 
     include RestXML::Structure
 
     # <p>Headers that are specified in the <code>Access-Control-Request-Headers</code> header.
@@ -9702,7 +9701,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketCorsOutput
+  class GetBucketCorsOutput 
     include RestXML::Structure
 
     # <p>A set of origins and methods (cross-origin access that you want to allow). You can add
@@ -9714,7 +9713,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketEncryptionRequest
+  class GetBucketEncryptionRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket from which the server-side encryption configuration is
@@ -9729,7 +9728,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ServerSideEncryptionByDefaultStruct
+  class ServerSideEncryptionByDefaultStruct 
     include RestXML::Structure
 
     # <p>Server-side encryption algorithm to use for the default encryption.</p>
@@ -9768,7 +9767,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ServerSideEncryptionRuleStruct
+  class ServerSideEncryptionRuleStruct 
     include RestXML::Structure
 
     # <p>Specifies the default server-side encryption to apply to new objects in the bucket. If a
@@ -9785,7 +9784,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ServerSideEncryptionConfigurationStruct
+  class ServerSideEncryptionConfigurationStruct 
     include RestXML::Structure
 
     # <p>Container for information about a particular server-side encryption configuration
@@ -9797,18 +9796,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketEncryptionOutput
+  class GetBucketEncryptionOutput 
     include RestXML::Structure
 
-    #
-    @[Protocol::Field(location: :body_io, structure: true)]
+    # 
+    @[Protocol::Field(location: :body_io, name: "ServerSideEncryptionConfiguration", structure: true)]
     property server_side_encryption_configuration : ServerSideEncryptionConfigurationStruct?
 
     def initialize(@server_side_encryption_configuration = nil )
     end
   end
 
-  class GetBucketIntelligentTieringConfigurationRequest
+  class GetBucketIntelligentTieringConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -9822,7 +9821,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class IntelligentTieringAndOperatorStruct
+  class IntelligentTieringAndOperatorStruct 
     include RestXML::Structure
 
     # <p>An object key name prefix that identifies the subset of objects to which the
@@ -9838,14 +9837,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class IntelligentTieringFilterStruct
+  class IntelligentTieringFilterStruct 
     include RestXML::Structure
 
     # <p>An object key name prefix that identifies the subset of objects to which the rule
     # applies.</p>
     @[Protocol::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String?
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Tag", structure: true)]
     property tag : TagStruct?
     # <p>A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter.
@@ -9858,7 +9857,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class TieringStruct
+  class TieringStruct 
     include RestXML::Structure
 
     # <p>The number of consecutive days of no access after which an object will be eligible to be
@@ -9877,7 +9876,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class IntelligentTieringConfigurationStruct
+  class IntelligentTieringConfigurationStruct 
     include RestXML::Structure
 
     # <p>The ID used to identify the S3 Intelligent-Tiering configuration.</p>
@@ -9898,18 +9897,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketIntelligentTieringConfigurationOutput
+  class GetBucketIntelligentTieringConfigurationOutput 
     include RestXML::Structure
 
     # <p>Container for S3 Intelligent-Tiering configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "IntelligentTieringConfiguration", structure: true)]
     property intelligent_tiering_configuration : IntelligentTieringConfigurationStruct?
 
     def initialize(@intelligent_tiering_configuration = nil )
     end
   end
 
-  class GetBucketInventoryConfigurationRequest
+  class GetBucketInventoryConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the inventory configuration to retrieve.</p>
@@ -9926,7 +9925,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SSES3Struct
+  class SSES3Struct 
     include RestXML::Structure
 
 
@@ -9934,7 +9933,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SSEKMSStruct
+  class SSEKMSStruct 
     include RestXML::Structure
 
     # <p>Specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed
@@ -9946,7 +9945,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InventoryEncryptionStruct
+  class InventoryEncryptionStruct 
     include RestXML::Structure
 
     # <p>Specifies the use of SSE-S3 to encrypt delivered inventory reports.</p>
@@ -9960,7 +9959,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InventoryS3BucketDestinationStruct
+  class InventoryS3BucketDestinationStruct 
     include RestXML::Structure
 
     # <p>The account ID that owns the destination S3 bucket. If no account ID is provided, the
@@ -9990,7 +9989,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InventoryDestinationStruct
+  class InventoryDestinationStruct 
     include RestXML::Structure
 
     # <p>Contains the bucket name, file format, bucket owner (optional), and prefix (optional)
@@ -10002,7 +10001,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InventoryFilterStruct
+  class InventoryFilterStruct 
     include RestXML::Structure
 
     # <p>The prefix that an object must have to be included in the inventory results.</p>
@@ -10013,7 +10012,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InventoryScheduleStruct
+  class InventoryScheduleStruct 
     include RestXML::Structure
 
     # <p>Specifies how frequently inventory results are produced.</p>
@@ -10024,7 +10023,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InventoryConfigurationStruct
+  class InventoryConfigurationStruct 
     include RestXML::Structure
 
     # <p>Contains information about where to publish the inventory results.</p>
@@ -10060,18 +10059,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketInventoryConfigurationOutput
+  class GetBucketInventoryConfigurationOutput 
     include RestXML::Structure
 
     # <p>Specifies the inventory configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "InventoryConfiguration", structure: true)]
     property inventory_configuration : InventoryConfigurationStruct?
 
     def initialize(@inventory_configuration = nil )
     end
   end
 
-  class GetBucketLifecycleConfigurationRequest
+  class GetBucketLifecycleConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to get the lifecycle information.</p>
@@ -10085,7 +10084,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class LifecycleExpirationStruct
+  class LifecycleExpirationStruct 
     include RestXML::Structure
 
     # <p>Indicates at what date the object is to be moved or deleted. Should be in GMT ISO 8601
@@ -10106,7 +10105,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class LifecycleRuleAndOperatorStruct
+  class LifecycleRuleAndOperatorStruct 
     include RestXML::Structure
 
     # <p>Prefix identifying one or more objects to which the rule applies.</p>
@@ -10121,7 +10120,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class TransitionStruct
+  class TransitionStruct 
     include RestXML::Structure
 
     # <p>Indicates when objects are transitioned to the specified storage class. The date value
@@ -10140,7 +10139,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class NoncurrentVersionTransitionStruct
+  class NoncurrentVersionTransitionStruct 
     include RestXML::Structure
 
     # <p>Specifies the number of days an object is noncurrent before Amazon S3 can perform the
@@ -10157,7 +10156,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class NoncurrentVersionExpirationStruct
+  class NoncurrentVersionExpirationStruct 
     include RestXML::Structure
 
     # <p>Specifies the number of days an object is noncurrent before Amazon S3 can perform the
@@ -10171,7 +10170,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AbortIncompleteMultipartUploadStruct
+  class AbortIncompleteMultipartUploadStruct 
     include RestXML::Structure
 
     # <p>Specifies the number of days after which Amazon S3 aborts an incomplete multipart
@@ -10183,7 +10182,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class LifecycleRuleStruct
+  class LifecycleRuleStruct 
     include RestXML::Structure
 
     # <p>Specifies the expiration for the lifecycle of the object in the form of date, days and,
@@ -10197,7 +10196,7 @@ module AWSSdk::AmazonS3
     # No longer used; use <code>Filter</code> instead.</p>
     @[Protocol::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String?
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Filter", structure: false)]
     property filter : LifecycleRuleFilterStruct?
     # <p>If 'Enabled', the rule is currently being applied. If 'Disabled', the rule is not
@@ -10214,10 +10213,10 @@ module AWSSdk::AmazonS3
     # lifetime. </p>
     @[Protocol::Field(location: :body, name: "NoncurrentVersionTransition", structure: false)]
     property noncurrent_version_transitions : Array(NoncurrentVersionTransitionStruct)?
-    #
+    # 
     @[Protocol::Field(location: :body, name: "NoncurrentVersionExpiration", structure: true)]
     property noncurrent_version_expiration : NoncurrentVersionExpirationStruct?
-    #
+    # 
     @[Protocol::Field(location: :body, name: "AbortIncompleteMultipartUpload", structure: true)]
     property abort_incomplete_multipart_upload : AbortIncompleteMultipartUploadStruct?
 
@@ -10225,7 +10224,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketLifecycleConfigurationOutput
+  class GetBucketLifecycleConfigurationOutput 
     include RestXML::Structure
 
     # <p>Container for a lifecycle rule.</p>
@@ -10236,7 +10235,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketLocationRequest
+  class GetBucketLocationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to get the location.</p>
@@ -10250,7 +10249,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketLocationOutput
+  class GetBucketLocationOutput 
     include RestXML::Structure
 
     # <p>Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported
@@ -10264,7 +10263,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketLoggingRequest
+  class GetBucketLoggingRequest 
     include RestXML::Structure
 
     # <p>The bucket name for which to get the logging information.</p>
@@ -10278,7 +10277,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class TargetGrantStruct
+  class TargetGrantStruct 
     include RestXML::Structure
 
     # <p>Container for the person being granted permissions.</p>
@@ -10292,7 +10291,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class LoggingEnabledStruct
+  class LoggingEnabledStruct 
     include RestXML::Structure
 
     # <p>Specifies the bucket where you want Amazon S3 to store server access logs. You can have your
@@ -10315,10 +10314,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketLoggingOutput
+  class GetBucketLoggingOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "LoggingEnabled", structure: true)]
     property logging_enabled : LoggingEnabledStruct?
 
@@ -10326,7 +10325,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketMetricsConfigurationRequest
+  class GetBucketMetricsConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the metrics configuration to retrieve.</p>
@@ -10343,7 +10342,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class MetricsAndOperatorStruct
+  class MetricsAndOperatorStruct 
     include RestXML::Structure
 
     # <p>The prefix used when evaluating an AND predicate.</p>
@@ -10357,7 +10356,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class MetricsConfigurationStruct
+  class MetricsConfigurationStruct 
     include RestXML::Structure
 
     # <p>The ID used to identify the metrics configuration.</p>
@@ -10373,18 +10372,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketMetricsConfigurationOutput
+  class GetBucketMetricsConfigurationOutput 
     include RestXML::Structure
 
     # <p>Specifies the metrics configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "MetricsConfiguration", structure: true)]
     property metrics_configuration : MetricsConfigurationStruct?
 
     def initialize(@metrics_configuration = nil )
     end
   end
 
-  class GetBucketNotificationConfigurationRequest
+  class GetBucketNotificationConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to get the notification configuration.</p>
@@ -10398,7 +10397,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class FilterRuleStruct
+  class FilterRuleStruct 
     include RestXML::Structure
 
     # <p>The object key name prefix or suffix identifying one or more objects to which the
@@ -10415,10 +10414,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class S3KeyFilterStruct
+  class S3KeyFilterStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "FilterRule", structure: false)]
     property filter_rules : Array(FilterRuleStruct)?
 
@@ -10426,10 +10425,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class NotificationConfigurationFilterStruct
+  class NotificationConfigurationFilterStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "S3Key", structure: true)]
     property key : S3KeyFilterStruct?
 
@@ -10437,10 +10436,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class TopicConfigurationStruct
+  class TopicConfigurationStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Id", structure: false)]
     property id : String?
     # <p>The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message
@@ -10452,7 +10451,7 @@ module AWSSdk::AmazonS3
     # Event Types</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     @[Protocol::Field(location: :body, name: "Event", structure: false)]
     property events : Array(String)
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Filter", structure: true)]
     property filter : NotificationConfigurationFilterStruct?
 
@@ -10460,10 +10459,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class QueueConfigurationStruct
+  class QueueConfigurationStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Id", structure: false)]
     property id : String?
     # <p>The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3 publishes a message
@@ -10473,7 +10472,7 @@ module AWSSdk::AmazonS3
     # <p>A collection of bucket events for which to send notifications</p>
     @[Protocol::Field(location: :body, name: "Event", structure: false)]
     property events : Array(String)
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Filter", structure: true)]
     property filter : NotificationConfigurationFilterStruct?
 
@@ -10481,10 +10480,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class LambdaFunctionConfigurationStruct
+  class LambdaFunctionConfigurationStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Id", structure: false)]
     property id : String?
     # <p>The Amazon Resource Name (ARN) of the AWS Lambda function that Amazon S3 invokes when the
@@ -10496,7 +10495,7 @@ module AWSSdk::AmazonS3
     # Event Types</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     @[Protocol::Field(location: :body, name: "Event", structure: false)]
     property events : Array(String)
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Filter", structure: true)]
     property filter : NotificationConfigurationFilterStruct?
 
@@ -10504,7 +10503,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class NotificationConfigurationStruct
+  class NotificationConfigurationStruct 
     include RestXML::Structure
 
     # <p>The topic to which notifications are sent and the events for which notifications are
@@ -10524,7 +10523,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketOwnershipControlsRequest
+  class GetBucketOwnershipControlsRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>OwnershipControls</code> you want to retrieve.
@@ -10539,10 +10538,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class OwnershipControlsRuleStruct
+  class OwnershipControlsRuleStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "ObjectOwnership", structure: false)]
     property object_ownership : String
 
@@ -10550,7 +10549,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class OwnershipControlsStruct
+  class OwnershipControlsStruct 
     include RestXML::Structure
 
     # <p>The container element for an ownership control rule.</p>
@@ -10561,19 +10560,19 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketOwnershipControlsOutput
+  class GetBucketOwnershipControlsOutput 
     include RestXML::Structure
 
     # <p>The <code>OwnershipControls</code> (BucketOwnerPreferred or ObjectWriter) currently in
     # effect for this Amazon S3 bucket.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "OwnershipControls", structure: true)]
     property ownership_controls : OwnershipControlsStruct?
 
     def initialize(@ownership_controls = nil )
     end
   end
 
-  class GetBucketPolicyRequest
+  class GetBucketPolicyRequest 
     include RestXML::Structure
 
     # <p>The bucket name for which to get the bucket policy.</p>
@@ -10587,7 +10586,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketPolicyOutput
+  class GetBucketPolicyOutput 
     include RestXML::Structure
 
     # <p>The bucket policy as a JSON document.</p>
@@ -10598,7 +10597,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketPolicyStatusRequest
+  class GetBucketPolicyStatusRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose policy status you want to retrieve.</p>
@@ -10612,7 +10611,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PolicyStatusStruct
+  class PolicyStatusStruct 
     include RestXML::Structure
 
     # <p>The policy status for this bucket. <code>TRUE</code> indicates that this bucket is
@@ -10624,18 +10623,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketPolicyStatusOutput
+  class GetBucketPolicyStatusOutput 
     include RestXML::Structure
 
     # <p>The policy status for the specified bucket.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "PolicyStatus", structure: true)]
     property policy_status : PolicyStatusStruct?
 
     def initialize(@policy_status = nil )
     end
   end
 
-  class GetBucketReplicationRequest
+  class GetBucketReplicationRequest 
     include RestXML::Structure
 
     # <p>The bucket name for which to get the replication information.</p>
@@ -10649,7 +10648,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ReplicationRuleAndOperatorStruct
+  class ReplicationRuleAndOperatorStruct 
     include RestXML::Structure
 
     # <p>An object key name prefix that identifies the subset of objects to which the rule
@@ -10664,7 +10663,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SseKmsEncryptedObjectsStruct
+  class SseKmsEncryptedObjectsStruct 
     include RestXML::Structure
 
     # <p>Specifies whether Amazon S3 replicates objects created with server-side encryption using a
@@ -10676,7 +10675,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ReplicaModificationsStruct
+  class ReplicaModificationsStruct 
     include RestXML::Structure
 
     # <p>Specifies whether Amazon S3 replicates modifications on replicas.</p>
@@ -10687,7 +10686,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SourceSelectionCriteriaStruct
+  class SourceSelectionCriteriaStruct 
     include RestXML::Structure
 
     # <p> A container for filter information for the selection of Amazon S3 objects encrypted with AWS
@@ -10711,7 +10710,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ExistingObjectReplicationStruct
+  class ExistingObjectReplicationStruct 
     include RestXML::Structure
 
     # <p></p>
@@ -10722,7 +10721,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AccessControlTranslationStruct
+  class AccessControlTranslationStruct 
     include RestXML::Structure
 
     # <p>Specifies the replica ownership. For default and valid values, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html">PUT bucket
@@ -10734,7 +10733,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class EncryptionConfigurationStruct
+  class EncryptionConfigurationStruct 
     include RestXML::Structure
 
     # <p>Specifies the ID (Key ARN or Alias ARN) of the customer managed customer master key
@@ -10750,7 +10749,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ReplicationTimeValueStruct
+  class ReplicationTimeValueStruct 
     include RestXML::Structure
 
     # <p> Contains an integer specifying time in minutes. </p>
@@ -10762,7 +10761,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ReplicationTimeStruct
+  class ReplicationTimeStruct 
     include RestXML::Structure
 
     # <p> Specifies whether the replication time is enabled. </p>
@@ -10777,7 +10776,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class MetricsStruct
+  class MetricsStruct 
     include RestXML::Structure
 
     # <p> Specifies whether the replication metrics are enabled. </p>
@@ -10792,7 +10791,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DestinationStruct
+  class DestinationStruct 
     include RestXML::Structure
 
     # <p> The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store the
@@ -10838,7 +10837,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteMarkerReplicationStruct
+  class DeleteMarkerReplicationStruct 
     include RestXML::Structure
 
     # <p>Indicates whether to replicate delete markers.</p>
@@ -10852,7 +10851,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ReplicationRuleStruct
+  class ReplicationRuleStruct 
     include RestXML::Structure
 
     # <p>A unique identifier for the rule. The maximum value is 255 characters.</p>
@@ -10872,7 +10871,7 @@ module AWSSdk::AmazonS3
     # specify an empty string. </p>
     @[Protocol::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String?
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Filter", structure: false)]
     property filter : ReplicationRuleFilterStruct?
     # <p>Specifies whether the rule is enabled.</p>
@@ -10892,7 +10891,7 @@ module AWSSdk::AmazonS3
     # including enabling the S3 Replication Time Control (S3 RTC).</p>
     @[Protocol::Field(location: :body, name: "Destination", structure: true)]
     property destination : DestinationStruct
-    #
+    # 
     @[Protocol::Field(location: :body, name: "DeleteMarkerReplication", structure: true)]
     property delete_marker_replication : DeleteMarkerReplicationStruct?
 
@@ -10900,7 +10899,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ReplicationConfigurationStruct
+  class ReplicationConfigurationStruct 
     include RestXML::Structure
 
     # <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that
@@ -10917,18 +10916,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketReplicationOutput
+  class GetBucketReplicationOutput 
     include RestXML::Structure
 
-    #
-    @[Protocol::Field(location: :body_io, structure: true)]
+    # 
+    @[Protocol::Field(location: :body_io, name: "ReplicationConfiguration", structure: true)]
     property replication_configuration : ReplicationConfigurationStruct?
 
     def initialize(@replication_configuration = nil )
     end
   end
 
-  class GetBucketRequestPaymentRequest
+  class GetBucketRequestPaymentRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to get the payment request configuration</p>
@@ -10942,7 +10941,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketRequestPaymentOutput
+  class GetBucketRequestPaymentOutput 
     include RestXML::Structure
 
     # <p>Specifies who pays for the download and request fees.</p>
@@ -10953,7 +10952,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketTaggingRequest
+  class GetBucketTaggingRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to get the tagging information.</p>
@@ -10967,7 +10966,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketTaggingOutput
+  class GetBucketTaggingOutput 
     include RestXML::Structure
 
     # <p>Contains the tag set.</p>
@@ -10978,7 +10977,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketVersioningRequest
+  class GetBucketVersioningRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to get the versioning information.</p>
@@ -10992,7 +10991,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketVersioningOutput
+  class GetBucketVersioningOutput 
     include RestXML::Structure
 
     # <p>The versioning state of the bucket.</p>
@@ -11008,7 +11007,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketWebsiteRequest
+  class GetBucketWebsiteRequest 
     include RestXML::Structure
 
     # <p>The bucket name for which to get the website configuration.</p>
@@ -11022,7 +11021,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RedirectAllRequestsToStruct
+  class RedirectAllRequestsToStruct 
     include RestXML::Structure
 
     # <p>Name of the host where requests are redirected.</p>
@@ -11037,7 +11036,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class IndexDocumentStruct
+  class IndexDocumentStruct 
     include RestXML::Structure
 
     # <p>A suffix that is appended to a request that is for a directory on the website endpoint
@@ -11051,7 +11050,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ErrorDocumentStruct
+  class ErrorDocumentStruct 
     include RestXML::Structure
 
     # <p>The object key name to use when a 4XX class error occurs.</p>
@@ -11062,7 +11061,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ConditionStruct
+  class ConditionStruct 
     include RestXML::Structure
 
     # <p>The HTTP error code when the redirect is applied. In the event of an error, if the error
@@ -11087,7 +11086,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RedirectStruct
+  class RedirectStruct 
     include RestXML::Structure
 
     # <p>The host name to use in the redirect request.</p>
@@ -11119,7 +11118,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RoutingRuleStruct
+  class RoutingRuleStruct 
     include RestXML::Structure
 
     # <p>A container for describing a condition that must be met for the specified redirect to
@@ -11138,7 +11137,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetBucketWebsiteOutput
+  class GetBucketWebsiteOutput 
     include RestXML::Structure
 
     # <p>Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3
@@ -11160,7 +11159,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectRequest
+  class GetObjectRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object. </p>
@@ -11231,7 +11230,7 @@ module AWSSdk::AmazonS3
     # without error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-customer-key-MD5", structure: false)]
     property sse_customer_key_md5 : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>Part number of the object being read. This is a positive integer between 1 and 10,000.
@@ -11247,12 +11246,12 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectOutput
+  class GetObjectOutput 
     include RestXML::Structure
 
     # <p>Object data.</p>
-    @[Protocol::Field(location: :body_io, structure: false)]
-    property body : Bytes?
+    @[Protocol::Field(location: :body_io, name: "nil", structure: false)]
+    property body : Array(UInt8)?
     # <p>Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If
     # false, this response header does not appear in the response.</p>
     @[Protocol::Field(location: :header, name: "x-amz-delete-marker", structure: false)]
@@ -11343,7 +11342,7 @@ module AWSSdk::AmazonS3
     # objects except for S3 Standard storage class objects.</p>
     @[Protocol::Field(location: :header, name: "x-amz-storage-class", structure: false)]
     property storage_class : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
     # <p>Amazon S3 can return this if your request involves a bucket that is either a source or
@@ -11374,10 +11373,10 @@ module AWSSdk::AmazonS3
   class InvalidObjectState < Exception
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "StorageClass", structure: false)]
     property storage_class : String?
-    #
+    # 
     @[Protocol::Field(location: :body, name: "AccessTier", structure: false)]
     property access_tier : String?
 
@@ -11393,7 +11392,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectAclRequest
+  class GetObjectAclRequest 
     include RestXML::Structure
 
     # <p>The bucket name that contains the object for which to get the ACL information. </p>
@@ -11406,7 +11405,7 @@ module AWSSdk::AmazonS3
     # <p>VersionId used to reference a specific version of the object.</p>
     @[Protocol::Field(location: :query, name: "versionId", structure: false)]
     property version_id : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -11417,7 +11416,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectAclOutput
+  class GetObjectAclOutput 
     include RestXML::Structure
 
     # <p> Container for the bucket owner's display name and ID.</p>
@@ -11426,7 +11425,7 @@ module AWSSdk::AmazonS3
     # <p>A list of grants.</p>
     @[Protocol::Field(location: :body, name: "AccessControlList", structure: false)]
     property grants : Array(GrantStruct)?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -11434,7 +11433,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectLegalHoldRequest
+  class GetObjectLegalHoldRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object whose Legal Hold status you want to retrieve. </p>
@@ -11447,7 +11446,7 @@ module AWSSdk::AmazonS3
     # <p>The version ID of the object whose Legal Hold status you want to retrieve.</p>
     @[Protocol::Field(location: :query, name: "versionId", structure: false)]
     property version_id : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -11458,7 +11457,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectLockLegalHoldStruct
+  class ObjectLockLegalHoldStruct 
     include RestXML::Structure
 
     # <p>Indicates whether the specified object has a Legal Hold in place.</p>
@@ -11469,18 +11468,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectLegalHoldOutput
+  class GetObjectLegalHoldOutput 
     include RestXML::Structure
 
     # <p>The current Legal Hold status for the specified object.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "ObjectLockLegalHold", structure: true)]
     property legal_hold : ObjectLockLegalHoldStruct?
 
     def initialize(@legal_hold = nil )
     end
   end
 
-  class GetObjectLockConfigurationRequest
+  class GetObjectLockConfigurationRequest 
     include RestXML::Structure
 
     # <p>The bucket whose Object Lock configuration you want to retrieve.</p>
@@ -11495,7 +11494,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DefaultRetentionStruct
+  class DefaultRetentionStruct 
     include RestXML::Structure
 
     # <p>The default Object Lock retention mode you want to apply to new objects placed in the
@@ -11513,7 +11512,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectLockRuleStruct
+  class ObjectLockRuleStruct 
     include RestXML::Structure
 
     # <p>The default retention period that you want to apply to new objects placed in the
@@ -11525,7 +11524,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectLockConfigurationStruct
+  class ObjectLockConfigurationStruct 
     include RestXML::Structure
 
     # <p>Indicates whether this bucket has an Object Lock configuration enabled.</p>
@@ -11539,18 +11538,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectLockConfigurationOutput
+  class GetObjectLockConfigurationOutput 
     include RestXML::Structure
 
     # <p>The specified bucket's Object Lock configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "ObjectLockConfiguration", structure: true)]
     property object_lock_configuration : ObjectLockConfigurationStruct?
 
     def initialize(@object_lock_configuration = nil )
     end
   end
 
-  class GetObjectRetentionRequest
+  class GetObjectRetentionRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object whose retention settings you want to retrieve. </p>
@@ -11563,7 +11562,7 @@ module AWSSdk::AmazonS3
     # <p>The version ID for the object whose retention settings you want to retrieve.</p>
     @[Protocol::Field(location: :query, name: "versionId", structure: false)]
     property version_id : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -11574,7 +11573,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectLockRetentionStruct
+  class ObjectLockRetentionStruct 
     include RestXML::Structure
 
     # <p>Indicates the Retention mode for the specified object.</p>
@@ -11588,18 +11587,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectRetentionOutput
+  class GetObjectRetentionOutput 
     include RestXML::Structure
 
     # <p>The container element for an object's retention settings.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "ObjectLockRetention", structure: true)]
     property retention : ObjectLockRetentionStruct?
 
     def initialize(@retention = nil )
     end
   end
 
-  class GetObjectTaggingRequest
+  class GetObjectTaggingRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object for which to get the tagging information. </p>
@@ -11621,7 +11620,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectTaggingOutput
+  class GetObjectTaggingOutput 
     include RestXML::Structure
 
     # <p>The versionId of the object for which you got the tagging information.</p>
@@ -11635,7 +11634,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectTorrentRequest
+  class GetObjectTorrentRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the object for which to get the torrent files.</p>
@@ -11644,7 +11643,7 @@ module AWSSdk::AmazonS3
     # <p>The object key for which to get the information.</p>
     @[Protocol::Field(location: :uri, name: "Key", structure: false)]
     property key : String
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -11655,13 +11654,13 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetObjectTorrentOutput
+  class GetObjectTorrentOutput 
     include RestXML::Structure
 
     # <p>A Bencoded dictionary as defined by the BitTorrent specification</p>
-    @[Protocol::Field(location: :body_io, structure: false)]
-    property body : Bytes?
-    #
+    @[Protocol::Field(location: :body_io, name: "nil", structure: false)]
+    property body : Array(UInt8)?
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -11669,7 +11668,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetPublicAccessBlockRequest
+  class GetPublicAccessBlockRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>PublicAccessBlock</code> configuration you want
@@ -11684,7 +11683,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PublicAccessBlockConfigurationStruct
+  class PublicAccessBlockConfigurationStruct 
     include RestXML::Structure
 
     # <p>Specifies whether Amazon S3 should block public access control lists (ACLs) for this bucket
@@ -11732,19 +11731,19 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GetPublicAccessBlockOutput
+  class GetPublicAccessBlockOutput 
     include RestXML::Structure
 
     # <p>The <code>PublicAccessBlock</code> configuration currently in effect for this Amazon S3
     # bucket.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "PublicAccessBlockConfiguration", structure: true)]
     property public_access_block_configuration : PublicAccessBlockConfigurationStruct?
 
     def initialize(@public_access_block_configuration = nil )
     end
   end
 
-  class HeadBucketRequest
+  class HeadBucketRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -11768,7 +11767,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class HeadObjectRequest
+  class HeadObjectRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the object.</p>
@@ -11821,7 +11820,7 @@ module AWSSdk::AmazonS3
     # without error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-customer-key-MD5", structure: false)]
     property sse_customer_key_md5 : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>Part number of the object being read. This is a positive integer between 1 and 10,000.
@@ -11837,7 +11836,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class HeadObjectOutput
+  class HeadObjectOutput 
     include RestXML::Structure
 
     # <p>Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If
@@ -11854,18 +11853,18 @@ module AWSSdk::AmazonS3
     property expiration : String?
     # <p>If the object is an archived object (an object whose storage class is GLACIER), the
     # response includes this header if either the archive restoration is in progress (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html">RestoreObject</a> or an archive copy is already restored.</p>
-    #
+    # 
     # <p> If an archive copy is already restored, the header value indicates when Amazon S3 is
     # scheduled to delete the object copy. For example:</p>
-    #
+    # 
     # <p>
     # <code>x-amz-restore: ongoing-request="false", expiry-date="Fri, 23 Dec 2012 00:00:00
     # GMT"</code>
     # </p>
-    #
+    # 
     # <p>If the object restoration is in progress, the header returns the value
     # <code>ongoing-request="true"</code>.</p>
-    #
+    # 
     # <p>For more information about archiving objects, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-transition-general-considerations">Transitioning Objects: General Considerations</a>.</p>
     @[Protocol::Field(location: :header, name: "x-amz-restore", structure: false)]
     property restore : String?
@@ -11943,17 +11942,17 @@ module AWSSdk::AmazonS3
     property bucket_key_enabled : Bool?
     # <p>Provides storage class information of the object. Amazon S3 returns this header for all
     # objects except for S3 Standard storage class objects.</p>
-    #
+    # 
     # <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">Storage
     # Classes</a>.</p>
     @[Protocol::Field(location: :header, name: "x-amz-storage-class", structure: false)]
     property storage_class : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
     # <p>Amazon S3 can return this header if your request involves a bucket that is either a source or
     # a destination in a replication rule.</p>
-    #
+    # 
     # <p>In replication, you have a source bucket on which you configure replication and
     # destination bucket or buckets where Amazon S3 stores object replicas. When you request an object
     # (<code>GetObject</code>) or object metadata (<code>HeadObject</code>) from these
@@ -11987,7 +11986,7 @@ module AWSSdk::AmazonS3
     # header will return FAILED. </p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Replication</a>.</p>
     @[Protocol::Field(location: :header, name: "x-amz-replication-status", structure: false)]
     property replication_status : String?
@@ -12015,7 +12014,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketAnalyticsConfigurationsRequest
+  class ListBucketAnalyticsConfigurationsRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket from which analytics configurations are retrieved.</p>
@@ -12033,7 +12032,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketAnalyticsConfigurationsOutput
+  class ListBucketAnalyticsConfigurationsOutput 
     include RestXML::Structure
 
     # <p>Indicates whether the returned list of analytics configurations is complete. A value of
@@ -12060,7 +12059,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketIntelligentTieringConfigurationsRequest
+  class ListBucketIntelligentTieringConfigurationsRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -12075,7 +12074,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketIntelligentTieringConfigurationsOutput
+  class ListBucketIntelligentTieringConfigurationsOutput 
     include RestXML::Structure
 
     # <p>Indicates whether the returned list of analytics configurations is complete. A value of
@@ -12100,7 +12099,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketInventoryConfigurationsRequest
+  class ListBucketInventoryConfigurationsRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the inventory configurations to retrieve.</p>
@@ -12119,7 +12118,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketInventoryConfigurationsOutput
+  class ListBucketInventoryConfigurationsOutput 
     include RestXML::Structure
 
     # <p>If sent in the request, the marker that is used as a starting point for this inventory
@@ -12144,7 +12143,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketMetricsConfigurationsRequest
+  class ListBucketMetricsConfigurationsRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the metrics configurations to retrieve.</p>
@@ -12164,7 +12163,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketMetricsConfigurationsOutput
+  class ListBucketMetricsConfigurationsOutput 
     include RestXML::Structure
 
     # <p>Indicates whether the returned list of metrics configurations is complete. A value of
@@ -12190,7 +12189,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class BucketStruct
+  class BucketStruct 
     include RestXML::Structure
 
     # <p>The name of the bucket.</p>
@@ -12204,7 +12203,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListBucketsOutput
+  class ListBucketsOutput 
     include RestXML::Structure
 
     # <p>The list of buckets owned by the requestor.</p>
@@ -12218,7 +12217,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListMultipartUploadsRequest
+  class ListMultipartUploadsRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket to which the multipart upload was initiated. </p>
@@ -12235,14 +12234,14 @@ module AWSSdk::AmazonS3
     # response.</p>
     @[Protocol::Field(location: :query, name: "delimiter", structure: false)]
     property delimiter : String?
-    #
+    # 
     @[Protocol::Field(location: :query, name: "encoding-type", structure: false)]
     property encoding_type : String?
     # <p>Together with upload-id-marker, this parameter specifies the multipart upload after
     # which listing should begin.</p>
     # <p>If <code>upload-id-marker</code> is not specified, only the keys lexicographically
     # greater than the specified <code>key-marker</code> will be included in the list.</p>
-    #
+    # 
     # <p>If <code>upload-id-marker</code> is specified, any multipart uploads for a key equal to
     # the <code>key-marker</code> might also be included, provided those multipart uploads have
     # upload IDs lexicographically greater than the specified
@@ -12273,7 +12272,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InitiatorStruct
+  class InitiatorStruct 
     include RestXML::Structure
 
     # <p>If the principal is an AWS account, it provides the Canonical User ID. If the principal
@@ -12288,7 +12287,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class MultipartUploadStruct
+  class MultipartUploadStruct 
     include RestXML::Structure
 
     # <p>Upload ID that identifies the multipart upload.</p>
@@ -12314,7 +12313,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CommonPrefixStruct
+  class CommonPrefixStruct 
     include RestXML::Structure
 
     # <p>Container for the specified common prefix.</p>
@@ -12325,7 +12324,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListMultipartUploadsOutput
+  class ListMultipartUploadsOutput 
     include RestXML::Structure
 
     # <p>The name of the bucket to which the multipart upload was initiated.</p>
@@ -12375,7 +12374,7 @@ module AWSSdk::AmazonS3
     # <p>If you specify <code>encoding-type</code> request parameter, Amazon S3 includes this element
     # in the response, and returns encoded key name values in the following response
     # elements:</p>
-    #
+    # 
     # <p>
     # <code>Delimiter</code>, <code>KeyMarker</code>, <code>Prefix</code>,
     # <code>NextKeyMarker</code>, <code>Key</code>.</p>
@@ -12386,7 +12385,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListObjectsRequest
+  class ListObjectsRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket containing the objects.</p>
@@ -12397,7 +12396,7 @@ module AWSSdk::AmazonS3
     # <p>A delimiter is a character you use to group keys.</p>
     @[Protocol::Field(location: :query, name: "delimiter", structure: false)]
     property delimiter : String?
-    #
+    # 
     @[Protocol::Field(location: :query, name: "encoding-type", structure: false)]
     property encoding_type : String?
     # <p>Specifies the key to start with when listing objects in a bucket.</p>
@@ -12423,7 +12422,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectStruct
+  class ObjectStruct 
     include RestXML::Structure
 
     # <p>The name that you assign to an object. You use the object key to retrieve the
@@ -12469,7 +12468,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListObjectsOutput
+  class ListObjectsOutput 
     include RestXML::Structure
 
     # <p>A flag that indicates whether Amazon S3 returned all of the results that satisfied the search
@@ -12509,15 +12508,15 @@ module AWSSdk::AmazonS3
     property max_keys : Int32?
     # <p>All of the keys rolled up in a common prefix count as a single return when calculating
     # the number of returns. </p>
-    #
+    # 
     # <p>A response can contain CommonPrefixes only if you specify a delimiter.</p>
-    #
+    # 
     # <p>CommonPrefixes contains all (if there are any) keys between Prefix and the next
     # occurrence of the string specified by the delimiter.</p>
-    #
+    # 
     # <p> CommonPrefixes lists keys that act like subdirectories in the directory specified by
     # Prefix.</p>
-    #
+    # 
     # <p>For example, if the prefix is notes/ and the delimiter is a slash (/) as in
     # notes/summer/july, the common prefix is notes/summer/. All of the keys that roll up into a
     # common prefix count as a single return when calculating the number of returns.</p>
@@ -12531,7 +12530,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListObjectsV2Request
+  class ListObjectsV2Request 
     include RestXML::Structure
 
     # <p>Bucket name to list. </p>
@@ -12578,7 +12577,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListObjectsV2Output
+  class ListObjectsV2Output 
     include RestXML::Structure
 
     # <p>Set to false if all of the results were returned. Set to true if more keys are available
@@ -12610,19 +12609,19 @@ module AWSSdk::AmazonS3
     property max_keys : Int32?
     # <p>All of the keys rolled up into a common prefix count as a single return when calculating
     # the number of returns.</p>
-    #
+    # 
     # <p>A response can contain <code>CommonPrefixes</code> only if you specify a
     # delimiter.</p>
-    #
+    # 
     # <p>
     # <code>CommonPrefixes</code> contains all (if there are any) keys between
     # <code>Prefix</code> and the next occurrence of the string specified by a
     # delimiter.</p>
-    #
+    # 
     # <p>
     # <code>CommonPrefixes</code> lists keys that act like subdirectories in the directory
     # specified by <code>Prefix</code>.</p>
-    #
+    # 
     # <p>For example, if the prefix is <code>notes/</code> and the delimiter is a slash
     # (<code>/</code>) as in <code>notes/summer/july</code>, the common prefix is
     # <code>notes/summer/</code>. All of the keys that roll up into a common prefix count as a
@@ -12630,10 +12629,10 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :body, name: "CommonPrefixes", structure: false)]
     property common_prefixes : Array(CommonPrefixStruct)?
     # <p>Encoding type used by Amazon S3 to encode object key names in the XML response.</p>
-    #
+    # 
     # <p>If you specify the encoding-type request parameter, Amazon S3 includes this element in the
     # response, and returns encoded key name values in the following response elements:</p>
-    #
+    # 
     # <p>
     # <code>Delimiter, Prefix, Key,</code> and <code>StartAfter</code>.</p>
     @[Protocol::Field(location: :body, name: "EncodingType", structure: false)]
@@ -12661,7 +12660,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListObjectVersionsRequest
+  class ListObjectVersionsRequest 
     include RestXML::Structure
 
     # <p>The bucket name that contains the objects. </p>
@@ -12674,7 +12673,7 @@ module AWSSdk::AmazonS3
     # response.</p>
     @[Protocol::Field(location: :query, name: "delimiter", structure: false)]
     property delimiter : String?
-    #
+    # 
     @[Protocol::Field(location: :query, name: "encoding-type", structure: false)]
     property encoding_type : String?
     # <p>Specifies the key to start with when listing objects in a bucket.</p>
@@ -12705,7 +12704,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ObjectVersionStruct
+  class ObjectVersionStruct 
     include RestXML::Structure
 
     # <p>The entity tag is an MD5 hash of that version of the object.</p>
@@ -12738,7 +12737,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class DeleteMarkerEntryStruct
+  class DeleteMarkerEntryStruct 
     include RestXML::Structure
 
     # <p>The account that created the delete marker.></p>
@@ -12762,7 +12761,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListObjectVersionsOutput
+  class ListObjectVersionsOutput 
     include RestXML::Structure
 
     # <p>A flag that indicates whether Amazon S3 returned all of the results that satisfied the search
@@ -12816,10 +12815,10 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :body, name: "CommonPrefixes", structure: false)]
     property common_prefixes : Array(CommonPrefixStruct)?
     # <p> Encoding type used by Amazon S3 to encode object key names in the XML response.</p>
-    #
+    # 
     # <p>If you specify encoding-type request parameter, Amazon S3 includes this element in the
     # response, and returns encoded key name values in the following response elements:</p>
-    #
+    # 
     # <p>
     # <code>KeyMarker, NextKeyMarker, Prefix, Key</code>, and <code>Delimiter</code>.</p>
     @[Protocol::Field(location: :body, name: "EncodingType", structure: false)]
@@ -12829,7 +12828,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListPartsRequest
+  class ListPartsRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket to which the parts are being uploaded. </p>
@@ -12850,7 +12849,7 @@ module AWSSdk::AmazonS3
     # <p>Upload ID identifying the multipart upload whose parts are being listed.</p>
     @[Protocol::Field(location: :query, name: "uploadId", structure: false)]
     property upload_id : String
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -12861,7 +12860,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PartStruct
+  class PartStruct 
     include RestXML::Structure
 
     # <p>Part number identifying the part. This is a positive integer between 1 and
@@ -12882,7 +12881,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ListPartsOutput
+  class ListPartsOutput 
     include RestXML::Structure
 
     # <p>If the bucket has a lifecycle rule configured with an action to abort incomplete
@@ -12890,7 +12889,7 @@ module AWSSdk::AmazonS3
     # request, then the response includes this header indicating when the initiated multipart
     # upload will become eligible for abort operation. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config">Aborting
     # Incomplete Multipart Uploads Using a Bucket Lifecycle Policy</a>.</p>
-    #
+    # 
     # <p>The response will also include the <code>x-amz-abort-rule-id</code> header that will
     # provide the ID of the lifecycle configuration rule that defines this action.</p>
     @[Protocol::Field(location: :header, name: "x-amz-abort-date", structure: false)]
@@ -12946,7 +12945,7 @@ module AWSSdk::AmazonS3
     # object.</p>
     @[Protocol::Field(location: :body, name: "StorageClass", structure: false)]
     property storage_class : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -12954,7 +12953,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AccelerateConfigurationStruct
+  class AccelerateConfigurationStruct 
     include RestXML::Structure
 
     # <p>Specifies the transfer acceleration status of the bucket.</p>
@@ -12965,14 +12964,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketAccelerateConfigurationRequest
+  class PutBucketAccelerateConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which the accelerate configuration is set.</p>
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
     # <p>Container for setting the transfer acceleration state.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "AccelerateConfiguration", structure: true)]
     property accelerate_configuration : AccelerateConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -12982,7 +12981,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class AccessControlPolicyStruct
+  class AccessControlPolicyStruct 
     include RestXML::Structure
 
     # <p>A list of grants.</p>
@@ -12996,14 +12995,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketAclRequest
+  class PutBucketAclRequest 
     include RestXML::Structure
 
     # <p>The canned ACL to apply to the bucket.</p>
     @[Protocol::Field(location: :header, name: "x-amz-acl", structure: false)]
     property acl : String?
     # <p>Contains the elements that set the ACL permissions for an object per grantee.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "AccessControlPolicy", structure: true)]
     property access_control_policy : AccessControlPolicyStruct?
     # <p>The bucket to which to apply the ACL.</p>
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
@@ -13040,7 +13039,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketAnalyticsConfigurationRequest
+  class PutBucketAnalyticsConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket to which an analytics configuration is stored.</p>
@@ -13050,7 +13049,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :query, name: "id", structure: false)]
     property id : String
     # <p>The configuration and any analyses for the analytics filter.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "AnalyticsConfiguration", structure: true)]
     property analytics_configuration : AnalyticsConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13060,7 +13059,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CORSConfigurationStruct
+  class CORSConfigurationStruct 
     include RestXML::Structure
 
     # <p>A set of origins and methods (cross-origin access that you want to allow). You can add
@@ -13072,7 +13071,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketCorsRequest
+  class PutBucketCorsRequest 
     include RestXML::Structure
 
     # <p>Specifies the bucket impacted by the <code>cors</code>configuration.</p>
@@ -13081,7 +13080,7 @@ module AWSSdk::AmazonS3
     # <p>Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more
     # information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html">Enabling Cross-Origin Resource
     # Sharing</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "CORSConfiguration", structure: true)]
     property cors_configuration : CORSConfigurationStruct
     # <p>The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message
     # integrity check to verify that the request body was not corrupted in transit. For more
@@ -13099,7 +13098,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketEncryptionRequest
+  class PutBucketEncryptionRequest 
     include RestXML::Structure
 
     # <p>Specifies default encryption for a bucket using server-side encryption with Amazon S3-managed
@@ -13112,8 +13111,8 @@ module AWSSdk::AmazonS3
     # <p>For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.</p>
     @[Protocol::Field(location: :header, name: "Content-MD5", structure: false)]
     property content_md5 : String?
-    #
-    @[Protocol::Field(location: :body_io, structure: true)]
+    # 
+    @[Protocol::Field(location: :body_io, name: "ServerSideEncryptionConfiguration", structure: true)]
     property server_side_encryption_configuration : ServerSideEncryptionConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13123,7 +13122,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketIntelligentTieringConfigurationRequest
+  class PutBucketIntelligentTieringConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -13133,14 +13132,14 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :query, name: "id", structure: false)]
     property id : String
     # <p>Container for S3 Intelligent-Tiering configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "IntelligentTieringConfiguration", structure: true)]
     property intelligent_tiering_configuration : IntelligentTieringConfigurationStruct
 
     def initialize(@bucket, @id, @intelligent_tiering_configuration)
     end
   end
 
-  class PutBucketInventoryConfigurationRequest
+  class PutBucketInventoryConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket where the inventory configuration will be stored.</p>
@@ -13150,7 +13149,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :query, name: "id", structure: false)]
     property id : String
     # <p>Specifies the inventory configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "InventoryConfiguration", structure: true)]
     property inventory_configuration : InventoryConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13160,7 +13159,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class BucketLifecycleConfigurationStruct
+  class BucketLifecycleConfigurationStruct 
     include RestXML::Structure
 
     # <p>A lifecycle rule for individual objects in an Amazon S3 bucket.</p>
@@ -13171,14 +13170,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketLifecycleConfigurationRequest
+  class PutBucketLifecycleConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to set the configuration.</p>
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
     # <p>Container for lifecycle rules. You can add as many as 1,000 rules.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "BucketLifecycleConfiguration", structure: true)]
     property lifecycle_configuration : BucketLifecycleConfigurationStruct?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13188,10 +13187,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class BucketLoggingStatusStruct
+  class BucketLoggingStatusStruct 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :body, name: "LoggingEnabled", structure: true)]
     property logging_enabled : LoggingEnabledStruct?
 
@@ -13199,14 +13198,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketLoggingRequest
+  class PutBucketLoggingRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which to set the logging parameters.</p>
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
     # <p>Container for logging status information.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "BucketLoggingStatus", structure: true)]
     property bucket_logging_status : BucketLoggingStatusStruct
     # <p>The MD5 hash of the <code>PutBucketLogging</code> request body.</p>
     # <p>For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.</p>
@@ -13220,7 +13219,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketMetricsConfigurationRequest
+  class PutBucketMetricsConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket for which the metrics configuration is set.</p>
@@ -13230,7 +13229,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :query, name: "id", structure: false)]
     property id : String
     # <p>Specifies the metrics configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "MetricsConfiguration", structure: true)]
     property metrics_configuration : MetricsConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13240,14 +13239,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketNotificationConfigurationRequest
+  class PutBucketNotificationConfigurationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket.</p>
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
-    #
-    @[Protocol::Field(location: :body_io, structure: true)]
+    # 
+    @[Protocol::Field(location: :body_io, name: "NotificationConfiguration", structure: true)]
     property notification_configuration : NotificationConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13257,7 +13256,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketOwnershipControlsRequest
+  class PutBucketOwnershipControlsRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>OwnershipControls</code> you want to set.</p>
@@ -13272,14 +13271,14 @@ module AWSSdk::AmazonS3
     property expected_bucket_owner : String?
     # <p>The <code>OwnershipControls</code> (BucketOwnerPreferred or ObjectWriter) that you want
     # to apply to this Amazon S3 bucket.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "OwnershipControls", structure: true)]
     property ownership_controls : OwnershipControlsStruct
 
     def initialize(@bucket, @ownership_controls, @content_md5 = nil , @expected_bucket_owner = nil )
     end
   end
 
-  class PutBucketPolicyRequest
+  class PutBucketPolicyRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket.</p>
@@ -13294,7 +13293,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "x-amz-confirm-remove-self-bucket-access", structure: false)]
     property confirm_remove_self_bucket_access : Bool?
     # <p>The bucket policy as a JSON document.</p>
-    @[Protocol::Field(location: :body_io, structure: false)]
+    @[Protocol::Field(location: :body_io, name: "nil", structure: false)]
     property policy : String
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13304,7 +13303,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketReplicationRequest
+  class PutBucketReplicationRequest 
     include RestXML::Structure
 
     # <p>The name of the bucket</p>
@@ -13316,8 +13315,8 @@ module AWSSdk::AmazonS3
     # <p>For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.</p>
     @[Protocol::Field(location: :header, name: "Content-MD5", structure: false)]
     property content_md5 : String?
-    #
-    @[Protocol::Field(location: :body_io, structure: true)]
+    # 
+    @[Protocol::Field(location: :body_io, name: "ReplicationConfiguration", structure: true)]
     property replication_configuration : ReplicationConfigurationStruct
     # <p>A token to allow Object Lock to be enabled for an existing bucket.</p>
     @[Protocol::Field(location: :header, name: "x-amz-bucket-object-lock-token", structure: false)]
@@ -13330,7 +13329,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RequestPaymentConfigurationStruct
+  class RequestPaymentConfigurationStruct 
     include RestXML::Structure
 
     # <p>Specifies who pays for the download and request fees.</p>
@@ -13341,7 +13340,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketRequestPaymentRequest
+  class PutBucketRequestPaymentRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13355,7 +13354,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "Content-MD5", structure: false)]
     property content_md5 : String?
     # <p>Container for Payer.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "RequestPaymentConfiguration", structure: true)]
     property request_payment_configuration : RequestPaymentConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13365,7 +13364,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class TaggingStruct
+  class TaggingStruct 
     include RestXML::Structure
 
     # <p>A collection for a set of tags</p>
@@ -13376,7 +13375,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketTaggingRequest
+  class PutBucketTaggingRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13389,7 +13388,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "Content-MD5", structure: false)]
     property content_md5 : String?
     # <p>Container for the <code>TagSet</code> and <code>Tag</code> elements.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "Tagging", structure: true)]
     property tagging : TaggingStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13399,7 +13398,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class VersioningConfigurationStruct
+  class VersioningConfigurationStruct 
     include RestXML::Structure
 
     # <p>Specifies whether MFA delete is enabled in the bucket versioning configuration. This
@@ -13415,7 +13414,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketVersioningRequest
+  class PutBucketVersioningRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13433,7 +13432,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "x-amz-mfa", structure: false)]
     property mfa : String?
     # <p>Container for setting the versioning state.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "VersioningConfiguration", structure: true)]
     property versioning_configuration : VersioningConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13443,7 +13442,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class WebsiteConfigurationStruct
+  class WebsiteConfigurationStruct 
     include RestXML::Structure
 
     # <p>The name of the error document for the website.</p>
@@ -13466,7 +13465,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutBucketWebsiteRequest
+  class PutBucketWebsiteRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13479,7 +13478,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "Content-MD5", structure: false)]
     property content_md5 : String?
     # <p>Container for the request.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "WebsiteConfiguration", structure: true)]
     property website_configuration : WebsiteConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13489,7 +13488,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectRequest
+  class PutObjectRequest 
     include RestXML::Structure
 
     # <p>The canned ACL to apply to the object. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL">Canned
@@ -13498,8 +13497,8 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "x-amz-acl", structure: false)]
     property acl : String?
     # <p>Object data.</p>
-    @[Protocol::Field(location: :body_io, structure: false)]
-    property body : Bytes?
+    @[Protocol::Field(location: :body_io, name: "nil", structure: false)]
+    property body : Array(UInt8)?
     # <p>The bucket name to which the PUT operation was initiated. </p>
     # <p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     # <p>When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html">Using S3 on Outposts</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
@@ -13579,21 +13578,21 @@ module AWSSdk::AmazonS3
     # <p>If the bucket is configured as a website, redirects requests for this object to another
     # object in the same bucket or to an external URL. Amazon S3 stores the value of this header in
     # the object metadata. For information about object metadata, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html">Object Key and Metadata</a>.</p>
-    #
+    # 
     # <p>In the following example, the request header sets the redirect to an object
     # (anotherPage.html) in the same bucket:</p>
-    #
+    # 
     # <p>
     # <code>x-amz-website-redirect-location: /anotherPage.html</code>
     # </p>
-    #
+    # 
     # <p>In the following example, the request header sets the object redirect to another
     # website:</p>
-    #
+    # 
     # <p>
     # <code>x-amz-website-redirect-location: http://www.example.com/</code>
     # </p>
-    #
+    # 
     # <p>For more information about website hosting in Amazon S3, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html">Hosting Websites on Amazon S3</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html">How to Configure Website Page
     # Redirects</a>. </p>
     @[Protocol::Field(location: :header, name: "x-amz-website-redirect-location", structure: false)]
@@ -13633,7 +13632,7 @@ module AWSSdk::AmazonS3
     # <p>Specifying this header with a PUT operation doesn’t affect bucket-level settings for S3 Bucket Key.</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The tag-set for the object. The tag-set must be encoded as URL Query parameters. (For
@@ -13659,7 +13658,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectOutput
+  class PutObjectOutput 
     include RestXML::Structure
 
     # <p> If the expiration is configured for the object (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html">PutBucketLifecycleConfiguration</a>), the response includes this header. It
@@ -13701,7 +13700,7 @@ module AWSSdk::AmazonS3
     # <p>Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -13709,14 +13708,14 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectAclRequest
+  class PutObjectAclRequest 
     include RestXML::Structure
 
     # <p>The canned ACL to apply to the object. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL">Canned ACL</a>.</p>
     @[Protocol::Field(location: :header, name: "x-amz-acl", structure: false)]
     property acl : String?
     # <p>Contains the elements that set the ACL permissions for an object per grantee.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "AccessControlPolicy", structure: true)]
     property access_control_policy : AccessControlPolicyStruct?
     # <p>The bucket name that contains the object to which you want to attach the ACL. </p>
     # <p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
@@ -13757,7 +13756,7 @@ module AWSSdk::AmazonS3
     # <p>When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html">Using S3 on Outposts</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     @[Protocol::Field(location: :uri, name: "Key", structure: false)]
     property key : String
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>VersionId used to reference a specific version of the object.</p>
@@ -13771,10 +13770,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectAclOutput
+  class PutObjectAclOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -13782,7 +13781,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectLegalHoldRequest
+  class PutObjectLegalHoldRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object that you want to place a Legal Hold on. </p>
@@ -13794,9 +13793,9 @@ module AWSSdk::AmazonS3
     property key : String
     # <p>Container element for the Legal Hold configuration you want to apply to the specified
     # object.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "ObjectLockLegalHold", structure: true)]
     property legal_hold : ObjectLockLegalHoldStruct?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The version ID of the object that you want to place a Legal Hold on.</p>
@@ -13814,10 +13813,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectLegalHoldOutput
+  class PutObjectLegalHoldOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -13825,16 +13824,16 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectLockConfigurationRequest
+  class PutObjectLockConfigurationRequest 
     include RestXML::Structure
 
     # <p>The bucket whose Object Lock configuration you want to create or replace.</p>
     @[Protocol::Field(location: :uri, name: "Bucket", structure: false)]
     property bucket : String
     # <p>The Object Lock configuration that you want to apply to the specified bucket.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "ObjectLockConfiguration", structure: true)]
     property object_lock_configuration : ObjectLockConfigurationStruct?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>A token to allow Object Lock to be enabled for an existing bucket.</p>
@@ -13852,10 +13851,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectLockConfigurationOutput
+  class PutObjectLockConfigurationOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -13863,7 +13862,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectRetentionRequest
+  class PutObjectRetentionRequest 
     include RestXML::Structure
 
     # <p>The bucket name that contains the object you want to apply this Object Retention
@@ -13876,9 +13875,9 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :uri, name: "Key", structure: false)]
     property key : String
     # <p>The container element for the Object Retention configuration.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "ObjectLockRetention", structure: true)]
     property retention : ObjectLockRetentionStruct?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The version ID for the object that you want to apply this Object Retention configuration
@@ -13900,10 +13899,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectRetentionOutput
+  class PutObjectRetentionOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -13911,7 +13910,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectTaggingRequest
+  class PutObjectTaggingRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object. </p>
@@ -13930,7 +13929,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "Content-MD5", structure: false)]
     property content_md5 : String?
     # <p>Container for the <code>TagSet</code> and <code>Tag</code> elements</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "Tagging", structure: true)]
     property tagging : TaggingStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13940,7 +13939,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutObjectTaggingOutput
+  class PutObjectTaggingOutput 
     include RestXML::Structure
 
     # <p>The versionId of the object the tag-set was added to.</p>
@@ -13951,7 +13950,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class PutPublicAccessBlockRequest
+  class PutPublicAccessBlockRequest 
     include RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>PublicAccessBlock</code> configuration you want
@@ -13966,7 +13965,7 @@ module AWSSdk::AmazonS3
     # bucket. You can enable the configuration options in any combination. For more information
     # about when Amazon S3 considers a bucket or object public, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status">The Meaning of "Public"</a> in the <i>Amazon Simple Storage Service Developer
     # Guide</i>.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "PublicAccessBlockConfiguration", structure: true)]
     property public_access_block_configuration : PublicAccessBlockConfigurationStruct
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
@@ -13976,7 +13975,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class GlacierJobParametersStruct
+  class GlacierJobParametersStruct 
     include RestXML::Structure
 
     # <p>Retrieval tier at which the restore will be processed.</p>
@@ -13987,7 +13986,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CSVInputStruct
+  class CSVInputStruct 
     include RestXML::Structure
 
     # <p>Describes the first line of input. Valid values are:</p>
@@ -14047,7 +14046,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class JSONInputStruct
+  class JSONInputStruct 
     include RestXML::Structure
 
     # <p>The type of JSON. Valid values: Document, Lines.</p>
@@ -14058,7 +14057,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ParquetInputStruct
+  class ParquetInputStruct 
     include RestXML::Structure
 
 
@@ -14066,7 +14065,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class InputSerializationStruct
+  class InputSerializationStruct 
     include RestXML::Structure
 
     # <p>Describes the serialization of a CSV-encoded object.</p>
@@ -14087,7 +14086,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CSVOutput
+  class CSVOutput 
     include RestXML::Structure
 
     # <p>Indicates whether to use quotation marks around output fields. </p>
@@ -14125,7 +14124,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class JSONOutput
+  class JSONOutput 
     include RestXML::Structure
 
     # <p>The value used to separate individual records in the output. If no value is specified,
@@ -14137,7 +14136,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class OutputSerializationStruct
+  class OutputSerializationStruct 
     include RestXML::Structure
 
     # <p>Describes the serialization of CSV-encoded Select results.</p>
@@ -14151,7 +14150,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SelectParametersStruct
+  class SelectParametersStruct 
     include RestXML::Structure
 
     # <p>Describes the serialization format of the object.</p>
@@ -14171,7 +14170,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class EncryptionStruct
+  class EncryptionStruct 
     include RestXML::Structure
 
     # <p>The server-side encryption algorithm used when storing job results in Amazon S3 (for example,
@@ -14194,7 +14193,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class MetadataEntryStruct
+  class MetadataEntryStruct 
     include RestXML::Structure
 
     # <p>Name of the Object.</p>
@@ -14208,7 +14207,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class S3LocationStruct
+  class S3LocationStruct 
     include RestXML::Structure
 
     # <p>The name of the bucket where the restore results will be placed.</p>
@@ -14217,7 +14216,7 @@ module AWSSdk::AmazonS3
     # <p>The prefix that is prepended to the restore results for this request.</p>
     @[Protocol::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String
-    #
+    # 
     @[Protocol::Field(location: :body, name: "Encryption", structure: true)]
     property encryption : EncryptionStruct?
     # <p>The canned ACL to apply to the restore results.</p>
@@ -14240,7 +14239,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class OutputLocationStruct
+  class OutputLocationStruct 
     include RestXML::Structure
 
     # <p>Describes an S3 location that will receive the results of the restore request.</p>
@@ -14251,7 +14250,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RestoreRequest
+  class RestoreRequest 
     include RestXML::Structure
 
     # <p>Lifetime of the active copy in days. Do not use with restores that specify
@@ -14284,7 +14283,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RestoreObjectRequest
+  class RestoreObjectRequest 
     include RestXML::Structure
 
     # <p>The bucket name containing the object to restore. </p>
@@ -14298,10 +14297,10 @@ module AWSSdk::AmazonS3
     # <p>VersionId used to reference a specific version of the object.</p>
     @[Protocol::Field(location: :query, name: "versionId", structure: false)]
     property version_id : String?
-    #
-    @[Protocol::Field(location: :body_io, structure: true)]
+    # 
+    @[Protocol::Field(location: :body_io, name: "RestoreRequest", structure: true)]
     property restore_request : RestoreRequest?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -14312,10 +14311,10 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RestoreObjectOutput
+  class RestoreObjectOutput 
     include RestXML::Structure
 
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
     # <p>Indicates the path in the provided S3 output location where Select results will be
@@ -14335,7 +14334,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RequestProgressStruct
+  class RequestProgressStruct 
     include RestXML::Structure
 
     # <p>Specifies whether periodic QueryProgress frames should be sent. Valid values: TRUE,
@@ -14347,7 +14346,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ScanRangeStruct
+  class ScanRangeStruct 
     include RestXML::Structure
 
     # <p>Specifies the start of the byte range. This parameter is optional. Valid values:
@@ -14370,7 +14369,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SelectObjectContentRequest
+  class SelectObjectContentRequest 
     include RestXML::Structure
 
     # <p>The S3 bucket.</p>
@@ -14439,18 +14438,18 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class RecordsEventStruct
+  class RecordsEventStruct 
     include RestXML::Structure
 
     # <p>The byte array of partial, one or more result records.</p>
     @[Protocol::Field(location: :body, name: "Payload", structure: false)]
-    property payload : Bytes?
+    property payload : Array(UInt8)?
 
     def initialize(@payload = nil )
     end
   end
 
-  class StatsStruct
+  class StatsStruct 
     include RestXML::Structure
 
     # <p>The total number of object bytes scanned.</p>
@@ -14467,7 +14466,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class StatsEventStruct
+  class StatsEventStruct 
     include RestXML::Structure
 
     # <p>The Stats event details.</p>
@@ -14478,7 +14477,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ProgressStruct
+  class ProgressStruct 
     include RestXML::Structure
 
     # <p>The current number of object bytes scanned.</p>
@@ -14495,7 +14494,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ProgressEventStruct
+  class ProgressEventStruct 
     include RestXML::Structure
 
     # <p>The Progress event details.</p>
@@ -14506,7 +14505,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class ContinuationEventStruct
+  class ContinuationEventStruct 
     include RestXML::Structure
 
 
@@ -14514,7 +14513,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class EndEventStruct
+  class EndEventStruct 
     include RestXML::Structure
 
 
@@ -14522,23 +14521,23 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class SelectObjectContentOutput
+  class SelectObjectContentOutput 
     include RestXML::Structure
 
     # <p>The array of results.</p>
-    @[Protocol::Field(location: :body_io, structure: false)]
+    @[Protocol::Field(location: :body_io, name: "nil", structure: false)]
     property payload : SelectObjectContentEventStreamStruct?
 
     def initialize(@payload = nil )
     end
   end
 
-  class UploadPartRequest
+  class UploadPartRequest 
     include RestXML::Structure
 
     # <p>Object data.</p>
-    @[Protocol::Field(location: :body_io, structure: false)]
-    property body : Bytes?
+    @[Protocol::Field(location: :body_io, name: "nil", structure: false)]
+    property body : Array(UInt8)?
     # <p>The name of the bucket to which the multipart upload was initiated.</p>
     # <p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     # <p>When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html">Using S3 on Outposts</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
@@ -14579,7 +14578,7 @@ module AWSSdk::AmazonS3
     # without error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-customer-key-MD5", structure: false)]
     property sse_customer_key_md5 : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -14590,7 +14589,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class UploadPartOutput
+  class UploadPartOutput 
     include RestXML::Structure
 
     # <p>The server-side encryption algorithm used when storing this object in Amazon S3 (for example,
@@ -14616,7 +14615,7 @@ module AWSSdk::AmazonS3
     # <p>Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -14624,7 +14623,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class UploadPartCopyRequest
+  class UploadPartCopyRequest 
     include RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -14717,7 +14716,7 @@ module AWSSdk::AmazonS3
     # without error.</p>
     @[Protocol::Field(location: :header, name: "x-amz-copy-source-server-side-encryption-customer-key-MD5", structure: false)]
     property copy_source_sse_customer_key_md5 : String?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-payer", structure: false)]
     property request_payer : String?
     # <p>The account id of the expected destination bucket owner. If the destination bucket is owned by a different account, the request will fail with an HTTP <code>403 (Access Denied)</code> error.</p>
@@ -14731,7 +14730,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class CopyPartResultStruct
+  class CopyPartResultStruct 
     include RestXML::Structure
 
     # <p>Entity tag of the object.</p>
@@ -14745,7 +14744,7 @@ module AWSSdk::AmazonS3
     end
   end
 
-  class UploadPartCopyOutput
+  class UploadPartCopyOutput 
     include RestXML::Structure
 
     # <p>The version of the source object that was copied, if you have enabled versioning on the
@@ -14753,7 +14752,7 @@ module AWSSdk::AmazonS3
     @[Protocol::Field(location: :header, name: "x-amz-copy-source-version-id", structure: false)]
     property copy_source_version_id : String?
     # <p>Container for all response elements.</p>
-    @[Protocol::Field(location: :body_io, structure: true)]
+    @[Protocol::Field(location: :body_io, name: "CopyPartResult", structure: true)]
     property copy_part_result : CopyPartResultStruct?
     # <p>The server-side encryption algorithm used when storing this object in Amazon S3 (for example,
     # AES256, aws:kms).</p>
@@ -14775,7 +14774,7 @@ module AWSSdk::AmazonS3
     # <p>Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).</p>
     @[Protocol::Field(location: :header, name: "x-amz-server-side-encryption-bucket-key-enabled", structure: false)]
     property bucket_key_enabled : Bool?
-    #
+    # 
     @[Protocol::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
@@ -14906,6 +14905,3 @@ end
 
 
 end
-
-
-AWSSdk::AmazonS3.delete_bucket(AWSSdk::AmazonS3::DeleteBucketRequest.new("String"))

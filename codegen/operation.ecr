@@ -17,11 +17,13 @@
     end
     <%- end -%>
     request = HTTP::Request.new("<%= traits["smithy.api#http"]["method"] %>", path)
+    <%- if input = @input -%>
     request = input.process(request)
-    response = AWSSdk::Client.send(request, success_code: <%= traits["smithy.api#http"]["code"] %>)
+    <%- end -%>
+    response = AWSSdk::Client.send(request, success_code: <%= traits["smithy.api#http"]["code"] %>, prefix: ENDPOINT_PREFIX)
 
     <%- if output = @output -%>
-    <%= "#{output.name}.from_request(request)" %>
+    <%= "#{output.name}.from_response(response)" %>
     <%- else -%>
     nil
     <%- end -%>
