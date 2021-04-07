@@ -11,4 +11,14 @@ class S3
   extend AWSSdk::AmazonS3
 end
 
-pp S3.list_objects(AWSSdk::AmazonS3::ListObjectsRequest.new("test"))
+pp S3.put_bucket_replication(AWSSdk::AmazonS3::PutBucketReplicationRequest.new("buck",
+  replication_configuration: AWSSdk::AmazonS3::ReplicationConfigurationStruct.new(
+    role: "role",
+    rules: AWSSdk::AmazonS3::ReplicationRuleStruct.new(
+      status: "status",
+      destination: AWSSdk::AmazonS3::DestinationStruct.new(
+        "buck2"
+      )
+    )
+  )
+))

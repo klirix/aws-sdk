@@ -74,9 +74,8 @@ module AWSSdk
                 request.query_params[{{props[:name]}}] = q_param.to_s
               end
             {% elsif props[:location] == :body_io %}
-              {% puts props %}
               {% if props[:is_structure] == true %}
-                request.body = XML.build do |xml|
+                request.body = XML.build(indent: "  ") do |xml|
                   xml.element({{props[:name]}}) do
                     {{name.id}}.serialize(xml)
                   end
