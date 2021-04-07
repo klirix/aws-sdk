@@ -6,7 +6,6 @@ class AWSSdk::Client
 
   def self.send(request : HTTP::Request, prefix : String, success_code : Int = 200)
     http = HTTP::Client.new "#{prefix}#{region ? "-#{region}" : ""}.amazonaws.com"
-    pp
     http.exec request
   end
 

@@ -11,7 +11,7 @@
     <%- placeholder = match[0] -%>
     <%- key = placeholder.gsub(/[^\w]/, "") -%>
     if label = input.<%= key.underscore %>
-      path = path.gsub("<%= placeholder %>", label)
+      path = path.gsub("<%= placeholder %>", URI.encode(label))
     else
       raise "No value provided for input HTTP label: <%= key %>"
     end

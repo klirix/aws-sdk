@@ -29,21 +29,27 @@ module AWSSdk
           {% puts props %}
             {% if props[:location] == :body %}
               {% if props[:is_structure] %}
-                xml.element({{props[:name]}}) {
-                  {{name.id}}.serialize(xml)
-                }
+                if serializable = {{name.id}}
+                  xml.element({{props[:name]}}) {
+                    serializable.serialize(xml)
+                  }
+                end
               {% elsif props[:type] <= Array %}
                 {{name.id}}.each do |el|
                   xml.element({{props[:name]}}) {
                     {% if [String, Float32, Int32].includes? props[:type].type_vars[0]  %}
-                      xml.text el
+                      xml.text el if el
                     {% else %}
                       el.serialize(xml)
                     {% end %}
                   }
                 end
               {% else %}
-                xml.element({{props[:name]}}) { xml.text {{name.id}}}
+                if scalar = {{name.id}}
+                  xml.element({{props[:name]}}) {
+                    xml.text scalar.to_s
+                  }
+                end
               {% end %}
             {% end %}
           {% end %}
@@ -81,8 +87,10 @@ module AWSSdk
                   end
                 end
               {% else %}
-                request.body_io << {{name.id}}
-                request.headers["Content-Length"] = "#{{{name.id}}.size}"
+                if (payload = {{name.id}}) && payload.responds_to? :size
+                  request.body = payload
+                  request.content_length = payload.size
+                end
               {% end %}
             {% elsif props[:location] == :header %}
               if h_param = @{{name.id}}

@@ -48,12 +48,12 @@ module AWSSdk::AmazonS3
   def abort_multipart_upload(input : AbortMultipartUploadRequest) : AbortMultipartUploadOutput
     path = "/{Bucket}/{Key+}?x-id=AbortMultipartUpload"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -179,12 +179,12 @@ module AWSSdk::AmazonS3
   def complete_multipart_upload(input : CompleteMultipartUploadRequest) : CompleteMultipartUploadOutput
     path = "/{Bucket}/{Key+}"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -366,12 +366,12 @@ module AWSSdk::AmazonS3
   def copy_object(input : CopyObjectRequest) : CopyObjectOutput
     path = "/{Bucket}/{Key+}?x-id=CopyObject"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -499,7 +499,7 @@ module AWSSdk::AmazonS3
   def create_bucket(input : CreateBucketRequest) : CreateBucketOutput
     path = "/{Bucket}"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -777,12 +777,12 @@ module AWSSdk::AmazonS3
   def create_multipart_upload(input : CreateMultipartUploadRequest) : CreateMultipartUploadOutput
     path = "/{Bucket}/{Key+}?uploads"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -816,7 +816,7 @@ module AWSSdk::AmazonS3
   def delete_bucket(input : DeleteBucketRequest) :   Nil
     path = "/{Bucket}"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -862,7 +862,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_analytics_configuration(input : DeleteBucketAnalyticsConfigurationRequest) :   Nil
     path = "/{Bucket}?analytics"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -900,7 +900,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_cors(input : DeleteBucketCorsRequest) :   Nil
     path = "/{Bucket}?cors"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -940,7 +940,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_encryption(input : DeleteBucketEncryptionRequest) :   Nil
     path = "/{Bucket}?encryption"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -979,7 +979,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_intelligent_tiering_configuration(input : DeleteBucketIntelligentTieringConfigurationRequest) :   Nil
     path = "/{Bucket}?intelligent-tiering"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1021,7 +1021,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_inventory_configuration(input : DeleteBucketInventoryConfigurationRequest) :   Nil
     path = "/{Bucket}?inventory"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1063,7 +1063,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_lifecycle(input : DeleteBucketLifecycleRequest) :   Nil
     path = "/{Bucket}?lifecycle"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1115,7 +1115,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_metrics_configuration(input : DeleteBucketMetricsConfigurationRequest) :   Nil
     path = "/{Bucket}?metrics"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1150,7 +1150,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_ownership_controls(input : DeleteBucketOwnershipControlsRequest) :   Nil
     path = "/{Bucket}?ownershipControls"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1200,7 +1200,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_policy(input : DeleteBucketPolicyRequest) :   Nil
     path = "/{Bucket}?policy"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1243,7 +1243,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_replication(input : DeleteBucketReplicationRequest) :   Nil
     path = "/{Bucket}?replication"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1277,7 +1277,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_tagging(input : DeleteBucketTaggingRequest) :   Nil
     path = "/{Bucket}?tagging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1320,7 +1320,7 @@ module AWSSdk::AmazonS3
   def delete_bucket_website(input : DeleteBucketWebsiteRequest) :   Nil
     path = "/{Bucket}?website"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1367,12 +1367,12 @@ module AWSSdk::AmazonS3
   def delete_object(input : DeleteObjectRequest) : DeleteObjectOutput
     path = "/{Bucket}/{Key+}?x-id=DeleteObject"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -1445,7 +1445,7 @@ module AWSSdk::AmazonS3
   def delete_objects(input : DeleteObjectsRequest) : DeleteObjectsOutput
     path = "/{Bucket}?delete"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1486,12 +1486,12 @@ module AWSSdk::AmazonS3
   def delete_object_tagging(input : DeleteObjectTaggingRequest) : DeleteObjectTaggingOutput
     path = "/{Bucket}/{Key+}?tagging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -1536,7 +1536,7 @@ module AWSSdk::AmazonS3
   def delete_public_access_block(input : DeletePublicAccessBlockRequest) :   Nil
     path = "/{Bucket}?publicAccessBlock"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1579,7 +1579,7 @@ module AWSSdk::AmazonS3
   def get_bucket_accelerate_configuration(input : GetBucketAccelerateConfigurationRequest) : GetBucketAccelerateConfigurationOutput
     path = "/{Bucket}?accelerate"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1611,7 +1611,7 @@ module AWSSdk::AmazonS3
   def get_bucket_acl(input : GetBucketAclRequest) : GetBucketAclOutput
     path = "/{Bucket}?acl"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1657,7 +1657,7 @@ module AWSSdk::AmazonS3
   def get_bucket_analytics_configuration(input : GetBucketAnalyticsConfigurationRequest) : GetBucketAnalyticsConfigurationOutput
     path = "/{Bucket}?analytics&x-id=GetBucketAnalyticsConfiguration"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1694,7 +1694,7 @@ module AWSSdk::AmazonS3
   def get_bucket_cors(input : GetBucketCorsRequest) : GetBucketCorsOutput
     path = "/{Bucket}?cors"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1731,7 +1731,7 @@ module AWSSdk::AmazonS3
   def get_bucket_encryption(input : GetBucketEncryptionRequest) : GetBucketEncryptionOutput
     path = "/{Bucket}?encryption"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1770,7 +1770,7 @@ module AWSSdk::AmazonS3
   def get_bucket_intelligent_tiering_configuration(input : GetBucketIntelligentTieringConfigurationRequest) : GetBucketIntelligentTieringConfigurationOutput
     path = "/{Bucket}?intelligent-tiering&x-id=GetBucketIntelligentTieringConfiguration"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1816,7 +1816,7 @@ module AWSSdk::AmazonS3
   def get_bucket_inventory_configuration(input : GetBucketInventoryConfigurationRequest) : GetBucketInventoryConfigurationOutput
     path = "/{Bucket}?inventory&x-id=GetBucketInventoryConfiguration"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1888,7 +1888,7 @@ module AWSSdk::AmazonS3
   def get_bucket_lifecycle_configuration(input : GetBucketLifecycleConfigurationRequest) : GetBucketLifecycleConfigurationOutput
     path = "/{Bucket}?lifecycle"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1923,7 +1923,7 @@ module AWSSdk::AmazonS3
   def get_bucket_location(input : GetBucketLocationRequest) : GetBucketLocationOutput
     path = "/{Bucket}?location"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -1955,7 +1955,7 @@ module AWSSdk::AmazonS3
   def get_bucket_logging(input : GetBucketLoggingRequest) : GetBucketLoggingOutput
     path = "/{Bucket}?logging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2008,7 +2008,7 @@ module AWSSdk::AmazonS3
   def get_bucket_metrics_configuration(input : GetBucketMetricsConfigurationRequest) : GetBucketMetricsConfigurationOutput
     path = "/{Bucket}?metrics&x-id=GetBucketMetricsConfiguration"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2045,7 +2045,7 @@ module AWSSdk::AmazonS3
   def get_bucket_notification_configuration(input : GetBucketNotificationConfigurationRequest) : NotificationConfiguration
     path = "/{Bucket}?notification"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2079,7 +2079,7 @@ module AWSSdk::AmazonS3
   def get_bucket_ownership_controls(input : GetBucketOwnershipControlsRequest) : GetBucketOwnershipControlsOutput
     path = "/{Bucket}?ownershipControls"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2122,7 +2122,7 @@ module AWSSdk::AmazonS3
   def get_bucket_policy(input : GetBucketPolicyRequest) : GetBucketPolicyOutput
     path = "/{Bucket}?policy"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2169,7 +2169,7 @@ module AWSSdk::AmazonS3
   def get_bucket_policy_status(input : GetBucketPolicyStatusRequest) : GetBucketPolicyStatusOutput
     path = "/{Bucket}?policyStatus"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2220,7 +2220,7 @@ module AWSSdk::AmazonS3
   def get_bucket_replication(input : GetBucketReplicationRequest) : GetBucketReplicationOutput
     path = "/{Bucket}?replication"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2247,7 +2247,7 @@ module AWSSdk::AmazonS3
   def get_bucket_request_payment(input : GetBucketRequestPaymentRequest) : GetBucketRequestPaymentOutput
     path = "/{Bucket}?requestPayment"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2295,7 +2295,7 @@ module AWSSdk::AmazonS3
   def get_bucket_tagging(input : GetBucketTaggingRequest) : GetBucketTaggingOutput
     path = "/{Bucket}?tagging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2336,7 +2336,7 @@ module AWSSdk::AmazonS3
   def get_bucket_versioning(input : GetBucketVersioningRequest) : GetBucketVersioningOutput
     path = "/{Bucket}?versioning"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2373,7 +2373,7 @@ module AWSSdk::AmazonS3
   def get_bucket_website(input : GetBucketWebsiteRequest) : GetBucketWebsiteOutput
     path = "/{Bucket}?website"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2563,12 +2563,12 @@ module AWSSdk::AmazonS3
   def get_object(input : GetObjectRequest) : GetObjectOutput
     path = "/{Bucket}/{Key+}?x-id=GetObject"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -2611,12 +2611,12 @@ module AWSSdk::AmazonS3
   def get_object_acl(input : GetObjectAclRequest) : GetObjectAclOutput
     path = "/{Bucket}/{Key+}?acl"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -2634,12 +2634,12 @@ module AWSSdk::AmazonS3
   def get_object_legal_hold(input : GetObjectLegalHoldRequest) : GetObjectLegalHoldOutput
     path = "/{Bucket}/{Key+}?legal-hold"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -2659,7 +2659,7 @@ module AWSSdk::AmazonS3
   def get_object_lock_configuration(input : GetObjectLockConfigurationRequest) : GetObjectLockConfigurationOutput
     path = "/{Bucket}?object-lock"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2677,12 +2677,12 @@ module AWSSdk::AmazonS3
   def get_object_retention(input : GetObjectRetentionRequest) : GetObjectRetentionOutput
     path = "/{Bucket}/{Key+}?retention"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -2721,12 +2721,12 @@ module AWSSdk::AmazonS3
   def get_object_tagging(input : GetObjectTaggingRequest) : GetObjectTaggingOutput
     path = "/{Bucket}/{Key+}?tagging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -2759,12 +2759,12 @@ module AWSSdk::AmazonS3
   def get_object_torrent(input : GetObjectTorrentRequest) : GetObjectTorrentOutput
     path = "/{Bucket}/{Key+}?torrent"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -2820,7 +2820,7 @@ module AWSSdk::AmazonS3
   def get_public_access_block(input : GetPublicAccessBlockRequest) : GetPublicAccessBlockOutput
     path = "/{Bucket}?publicAccessBlock"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2845,7 +2845,7 @@ module AWSSdk::AmazonS3
   def head_bucket(input : HeadBucketRequest) :   Nil
     path = "/{Bucket}"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -2968,12 +2968,12 @@ module AWSSdk::AmazonS3
   def head_object(input : HeadObjectRequest) : HeadObjectOutput
     path = "/{Bucket}/{Key+}"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -3029,7 +3029,7 @@ module AWSSdk::AmazonS3
   def list_bucket_analytics_configurations(input : ListBucketAnalyticsConfigurationsRequest) : ListBucketAnalyticsConfigurationsOutput
     path = "/{Bucket}?analytics&x-id=ListBucketAnalyticsConfigurations"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3068,7 +3068,7 @@ module AWSSdk::AmazonS3
   def list_bucket_intelligent_tiering_configurations(input : ListBucketIntelligentTieringConfigurationsRequest) : ListBucketIntelligentTieringConfigurationsOutput
     path = "/{Bucket}?intelligent-tiering&x-id=ListBucketIntelligentTieringConfigurations"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3123,7 +3123,7 @@ module AWSSdk::AmazonS3
   def list_bucket_inventory_configurations(input : ListBucketInventoryConfigurationsRequest) : ListBucketInventoryConfigurationsOutput
     path = "/{Bucket}?inventory&x-id=ListBucketInventoryConfigurations"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3180,7 +3180,7 @@ module AWSSdk::AmazonS3
   def list_bucket_metrics_configurations(input : ListBucketMetricsConfigurationsRequest) : ListBucketMetricsConfigurationsOutput
     path = "/{Bucket}?metrics&x-id=ListBucketMetricsConfigurations"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3258,7 +3258,7 @@ module AWSSdk::AmazonS3
   def list_multipart_uploads(input : ListMultipartUploadsRequest) : ListMultipartUploadsOutput
     path = "/{Bucket}?uploads"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3312,7 +3312,7 @@ module AWSSdk::AmazonS3
   def list_objects(input : ListObjectsRequest) : ListObjectsOutput
     path = "/{Bucket}"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3366,7 +3366,7 @@ module AWSSdk::AmazonS3
   def list_objects_v2(input : ListObjectsV2Request) : ListObjectsV2Output
     path = "/{Bucket}?list-type=2"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3415,7 +3415,7 @@ module AWSSdk::AmazonS3
   def list_object_versions(input : ListObjectVersionsRequest) : ListObjectVersionsOutput
     path = "/{Bucket}?versions"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3476,12 +3476,12 @@ module AWSSdk::AmazonS3
   def list_parts(input : ListPartsRequest) : ListPartsOutput
     path = "/{Bucket}/{Key+}?x-id=ListParts"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -3543,7 +3543,7 @@ module AWSSdk::AmazonS3
   def put_bucket_accelerate_configuration(input : PutBucketAccelerateConfigurationRequest) :   Nil
     path = "/{Bucket}?accelerate"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3750,7 +3750,7 @@ module AWSSdk::AmazonS3
   def put_bucket_acl(input : PutBucketAclRequest) :   Nil
     path = "/{Bucket}?acl"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3882,7 +3882,7 @@ module AWSSdk::AmazonS3
   def put_bucket_analytics_configuration(input : PutBucketAnalyticsConfigurationRequest) :   Nil
     path = "/{Bucket}?analytics"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -3955,7 +3955,7 @@ module AWSSdk::AmazonS3
   def put_bucket_cors(input : PutBucketCorsRequest) :   Nil
     path = "/{Bucket}?cors"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4004,7 +4004,7 @@ module AWSSdk::AmazonS3
   def put_bucket_encryption(input : PutBucketEncryptionRequest) :   Nil
     path = "/{Bucket}?encryption"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4043,7 +4043,7 @@ module AWSSdk::AmazonS3
   def put_bucket_intelligent_tiering_configuration(input : PutBucketIntelligentTieringConfigurationRequest) :   Nil
     path = "/{Bucket}?intelligent-tiering"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4160,7 +4160,7 @@ module AWSSdk::AmazonS3
   def put_bucket_inventory_configuration(input : PutBucketInventoryConfigurationRequest) :   Nil
     path = "/{Bucket}?inventory"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4270,7 +4270,7 @@ module AWSSdk::AmazonS3
   def put_bucket_lifecycle_configuration(input : PutBucketLifecycleConfigurationRequest) :   Nil
     path = "/{Bucket}?lifecycle"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4366,7 +4366,7 @@ module AWSSdk::AmazonS3
   def put_bucket_logging(input : PutBucketLoggingRequest) :   Nil
     path = "/{Bucket}?logging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4438,7 +4438,7 @@ module AWSSdk::AmazonS3
   def put_bucket_metrics_configuration(input : PutBucketMetricsConfigurationRequest) :   Nil
     path = "/{Bucket}?metrics"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4516,7 +4516,7 @@ module AWSSdk::AmazonS3
   def put_bucket_notification_configuration(input : PutBucketNotificationConfigurationRequest) :   Nil
     path = "/{Bucket}?notification"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4549,7 +4549,7 @@ module AWSSdk::AmazonS3
   def put_bucket_ownership_controls(input : PutBucketOwnershipControlsRequest) :   Nil
     path = "/{Bucket}?ownershipControls"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4598,7 +4598,7 @@ module AWSSdk::AmazonS3
   def put_bucket_policy(input : PutBucketPolicyRequest) :   Nil
     path = "/{Bucket}?policy"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4678,7 +4678,7 @@ module AWSSdk::AmazonS3
   def put_bucket_replication(input : PutBucketReplicationRequest) :   Nil
     path = "/{Bucket}?replication"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4713,7 +4713,7 @@ module AWSSdk::AmazonS3
   def put_bucket_request_payment(input : PutBucketRequestPaymentRequest) :   Nil
     path = "/{Bucket}?requestPayment"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4807,7 +4807,7 @@ module AWSSdk::AmazonS3
   def put_bucket_tagging(input : PutBucketTaggingRequest) :   Nil
     path = "/{Bucket}?tagging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -4872,7 +4872,7 @@ module AWSSdk::AmazonS3
   def put_bucket_versioning(input : PutBucketVersioningRequest) :   Nil
     path = "/{Bucket}?versioning"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -5014,7 +5014,7 @@ module AWSSdk::AmazonS3
   def put_bucket_website(input : PutBucketWebsiteRequest) :   Nil
     path = "/{Bucket}?website"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -5111,12 +5111,12 @@ module AWSSdk::AmazonS3
   def put_object(input : PutObjectRequest) : PutObjectOutput
     path = "/{Bucket}/{Key+}?x-id=PutObject"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -5311,12 +5311,12 @@ module AWSSdk::AmazonS3
   def put_object_acl(input : PutObjectAclRequest) : PutObjectAclOutput
     path = "/{Bucket}/{Key+}?acl"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -5344,12 +5344,12 @@ module AWSSdk::AmazonS3
   def put_object_legal_hold(input : PutObjectLegalHoldRequest) : PutObjectLegalHoldOutput
     path = "/{Bucket}/{Key+}?legal-hold"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -5384,7 +5384,7 @@ module AWSSdk::AmazonS3
   def put_object_lock_configuration(input : PutObjectLockConfigurationRequest) : PutObjectLockConfigurationOutput
     path = "/{Bucket}?object-lock"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -5412,12 +5412,12 @@ module AWSSdk::AmazonS3
   def put_object_retention(input : PutObjectRetentionRequest) : PutObjectRetentionOutput
     path = "/{Bucket}/{Key+}?retention"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -5532,12 +5532,12 @@ module AWSSdk::AmazonS3
   def put_object_tagging(input : PutObjectTaggingRequest) : PutObjectTaggingOutput
     path = "/{Bucket}/{Key+}?tagging"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -5598,7 +5598,7 @@ module AWSSdk::AmazonS3
   def put_public_access_block(input : PutPublicAccessBlockRequest) :   Nil
     path = "/{Bucket}?publicAccessBlock"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
@@ -5906,12 +5906,12 @@ module AWSSdk::AmazonS3
   def restore_object(input : RestoreObjectRequest) : RestoreObjectOutput
     path = "/{Bucket}/{Key+}?restore"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -6045,12 +6045,12 @@ module AWSSdk::AmazonS3
   def select_object_content(input : SelectObjectContentRequest) : SelectObjectContentOutput
     path = "/{Bucket}/{Key+}?select&select-type=2"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -6204,12 +6204,12 @@ module AWSSdk::AmazonS3
   def upload_part(input : UploadPartRequest) : UploadPartOutput
     path = "/{Bucket}/{Key+}?x-id=UploadPart"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -6404,12 +6404,12 @@ module AWSSdk::AmazonS3
   def upload_part_copy(input : UploadPartCopyRequest) : UploadPartCopyOutput
     path = "/{Bucket}/{Key+}?x-id=UploadPartCopy"
     if label = input.bucket
-      path = path.gsub("{Bucket}", label)
+      path = path.gsub("{Bucket}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Bucket"
     end
     if label = input.key
-      path = path.gsub("{Key+}", label)
+      path = path.gsub("{Key+}", URI.encode(label))
     else
       raise "No value provided for input HTTP label: Key"
     end
@@ -11251,7 +11251,7 @@ module AWSSdk::AmazonS3
 
     # <p>Object data.</p>
     @[Field(location: :body_io, name: "nil", structure: false)]
-    property body : Array(UInt8)?
+    property body : (IO | String | Bytes)?
     # <p>Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If
     # false, this response header does not appear in the response.</p>
     @[Field(location: :header, name: "x-amz-delete-marker", structure: false)]
@@ -11659,7 +11659,7 @@ module AWSSdk::AmazonS3
 
     # <p>A Bencoded dictionary as defined by the BitTorrent specification</p>
     @[Field(location: :body_io, name: "nil", structure: false)]
-    property body : Array(UInt8)?
+    property body : (IO | String | Bytes)?
     # 
     @[Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
@@ -13498,7 +13498,7 @@ module AWSSdk::AmazonS3
     property acl : String?
     # <p>Object data.</p>
     @[Field(location: :body_io, name: "nil", structure: false)]
-    property body : Array(UInt8)?
+    property body : (IO | String | Bytes)?
     # <p>The bucket name to which the PUT operation was initiated. </p>
     # <p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     # <p>When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html">Using S3 on Outposts</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
@@ -14443,7 +14443,7 @@ module AWSSdk::AmazonS3
 
     # <p>The byte array of partial, one or more result records.</p>
     @[Field(location: :body, name: "Payload", structure: false)]
-    property payload : Array(UInt8)?
+    property payload : (IO | String | Bytes)?
 
     def initialize(@payload = nil )
     end
@@ -14537,7 +14537,7 @@ module AWSSdk::AmazonS3
 
     # <p>Object data.</p>
     @[Field(location: :body_io, name: "nil", structure: false)]
-    property body : Array(UInt8)?
+    property body : (IO | String | Bytes)?
     # <p>The name of the bucket to which the multipart upload was initiated.</p>
     # <p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
     # <p>When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html">Using S3 on Outposts</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>

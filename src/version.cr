@@ -7,18 +7,14 @@ end
 require "http"
 require "./clients/s3"
 
+include AWSSdk
+
 class S3
-  extend AWSSdk::AmazonS3
+  extend AmazonS3
 end
 
-pp S3.put_bucket_replication(AWSSdk::AmazonS3::PutBucketReplicationRequest.new("buck",
-  replication_configuration: AWSSdk::AmazonS3::ReplicationConfigurationStruct.new(
-    role: "role",
-    rules: AWSSdk::AmazonS3::ReplicationRuleStruct.new(
-      status: "status",
-      destination: AWSSdk::AmazonS3::DestinationStruct.new(
-        "buck2"
-      )
-    )
-  )
+S3.put_object(AmazonS3::PutObjectRequest.new(
+  bucket: "buckcket",
+  key: "tex .txt",
+  body: File.open("shard.yml")
 ))
