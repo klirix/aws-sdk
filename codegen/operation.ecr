@@ -4,14 +4,14 @@
   def <%= name.underscore %>(<% if input = @input %>input : <%= input.name %><% end %>) : <%- if output = @output -%>
   <%-= output.name %>
   <%- else -%>
-  NoReturn
+  Nil
   <%- end -%>
     path = "<%= traits["smithy.api#http"]["uri"] %>"
     <%- traits["smithy.api#http"]["uri"].to_s.scan(/\{[\w\+]*\}/x).each do |match| -%>
     <%- placeholder = match[0] -%>
     <%- key = placeholder.gsub(/[^\w]/, "") -%>
     if label = input.<%= key.underscore %>
-      path.gsub("<%= placeholder %>", label)
+      path = path.gsub("<%= placeholder %>", label)
     else
       raise "No value provided for input HTTP label: <%= key %>"
     end

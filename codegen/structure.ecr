@@ -8,7 +8,7 @@
     # <%= line.strip %>
     <%- end -%>
     <%- end -%>
-    @[Protocol::Field(<%-= 
+    @[Field(<%-= 
     case traits
     when .has_key? "smithy.api#httpQuery"
       "location: :query, name: \"#{traits["smithy.api#httpQuery"]?}\""
