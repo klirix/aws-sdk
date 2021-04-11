@@ -1,5 +1,5 @@
   class <%= scalar? ? "#{name}Struct" : name %> <%= exception? ? "< Exception" : nil %>
-    include <%= @namespace.service.try &.protocol_module %>::Structure
+    include AWSSdk::<%= @namespace.service.try &.protocol_module %>::Structure
 
     <%- @members.each do |key, value| -%>
     <%- traits = @memberTraits[key] -%>
@@ -8,7 +8,7 @@
     # <%= line.strip %>
     <%- end -%>
     <%- end -%>
-    @[Field(<%-= 
+    @[AWSSdk::Field(<%-= 
     case traits
     when .has_key? "smithy.api#httpQuery"
       "location: :query, name: \"#{traits["smithy.api#httpQuery"]?}\""

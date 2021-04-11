@@ -43,7 +43,8 @@ TODO:
 - - 1. [ ] Serialize \ Deserialize
 - - 2. [ ] Request \ Response processing
 - - 3. [ ] Exceptions
-- [ ] Figure out modular client architecture
+- [x] Figure out modular client architecture
+- [ ] Add macro settings for the client
 - [ ] Use awscr-signer to sign requests
 - [ ] Specs and docs
 
@@ -64,6 +65,21 @@ TODO:
 ## Do not
 
 Do not use it for now
+
+```ruby
+class MyClient < AWSSDK::Client
+  include AmazonS3::Methods
+  include AmazonLightsail::Methods
+
+  access_key ENV["ACCESS_KEY"]
+  secret_key ENV["SECRET_KEY"]
+  region "us-east-1"
+end
+
+aws_client = MyClient.new(region: "region_override")
+
+buckets = aws_client.s3.get_bucket_objects "buck"
+```
 
 ## Development
 

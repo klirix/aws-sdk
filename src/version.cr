@@ -9,11 +9,13 @@ require "./clients/s3"
 
 include AWSSdk
 
-class S3
-  extend AmazonS3
+class MyClient < AWSSdk::Client
+  include AmazonS3::Methods
 end
 
-S3.put_object(AmazonS3::PutObjectRequest.new(
+s3client = MyClient.new
+
+pp s3client.put_object(AmazonS3::PutObjectRequest.new(
   bucket: "buckcket",
   key: "tex .txt",
   body: File.open("shard.yml")

@@ -6,12 +6,16 @@ require "../protocols/rest_json"
 require "../protocols/json1_1"
 <% end %>
 require "./baseclient"
-module AWSSdk::<%= name %>
+module <%= name %>
   ENDPOINT_PREFIX = "<%= traits.not_nil!["aws.api#service"]["endpointPrefix"] %>"
 
-<% operations.each do |operation| %>
-  <%= operation.to_code %>
-<% end %>
+  module Methods
+    abstract def send( request : HTTP::Request, prefix : String, success_code : Int32? )
+
+    <% operations.each do |operation| %>
+      <%= operation.to_code %>
+    <% end %>
+  end
 
 <% @namespace.structures.each do |structure| %>
 <%= structure.to_code %>
