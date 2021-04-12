@@ -8,8 +8,24 @@ module AmazonS3
   module Methods
     abstract def send( request : HTTP::Request, prefix : String, success_code : Int32? )
 
-    
-          # <p>This operation aborts a multipart upload. After a multipart upload is aborted, no
+    def s3 : AmazonS3Methods
+      if internal = @internal_AmazonS3
+        internal
+      else
+        @internal_AmazonS3 = AmazonS3Methods.new(self)
+      end
+    end
+
+    class AmazonS3Methods
+      def initialize(@parent : AmazonS3::Methods)
+      end
+
+      def send( request : HTTP::Request, prefix : String, success_code : Int32? )
+        @parent.send( request, prefix, success_code )
+      end
+
+      
+            # <p>This operation aborts a multipart upload. After a multipart upload is aborted, no
   # additional parts can be uploaded using that upload ID. The storage consumed by any
   # previously uploaded parts will be freed. However, if any part uploads are currently in
   # progress, those part uploads might or might not succeed. As a result, it might be necessary
@@ -48,6 +64,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def abort_multipart_upload(bucket : String, key : String, upload_id : String, request_payer : String? = nil, expected_bucket_owner : String? = nil) : AbortMultipartUploadOutput
+    abort_multipart_upload(AbortMultipartUploadRequest.new(
+      bucket: bucket, key: key, upload_id: upload_id, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def abort_multipart_upload(input : AbortMultipartUploadRequest) : AbortMultipartUploadOutput
     path = "/{Bucket}/{Key+}?x-id=AbortMultipartUpload"
     if label = input.bucket
@@ -68,8 +89,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Completes a multipart upload by assembling previously uploaded parts.</p>
+      
+            # <p>Completes a multipart upload by assembling previously uploaded parts.</p>
   # <p>You first initiate the multipart upload and then upload all parts using the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html">UploadPart</a>
   # operation. After successfully uploading all relevant parts of an upload, you call this
   # operation to complete the upload. Upon receiving this request, Amazon S3 concatenates all
@@ -179,6 +200,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def complete_multipart_upload(bucket : String, key : String, upload_id : String, multipart_upload : CompletedMultipartUploadStruct? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : CompleteMultipartUploadOutput
+    complete_multipart_upload(CompleteMultipartUploadRequest.new(
+      bucket: bucket, key: key, multipart_upload: multipart_upload, upload_id: upload_id, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def complete_multipart_upload(input : CompleteMultipartUploadRequest) : CompleteMultipartUploadOutput
     path = "/{Bucket}/{Key+}"
     if label = input.bucket
@@ -199,8 +225,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Creates a copy of an object that is already stored in Amazon S3.</p>
+      
+            # <p>Creates a copy of an object that is already stored in Amazon S3.</p>
   # <note>
   # <p>You can store individual objects of up to 5 TB in Amazon S3. You create a copy of your
   # object up to 5 GB in size in a single atomic operation using this API. However, to copy
@@ -366,6 +392,11 @@ module AmazonS3
   # </ul>
   # <p>For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html">Copying
   # Objects</a>.</p>
+  def copy_object(bucket : String, key : String, copy_source : String, acl : String? = nil, website_redirect_location : String? = nil, sse_customer_algorithm : String? = nil, sse_customer_key : String? = nil, sse_customer_key_md5 : String? = nil, ssekms_key_id : String? = nil, ssekms_encryption_context : String? = nil, bucket_key_enabled : Bool? = nil, copy_source_sse_customer_algorithm : String? = nil, copy_source_sse_customer_key : String? = nil, copy_source_sse_customer_key_md5 : String? = nil, request_payer : String? = nil, tagging : String? = nil, object_lock_mode : String? = nil, object_lock_retain_until_date : Time? = nil, object_lock_legal_hold_status : String? = nil, expected_bucket_owner : String? = nil, storage_class : String? = nil, server_side_encryption : String? = nil, cache_control : String? = nil, content_disposition : String? = nil, content_encoding : String? = nil, content_language : String? = nil, content_type : String? = nil, copy_source_if_match : String? = nil, copy_source_if_modified_since : Time? = nil, copy_source_if_none_match : String? = nil, copy_source_if_unmodified_since : Time? = nil, expires : Time? = nil, grant_full_control : String? = nil, grant_read : String? = nil, grant_read_acp : String? = nil, grant_write_acp : String? = nil, metadata : Hash(String, String)? = nil, metadata_directive : String? = nil, tagging_directive : String? = nil, expected_source_bucket_owner : String? = nil) : CopyObjectOutput
+    copy_object(CopyObjectRequest.new(
+      acl: acl, bucket: bucket, cache_control: cache_control, content_disposition: content_disposition, content_encoding: content_encoding, content_language: content_language, content_type: content_type, copy_source: copy_source, copy_source_if_match: copy_source_if_match, copy_source_if_modified_since: copy_source_if_modified_since, copy_source_if_none_match: copy_source_if_none_match, copy_source_if_unmodified_since: copy_source_if_unmodified_since, expires: expires, grant_full_control: grant_full_control, grant_read: grant_read, grant_read_acp: grant_read_acp, grant_write_acp: grant_write_acp, key: key, metadata: metadata, metadata_directive: metadata_directive, tagging_directive: tagging_directive, server_side_encryption: server_side_encryption, storage_class: storage_class, website_redirect_location: website_redirect_location, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, ssekms_key_id: ssekms_key_id, ssekms_encryption_context: ssekms_encryption_context, bucket_key_enabled: bucket_key_enabled, copy_source_sse_customer_algorithm: copy_source_sse_customer_algorithm, copy_source_sse_customer_key: copy_source_sse_customer_key, copy_source_sse_customer_key_md5: copy_source_sse_customer_key_md5, request_payer: request_payer, tagging: tagging, object_lock_mode: object_lock_mode, object_lock_retain_until_date: object_lock_retain_until_date, object_lock_legal_hold_status: object_lock_legal_hold_status, expected_bucket_owner: expected_bucket_owner, expected_source_bucket_owner: expected_source_bucket_owner
+    ))
+  end
   def copy_object(input : CopyObjectRequest) : CopyObjectOutput
     path = "/{Bucket}/{Key+}?x-id=CopyObject"
     if label = input.bucket
@@ -386,8 +417,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 and have a
+      
+            # <p>Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 and have a
   # valid AWS Access Key ID to authenticate requests. Anonymous requests are never allowed to
   # create buckets. By creating the bucket, you become the bucket owner.</p>
   # <p>Not every string is an acceptable bucket name. For information about bucket naming
@@ -499,6 +530,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def create_bucket(bucket : String, acl : String? = nil, create_bucket_configuration : CreateBucketConfigurationStruct? = nil, grant_full_control : String? = nil, grant_read : String? = nil, grant_read_acp : String? = nil, grant_write : String? = nil, grant_write_acp : String? = nil, object_lock_enabled_for_bucket : Bool? = nil) : CreateBucketOutput
+    create_bucket(CreateBucketRequest.new(
+      acl: acl, bucket: bucket, create_bucket_configuration: create_bucket_configuration, grant_full_control: grant_full_control, grant_read: grant_read, grant_read_acp: grant_read_acp, grant_write: grant_write, grant_write_acp: grant_write_acp, object_lock_enabled_for_bucket: object_lock_enabled_for_bucket
+    ))
+  end
   def create_bucket(input : CreateBucketRequest) : CreateBucketOutput
     path = "/{Bucket}"
     if label = input.bucket
@@ -514,8 +550,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation initiates a multipart upload and returns an upload ID. This upload ID is
+      
+            # <p>This operation initiates a multipart upload and returns an upload ID. This upload ID is
   # used to associate all of the parts in the specific multipart upload. You specify this
   # upload ID in each of your subsequent upload part requests (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html">UploadPart</a>). You also include this
   # upload ID in the final request to either complete or abort the multipart upload
@@ -777,6 +813,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def create_multipart_upload(bucket : String, key : String, acl : String? = nil, object_lock_legal_hold_status : String? = nil, object_lock_retain_until_date : Time? = nil, object_lock_mode : String? = nil, tagging : String? = nil, request_payer : String? = nil, bucket_key_enabled : Bool? = nil, ssekms_encryption_context : String? = nil, ssekms_key_id : String? = nil, sse_customer_key_md5 : String? = nil, sse_customer_key : String? = nil, sse_customer_algorithm : String? = nil, website_redirect_location : String? = nil, storage_class : String? = nil, server_side_encryption : String? = nil, metadata : Hash(String, String)? = nil, grant_write_acp : String? = nil, grant_read_acp : String? = nil, grant_read : String? = nil, grant_full_control : String? = nil, expires : Time? = nil, content_type : String? = nil, content_language : String? = nil, content_encoding : String? = nil, content_disposition : String? = nil, cache_control : String? = nil, expected_bucket_owner : String? = nil) : CreateMultipartUploadOutput
+    create_multipart_upload(CreateMultipartUploadRequest.new(
+      acl: acl, bucket: bucket, cache_control: cache_control, content_disposition: content_disposition, content_encoding: content_encoding, content_language: content_language, content_type: content_type, expires: expires, grant_full_control: grant_full_control, grant_read: grant_read, grant_read_acp: grant_read_acp, grant_write_acp: grant_write_acp, key: key, metadata: metadata, server_side_encryption: server_side_encryption, storage_class: storage_class, website_redirect_location: website_redirect_location, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, ssekms_key_id: ssekms_key_id, ssekms_encryption_context: ssekms_encryption_context, bucket_key_enabled: bucket_key_enabled, request_payer: request_payer, tagging: tagging, object_lock_mode: object_lock_mode, object_lock_retain_until_date: object_lock_retain_until_date, object_lock_legal_hold_status: object_lock_legal_hold_status, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def create_multipart_upload(input : CreateMultipartUploadRequest) : CreateMultipartUploadOutput
     path = "/{Bucket}/{Key+}?uploads"
     if label = input.bucket
@@ -797,8 +838,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes the S3 bucket. All objects (including all object versions and delete markers) in
+      
+            # <p>Deletes the S3 bucket. All objects (including all object versions and delete markers) in
   # the bucket must be deleted before the bucket itself can be deleted.</p>
   # 
   # <p class="title">
@@ -816,6 +857,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket(DeleteBucketRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket(input : DeleteBucketRequest) :   Nil
     path = "/{Bucket}"
     if label = input.bucket
@@ -831,8 +877,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes an analytics configuration for the bucket (specified by the analytics
+      
+            # <p>Deletes an analytics configuration for the bucket (specified by the analytics
   # configuration ID).</p>
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:PutAnalyticsConfiguration</code> action. The bucket owner has this permission
@@ -862,6 +908,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_analytics_configuration(bucket : String, id : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_analytics_configuration(DeleteBucketAnalyticsConfigurationRequest.new(
+      bucket: bucket, id: id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_analytics_configuration(input : DeleteBucketAnalyticsConfigurationRequest) :   Nil
     path = "/{Bucket}?analytics"
     if label = input.bucket
@@ -877,8 +928,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes the <code>cors</code> configuration information set for the bucket.</p>
+      
+            # <p>Deletes the <code>cors</code> configuration information set for the bucket.</p>
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:PutBucketCORS</code> action. The bucket owner has this permission by default
   # and can grant this permission to others. </p>
@@ -900,6 +951,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_cors(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_cors(DeleteBucketCorsRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_cors(input : DeleteBucketCorsRequest) :   Nil
     path = "/{Bucket}?cors"
     if label = input.bucket
@@ -915,8 +971,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This implementation of the DELETE operation removes default encryption from the bucket.
+      
+            # <p>This implementation of the DELETE operation removes default encryption from the bucket.
   # For information about the Amazon S3 default encryption feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon S3 Default Bucket Encryption</a> in the
   # <i>Amazon Simple Storage Service Developer Guide</i>.</p>
   # <p>To use this operation, you must have permissions to perform the
@@ -940,6 +996,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_encryption(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_encryption(DeleteBucketEncryptionRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_encryption(input : DeleteBucketEncryptionRequest) :   Nil
     path = "/{Bucket}?encryption"
     if label = input.bucket
@@ -955,8 +1016,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes the S3 Intelligent-Tiering configuration from the specified bucket.</p>
+      
+            # <p>Deletes the S3 Intelligent-Tiering configuration from the specified bucket.</p>
   # <p>The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead. S3 Intelligent-Tiering delivers automatic cost savings by moving data between access tiers, when access patterns change.</p>
   # <p>The S3 Intelligent-Tiering storage class is suitable for objects larger than 128 KB that you plan to store for at least 30 days. If the size of an object is less than 128 KB, it is not eligible for auto-tiering. Smaller objects can be stored, but they are always charged at the frequent access tier rates in the S3 Intelligent-Tiering storage class. </p>
   # <p>If you delete an object before the end of the 30-day minimum storage duration period, you are charged for 30 days. For more information, see  <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access">Storage class for automatically optimizing frequently and infrequently accessed objects</a>.</p>
@@ -979,6 +1040,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_intelligent_tiering_configuration(bucket : String, id : String) :     Nil
+    delete_bucket_intelligent_tiering_configuration(DeleteBucketIntelligentTieringConfigurationRequest.new(
+      bucket: bucket, id: id
+    ))
+  end
   def delete_bucket_intelligent_tiering_configuration(input : DeleteBucketIntelligentTieringConfigurationRequest) :   Nil
     path = "/{Bucket}?intelligent-tiering"
     if label = input.bucket
@@ -994,8 +1060,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes an inventory configuration (identified by the inventory ID) from the
+      
+            # <p>Deletes an inventory configuration (identified by the inventory ID) from the
   # bucket.</p>
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:PutInventoryConfiguration</code> action. The bucket owner has this permission
@@ -1021,6 +1087,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_inventory_configuration(bucket : String, id : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_inventory_configuration(DeleteBucketInventoryConfigurationRequest.new(
+      bucket: bucket, id: id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_inventory_configuration(input : DeleteBucketInventoryConfigurationRequest) :   Nil
     path = "/{Bucket}?inventory"
     if label = input.bucket
@@ -1036,8 +1107,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes the lifecycle configuration from the specified bucket. Amazon S3 removes all the
+      
+            # <p>Deletes the lifecycle configuration from the specified bucket. Amazon S3 removes all the
   # lifecycle configuration rules in the lifecycle subresource associated with the bucket. Your
   # objects never expire, and Amazon S3 no longer automatically deletes any objects on the basis of
   # rules contained in the deleted lifecycle configuration.</p>
@@ -1063,6 +1134,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_lifecycle(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_lifecycle(DeleteBucketLifecycleRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_lifecycle(input : DeleteBucketLifecycleRequest) :   Nil
     path = "/{Bucket}?lifecycle"
     if label = input.bucket
@@ -1078,8 +1154,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes a metrics configuration for the Amazon CloudWatch request metrics (specified by the
+      
+            # <p>Deletes a metrics configuration for the Amazon CloudWatch request metrics (specified by the
   # metrics configuration ID) from the bucket. Note that this doesn't include the daily storage
   # metrics.</p>
   # 
@@ -1115,6 +1191,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_metrics_configuration(bucket : String, id : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_metrics_configuration(DeleteBucketMetricsConfigurationRequest.new(
+      bucket: bucket, id: id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_metrics_configuration(input : DeleteBucketMetricsConfigurationRequest) :   Nil
     path = "/{Bucket}?metrics"
     if label = input.bucket
@@ -1130,8 +1211,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Removes <code>OwnershipControls</code> for an Amazon S3 bucket. To use this operation, you
+      
+            # <p>Removes <code>OwnershipControls</code> for an Amazon S3 bucket. To use this operation, you
   # must have the <code>s3:PutBucketOwnershipControls</code> permission. For more information
   # about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying
   # Permissions in a Policy</a>.</p>
@@ -1150,6 +1231,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_ownership_controls(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_ownership_controls(DeleteBucketOwnershipControlsRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_ownership_controls(input : DeleteBucketOwnershipControlsRequest) :   Nil
     path = "/{Bucket}?ownershipControls"
     if label = input.bucket
@@ -1165,8 +1251,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This implementation of the DELETE operation uses the policy subresource to delete the
+      
+            # <p>This implementation of the DELETE operation uses the policy subresource to delete the
   # policy of a specified bucket. If you are using an identity other than the root user of the
   # AWS account that owns the bucket, the calling identity must have the
   # <code>DeleteBucketPolicy</code> permissions on the specified bucket and belong to the
@@ -1200,6 +1286,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_policy(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_policy(DeleteBucketPolicyRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_policy(input : DeleteBucketPolicyRequest) :   Nil
     path = "/{Bucket}?policy"
     if label = input.bucket
@@ -1215,8 +1306,8 @@ module AmazonS3
   end
 
 
-    
-          # <p> Deletes the replication configuration from the bucket.</p>
+      
+            # <p> Deletes the replication configuration from the bucket.</p>
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:PutReplicationConfiguration</code> action. The bucket owner has these
   # permissions by default and can grant it to others. For more information about permissions,
@@ -1243,6 +1334,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_replication(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_replication(DeleteBucketReplicationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_replication(input : DeleteBucketReplicationRequest) :   Nil
     path = "/{Bucket}?replication"
     if label = input.bucket
@@ -1258,8 +1354,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Deletes the tags from the bucket.</p>
+      
+            # <p>Deletes the tags from the bucket.</p>
   # 
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:PutBucketTagging</code> action. By default, the bucket owner has this
@@ -1277,6 +1373,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_tagging(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_tagging(DeleteBucketTaggingRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_tagging(input : DeleteBucketTaggingRequest) :   Nil
     path = "/{Bucket}?tagging"
     if label = input.bucket
@@ -1292,8 +1393,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation removes the website configuration for a bucket. Amazon S3 returns a <code>200
+      
+            # <p>This operation removes the website configuration for a bucket. Amazon S3 returns a <code>200
   # OK</code> response upon successfully deleting a website configuration on the specified
   # bucket. You will get a <code>200 OK</code> response if the website configuration you are
   # trying to delete does not exist on the bucket. Amazon S3 returns a <code>404</code> response if
@@ -1320,6 +1421,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_bucket_website(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_bucket_website(DeleteBucketWebsiteRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_bucket_website(input : DeleteBucketWebsiteRequest) :   Nil
     path = "/{Bucket}?website"
     if label = input.bucket
@@ -1335,8 +1441,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Removes the null version (if there is one) of an object and inserts a delete marker,
+      
+            # <p>Removes the null version (if there is one) of an object and inserts a delete marker,
   # which becomes the latest version of the object. If there isn't a null version, Amazon S3 does
   # not remove any objects.</p>
   # 
@@ -1367,6 +1473,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_object(bucket : String, key : String, mfa : String? = nil, version_id : String? = nil, request_payer : String? = nil, bypass_governance_retention : Bool? = nil, expected_bucket_owner : String? = nil) : DeleteObjectOutput
+    delete_object(DeleteObjectRequest.new(
+      bucket: bucket, key: key, mfa: mfa, version_id: version_id, request_payer: request_payer, bypass_governance_retention: bypass_governance_retention, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_object(input : DeleteObjectRequest) : DeleteObjectOutput
     path = "/{Bucket}/{Key+}?x-id=DeleteObject"
     if label = input.bucket
@@ -1387,8 +1498,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation enables you to delete multiple objects from a bucket using a single HTTP
+      
+            # <p>This operation enables you to delete multiple objects from a bucket using a single HTTP
   # request. If you know the object keys that you want to delete, then this operation provides
   # a suitable alternative to sending individual delete requests, reducing per-request
   # overhead.</p>
@@ -1445,6 +1556,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_objects(bucket : String, delete : DeleteStruct, mfa : String? = nil, request_payer : String? = nil, bypass_governance_retention : Bool? = nil, expected_bucket_owner : String? = nil) : DeleteObjectsOutput
+    delete_objects(DeleteObjectsRequest.new(
+      bucket: bucket, delete: delete, mfa: mfa, request_payer: request_payer, bypass_governance_retention: bypass_governance_retention, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_objects(input : DeleteObjectsRequest) : DeleteObjectsOutput
     path = "/{Bucket}?delete"
     if label = input.bucket
@@ -1460,8 +1576,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Removes the entire tag set from the specified object. For more information about
+      
+            # <p>Removes the entire tag set from the specified object. For more information about
   # managing object tags, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html"> Object
   # Tagging</a>.</p>
   # 
@@ -1486,6 +1602,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_object_tagging(bucket : String, key : String, version_id : String? = nil, expected_bucket_owner : String? = nil) : DeleteObjectTaggingOutput
+    delete_object_tagging(DeleteObjectTaggingRequest.new(
+      bucket: bucket, key: key, version_id: version_id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_object_tagging(input : DeleteObjectTaggingRequest) : DeleteObjectTaggingOutput
     path = "/{Bucket}/{Key+}?tagging"
     if label = input.bucket
@@ -1506,8 +1627,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Removes the <code>PublicAccessBlock</code> configuration for an Amazon S3 bucket. To use this
+      
+            # <p>Removes the <code>PublicAccessBlock</code> configuration for an Amazon S3 bucket. To use this
   # operation, you must have the <code>s3:PutBucketPublicAccessBlock</code> permission. For
   # more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
@@ -1536,6 +1657,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def delete_public_access_block(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    delete_public_access_block(DeletePublicAccessBlockRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def delete_public_access_block(input : DeletePublicAccessBlockRequest) :   Nil
     path = "/{Bucket}?publicAccessBlock"
     if label = input.bucket
@@ -1551,8 +1677,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This implementation of the GET operation uses the <code>accelerate</code> subresource to
+      
+            # <p>This implementation of the GET operation uses the <code>accelerate</code> subresource to
   # return the Transfer Acceleration state of a bucket, which is either <code>Enabled</code> or
   # <code>Suspended</code>. Amazon S3 Transfer Acceleration is a bucket-level feature that
   # enables you to perform faster data transfers to and from Amazon S3.</p>
@@ -1579,6 +1705,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_accelerate_configuration(bucket : String, expected_bucket_owner : String? = nil) : GetBucketAccelerateConfigurationOutput
+    get_bucket_accelerate_configuration(GetBucketAccelerateConfigurationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_accelerate_configuration(input : GetBucketAccelerateConfigurationRequest) : GetBucketAccelerateConfigurationOutput
     path = "/{Bucket}?accelerate"
     if label = input.bucket
@@ -1594,8 +1725,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This implementation of the <code>GET</code> operation uses the <code>acl</code>
+      
+            # <p>This implementation of the <code>GET</code> operation uses the <code>acl</code>
   # subresource to return the access control list (ACL) of a bucket. To use <code>GET</code> to
   # return the ACL of the bucket, you must have <code>READ_ACP</code> access to the bucket. If
   # <code>READ_ACP</code> permission is granted to the anonymous user, you can return the
@@ -1611,6 +1742,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_acl(bucket : String, expected_bucket_owner : String? = nil) : GetBucketAclOutput
+    get_bucket_acl(GetBucketAclRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_acl(input : GetBucketAclRequest) : GetBucketAclOutput
     path = "/{Bucket}?acl"
     if label = input.bucket
@@ -1626,8 +1762,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This implementation of the GET operation returns an analytics configuration (identified
+      
+            # <p>This implementation of the GET operation returns an analytics configuration (identified
   # by the analytics configuration ID) from the bucket.</p>
   # <p>To use this operation, you must have permissions to perform the
   # <code>s3:GetAnalyticsConfiguration</code> action. The bucket owner has this permission
@@ -1657,6 +1793,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_analytics_configuration(bucket : String, id : String, expected_bucket_owner : String? = nil) : GetBucketAnalyticsConfigurationOutput
+    get_bucket_analytics_configuration(GetBucketAnalyticsConfigurationRequest.new(
+      bucket: bucket, id: id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_analytics_configuration(input : GetBucketAnalyticsConfigurationRequest) : GetBucketAnalyticsConfigurationOutput
     path = "/{Bucket}?analytics&x-id=GetBucketAnalyticsConfiguration"
     if label = input.bucket
@@ -1672,8 +1813,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the cors configuration information set for the bucket.</p>
+      
+            # <p>Returns the cors configuration information set for the bucket.</p>
   # 
   # <p> To use this operation, you must have permission to perform the s3:GetBucketCORS action.
   # By default, the bucket owner has this permission and can grant it to others.</p>
@@ -1694,6 +1835,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_cors(bucket : String, expected_bucket_owner : String? = nil) : GetBucketCorsOutput
+    get_bucket_cors(GetBucketCorsRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_cors(input : GetBucketCorsRequest) : GetBucketCorsOutput
     path = "/{Bucket}?cors"
     if label = input.bucket
@@ -1709,8 +1855,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the default encryption configuration for an Amazon S3 bucket. For information about
+      
+            # <p>Returns the default encryption configuration for an Amazon S3 bucket. For information about
   # the Amazon S3 default encryption feature, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html">Amazon S3 Default Bucket Encryption</a>.</p>
   # 
   # <p> To use this operation, you must have permission to perform the
@@ -1731,6 +1877,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_encryption(bucket : String, expected_bucket_owner : String? = nil) : GetBucketEncryptionOutput
+    get_bucket_encryption(GetBucketEncryptionRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_encryption(input : GetBucketEncryptionRequest) : GetBucketEncryptionOutput
     path = "/{Bucket}?encryption"
     if label = input.bucket
@@ -1746,8 +1897,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Gets the S3 Intelligent-Tiering configuration from the specified bucket.</p>
+      
+            # <p>Gets the S3 Intelligent-Tiering configuration from the specified bucket.</p>
   # <p>The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead. S3 Intelligent-Tiering delivers automatic cost savings by moving data between access tiers, when access patterns change.</p>
   # <p>The S3 Intelligent-Tiering storage class is suitable for objects larger than 128 KB that you plan to store for at least 30 days. If the size of an object is less than 128 KB, it is not eligible for auto-tiering. Smaller objects can be stored, but they are always charged at the frequent access tier rates in the S3 Intelligent-Tiering storage class. </p>
   # <p>If you delete an object before the end of the 30-day minimum storage duration period, you are charged for 30 days. For more information, see  <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access">Storage class for automatically optimizing frequently and infrequently accessed objects</a>.</p>
@@ -1770,6 +1921,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_intelligent_tiering_configuration(bucket : String, id : String) : GetBucketIntelligentTieringConfigurationOutput
+    get_bucket_intelligent_tiering_configuration(GetBucketIntelligentTieringConfigurationRequest.new(
+      bucket: bucket, id: id
+    ))
+  end
   def get_bucket_intelligent_tiering_configuration(input : GetBucketIntelligentTieringConfigurationRequest) : GetBucketIntelligentTieringConfigurationOutput
     path = "/{Bucket}?intelligent-tiering&x-id=GetBucketIntelligentTieringConfiguration"
     if label = input.bucket
@@ -1785,8 +1941,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns an inventory configuration (identified by the inventory configuration ID) from
+      
+            # <p>Returns an inventory configuration (identified by the inventory configuration ID) from
   # the bucket.</p>
   # 
   # <p>To use this operation, you must have permissions to perform the
@@ -1816,6 +1972,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_inventory_configuration(bucket : String, id : String, expected_bucket_owner : String? = nil) : GetBucketInventoryConfigurationOutput
+    get_bucket_inventory_configuration(GetBucketInventoryConfigurationRequest.new(
+      bucket: bucket, id: id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_inventory_configuration(input : GetBucketInventoryConfigurationRequest) : GetBucketInventoryConfigurationOutput
     path = "/{Bucket}?inventory&x-id=GetBucketInventoryConfiguration"
     if label = input.bucket
@@ -1831,8 +1992,8 @@ module AmazonS3
   end
 
 
-    
-          # <note>
+      
+            # <note>
   # <p>Bucket lifecycle configuration now supports specifying a lifecycle rule using an
   # object key name prefix, one or more object tags, or a combination of both. Accordingly,
   # this section describes the latest API. The response describes the new filter element
@@ -1888,6 +2049,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_lifecycle_configuration(bucket : String, expected_bucket_owner : String? = nil) : GetBucketLifecycleConfigurationOutput
+    get_bucket_lifecycle_configuration(GetBucketLifecycleConfigurationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_lifecycle_configuration(input : GetBucketLifecycleConfigurationRequest) : GetBucketLifecycleConfigurationOutput
     path = "/{Bucket}?lifecycle"
     if label = input.bucket
@@ -1903,8 +2069,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the Region the bucket resides in. You set the bucket's Region using the
+      
+            # <p>Returns the Region the bucket resides in. You set the bucket's Region using the
   # <code>LocationConstraint</code> request parameter in a <code>CreateBucket</code>
   # request. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html">CreateBucket</a>.</p>
   # 
@@ -1923,6 +2089,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_location(bucket : String, expected_bucket_owner : String? = nil) : GetBucketLocationOutput
+    get_bucket_location(GetBucketLocationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_location(input : GetBucketLocationRequest) : GetBucketLocationOutput
     path = "/{Bucket}?location"
     if label = input.bucket
@@ -1938,8 +2109,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the logging status of a bucket and the permissions users have to view and modify
+      
+            # <p>Returns the logging status of a bucket and the permissions users have to view and modify
   # that status. To use GET, you must be the bucket owner.</p>
   # 
   # <p>The following operations are related to <code>GetBucketLogging</code>:</p>
@@ -1955,6 +2126,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_logging(bucket : String, expected_bucket_owner : String? = nil) : GetBucketLoggingOutput
+    get_bucket_logging(GetBucketLoggingRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_logging(input : GetBucketLoggingRequest) : GetBucketLoggingOutput
     path = "/{Bucket}?logging"
     if label = input.bucket
@@ -1970,8 +2146,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Gets a metrics configuration (specified by the metrics configuration ID) from the
+      
+            # <p>Gets a metrics configuration (specified by the metrics configuration ID) from the
   # bucket. Note that this doesn't include the daily storage metrics.</p>
   # 
   # <p> To use this operation, you must have permissions to perform the
@@ -2008,6 +2184,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_metrics_configuration(bucket : String, id : String, expected_bucket_owner : String? = nil) : GetBucketMetricsConfigurationOutput
+    get_bucket_metrics_configuration(GetBucketMetricsConfigurationRequest.new(
+      bucket: bucket, id: id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_metrics_configuration(input : GetBucketMetricsConfigurationRequest) : GetBucketMetricsConfigurationOutput
     path = "/{Bucket}?metrics&x-id=GetBucketMetricsConfiguration"
     if label = input.bucket
@@ -2023,8 +2204,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the notification configuration of a bucket.</p>
+      
+            # <p>Returns the notification configuration of a bucket.</p>
   # <p>If notifications are not enabled on the bucket, the operation returns an empty
   # <code>NotificationConfiguration</code> element.</p>
   # 
@@ -2045,6 +2226,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_notification_configuration(bucket : String, expected_bucket_owner : String? = nil) : NotificationConfiguration
+    get_bucket_notification_configuration(GetBucketNotificationConfigurationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_notification_configuration(input : GetBucketNotificationConfigurationRequest) : NotificationConfiguration
     path = "/{Bucket}?notification"
     if label = input.bucket
@@ -2060,8 +2246,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Retrieves <code>OwnershipControls</code> for an Amazon S3 bucket. To use this operation, you
+      
+            # <p>Retrieves <code>OwnershipControls</code> for an Amazon S3 bucket. To use this operation, you
   # must have the <code>s3:GetBucketOwnershipControls</code> permission. For more information
   # about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying
   # Permissions in a Policy</a>. </p>
@@ -2079,6 +2265,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_ownership_controls(bucket : String, expected_bucket_owner : String? = nil) : GetBucketOwnershipControlsOutput
+    get_bucket_ownership_controls(GetBucketOwnershipControlsRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_ownership_controls(input : GetBucketOwnershipControlsRequest) : GetBucketOwnershipControlsOutput
     path = "/{Bucket}?ownershipControls"
     if label = input.bucket
@@ -2094,8 +2285,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the policy of a specified bucket. If you are using an identity other than the
+      
+            # <p>Returns the policy of a specified bucket. If you are using an identity other than the
   # root user of the AWS account that owns the bucket, the calling identity must have the
   # <code>GetBucketPolicy</code> permissions on the specified bucket and belong to the
   # bucket owner's account in order to use this operation.</p>
@@ -2122,6 +2313,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_policy(bucket : String, expected_bucket_owner : String? = nil) : GetBucketPolicyOutput
+    get_bucket_policy(GetBucketPolicyRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_policy(input : GetBucketPolicyRequest) : GetBucketPolicyOutput
     path = "/{Bucket}?policy"
     if label = input.bucket
@@ -2137,8 +2333,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Retrieves the policy status for an Amazon S3 bucket, indicating whether the bucket is public.
+      
+            # <p>Retrieves the policy status for an Amazon S3 bucket, indicating whether the bucket is public.
   # In order to use this operation, you must have the <code>s3:GetBucketPolicyStatus</code>
   # permission. For more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a
   # Policy</a>.</p>
@@ -2169,6 +2365,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_policy_status(bucket : String, expected_bucket_owner : String? = nil) : GetBucketPolicyStatusOutput
+    get_bucket_policy_status(GetBucketPolicyStatusRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_policy_status(input : GetBucketPolicyStatusRequest) : GetBucketPolicyStatusOutput
     path = "/{Bucket}?policyStatus"
     if label = input.bucket
@@ -2184,8 +2385,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the replication configuration of a bucket.</p>
+      
+            # <p>Returns the replication configuration of a bucket.</p>
   # <note>
   # <p> It can take a while to propagate the put or delete a replication configuration to
   # all Amazon S3 systems. Therefore, a get request soon after put or delete can return a wrong
@@ -2220,6 +2421,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_replication(bucket : String, expected_bucket_owner : String? = nil) : GetBucketReplicationOutput
+    get_bucket_replication(GetBucketReplicationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_replication(input : GetBucketReplicationRequest) : GetBucketReplicationOutput
     path = "/{Bucket}?replication"
     if label = input.bucket
@@ -2235,8 +2441,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the request payment configuration of a bucket. To use this version of the
+      
+            # <p>Returns the request payment configuration of a bucket. To use this version of the
   # operation, you must be the bucket owner. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays Buckets</a>.</p>
   # 
   # <p>The following operations are related to <code>GetBucketRequestPayment</code>:</p>
@@ -2247,6 +2453,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_request_payment(bucket : String, expected_bucket_owner : String? = nil) : GetBucketRequestPaymentOutput
+    get_bucket_request_payment(GetBucketRequestPaymentRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_request_payment(input : GetBucketRequestPaymentRequest) : GetBucketRequestPaymentOutput
     path = "/{Bucket}?requestPayment"
     if label = input.bucket
@@ -2262,8 +2473,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the tag set associated with the bucket.</p>
+      
+            # <p>Returns the tag set associated with the bucket.</p>
   # <p>To use this operation, you must have permission to perform the
   # <code>s3:GetBucketTagging</code> action. By default, the bucket owner has this
   # permission and can grant this permission to others.</p>
@@ -2295,6 +2506,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_tagging(bucket : String, expected_bucket_owner : String? = nil) : GetBucketTaggingOutput
+    get_bucket_tagging(GetBucketTaggingRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_tagging(input : GetBucketTaggingRequest) : GetBucketTaggingOutput
     path = "/{Bucket}?tagging"
     if label = input.bucket
@@ -2310,8 +2526,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the versioning state of a bucket.</p>
+      
+            # <p>Returns the versioning state of a bucket.</p>
   # <p>To retrieve the versioning state of a bucket, you must be the bucket owner.</p>
   # 
   # <p>This implementation also returns the MFA Delete status of the versioning state. If the
@@ -2336,6 +2552,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_versioning(bucket : String, expected_bucket_owner : String? = nil) : GetBucketVersioningOutput
+    get_bucket_versioning(GetBucketVersioningRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_versioning(input : GetBucketVersioningRequest) : GetBucketVersioningOutput
     path = "/{Bucket}?versioning"
     if label = input.bucket
@@ -2351,8 +2572,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the website configuration for a bucket. To host website on Amazon S3, you can
+      
+            # <p>Returns the website configuration for a bucket. To host website on Amazon S3, you can
   # configure a bucket as website by adding a website configuration. For more information about
   # hosting websites, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html">Hosting Websites on
   # Amazon S3</a>. </p>
@@ -2373,6 +2594,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_bucket_website(bucket : String, expected_bucket_owner : String? = nil) : GetBucketWebsiteOutput
+    get_bucket_website(GetBucketWebsiteRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_bucket_website(input : GetBucketWebsiteRequest) : GetBucketWebsiteOutput
     path = "/{Bucket}?website"
     if label = input.bucket
@@ -2388,8 +2614,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Retrieves objects from Amazon S3. To use <code>GET</code>, you must have <code>READ</code>
+      
+            # <p>Retrieves objects from Amazon S3. To use <code>GET</code>, you must have <code>READ</code>
   # access to the object. If you grant <code>READ</code> access to the anonymous user, you can
   # return the object without using an authorization header.</p>
   # 
@@ -2563,6 +2789,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_object(bucket : String, key : String, part_number : Int32? = nil, request_payer : String? = nil, sse_customer_key_md5 : String? = nil, sse_customer_key : String? = nil, sse_customer_algorithm : String? = nil, version_id : String? = nil, response_expires : Time? = nil, response_content_type : String? = nil, response_content_language : String? = nil, response_content_encoding : String? = nil, response_content_disposition : String? = nil, response_cache_control : String? = nil, range : String? = nil, if_unmodified_since : Time? = nil, if_none_match : String? = nil, if_modified_since : Time? = nil, if_match : String? = nil, expected_bucket_owner : String? = nil) : GetObjectOutput
+    get_object(GetObjectRequest.new(
+      bucket: bucket, if_match: if_match, if_modified_since: if_modified_since, if_none_match: if_none_match, if_unmodified_since: if_unmodified_since, key: key, range: range, response_cache_control: response_cache_control, response_content_disposition: response_content_disposition, response_content_encoding: response_content_encoding, response_content_language: response_content_language, response_content_type: response_content_type, response_expires: response_expires, version_id: version_id, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, request_payer: request_payer, part_number: part_number, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object(input : GetObjectRequest) : GetObjectOutput
     path = "/{Bucket}/{Key+}?x-id=GetObject"
     if label = input.bucket
@@ -2583,8 +2814,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the access control list (ACL) of an object. To use this operation, you must have
+      
+            # <p>Returns the access control list (ACL) of an object. To use this operation, you must have
   # <code>READ_ACP</code> access to the object.</p>
   # <p>This action is not supported by Amazon S3 on Outposts.</p>
   # <p>
@@ -2611,6 +2842,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_object_acl(bucket : String, key : String, version_id : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : GetObjectAclOutput
+    get_object_acl(GetObjectAclRequest.new(
+      bucket: bucket, key: key, version_id: version_id, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object_acl(input : GetObjectAclRequest) : GetObjectAclOutput
     path = "/{Bucket}/{Key+}?acl"
     if label = input.bucket
@@ -2631,9 +2867,14 @@ module AmazonS3
   end
 
 
-    
-          # <p>Gets an object's current Legal Hold status. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Locking Objects</a>.</p>
+      
+            # <p>Gets an object's current Legal Hold status. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Locking Objects</a>.</p>
   # <p>This action is not supported by Amazon S3 on Outposts.</p>
+  def get_object_legal_hold(bucket : String, key : String, version_id : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : GetObjectLegalHoldOutput
+    get_object_legal_hold(GetObjectLegalHoldRequest.new(
+      bucket: bucket, key: key, version_id: version_id, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object_legal_hold(input : GetObjectLegalHoldRequest) : GetObjectLegalHoldOutput
     path = "/{Bucket}/{Key+}?legal-hold"
     if label = input.bucket
@@ -2654,11 +2895,16 @@ module AmazonS3
   end
 
 
-    
-          # <p>Gets the Object Lock configuration for a bucket. The rule specified in the Object Lock
+      
+            # <p>Gets the Object Lock configuration for a bucket. The rule specified in the Object Lock
   # configuration will be applied by default to every new object placed in the specified
   # bucket. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Locking
   # Objects</a>.</p>
+  def get_object_lock_configuration(bucket : String, expected_bucket_owner : String? = nil) : GetObjectLockConfigurationOutput
+    get_object_lock_configuration(GetObjectLockConfigurationRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object_lock_configuration(input : GetObjectLockConfigurationRequest) : GetObjectLockConfigurationOutput
     path = "/{Bucket}?object-lock"
     if label = input.bucket
@@ -2674,9 +2920,14 @@ module AmazonS3
   end
 
 
-    
-          # <p>Retrieves an object's retention settings. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Locking Objects</a>.</p>
+      
+            # <p>Retrieves an object's retention settings. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Locking Objects</a>.</p>
   # <p>This action is not supported by Amazon S3 on Outposts.</p>
+  def get_object_retention(bucket : String, key : String, version_id : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : GetObjectRetentionOutput
+    get_object_retention(GetObjectRetentionRequest.new(
+      bucket: bucket, key: key, version_id: version_id, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object_retention(input : GetObjectRetentionRequest) : GetObjectRetentionOutput
     path = "/{Bucket}/{Key+}?retention"
     if label = input.bucket
@@ -2697,8 +2948,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns the tag-set of an object. You send the GET request against the tagging
+      
+            # <p>Returns the tag-set of an object. You send the GET request against the tagging
   # subresource associated with the object.</p>
   # 
   # <p>To use this operation, you must have permission to perform the
@@ -2721,6 +2972,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_object_tagging(bucket : String, key : String, version_id : String? = nil, expected_bucket_owner : String? = nil) : GetObjectTaggingOutput
+    get_object_tagging(GetObjectTaggingRequest.new(
+      bucket: bucket, key: key, version_id: version_id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object_tagging(input : GetObjectTaggingRequest) : GetObjectTaggingOutput
     path = "/{Bucket}/{Key+}?tagging"
     if label = input.bucket
@@ -2741,8 +2997,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're
+      
+            # <p>Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're
   # distributing large files. For more information about BitTorrent, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html">Using BitTorrent with Amazon S3</a>.</p>
   # <note>
   # <p>You can get torrent only for objects that are less than 5 GB in size, and that are
@@ -2759,6 +3015,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_object_torrent(bucket : String, key : String, request_payer : String? = nil, expected_bucket_owner : String? = nil) : GetObjectTorrentOutput
+    get_object_torrent(GetObjectTorrentRequest.new(
+      bucket: bucket, key: key, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_object_torrent(input : GetObjectTorrentRequest) : GetObjectTorrentOutput
     path = "/{Bucket}/{Key+}?torrent"
     if label = input.bucket
@@ -2779,8 +3040,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Retrieves the <code>PublicAccessBlock</code> configuration for an Amazon S3 bucket. To use
+      
+            # <p>Retrieves the <code>PublicAccessBlock</code> configuration for an Amazon S3 bucket. To use
   # this operation, you must have the <code>s3:GetBucketPublicAccessBlock</code> permission.
   # For more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a
   # Policy</a>.</p>
@@ -2820,6 +3081,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def get_public_access_block(bucket : String, expected_bucket_owner : String? = nil) : GetPublicAccessBlockOutput
+    get_public_access_block(GetPublicAccessBlockRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def get_public_access_block(input : GetPublicAccessBlockRequest) : GetPublicAccessBlockOutput
     path = "/{Bucket}?publicAccessBlock"
     if label = input.bucket
@@ -2835,8 +3101,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation is useful to determine if a bucket exists and you have permission to
+      
+            # <p>This operation is useful to determine if a bucket exists and you have permission to
   # access it. The operation returns a <code>200 OK</code> if the bucket exists and you have
   # permission to access it. Otherwise, the operation might return responses such as <code>404
   # Not Found</code> and <code>403 Forbidden</code>. </p>
@@ -2845,6 +3111,11 @@ module AmazonS3
   # <code>s3:ListBucket</code> action. The bucket owner has this permission by default and
   # can grant this permission to others. For more information about permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
+  def head_bucket(bucket : String, expected_bucket_owner : String? = nil) :     Nil
+    head_bucket(HeadBucketRequest.new(
+      bucket: bucket, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def head_bucket(input : HeadBucketRequest) :   Nil
     path = "/{Bucket}"
     if label = input.bucket
@@ -2860,8 +3131,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>The HEAD operation retrieves metadata from an object without returning the object
+      
+            # <p>The HEAD operation retrieves metadata from an object without returning the object
   # itself. This operation is useful if you're only interested in an object's metadata. To use
   # HEAD, you must have READ access to the object.</p>
   # 
@@ -2968,6 +3239,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def head_object(bucket : String, key : String, if_match : String? = nil, if_modified_since : Time? = nil, if_none_match : String? = nil, if_unmodified_since : Time? = nil, range : String? = nil, version_id : String? = nil, sse_customer_algorithm : String? = nil, sse_customer_key : String? = nil, sse_customer_key_md5 : String? = nil, request_payer : String? = nil, part_number : Int32? = nil, expected_bucket_owner : String? = nil) : HeadObjectOutput
+    head_object(HeadObjectRequest.new(
+      bucket: bucket, if_match: if_match, if_modified_since: if_modified_since, if_none_match: if_none_match, if_unmodified_since: if_unmodified_since, key: key, range: range, version_id: version_id, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, request_payer: request_payer, part_number: part_number, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def head_object(input : HeadObjectRequest) : HeadObjectOutput
     path = "/{Bucket}/{Key+}"
     if label = input.bucket
@@ -2988,8 +3264,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Lists the analytics configurations for the bucket. You can have up to 1,000 analytics
+      
+            # <p>Lists the analytics configurations for the bucket. You can have up to 1,000 analytics
   # configurations per bucket.</p>
   # 
   # <p>This operation supports list pagination and does not return more than 100 configurations
@@ -3029,6 +3305,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_bucket_analytics_configurations(bucket : String, continuation_token : String? = nil, expected_bucket_owner : String? = nil) : ListBucketAnalyticsConfigurationsOutput
+    list_bucket_analytics_configurations(ListBucketAnalyticsConfigurationsRequest.new(
+      bucket: bucket, continuation_token: continuation_token, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_bucket_analytics_configurations(input : ListBucketAnalyticsConfigurationsRequest) : ListBucketAnalyticsConfigurationsOutput
     path = "/{Bucket}?analytics&x-id=ListBucketAnalyticsConfigurations"
     if label = input.bucket
@@ -3044,8 +3325,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Lists the S3 Intelligent-Tiering configuration from the specified bucket.</p>
+      
+            # <p>Lists the S3 Intelligent-Tiering configuration from the specified bucket.</p>
   # <p>The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead. S3 Intelligent-Tiering delivers automatic cost savings by moving data between access tiers, when access patterns change.</p>
   # <p>The S3 Intelligent-Tiering storage class is suitable for objects larger than 128 KB that you plan to store for at least 30 days. If the size of an object is less than 128 KB, it is not eligible for auto-tiering. Smaller objects can be stored, but they are always charged at the frequent access tier rates in the S3 Intelligent-Tiering storage class. </p>
   # <p>If you delete an object before the end of the 30-day minimum storage duration period, you are charged for 30 days. For more information, see  <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access">Storage class for automatically optimizing frequently and infrequently accessed objects</a>.</p>
@@ -3068,6 +3349,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_bucket_intelligent_tiering_configurations(bucket : String, continuation_token : String? = nil) : ListBucketIntelligentTieringConfigurationsOutput
+    list_bucket_intelligent_tiering_configurations(ListBucketIntelligentTieringConfigurationsRequest.new(
+      bucket: bucket, continuation_token: continuation_token
+    ))
+  end
   def list_bucket_intelligent_tiering_configurations(input : ListBucketIntelligentTieringConfigurationsRequest) : ListBucketIntelligentTieringConfigurationsOutput
     path = "/{Bucket}?intelligent-tiering&x-id=ListBucketIntelligentTieringConfigurations"
     if label = input.bucket
@@ -3083,8 +3369,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns a list of inventory configurations for the bucket. You can have up to 1,000
+      
+            # <p>Returns a list of inventory configurations for the bucket. You can have up to 1,000
   # analytics configurations per bucket.</p>
   # 
   # <p>This operation supports list pagination and does not return more than 100 configurations
@@ -3123,6 +3409,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_bucket_inventory_configurations(bucket : String, continuation_token : String? = nil, expected_bucket_owner : String? = nil) : ListBucketInventoryConfigurationsOutput
+    list_bucket_inventory_configurations(ListBucketInventoryConfigurationsRequest.new(
+      bucket: bucket, continuation_token: continuation_token, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_bucket_inventory_configurations(input : ListBucketInventoryConfigurationsRequest) : ListBucketInventoryConfigurationsOutput
     path = "/{Bucket}?inventory&x-id=ListBucketInventoryConfigurations"
     if label = input.bucket
@@ -3138,8 +3429,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Lists the metrics configurations for the bucket. The metrics configurations are only for
+      
+            # <p>Lists the metrics configurations for the bucket. The metrics configurations are only for
   # the request metrics of the bucket and do not provide information on daily storage metrics.
   # You can have up to 1,000 configurations per bucket.</p>
   # 
@@ -3180,6 +3471,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_bucket_metrics_configurations(bucket : String, continuation_token : String? = nil, expected_bucket_owner : String? = nil) : ListBucketMetricsConfigurationsOutput
+    list_bucket_metrics_configurations(ListBucketMetricsConfigurationsRequest.new(
+      bucket: bucket, continuation_token: continuation_token, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_bucket_metrics_configurations(input : ListBucketMetricsConfigurationsRequest) : ListBucketMetricsConfigurationsOutput
     path = "/{Bucket}?metrics&x-id=ListBucketMetricsConfigurations"
     if label = input.bucket
@@ -3195,8 +3491,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns a list of all buckets owned by the authenticated sender of the request.</p>
+      
+            # <p>Returns a list of all buckets owned by the authenticated sender of the request.</p>
   def list_buckets() : ListBucketsOutput
     path = "/"
     request = HTTP::Request.new("GET", path)
@@ -3206,8 +3502,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation lists in-progress multipart uploads. An in-progress multipart upload is a
+      
+            # <p>This operation lists in-progress multipart uploads. An in-progress multipart upload is a
   # multipart upload that has been initiated using the Initiate Multipart Upload request, but
   # has not yet been completed or aborted.</p>
   # 
@@ -3258,6 +3554,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_multipart_uploads(bucket : String, delimiter : String? = nil, encoding_type : String? = nil, key_marker : String? = nil, max_uploads : Int32? = nil, prefix : String? = nil, upload_id_marker : String? = nil, expected_bucket_owner : String? = nil) : ListMultipartUploadsOutput
+    list_multipart_uploads(ListMultipartUploadsRequest.new(
+      bucket: bucket, delimiter: delimiter, encoding_type: encoding_type, key_marker: key_marker, max_uploads: max_uploads, prefix: prefix, upload_id_marker: upload_id_marker, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_multipart_uploads(input : ListMultipartUploadsRequest) : ListMultipartUploadsOutput
     path = "/{Bucket}?uploads"
     if label = input.bucket
@@ -3273,8 +3574,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the request
+      
+            # <p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the request
   # parameters as selection criteria to return a subset of the objects in a bucket. A 200 OK
   # response can contain valid or invalid XML. Be sure to design your application to parse the
   # contents of the response and handle it appropriately.</p>
@@ -3312,6 +3613,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_objects(bucket : String, delimiter : String? = nil, encoding_type : String? = nil, marker : String? = nil, max_keys : Int32? = nil, prefix : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : ListObjectsOutput
+    list_objects(ListObjectsRequest.new(
+      bucket: bucket, delimiter: delimiter, encoding_type: encoding_type, marker: marker, max_keys: max_keys, prefix: prefix, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_objects(input : ListObjectsRequest) : ListObjectsOutput
     path = "/{Bucket}"
     if label = input.bucket
@@ -3327,8 +3633,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the request
+      
+            # <p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the request
   # parameters as selection criteria to return a subset of the objects in a bucket. A <code>200
   # OK</code> response can contain valid or invalid XML. Make sure to design your
   # application to parse the contents of the response and handle it appropriately.</p>
@@ -3366,6 +3672,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_objects_v2(bucket : String, delimiter : String? = nil, encoding_type : String? = nil, max_keys : Int32? = nil, prefix : String? = nil, continuation_token : String? = nil, fetch_owner : Bool? = nil, start_after : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : ListObjectsV2Output
+    list_objects_v2(ListObjectsV2Request.new(
+      bucket: bucket, delimiter: delimiter, encoding_type: encoding_type, max_keys: max_keys, prefix: prefix, continuation_token: continuation_token, fetch_owner: fetch_owner, start_after: start_after, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_objects_v2(input : ListObjectsV2Request) : ListObjectsV2Output
     path = "/{Bucket}?list-type=2"
     if label = input.bucket
@@ -3381,8 +3692,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Returns metadata about all versions of the objects in a bucket. You can also use request
+      
+            # <p>Returns metadata about all versions of the objects in a bucket. You can also use request
   # parameters as selection criteria to return metadata about a subset of all the object
   # versions. </p>
   # <note>
@@ -3415,6 +3726,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_object_versions(bucket : String, delimiter : String? = nil, encoding_type : String? = nil, key_marker : String? = nil, max_keys : Int32? = nil, prefix : String? = nil, version_id_marker : String? = nil, expected_bucket_owner : String? = nil) : ListObjectVersionsOutput
+    list_object_versions(ListObjectVersionsRequest.new(
+      bucket: bucket, delimiter: delimiter, encoding_type: encoding_type, key_marker: key_marker, max_keys: max_keys, prefix: prefix, version_id_marker: version_id_marker, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_object_versions(input : ListObjectVersionsRequest) : ListObjectVersionsOutput
     path = "/{Bucket}?versions"
     if label = input.bucket
@@ -3430,8 +3746,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Lists the parts that have been uploaded for a specific multipart upload. This operation
+      
+            # <p>Lists the parts that have been uploaded for a specific multipart upload. This operation
   # must include the upload ID, which you obtain by sending the initiate multipart upload
   # request (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html">CreateMultipartUpload</a>).
   # This request returns a maximum of 1,000 uploaded parts. The default number of parts
@@ -3476,6 +3792,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def list_parts(bucket : String, key : String, upload_id : String, max_parts : Int32? = nil, part_number_marker : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : ListPartsOutput
+    list_parts(ListPartsRequest.new(
+      bucket: bucket, key: key, max_parts: max_parts, part_number_marker: part_number_marker, upload_id: upload_id, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def list_parts(input : ListPartsRequest) : ListPartsOutput
     path = "/{Bucket}/{Key+}?x-id=ListParts"
     if label = input.bucket
@@ -3496,8 +3817,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the accelerate configuration of an existing bucket. Amazon S3 Transfer Acceleration is a
+      
+            # <p>Sets the accelerate configuration of an existing bucket. Amazon S3 Transfer Acceleration is a
   # bucket-level feature that enables you to perform faster data transfers to Amazon S3.</p>
   # 
   # <p> To use this operation, you must have permission to perform the
@@ -3543,6 +3864,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_accelerate_configuration(bucket : String, accelerate_configuration : AccelerateConfigurationStruct, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_accelerate_configuration(PutBucketAccelerateConfigurationRequest.new(
+      bucket: bucket, accelerate_configuration: accelerate_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_accelerate_configuration(input : PutBucketAccelerateConfigurationRequest) :   Nil
     path = "/{Bucket}?accelerate"
     if label = input.bucket
@@ -3558,8 +3884,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the permissions on an existing bucket using access control lists (ACL). For more
+      
+            # <p>Sets the permissions on an existing bucket using access control lists (ACL). For more
   # information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html">Using ACLs</a>. To set
   # the ACL of a bucket, you must have <code>WRITE_ACP</code> permission.</p>
   # 
@@ -3750,6 +4076,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_acl(bucket : String, acl : String? = nil, access_control_policy : AccessControlPolicyStruct? = nil, content_md5 : String? = nil, grant_full_control : String? = nil, grant_read : String? = nil, grant_read_acp : String? = nil, grant_write : String? = nil, grant_write_acp : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_acl(PutBucketAclRequest.new(
+      acl: acl, access_control_policy: access_control_policy, bucket: bucket, content_md5: content_md5, grant_full_control: grant_full_control, grant_read: grant_read, grant_read_acp: grant_read_acp, grant_write: grant_write, grant_write_acp: grant_write_acp, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_acl(input : PutBucketAclRequest) :   Nil
     path = "/{Bucket}?acl"
     if label = input.bucket
@@ -3765,8 +4096,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets an analytics configuration for the bucket (specified by the analytics configuration
+      
+            # <p>Sets an analytics configuration for the bucket (specified by the analytics configuration
   # ID). You can have up to 1,000 analytics configurations per bucket.</p>
   # 
   # <p>You can choose to have storage class analysis export analysis reports sent to a
@@ -3882,6 +4213,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_analytics_configuration(bucket : String, id : String, analytics_configuration : AnalyticsConfigurationStruct, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_analytics_configuration(PutBucketAnalyticsConfigurationRequest.new(
+      bucket: bucket, id: id, analytics_configuration: analytics_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_analytics_configuration(input : PutBucketAnalyticsConfigurationRequest) :   Nil
     path = "/{Bucket}?analytics"
     if label = input.bucket
@@ -3897,8 +4233,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the <code>cors</code> configuration for your bucket. If the configuration exists,
+      
+            # <p>Sets the <code>cors</code> configuration for your bucket. If the configuration exists,
   # Amazon S3 replaces it.</p>
   # <p>To use this operation, you must be allowed to perform the <code>s3:PutBucketCORS</code>
   # action. By default, the bucket owner has this permission and can grant it to others.</p>
@@ -3955,6 +4291,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_cors(bucket : String, cors_configuration : CORSConfigurationStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_cors(PutBucketCorsRequest.new(
+      bucket: bucket, cors_configuration: cors_configuration, content_md5: content_md5, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_cors(input : PutBucketCorsRequest) :   Nil
     path = "/{Bucket}?cors"
     if label = input.bucket
@@ -3970,8 +4311,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation uses the <code>encryption</code> subresource to configure default
+      
+            # <p>This operation uses the <code>encryption</code> subresource to configure default
   # encryption and Amazon S3 Bucket Key for an existing bucket.</p>
   # <p>Default encryption for a bucket can use server-side encryption with Amazon S3-managed keys
   # (SSE-S3) or AWS KMS customer master keys (SSE-KMS). If you specify default encryption
@@ -4004,6 +4345,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_encryption(bucket : String, server_side_encryption_configuration : ServerSideEncryptionConfigurationStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_encryption(PutBucketEncryptionRequest.new(
+      bucket: bucket, content_md5: content_md5, server_side_encryption_configuration: server_side_encryption_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_encryption(input : PutBucketEncryptionRequest) :   Nil
     path = "/{Bucket}?encryption"
     if label = input.bucket
@@ -4019,8 +4365,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Puts a S3 Intelligent-Tiering configuration to the specified bucket.</p>
+      
+            # <p>Puts a S3 Intelligent-Tiering configuration to the specified bucket.</p>
   # <p>The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead. S3 Intelligent-Tiering delivers automatic cost savings by moving data between access tiers, when access patterns change.</p>
   # <p>The S3 Intelligent-Tiering storage class is suitable for objects larger than 128 KB that you plan to store for at least 30 days. If the size of an object is less than 128 KB, it is not eligible for auto-tiering. Smaller objects can be stored, but they are always charged at the frequent access tier rates in the S3 Intelligent-Tiering storage class. </p>
   # <p>If you delete an object before the end of the 30-day minimum storage duration period, you are charged for 30 days. For more information, see  <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access">Storage class for automatically optimizing frequently and infrequently accessed objects</a>.</p>
@@ -4043,6 +4389,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_intelligent_tiering_configuration(bucket : String, id : String, intelligent_tiering_configuration : IntelligentTieringConfigurationStruct) :     Nil
+    put_bucket_intelligent_tiering_configuration(PutBucketIntelligentTieringConfigurationRequest.new(
+      bucket: bucket, id: id, intelligent_tiering_configuration: intelligent_tiering_configuration
+    ))
+  end
   def put_bucket_intelligent_tiering_configuration(input : PutBucketIntelligentTieringConfigurationRequest) :   Nil
     path = "/{Bucket}?intelligent-tiering"
     if label = input.bucket
@@ -4058,8 +4409,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This implementation of the <code>PUT</code> operation adds an inventory configuration
+      
+            # <p>This implementation of the <code>PUT</code> operation adds an inventory configuration
   # (identified by the inventory ID) to the bucket. You can have up to 1,000 inventory
   # configurations per bucket. </p>
   # <p>Amazon S3 inventory generates inventories of the objects in the bucket on a daily or weekly
@@ -4160,6 +4511,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_inventory_configuration(bucket : String, id : String, inventory_configuration : InventoryConfigurationStruct, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_inventory_configuration(PutBucketInventoryConfigurationRequest.new(
+      bucket: bucket, id: id, inventory_configuration: inventory_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_inventory_configuration(input : PutBucketInventoryConfigurationRequest) :   Nil
     path = "/{Bucket}?inventory"
     if label = input.bucket
@@ -4175,8 +4531,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Creates a new lifecycle configuration for the bucket or replaces an existing lifecycle
+      
+            # <p>Creates a new lifecycle configuration for the bucket or replaces an existing lifecycle
   # configuration. For information about lifecycle configuration, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3
   # Resources</a>.</p>
   # 
@@ -4270,6 +4626,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_lifecycle_configuration(bucket : String, lifecycle_configuration : BucketLifecycleConfigurationStruct? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_lifecycle_configuration(PutBucketLifecycleConfigurationRequest.new(
+      bucket: bucket, lifecycle_configuration: lifecycle_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_lifecycle_configuration(input : PutBucketLifecycleConfigurationRequest) :   Nil
     path = "/{Bucket}?lifecycle"
     if label = input.bucket
@@ -4285,8 +4646,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Set the logging parameters for a bucket and to specify permissions for who can view and
+      
+            # <p>Set the logging parameters for a bucket and to specify permissions for who can view and
   # modify the logging parameters. All logs are saved to buckets in the same AWS Region as the
   # source bucket. To set the logging status of a bucket, you must be the bucket owner.</p>
   # 
@@ -4366,6 +4727,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_logging(bucket : String, bucket_logging_status : BucketLoggingStatusStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_logging(PutBucketLoggingRequest.new(
+      bucket: bucket, bucket_logging_status: bucket_logging_status, content_md5: content_md5, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_logging(input : PutBucketLoggingRequest) :   Nil
     path = "/{Bucket}?logging"
     if label = input.bucket
@@ -4381,8 +4747,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets a metrics configuration (specified by the metrics configuration ID) for the bucket.
+      
+            # <p>Sets a metrics configuration (specified by the metrics configuration ID) for the bucket.
   # You can have up to 1,000 metrics configurations per bucket. If you're updating an existing
   # metrics configuration, note that this is a full replacement of the existing metrics
   # configuration. If you don't include the elements you want to keep, they are erased.</p>
@@ -4438,6 +4804,11 @@ module AmazonS3
   # </ul>
   # </li>
   # </ul>
+  def put_bucket_metrics_configuration(bucket : String, id : String, metrics_configuration : MetricsConfigurationStruct, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_metrics_configuration(PutBucketMetricsConfigurationRequest.new(
+      bucket: bucket, id: id, metrics_configuration: metrics_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_metrics_configuration(input : PutBucketMetricsConfigurationRequest) :   Nil
     path = "/{Bucket}?metrics"
     if label = input.bucket
@@ -4453,8 +4824,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Enables notifications of specified events for a bucket. For more information about event
+      
+            # <p>Enables notifications of specified events for a bucket. For more information about event
   # notifications, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Configuring Event
   # Notifications</a>.</p>
   # 
@@ -4516,6 +4887,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_notification_configuration(bucket : String, notification_configuration : NotificationConfigurationStruct, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_notification_configuration(PutBucketNotificationConfigurationRequest.new(
+      bucket: bucket, notification_configuration: notification_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_notification_configuration(input : PutBucketNotificationConfigurationRequest) :   Nil
     path = "/{Bucket}?notification"
     if label = input.bucket
@@ -4531,8 +4907,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Creates or modifies <code>OwnershipControls</code> for an Amazon S3 bucket. To use this
+      
+            # <p>Creates or modifies <code>OwnershipControls</code> for an Amazon S3 bucket. To use this
   # operation, you must have the <code>s3:PutBucketOwnershipControls</code> permission. For
   # more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a Policy</a>. </p>
   # <p>For information about Amazon S3 Object Ownership, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/about-object-ownership.html">Using Object Ownership</a>. </p>
@@ -4549,6 +4925,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_ownership_controls(bucket : String, ownership_controls : OwnershipControlsStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_ownership_controls(PutBucketOwnershipControlsRequest.new(
+      bucket: bucket, content_md5: content_md5, expected_bucket_owner: expected_bucket_owner, ownership_controls: ownership_controls
+    ))
+  end
   def put_bucket_ownership_controls(input : PutBucketOwnershipControlsRequest) :   Nil
     path = "/{Bucket}?ownershipControls"
     if label = input.bucket
@@ -4564,8 +4945,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Applies an Amazon S3 bucket policy to an Amazon S3 bucket. If you are using an identity other than
+      
+            # <p>Applies an Amazon S3 bucket policy to an Amazon S3 bucket. If you are using an identity other than
   # the root user of the AWS account that owns the bucket, the calling identity must have the
   # <code>PutBucketPolicy</code> permissions on the specified bucket and belong to the
   # bucket owner's account in order to use this operation.</p>
@@ -4598,6 +4979,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_policy(bucket : String, policy : String, content_md5 : String? = nil, confirm_remove_self_bucket_access : Bool? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_policy(PutBucketPolicyRequest.new(
+      bucket: bucket, content_md5: content_md5, confirm_remove_self_bucket_access: confirm_remove_self_bucket_access, policy: policy, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_policy(input : PutBucketPolicyRequest) :   Nil
     path = "/{Bucket}?policy"
     if label = input.bucket
@@ -4613,8 +4999,8 @@ module AmazonS3
   end
 
 
-    
-          # <p> Creates a replication configuration or replaces an existing one. For more information,
+      
+            # <p> Creates a replication configuration or replaces an existing one. For more information,
   # see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html">Replication</a> in the <i>Amazon S3 Developer Guide</i>. </p>
   # <note>
   # <p>To perform this operation, the user or role performing the operation must have the
@@ -4678,6 +5064,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_replication(bucket : String, replication_configuration : ReplicationConfigurationStruct, content_md5 : String? = nil, token : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_replication(PutBucketReplicationRequest.new(
+      bucket: bucket, content_md5: content_md5, replication_configuration: replication_configuration, token: token, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_replication(input : PutBucketReplicationRequest) :   Nil
     path = "/{Bucket}?replication"
     if label = input.bucket
@@ -4693,8 +5084,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the request payment configuration for a bucket. By default, the bucket owner pays
+      
+            # <p>Sets the request payment configuration for a bucket. By default, the bucket owner pays
   # for downloads from the bucket. This configuration parameter enables the bucket owner (only)
   # to specify that the person requesting the download will be charged for the download. For
   # more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html">Requester Pays
@@ -4713,6 +5104,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_request_payment(bucket : String, request_payment_configuration : RequestPaymentConfigurationStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_request_payment(PutBucketRequestPaymentRequest.new(
+      bucket: bucket, content_md5: content_md5, request_payment_configuration: request_payment_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_request_payment(input : PutBucketRequestPaymentRequest) :   Nil
     path = "/{Bucket}?requestPayment"
     if label = input.bucket
@@ -4728,8 +5124,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the tags for a bucket.</p>
+      
+            # <p>Sets the tags for a bucket.</p>
   # <p>Use tags to organize your AWS bill to reflect your own cost structure. To do this, sign
   # up to get your AWS account bill with tag key values included. Then, to see the cost of
   # combined resources, organize your billing information according to resources with the same
@@ -4807,6 +5203,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_tagging(bucket : String, tagging : TaggingStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_tagging(PutBucketTaggingRequest.new(
+      bucket: bucket, content_md5: content_md5, tagging: tagging, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_tagging(input : PutBucketTaggingRequest) :   Nil
     path = "/{Bucket}?tagging"
     if label = input.bucket
@@ -4822,8 +5223,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the versioning state of an existing bucket. To set the versioning state, you must
+      
+            # <p>Sets the versioning state of an existing bucket. To set the versioning state, you must
   # be the bucket owner.</p>
   # <p>You can set the versioning state with one of the following values:</p>
   # 
@@ -4872,6 +5273,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_bucket_versioning(bucket : String, versioning_configuration : VersioningConfigurationStruct, content_md5 : String? = nil, mfa : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_versioning(PutBucketVersioningRequest.new(
+      bucket: bucket, content_md5: content_md5, mfa: mfa, versioning_configuration: versioning_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_versioning(input : PutBucketVersioningRequest) :   Nil
     path = "/{Bucket}?versioning"
     if label = input.bucket
@@ -4887,8 +5293,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the configuration of the website that is specified in the <code>website</code>
+      
+            # <p>Sets the configuration of the website that is specified in the <code>website</code>
   # subresource. To configure a bucket as a website, you can add this subresource on the bucket
   # with website configuration information such as the file name of the index document and any
   # redirect rules. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html">Hosting Websites on Amazon S3</a>.</p>
@@ -5014,6 +5420,11 @@ module AmazonS3
   # <p>Amazon S3 has a limitation of 50 routing rules per website configuration. If you require more
   # than 50 routing rules, you can use object redirect. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html">Configuring an
   # Object Redirect</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
+  def put_bucket_website(bucket : String, website_configuration : WebsiteConfigurationStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_bucket_website(PutBucketWebsiteRequest.new(
+      bucket: bucket, content_md5: content_md5, website_configuration: website_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_bucket_website(input : PutBucketWebsiteRequest) :   Nil
     path = "/{Bucket}?website"
     if label = input.bucket
@@ -5029,8 +5440,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Adds an object to a bucket. You must have WRITE permissions on a bucket to add an object
+      
+            # <p>Adds an object to a bucket. You must have WRITE permissions on a bucket to add an object
   # to it.</p>
   # 
   # 
@@ -5111,6 +5522,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_object(key : String, bucket : String, acl : String? = nil, storage_class : String? = nil, website_redirect_location : String? = nil, sse_customer_algorithm : String? = nil, sse_customer_key : String? = nil, sse_customer_key_md5 : String? = nil, ssekms_key_id : String? = nil, ssekms_encryption_context : String? = nil, bucket_key_enabled : Bool? = nil, request_payer : String? = nil, tagging : String? = nil, object_lock_mode : String? = nil, object_lock_retain_until_date : Time? = nil, object_lock_legal_hold_status : String? = nil, server_side_encryption : String? = nil, metadata : Hash(String, String)? = nil, grant_write_acp : String? = nil, grant_read_acp : String? = nil, grant_read : String? = nil, grant_full_control : String? = nil, expires : Time? = nil, content_type : String? = nil, content_md5 : String? = nil, content_length : Int64? = nil, content_language : String? = nil, content_encoding : String? = nil, content_disposition : String? = nil, cache_control : String? = nil, body : (IO | String | Bytes)? = nil, expected_bucket_owner : String? = nil) : PutObjectOutput
+    put_object(PutObjectRequest.new(
+      acl: acl, body: body, bucket: bucket, cache_control: cache_control, content_disposition: content_disposition, content_encoding: content_encoding, content_language: content_language, content_length: content_length, content_md5: content_md5, content_type: content_type, expires: expires, grant_full_control: grant_full_control, grant_read: grant_read, grant_read_acp: grant_read_acp, grant_write_acp: grant_write_acp, key: key, metadata: metadata, server_side_encryption: server_side_encryption, storage_class: storage_class, website_redirect_location: website_redirect_location, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, ssekms_key_id: ssekms_key_id, ssekms_encryption_context: ssekms_encryption_context, bucket_key_enabled: bucket_key_enabled, request_payer: request_payer, tagging: tagging, object_lock_mode: object_lock_mode, object_lock_retain_until_date: object_lock_retain_until_date, object_lock_legal_hold_status: object_lock_legal_hold_status, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_object(input : PutObjectRequest) : PutObjectOutput
     path = "/{Bucket}/{Key+}?x-id=PutObject"
     if label = input.bucket
@@ -5131,8 +5547,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Uses the <code>acl</code> subresource to set the access control list (ACL) permissions
+      
+            # <p>Uses the <code>acl</code> subresource to set the access control list (ACL) permissions
   # for a new or existing object in an S3 bucket. You must have <code>WRITE_ACP</code>
   # permission to set the ACL of an object. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions">What
   # permissions can I grant?</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.</p>
@@ -5311,6 +5727,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_object_acl(bucket : String, key : String, acl : String? = nil, access_control_policy : AccessControlPolicyStruct? = nil, content_md5 : String? = nil, grant_full_control : String? = nil, grant_read : String? = nil, grant_read_acp : String? = nil, grant_write : String? = nil, grant_write_acp : String? = nil, request_payer : String? = nil, version_id : String? = nil, expected_bucket_owner : String? = nil) : PutObjectAclOutput
+    put_object_acl(PutObjectAclRequest.new(
+      acl: acl, access_control_policy: access_control_policy, bucket: bucket, content_md5: content_md5, grant_full_control: grant_full_control, grant_read: grant_read, grant_read_acp: grant_read_acp, grant_write: grant_write, grant_write_acp: grant_write_acp, key: key, request_payer: request_payer, version_id: version_id, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_object_acl(input : PutObjectAclRequest) : PutObjectAclOutput
     path = "/{Bucket}/{Key+}?acl"
     if label = input.bucket
@@ -5331,8 +5752,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Applies a Legal Hold configuration to the specified object.</p>
+      
+            # <p>Applies a Legal Hold configuration to the specified object.</p>
   # <p>This action is not supported by Amazon S3 on Outposts.</p>
   # <p class="title">
   # <b>Related Resources</b>
@@ -5344,6 +5765,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_object_legal_hold(bucket : String, key : String, legal_hold : ObjectLockLegalHoldStruct? = nil, request_payer : String? = nil, version_id : String? = nil, content_md5 : String? = nil, expected_bucket_owner : String? = nil) : PutObjectLegalHoldOutput
+    put_object_legal_hold(PutObjectLegalHoldRequest.new(
+      bucket: bucket, key: key, legal_hold: legal_hold, request_payer: request_payer, version_id: version_id, content_md5: content_md5, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_object_legal_hold(input : PutObjectLegalHoldRequest) : PutObjectLegalHoldOutput
     path = "/{Bucket}/{Key+}?legal-hold"
     if label = input.bucket
@@ -5364,8 +5790,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Places an Object Lock configuration on the specified bucket. The rule specified in the
+      
+            # <p>Places an Object Lock configuration on the specified bucket. The rule specified in the
   # Object Lock configuration will be applied by default to every new object placed in the
   # specified bucket.</p>
   # <note>
@@ -5384,6 +5810,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_object_lock_configuration(bucket : String, object_lock_configuration : ObjectLockConfigurationStruct? = nil, request_payer : String? = nil, token : String? = nil, content_md5 : String? = nil, expected_bucket_owner : String? = nil) : PutObjectLockConfigurationOutput
+    put_object_lock_configuration(PutObjectLockConfigurationRequest.new(
+      bucket: bucket, object_lock_configuration: object_lock_configuration, request_payer: request_payer, token: token, content_md5: content_md5, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_object_lock_configuration(input : PutObjectLockConfigurationRequest) : PutObjectLockConfigurationOutput
     path = "/{Bucket}?object-lock"
     if label = input.bucket
@@ -5399,8 +5830,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Places an Object Retention configuration on an object.</p>
+      
+            # <p>Places an Object Retention configuration on an object.</p>
   # <p>This action is not supported by Amazon S3 on Outposts.</p>
   # <p class="title">
   # <b>Related Resources</b>
@@ -5412,6 +5843,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_object_retention(bucket : String, key : String, retention : ObjectLockRetentionStruct? = nil, request_payer : String? = nil, version_id : String? = nil, bypass_governance_retention : Bool? = nil, content_md5 : String? = nil, expected_bucket_owner : String? = nil) : PutObjectRetentionOutput
+    put_object_retention(PutObjectRetentionRequest.new(
+      bucket: bucket, key: key, retention: retention, request_payer: request_payer, version_id: version_id, bypass_governance_retention: bypass_governance_retention, content_md5: content_md5, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_object_retention(input : PutObjectRetentionRequest) : PutObjectRetentionOutput
     path = "/{Bucket}/{Key+}?retention"
     if label = input.bucket
@@ -5432,8 +5868,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Sets the supplied tag-set to an object that already exists in a bucket.</p>
+      
+            # <p>Sets the supplied tag-set to an object that already exists in a bucket.</p>
   # <p>A tag is a key-value pair. You can associate tags with an object by sending a PUT
   # request against the tagging subresource that is associated with the object. You can
   # retrieve tags by sending a GET request. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html">GetObjectTagging</a>.</p>
@@ -5532,6 +5968,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_object_tagging(bucket : String, key : String, tagging : TaggingStruct, version_id : String? = nil, content_md5 : String? = nil, expected_bucket_owner : String? = nil) : PutObjectTaggingOutput
+    put_object_tagging(PutObjectTaggingRequest.new(
+      bucket: bucket, key: key, version_id: version_id, content_md5: content_md5, tagging: tagging, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_object_tagging(input : PutObjectTaggingRequest) : PutObjectTaggingOutput
     path = "/{Bucket}/{Key+}?tagging"
     if label = input.bucket
@@ -5552,8 +5993,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Creates or modifies the <code>PublicAccessBlock</code> configuration for an Amazon S3 bucket.
+      
+            # <p>Creates or modifies the <code>PublicAccessBlock</code> configuration for an Amazon S3 bucket.
   # To use this operation, you must have the <code>s3:PutBucketPublicAccessBlock</code>
   # permission. For more information about Amazon S3 permissions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a
   # Policy</a>.</p>
@@ -5598,6 +6039,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def put_public_access_block(bucket : String, public_access_block_configuration : PublicAccessBlockConfigurationStruct, content_md5 : String? = nil, expected_bucket_owner : String? = nil) :     Nil
+    put_public_access_block(PutPublicAccessBlockRequest.new(
+      bucket: bucket, content_md5: content_md5, public_access_block_configuration: public_access_block_configuration, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def put_public_access_block(input : PutPublicAccessBlockRequest) :   Nil
     path = "/{Bucket}?publicAccessBlock"
     if label = input.bucket
@@ -5613,8 +6059,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Restores an archived copy of an object back into Amazon S3</p>
+      
+            # <p>Restores an archived copy of an object back into Amazon S3</p>
   # <p>This action is not supported by Amazon S3 on Outposts.</p>
   # <p>This action performs the following types of requests: </p>
   # <ul>
@@ -5906,6 +6352,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def restore_object(bucket : String, key : String, version_id : String? = nil, restore_request : RestoreRequest? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : RestoreObjectOutput
+    restore_object(RestoreObjectRequest.new(
+      bucket: bucket, key: key, version_id: version_id, restore_request: restore_request, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def restore_object(input : RestoreObjectRequest) : RestoreObjectOutput
     path = "/{Bucket}/{Key+}?restore"
     if label = input.bucket
@@ -5926,8 +6377,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>This operation filters the contents of an Amazon S3 object based on a simple structured query
+      
+            # <p>This operation filters the contents of an Amazon S3 object based on a simple structured query
   # language (SQL) statement. In the request, along with the SQL expression, you must also
   # specify a data serialization format (JSON, CSV, or Apache Parquet) of the object. Amazon S3 uses
   # this format to parse object data into records, and returns only records that match the
@@ -6045,6 +6496,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def select_object_content(bucket : String, key : String, expression : String, expression_type : String, input_serialization : InputSerializationStruct, output_serialization : OutputSerializationStruct, sse_customer_algorithm : String? = nil, sse_customer_key : String? = nil, sse_customer_key_md5 : String? = nil, request_progress : RequestProgressStruct? = nil, scan_range : ScanRangeStruct? = nil, expected_bucket_owner : String? = nil) : SelectObjectContentOutput
+    select_object_content(SelectObjectContentRequest.new(
+      bucket: bucket, key: key, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, expression: expression, expression_type: expression_type, request_progress: request_progress, input_serialization: input_serialization, output_serialization: output_serialization, scan_range: scan_range, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def select_object_content(input : SelectObjectContentRequest) : SelectObjectContentOutput
     path = "/{Bucket}/{Key+}?select&select-type=2"
     if label = input.bucket
@@ -6065,8 +6521,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Uploads a part in a multipart upload.</p>
+      
+            # <p>Uploads a part in a multipart upload.</p>
   # <note>
   # <p>In this operation, you provide part data in your request. However, you have an option
   # to specify your existing Amazon S3 object as a data source for the part you are uploading. To
@@ -6204,6 +6660,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def upload_part(bucket : String, key : String, part_number : Int32, upload_id : String, body : (IO | String | Bytes)? = nil, content_length : Int64? = nil, content_md5 : String? = nil, sse_customer_algorithm : String? = nil, sse_customer_key : String? = nil, sse_customer_key_md5 : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil) : UploadPartOutput
+    upload_part(UploadPartRequest.new(
+      body: body, bucket: bucket, content_length: content_length, content_md5: content_md5, key: key, part_number: part_number, upload_id: upload_id, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner
+    ))
+  end
   def upload_part(input : UploadPartRequest) : UploadPartOutput
     path = "/{Bucket}/{Key+}?x-id=UploadPart"
     if label = input.bucket
@@ -6224,8 +6685,8 @@ module AmazonS3
   end
 
 
-    
-          # <p>Uploads a part by copying data from an existing object as data source. You specify the
+      
+            # <p>Uploads a part by copying data from an existing object as data source. You specify the
   # data source by adding the request header <code>x-amz-copy-source</code> in your request and
   # a byte range by adding the request header <code>x-amz-copy-source-range</code> in your
   # request. </p>
@@ -6404,6 +6865,11 @@ module AmazonS3
   # </p>
   # </li>
   # </ul>
+  def upload_part_copy(bucket : String, upload_id : String, part_number : Int32, key : String, copy_source : String, copy_source_if_none_match : String? = nil, copy_source_if_unmodified_since : Time? = nil, copy_source_range : String? = nil, copy_source_if_modified_since : Time? = nil, copy_source_if_match : String? = nil, sse_customer_algorithm : String? = nil, sse_customer_key : String? = nil, sse_customer_key_md5 : String? = nil, copy_source_sse_customer_algorithm : String? = nil, copy_source_sse_customer_key : String? = nil, copy_source_sse_customer_key_md5 : String? = nil, request_payer : String? = nil, expected_bucket_owner : String? = nil, expected_source_bucket_owner : String? = nil) : UploadPartCopyOutput
+    upload_part_copy(UploadPartCopyRequest.new(
+      bucket: bucket, copy_source: copy_source, copy_source_if_match: copy_source_if_match, copy_source_if_modified_since: copy_source_if_modified_since, copy_source_if_none_match: copy_source_if_none_match, copy_source_if_unmodified_since: copy_source_if_unmodified_since, copy_source_range: copy_source_range, key: key, part_number: part_number, upload_id: upload_id, sse_customer_algorithm: sse_customer_algorithm, sse_customer_key: sse_customer_key, sse_customer_key_md5: sse_customer_key_md5, copy_source_sse_customer_algorithm: copy_source_sse_customer_algorithm, copy_source_sse_customer_key: copy_source_sse_customer_key, copy_source_sse_customer_key_md5: copy_source_sse_customer_key_md5, request_payer: request_payer, expected_bucket_owner: expected_bucket_owner, expected_source_bucket_owner: expected_source_bucket_owner
+    ))
+  end
   def upload_part_copy(input : UploadPartCopyRequest) : UploadPartCopyOutput
     path = "/{Bucket}/{Key+}?x-id=UploadPartCopy"
     if label = input.bucket
@@ -6424,11 +6890,12 @@ module AmazonS3
   end
 
 
-    
+      
+    end 
   end
 
 
-  class AbortMultipartUploadRequest 
+  class AbortMultipartUploadRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name to which the upload was taking place. </p>
@@ -6449,22 +6916,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @upload_id, @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @upload_id : String, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class AbortMultipartUploadOutput 
+  class AbortMultipartUploadOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@request_charged = nil )
+    def initialize(@request_charged : String = nil)
     end
   end
 
-  class NoSuchUpload < Exception
+  class NoSuchUpload
     include AWSSdk::RestXML::Structure
 
 
@@ -6472,7 +6939,7 @@ module AmazonS3
     end
   end
 
-  class CompletedPartStruct 
+  class CompletedPartStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Entity tag returned when the part was uploaded.</p>
@@ -6483,22 +6950,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "PartNumber", structure: false)]
     property part_number : Int32?
 
-    def initialize(@e_tag = nil , @part_number = nil )
+    def initialize(@e_tag : String = nil, @part_number : Int32 = nil)
     end
   end
 
-  class CompletedMultipartUploadStruct 
+  class CompletedMultipartUploadStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Array of CompletedPart data types.</p>
     @[AWSSdk::Field(location: :body, name: "Part", structure: false)]
     property parts : Array(CompletedPartStruct)?
 
-    def initialize(@parts = nil )
+    def initialize(@parts : Array(CompletedPartStruct) = nil)
     end
   end
 
-  class CompleteMultipartUploadRequest 
+  class CompleteMultipartUploadRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Name of the bucket to which the multipart upload was initiated.</p>
@@ -6520,11 +6987,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @upload_id, @multipart_upload = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @upload_id : String, @multipart_upload : CompletedMultipartUploadStruct = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class CompleteMultipartUploadOutput 
+  class CompleteMultipartUploadOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The URI that identifies the newly created object.</p>
@@ -6570,11 +7037,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@location = nil , @bucket = nil , @key = nil , @expiration = nil , @e_tag = nil , @server_side_encryption = nil , @version_id = nil , @ssekms_key_id = nil , @bucket_key_enabled = nil , @request_charged = nil )
+    def initialize(@location : String = nil, @bucket : String = nil, @key : String = nil, @expiration : String = nil, @e_tag : String = nil, @server_side_encryption : String = nil, @version_id : String = nil, @ssekms_key_id : String = nil, @bucket_key_enabled : Bool = nil, @request_charged : String = nil)
     end
   end
 
-  class CopyObjectRequest 
+  class CopyObjectRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The canned ACL to apply to the object.</p>
@@ -6764,11 +7231,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-source-expected-bucket-owner", structure: false)]
     property expected_source_bucket_owner : String?
 
-    def initialize(@bucket, @key, @copy_source, @acl = nil , @website_redirect_location = nil , @sse_customer_algorithm = nil , @sse_customer_key = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @ssekms_encryption_context = nil , @bucket_key_enabled = nil , @copy_source_sse_customer_algorithm = nil , @copy_source_sse_customer_key = nil , @copy_source_sse_customer_key_md5 = nil , @request_payer = nil , @tagging = nil , @object_lock_mode = nil , @object_lock_retain_until_date = nil , @object_lock_legal_hold_status = nil , @expected_bucket_owner = nil , @storage_class = nil , @server_side_encryption = nil , @cache_control = nil , @content_disposition = nil , @content_encoding = nil , @content_language = nil , @content_type = nil , @copy_source_if_match = nil , @copy_source_if_modified_since = nil , @copy_source_if_none_match = nil , @copy_source_if_unmodified_since = nil , @expires = nil , @grant_full_control = nil , @grant_read = nil , @grant_read_acp = nil , @grant_write_acp = nil , @metadata = nil , @metadata_directive = nil , @tagging_directive = nil , @expected_source_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @copy_source : String, @acl : String = nil, @website_redirect_location : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @ssekms_encryption_context : String = nil, @bucket_key_enabled : Bool = nil, @copy_source_sse_customer_algorithm : String = nil, @copy_source_sse_customer_key : String = nil, @copy_source_sse_customer_key_md5 : String = nil, @request_payer : String = nil, @tagging : String = nil, @object_lock_mode : String = nil, @object_lock_retain_until_date : Time = nil, @object_lock_legal_hold_status : String = nil, @expected_bucket_owner : String = nil, @storage_class : String = nil, @server_side_encryption : String = nil, @cache_control : String = nil, @content_disposition : String = nil, @content_encoding : String = nil, @content_language : String = nil, @content_type : String = nil, @copy_source_if_match : String = nil, @copy_source_if_modified_since : Time = nil, @copy_source_if_none_match : String = nil, @copy_source_if_unmodified_since : Time = nil, @expires : Time = nil, @grant_full_control : String = nil, @grant_read : String = nil, @grant_read_acp : String = nil, @grant_write_acp : String = nil, @metadata : Hash(String, String) = nil, @metadata_directive : String = nil, @tagging_directive : String = nil, @expected_source_bucket_owner : String = nil)
     end
   end
 
-  class CopyObjectResultStruct 
+  class CopyObjectResultStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Returns the ETag of the new object. The ETag reflects only changes to the contents of an
@@ -6780,11 +7247,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "LastModified", structure: false)]
     property last_modified : Time?
 
-    def initialize(@e_tag = nil , @last_modified = nil )
+    def initialize(@e_tag : String = nil, @last_modified : Time = nil)
     end
   end
 
-  class CopyObjectOutput 
+  class CopyObjectOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Container for all response elements.</p>
@@ -6828,11 +7295,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@copy_object_result = nil , @expiration = nil , @copy_source_version_id = nil , @version_id = nil , @server_side_encryption = nil , @sse_customer_algorithm = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @ssekms_encryption_context = nil , @bucket_key_enabled = nil , @request_charged = nil )
+    def initialize(@copy_object_result : CopyObjectResultStruct = nil, @expiration : String = nil, @copy_source_version_id : String = nil, @version_id : String = nil, @server_side_encryption : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @ssekms_encryption_context : String = nil, @bucket_key_enabled : Bool = nil, @request_charged : String = nil)
     end
   end
 
-  class ObjectNotInActiveTierError < Exception
+  class ObjectNotInActiveTierError
     include AWSSdk::RestXML::Structure
 
 
@@ -6840,7 +7307,7 @@ module AmazonS3
     end
   end
 
-  class CreateBucketConfigurationStruct 
+  class CreateBucketConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the Region where the bucket will be created. If you don't specify a Region,
@@ -6848,11 +7315,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "LocationConstraint", structure: false)]
     property location_constraint : String?
 
-    def initialize(@location_constraint = nil )
+    def initialize(@location_constraint : String = nil)
     end
   end
 
-  class CreateBucketRequest 
+  class CreateBucketRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The canned ACL to apply to the bucket.</p>
@@ -6884,11 +7351,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-bucket-object-lock-enabled", structure: false)]
     property object_lock_enabled_for_bucket : Bool?
 
-    def initialize(@bucket, @acl = nil , @create_bucket_configuration = nil , @grant_full_control = nil , @grant_read = nil , @grant_read_acp = nil , @grant_write = nil , @grant_write_acp = nil , @object_lock_enabled_for_bucket = nil )
+    def initialize(@bucket : String, @acl : String = nil, @create_bucket_configuration : CreateBucketConfigurationStruct = nil, @grant_full_control : String = nil, @grant_read : String = nil, @grant_read_acp : String = nil, @grant_write : String = nil, @grant_write_acp : String = nil, @object_lock_enabled_for_bucket : Bool = nil)
     end
   end
 
-  class CreateBucketOutput 
+  class CreateBucketOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the Region where the bucket will be created. If you are creating a bucket on
@@ -6897,11 +7364,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "Location", structure: false)]
     property location : String?
 
-    def initialize(@location = nil )
+    def initialize(@location : String = nil)
     end
   end
 
-  class BucketAlreadyExists < Exception
+  class BucketAlreadyExists
     include AWSSdk::RestXML::Structure
 
 
@@ -6909,7 +7376,7 @@ module AmazonS3
     end
   end
 
-  class BucketAlreadyOwnedByYou < Exception
+  class BucketAlreadyOwnedByYou
     include AWSSdk::RestXML::Structure
 
 
@@ -6917,7 +7384,7 @@ module AmazonS3
     end
   end
 
-  class CreateMultipartUploadRequest 
+  class CreateMultipartUploadRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The canned ACL to apply to the object.</p>
@@ -7040,11 +7507,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @acl = nil , @object_lock_legal_hold_status = nil , @object_lock_retain_until_date = nil , @object_lock_mode = nil , @tagging = nil , @request_payer = nil , @bucket_key_enabled = nil , @ssekms_encryption_context = nil , @ssekms_key_id = nil , @sse_customer_key_md5 = nil , @sse_customer_key = nil , @sse_customer_algorithm = nil , @website_redirect_location = nil , @storage_class = nil , @server_side_encryption = nil , @metadata = nil , @grant_write_acp = nil , @grant_read_acp = nil , @grant_read = nil , @grant_full_control = nil , @expires = nil , @content_type = nil , @content_language = nil , @content_encoding = nil , @content_disposition = nil , @cache_control = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @acl : String = nil, @object_lock_legal_hold_status : String = nil, @object_lock_retain_until_date : Time = nil, @object_lock_mode : String = nil, @tagging : String = nil, @request_payer : String = nil, @bucket_key_enabled : Bool = nil, @ssekms_encryption_context : String = nil, @ssekms_key_id : String = nil, @sse_customer_key_md5 : String = nil, @sse_customer_key : String = nil, @sse_customer_algorithm : String = nil, @website_redirect_location : String = nil, @storage_class : String = nil, @server_side_encryption : String = nil, @metadata : Hash(String, String) = nil, @grant_write_acp : String = nil, @grant_read_acp : String = nil, @grant_read : String = nil, @grant_full_control : String = nil, @expires : Time = nil, @content_type : String = nil, @content_language : String = nil, @content_encoding : String = nil, @content_disposition : String = nil, @cache_control : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class CreateMultipartUploadOutput 
+  class CreateMultipartUploadOutput
     include AWSSdk::RestXML::Structure
 
     # <p>If the bucket has a lifecycle rule configured with an action to abort incomplete
@@ -7102,11 +7569,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@abort_date = nil , @abort_rule_id = nil , @bucket = nil , @key = nil , @upload_id = nil , @server_side_encryption = nil , @sse_customer_algorithm = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @ssekms_encryption_context = nil , @bucket_key_enabled = nil , @request_charged = nil )
+    def initialize(@abort_date : Time = nil, @abort_rule_id : String = nil, @bucket : String = nil, @key : String = nil, @upload_id : String = nil, @server_side_encryption : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @ssekms_encryption_context : String = nil, @bucket_key_enabled : Bool = nil, @request_charged : String = nil)
     end
   end
 
-  class DeleteBucketRequest 
+  class DeleteBucketRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the bucket being deleted.</p>
@@ -7116,11 +7583,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketAnalyticsConfigurationRequest 
+  class DeleteBucketAnalyticsConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket from which an analytics configuration is deleted.</p>
@@ -7133,11 +7600,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketCorsRequest 
+  class DeleteBucketCorsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the bucket whose <code>cors</code> configuration is being deleted.</p>
@@ -7147,11 +7614,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketEncryptionRequest 
+  class DeleteBucketEncryptionRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the server-side encryption configuration to
@@ -7162,11 +7629,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketIntelligentTieringConfigurationRequest 
+  class DeleteBucketIntelligentTieringConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -7176,11 +7643,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :query, name: "id", structure: false)]
     property id : String
 
-    def initialize(@bucket, @id)
+    def initialize(@bucket : String, @id : String)
     end
   end
 
-  class DeleteBucketInventoryConfigurationRequest 
+  class DeleteBucketInventoryConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the inventory configuration to delete.</p>
@@ -7193,11 +7660,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketLifecycleRequest 
+  class DeleteBucketLifecycleRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name of the lifecycle to delete.</p>
@@ -7207,11 +7674,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketMetricsConfigurationRequest 
+  class DeleteBucketMetricsConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the metrics configuration to delete.</p>
@@ -7224,11 +7691,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketOwnershipControlsRequest 
+  class DeleteBucketOwnershipControlsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The Amazon S3 bucket whose <code>OwnershipControls</code> you want to delete. </p>
@@ -7238,11 +7705,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketPolicyRequest 
+  class DeleteBucketPolicyRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -7252,11 +7719,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketReplicationRequest 
+  class DeleteBucketReplicationRequest
     include AWSSdk::RestXML::Structure
 
     # <p> The bucket name. </p>
@@ -7266,11 +7733,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketTaggingRequest 
+  class DeleteBucketTaggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket that has the tag set to be removed.</p>
@@ -7280,11 +7747,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteBucketWebsiteRequest 
+  class DeleteBucketWebsiteRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name for which you want to remove the website configuration. </p>
@@ -7294,11 +7761,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteObjectRequest 
+  class DeleteObjectRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name of the bucket containing the object. </p>
@@ -7328,11 +7795,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @mfa = nil , @version_id = nil , @request_payer = nil , @bypass_governance_retention = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @mfa : String = nil, @version_id : String = nil, @request_payer : String = nil, @bypass_governance_retention : Bool = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteObjectOutput 
+  class DeleteObjectOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether the versioned object that was permanently deleted was (true) or was
@@ -7347,11 +7814,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@delete_marker = nil , @version_id = nil , @request_charged = nil )
+    def initialize(@delete_marker : Bool = nil, @version_id : String = nil, @request_charged : String = nil)
     end
   end
 
-  class ObjectIdentifierStruct 
+  class ObjectIdentifierStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Key name of the object to delete.</p>
@@ -7361,11 +7828,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "VersionId", structure: false)]
     property version_id : String?
 
-    def initialize(@key, @version_id = nil )
+    def initialize(@key : String, @version_id : String = nil)
     end
   end
 
-  class DeleteStruct 
+  class DeleteStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The objects to delete.</p>
@@ -7376,11 +7843,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Quiet", structure: false)]
     property quiet : Bool?
 
-    def initialize(@objects, @quiet = nil )
+    def initialize(@objects : Array(ObjectIdentifierStruct), @quiet : Bool = nil)
     end
   end
 
-  class DeleteObjectsRequest 
+  class DeleteObjectsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the objects to delete. </p>
@@ -7407,11 +7874,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @delete, @mfa = nil , @request_payer = nil , @bypass_governance_retention = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @delete : DeleteStruct, @mfa : String = nil, @request_payer : String = nil, @bypass_governance_retention : Bool = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeletedObjectStruct 
+  class DeletedObjectStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the deleted object.</p>
@@ -7431,11 +7898,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "DeleteMarkerVersionId", structure: false)]
     property delete_marker_version_id : String?
 
-    def initialize(@key = nil , @version_id = nil , @delete_marker = nil , @delete_marker_version_id = nil )
+    def initialize(@key : String = nil, @version_id : String = nil, @delete_marker : Bool = nil, @delete_marker_version_id : String = nil)
     end
   end
 
-  class ErrorStruct 
+  class ErrorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The error key.</p>
@@ -9317,11 +9784,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Message", structure: false)]
     property message : String?
 
-    def initialize(@key = nil , @version_id = nil , @code = nil , @message = nil )
+    def initialize(@key : String = nil, @version_id : String = nil, @code : String = nil, @message : String = nil)
     end
   end
 
-  class DeleteObjectsOutput 
+  class DeleteObjectsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Container element for a successful delete. It identifies the object that was
@@ -9336,11 +9803,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Error", structure: false)]
     property errors : Array(ErrorStruct)?
 
-    def initialize(@deleted = nil , @request_charged = nil , @errors = nil )
+    def initialize(@deleted : Array(DeletedObjectStruct) = nil, @request_charged : String = nil, @errors : Array(ErrorStruct) = nil)
     end
   end
 
-  class DeleteObjectTaggingRequest 
+  class DeleteObjectTaggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the objects from which to remove the tags. </p>
@@ -9358,22 +9825,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @version_id = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @version_id : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DeleteObjectTaggingOutput 
+  class DeleteObjectTaggingOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The versionId of the object the tag-set was removed from.</p>
     @[AWSSdk::Field(location: :header, name: "x-amz-version-id", structure: false)]
     property version_id : String?
 
-    def initialize(@version_id = nil )
+    def initialize(@version_id : String = nil)
     end
   end
 
-  class DeletePublicAccessBlockRequest 
+  class DeletePublicAccessBlockRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The Amazon S3 bucket whose <code>PublicAccessBlock</code> configuration you want to delete.
@@ -9384,11 +9851,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketAccelerateConfigurationRequest 
+  class GetBucketAccelerateConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which the accelerate configuration is retrieved.</p>
@@ -9398,22 +9865,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketAccelerateConfigurationOutput 
+  class GetBucketAccelerateConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The accelerate configuration of the bucket.</p>
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String?
 
-    def initialize(@status = nil )
+    def initialize(@status : String = nil)
     end
   end
 
-  class GetBucketAclRequest 
+  class GetBucketAclRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the S3 bucket whose ACL is being requested.</p>
@@ -9423,11 +9890,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class OwnerStruct 
+  class OwnerStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Container for the display name of the owner.</p>
@@ -9437,11 +9904,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "ID", structure: false)]
     property id : String?
 
-    def initialize(@display_name = nil , @id = nil )
+    def initialize(@display_name : String = nil, @id : String = nil)
     end
   end
 
-  class GranteeStruct 
+  class GranteeStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Screen name of the grantee.</p>
@@ -9490,11 +9957,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "xsi:type", structure: false)]
     property type : String
 
-    def initialize(@type, @display_name = nil , @email_address = nil , @id = nil , @uri = nil )
+    def initialize(@type : String, @display_name : String = nil, @email_address : String = nil, @id : String = nil, @uri : String = nil)
     end
   end
 
-  class GrantStruct 
+  class GrantStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The person being granted permissions.</p>
@@ -9504,11 +9971,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Permission", structure: false)]
     property permission : String?
 
-    def initialize(@grantee = nil , @permission = nil )
+    def initialize(@grantee : GranteeStruct = nil, @permission : String = nil)
     end
   end
 
-  class GetBucketAclOutput 
+  class GetBucketAclOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Container for the bucket owner's display name and ID.</p>
@@ -9518,11 +9985,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "AccessControlList", structure: false)]
     property grants : Array(GrantStruct)?
 
-    def initialize(@owner = nil , @grants = nil )
+    def initialize(@owner : OwnerStruct = nil, @grants : Array(GrantStruct) = nil)
     end
   end
 
-  class GetBucketAnalyticsConfigurationRequest 
+  class GetBucketAnalyticsConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket from which an analytics configuration is retrieved.</p>
@@ -9535,11 +10002,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class TagStruct 
+  class TagStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Name of the object key.</p>
@@ -9549,11 +10016,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Value", structure: false)]
     property value : String
 
-    def initialize(@key, @value)
+    def initialize(@key : String, @value : String)
     end
   end
 
-  class AnalyticsAndOperatorStruct 
+  class AnalyticsAndOperatorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The prefix to use when evaluating an AND predicate: The prefix that an object must have
@@ -9564,11 +10031,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Tag", structure: false)]
     property tags : Array(TagStruct)?
 
-    def initialize(@prefix = nil , @tags = nil )
+    def initialize(@prefix : String = nil, @tags : Array(TagStruct) = nil)
     end
   end
 
-  class AnalyticsS3BucketDestinationStruct 
+  class AnalyticsS3BucketDestinationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the file format used when exporting data to Amazon S3.</p>
@@ -9589,22 +10056,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String?
 
-    def initialize(@format, @bucket, @bucket_account_id = nil , @prefix = nil )
+    def initialize(@format : String, @bucket : String, @bucket_account_id : String = nil, @prefix : String = nil)
     end
   end
 
-  class AnalyticsExportDestinationStruct 
+  class AnalyticsExportDestinationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A destination signifying output to an S3 bucket.</p>
     @[AWSSdk::Field(location: :body, name: "S3BucketDestination", structure: true)]
     property s3_bucket_destination : AnalyticsS3BucketDestinationStruct
 
-    def initialize(@s3_bucket_destination)
+    def initialize(@s3_bucket_destination : AnalyticsS3BucketDestinationStruct)
     end
   end
 
-  class StorageClassAnalysisDataExportStruct 
+  class StorageClassAnalysisDataExportStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The version of the output schema to use when exporting data. Must be
@@ -9615,11 +10082,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Destination", structure: true)]
     property destination : AnalyticsExportDestinationStruct
 
-    def initialize(@output_schema_version, @destination)
+    def initialize(@output_schema_version : String, @destination : AnalyticsExportDestinationStruct)
     end
   end
 
-  class StorageClassAnalysisStruct 
+  class StorageClassAnalysisStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies how data related to the storage class analysis for an Amazon S3 bucket should be
@@ -9627,11 +10094,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "DataExport", structure: true)]
     property data_export : StorageClassAnalysisDataExportStruct?
 
-    def initialize(@data_export = nil )
+    def initialize(@data_export : StorageClassAnalysisDataExportStruct = nil)
     end
   end
 
-  class AnalyticsConfigurationStruct 
+  class AnalyticsConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The ID that identifies the analytics configuration.</p>
@@ -9647,22 +10114,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "StorageClassAnalysis", structure: true)]
     property storage_class_analysis : StorageClassAnalysisStruct
 
-    def initialize(@id, @storage_class_analysis, @filter = nil )
+    def initialize(@id : String, @storage_class_analysis : StorageClassAnalysisStruct, @filter : AnalyticsFilterStruct = nil)
     end
   end
 
-  class GetBucketAnalyticsConfigurationOutput 
+  class GetBucketAnalyticsConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The configuration and any analyses for the analytics filter.</p>
     @[AWSSdk::Field(location: :body_io, name: "AnalyticsConfiguration", structure: true)]
     property analytics_configuration : AnalyticsConfigurationStruct?
 
-    def initialize(@analytics_configuration = nil )
+    def initialize(@analytics_configuration : AnalyticsConfigurationStruct = nil)
     end
   end
 
-  class GetBucketCorsRequest 
+  class GetBucketCorsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name for which to get the cors configuration.</p>
@@ -9672,11 +10139,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class CORSRuleStruct 
+  class CORSRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Headers that are specified in the <code>Access-Control-Request-Headers</code> header.
@@ -9701,11 +10168,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "MaxAgeSeconds", structure: false)]
     property max_age_seconds : Int32?
 
-    def initialize(@allowed_methods, @allowed_origins, @allowed_headers = nil , @expose_headers = nil , @max_age_seconds = nil )
+    def initialize(@allowed_methods : Array(String), @allowed_origins : Array(String), @allowed_headers : Array(String) = nil, @expose_headers : Array(String) = nil, @max_age_seconds : Int32 = nil)
     end
   end
 
-  class GetBucketCorsOutput 
+  class GetBucketCorsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>A set of origins and methods (cross-origin access that you want to allow). You can add
@@ -9713,11 +10180,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "CORSRule", structure: false)]
     property cors_rules : Array(CORSRuleStruct)?
 
-    def initialize(@cors_rules = nil )
+    def initialize(@cors_rules : Array(CORSRuleStruct) = nil)
     end
   end
 
-  class GetBucketEncryptionRequest 
+  class GetBucketEncryptionRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket from which the server-side encryption configuration is
@@ -9728,11 +10195,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ServerSideEncryptionByDefaultStruct 
+  class ServerSideEncryptionByDefaultStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Server-side encryption algorithm to use for the default encryption.</p>
@@ -9767,11 +10234,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "KMSMasterKeyID", structure: false)]
     property kms_master_key_id : String?
 
-    def initialize(@sse_algorithm, @kms_master_key_id = nil )
+    def initialize(@sse_algorithm : String, @kms_master_key_id : String = nil)
     end
   end
 
-  class ServerSideEncryptionRuleStruct 
+  class ServerSideEncryptionRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the default server-side encryption to apply to new objects in the bucket. If a
@@ -9784,11 +10251,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "BucketKeyEnabled", structure: false)]
     property bucket_key_enabled : Bool?
 
-    def initialize(@apply_server_side_encryption_by_default = nil , @bucket_key_enabled = nil )
+    def initialize(@apply_server_side_encryption_by_default : ServerSideEncryptionByDefaultStruct = nil, @bucket_key_enabled : Bool = nil)
     end
   end
 
-  class ServerSideEncryptionConfigurationStruct 
+  class ServerSideEncryptionConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Container for information about a particular server-side encryption configuration
@@ -9796,22 +10263,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Rule", structure: false)]
     property rules : Array(ServerSideEncryptionRuleStruct)
 
-    def initialize(@rules)
+    def initialize(@rules : Array(ServerSideEncryptionRuleStruct))
     end
   end
 
-  class GetBucketEncryptionOutput 
+  class GetBucketEncryptionOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body_io, name: "ServerSideEncryptionConfiguration", structure: true)]
     property server_side_encryption_configuration : ServerSideEncryptionConfigurationStruct?
 
-    def initialize(@server_side_encryption_configuration = nil )
+    def initialize(@server_side_encryption_configuration : ServerSideEncryptionConfigurationStruct = nil)
     end
   end
 
-  class GetBucketIntelligentTieringConfigurationRequest 
+  class GetBucketIntelligentTieringConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -9821,11 +10288,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :query, name: "id", structure: false)]
     property id : String
 
-    def initialize(@bucket, @id)
+    def initialize(@bucket : String, @id : String)
     end
   end
 
-  class IntelligentTieringAndOperatorStruct 
+  class IntelligentTieringAndOperatorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>An object key name prefix that identifies the subset of objects to which the
@@ -9837,11 +10304,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Tag", structure: false)]
     property tags : Array(TagStruct)?
 
-    def initialize(@prefix = nil , @tags = nil )
+    def initialize(@prefix : String = nil, @tags : Array(TagStruct) = nil)
     end
   end
 
-  class IntelligentTieringFilterStruct 
+  class IntelligentTieringFilterStruct
     include AWSSdk::RestXML::Structure
 
     # <p>An object key name prefix that identifies the subset of objects to which the rule
@@ -9857,11 +10324,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "And", structure: true)]
     property and : IntelligentTieringAndOperatorStruct?
 
-    def initialize(@prefix = nil , @tag = nil , @and = nil )
+    def initialize(@prefix : String = nil, @tag : TagStruct = nil, @and : IntelligentTieringAndOperatorStruct = nil)
     end
   end
 
-  class TieringStruct 
+  class TieringStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The number of consecutive days of no access after which an object will be eligible to be
@@ -9876,11 +10343,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "AccessTier", structure: false)]
     property access_tier : String
 
-    def initialize(@days, @access_tier)
+    def initialize(@days : Int32, @access_tier : String)
     end
   end
 
-  class IntelligentTieringConfigurationStruct 
+  class IntelligentTieringConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The ID used to identify the S3 Intelligent-Tiering configuration.</p>
@@ -9897,22 +10364,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Tiering", structure: false)]
     property tierings : Array(TieringStruct)
 
-    def initialize(@id, @status, @tierings, @filter = nil )
+    def initialize(@id : String, @status : String, @tierings : Array(TieringStruct), @filter : IntelligentTieringFilterStruct = nil)
     end
   end
 
-  class GetBucketIntelligentTieringConfigurationOutput 
+  class GetBucketIntelligentTieringConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Container for S3 Intelligent-Tiering configuration.</p>
     @[AWSSdk::Field(location: :body_io, name: "IntelligentTieringConfiguration", structure: true)]
     property intelligent_tiering_configuration : IntelligentTieringConfigurationStruct?
 
-    def initialize(@intelligent_tiering_configuration = nil )
+    def initialize(@intelligent_tiering_configuration : IntelligentTieringConfigurationStruct = nil)
     end
   end
 
-  class GetBucketInventoryConfigurationRequest 
+  class GetBucketInventoryConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the inventory configuration to retrieve.</p>
@@ -9925,11 +10392,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class SSES3Struct 
+  class SSES3Struct
     include AWSSdk::RestXML::Structure
 
 
@@ -9937,7 +10404,7 @@ module AmazonS3
     end
   end
 
-  class SSEKMSStruct 
+  class SSEKMSStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed
@@ -9945,11 +10412,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "KeyId", structure: false)]
     property key_id : String
 
-    def initialize(@key_id)
+    def initialize(@key_id : String)
     end
   end
 
-  class InventoryEncryptionStruct 
+  class InventoryEncryptionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the use of SSE-S3 to encrypt delivered inventory reports.</p>
@@ -9959,11 +10426,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "SSE-KMS", structure: true)]
     property ssekms : SSEKMSStruct?
 
-    def initialize(@sses3 = nil , @ssekms = nil )
+    def initialize(@sses3 : SSES3Struct = nil, @ssekms : SSEKMSStruct = nil)
     end
   end
 
-  class InventoryS3BucketDestinationStruct 
+  class InventoryS3BucketDestinationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The account ID that owns the destination S3 bucket. If no account ID is provided, the
@@ -9989,11 +10456,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Encryption", structure: true)]
     property encryption : InventoryEncryptionStruct?
 
-    def initialize(@bucket, @format, @account_id = nil , @prefix = nil , @encryption = nil )
+    def initialize(@bucket : String, @format : String, @account_id : String = nil, @prefix : String = nil, @encryption : InventoryEncryptionStruct = nil)
     end
   end
 
-  class InventoryDestinationStruct 
+  class InventoryDestinationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Contains the bucket name, file format, bucket owner (optional), and prefix (optional)
@@ -10001,33 +10468,33 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "S3BucketDestination", structure: true)]
     property s3_bucket_destination : InventoryS3BucketDestinationStruct
 
-    def initialize(@s3_bucket_destination)
+    def initialize(@s3_bucket_destination : InventoryS3BucketDestinationStruct)
     end
   end
 
-  class InventoryFilterStruct 
+  class InventoryFilterStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The prefix that an object must have to be included in the inventory results.</p>
     @[AWSSdk::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String
 
-    def initialize(@prefix)
+    def initialize(@prefix : String)
     end
   end
 
-  class InventoryScheduleStruct 
+  class InventoryScheduleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies how frequently inventory results are produced.</p>
     @[AWSSdk::Field(location: :body, name: "Frequency", structure: false)]
     property frequency : String
 
-    def initialize(@frequency)
+    def initialize(@frequency : String)
     end
   end
 
-  class InventoryConfigurationStruct 
+  class InventoryConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Contains information about where to publish the inventory results.</p>
@@ -10059,22 +10526,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Schedule", structure: true)]
     property schedule : InventoryScheduleStruct
 
-    def initialize(@destination, @is_enabled, @id, @included_object_versions, @schedule, @filter = nil , @optional_fields = nil )
+    def initialize(@destination : InventoryDestinationStruct, @is_enabled : Bool, @id : String, @included_object_versions : String, @schedule : InventoryScheduleStruct, @filter : InventoryFilterStruct = nil, @optional_fields : Array(String) = nil)
     end
   end
 
-  class GetBucketInventoryConfigurationOutput 
+  class GetBucketInventoryConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the inventory configuration.</p>
     @[AWSSdk::Field(location: :body_io, name: "InventoryConfiguration", structure: true)]
     property inventory_configuration : InventoryConfigurationStruct?
 
-    def initialize(@inventory_configuration = nil )
+    def initialize(@inventory_configuration : InventoryConfigurationStruct = nil)
     end
   end
 
-  class GetBucketLifecycleConfigurationRequest 
+  class GetBucketLifecycleConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to get the lifecycle information.</p>
@@ -10084,11 +10551,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class LifecycleExpirationStruct 
+  class LifecycleExpirationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates at what date the object is to be moved or deleted. Should be in GMT ISO 8601
@@ -10105,11 +10572,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "ExpiredObjectDeleteMarker", structure: false)]
     property expired_object_delete_marker : Bool?
 
-    def initialize(@date = nil , @days = nil , @expired_object_delete_marker = nil )
+    def initialize(@date : Time = nil, @days : Int32 = nil, @expired_object_delete_marker : Bool = nil)
     end
   end
 
-  class LifecycleRuleAndOperatorStruct 
+  class LifecycleRuleAndOperatorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Prefix identifying one or more objects to which the rule applies.</p>
@@ -10120,11 +10587,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Tag", structure: false)]
     property tags : Array(TagStruct)?
 
-    def initialize(@prefix = nil , @tags = nil )
+    def initialize(@prefix : String = nil, @tags : Array(TagStruct) = nil)
     end
   end
 
-  class TransitionStruct 
+  class TransitionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates when objects are transitioned to the specified storage class. The date value
@@ -10139,11 +10606,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "StorageClass", structure: false)]
     property storage_class : String?
 
-    def initialize(@date = nil , @days = nil , @storage_class = nil )
+    def initialize(@date : Time = nil, @days : Int32 = nil, @storage_class : String = nil)
     end
   end
 
-  class NoncurrentVersionTransitionStruct 
+  class NoncurrentVersionTransitionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the number of days an object is noncurrent before Amazon S3 can perform the
@@ -10156,11 +10623,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "StorageClass", structure: false)]
     property storage_class : String?
 
-    def initialize(@noncurrent_days = nil , @storage_class = nil )
+    def initialize(@noncurrent_days : Int32 = nil, @storage_class : String = nil)
     end
   end
 
-  class NoncurrentVersionExpirationStruct 
+  class NoncurrentVersionExpirationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the number of days an object is noncurrent before Amazon S3 can perform the
@@ -10170,11 +10637,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "NoncurrentDays", structure: false)]
     property noncurrent_days : Int32?
 
-    def initialize(@noncurrent_days = nil )
+    def initialize(@noncurrent_days : Int32 = nil)
     end
   end
 
-  class AbortIncompleteMultipartUploadStruct 
+  class AbortIncompleteMultipartUploadStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the number of days after which Amazon S3 aborts an incomplete multipart
@@ -10182,11 +10649,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "DaysAfterInitiation", structure: false)]
     property days_after_initiation : Int32?
 
-    def initialize(@days_after_initiation = nil )
+    def initialize(@days_after_initiation : Int32 = nil)
     end
   end
 
-  class LifecycleRuleStruct 
+  class LifecycleRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the expiration for the lifecycle of the object in the form of date, days and,
@@ -10224,22 +10691,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "AbortIncompleteMultipartUpload", structure: true)]
     property abort_incomplete_multipart_upload : AbortIncompleteMultipartUploadStruct?
 
-    def initialize(@status, @expiration = nil , @id = nil , @prefix = nil , @filter = nil , @transitions = nil , @noncurrent_version_transitions = nil , @noncurrent_version_expiration = nil , @abort_incomplete_multipart_upload = nil )
+    def initialize(@status : String, @expiration : LifecycleExpirationStruct = nil, @id : String = nil, @prefix : String = nil, @filter : LifecycleRuleFilterStruct = nil, @transitions : Array(TransitionStruct) = nil, @noncurrent_version_transitions : Array(NoncurrentVersionTransitionStruct) = nil, @noncurrent_version_expiration : NoncurrentVersionExpirationStruct = nil, @abort_incomplete_multipart_upload : AbortIncompleteMultipartUploadStruct = nil)
     end
   end
 
-  class GetBucketLifecycleConfigurationOutput 
+  class GetBucketLifecycleConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Container for a lifecycle rule.</p>
     @[AWSSdk::Field(location: :body, name: "Rule", structure: false)]
     property rules : Array(LifecycleRuleStruct)?
 
-    def initialize(@rules = nil )
+    def initialize(@rules : Array(LifecycleRuleStruct) = nil)
     end
   end
 
-  class GetBucketLocationRequest 
+  class GetBucketLocationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to get the location.</p>
@@ -10249,11 +10716,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketLocationOutput 
+  class GetBucketLocationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported
@@ -10263,11 +10730,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "LocationConstraint", structure: false)]
     property location_constraint : String?
 
-    def initialize(@location_constraint = nil )
+    def initialize(@location_constraint : String = nil)
     end
   end
 
-  class GetBucketLoggingRequest 
+  class GetBucketLoggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name for which to get the logging information.</p>
@@ -10277,11 +10744,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class TargetGrantStruct 
+  class TargetGrantStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Container for the person being granted permissions.</p>
@@ -10291,11 +10758,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Permission", structure: false)]
     property permission : String?
 
-    def initialize(@grantee = nil , @permission = nil )
+    def initialize(@grantee : GranteeStruct = nil, @permission : String = nil)
     end
   end
 
-  class LoggingEnabledStruct 
+  class LoggingEnabledStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the bucket where you want Amazon S3 to store server access logs. You can have your
@@ -10314,22 +10781,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "TargetPrefix", structure: false)]
     property target_prefix : String
 
-    def initialize(@target_bucket, @target_prefix, @target_grants = nil )
+    def initialize(@target_bucket : String, @target_prefix : String, @target_grants : Array(TargetGrantStruct) = nil)
     end
   end
 
-  class GetBucketLoggingOutput 
+  class GetBucketLoggingOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body, name: "LoggingEnabled", structure: true)]
     property logging_enabled : LoggingEnabledStruct?
 
-    def initialize(@logging_enabled = nil )
+    def initialize(@logging_enabled : LoggingEnabledStruct = nil)
     end
   end
 
-  class GetBucketMetricsConfigurationRequest 
+  class GetBucketMetricsConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the metrics configuration to retrieve.</p>
@@ -10342,11 +10809,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class MetricsAndOperatorStruct 
+  class MetricsAndOperatorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The prefix used when evaluating an AND predicate.</p>
@@ -10356,11 +10823,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Tag", structure: false)]
     property tags : Array(TagStruct)?
 
-    def initialize(@prefix = nil , @tags = nil )
+    def initialize(@prefix : String = nil, @tags : Array(TagStruct) = nil)
     end
   end
 
-  class MetricsConfigurationStruct 
+  class MetricsConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The ID used to identify the metrics configuration.</p>
@@ -10372,22 +10839,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Filter", structure: false)]
     property filter : MetricsFilterStruct?
 
-    def initialize(@id, @filter = nil )
+    def initialize(@id : String, @filter : MetricsFilterStruct = nil)
     end
   end
 
-  class GetBucketMetricsConfigurationOutput 
+  class GetBucketMetricsConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the metrics configuration.</p>
     @[AWSSdk::Field(location: :body_io, name: "MetricsConfiguration", structure: true)]
     property metrics_configuration : MetricsConfigurationStruct?
 
-    def initialize(@metrics_configuration = nil )
+    def initialize(@metrics_configuration : MetricsConfigurationStruct = nil)
     end
   end
 
-  class GetBucketNotificationConfigurationRequest 
+  class GetBucketNotificationConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to get the notification configuration.</p>
@@ -10397,11 +10864,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class FilterRuleStruct 
+  class FilterRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The object key name prefix or suffix identifying one or more objects to which the
@@ -10414,33 +10881,33 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Value", structure: false)]
     property value : String?
 
-    def initialize(@name = nil , @value = nil )
+    def initialize(@name : String = nil, @value : String = nil)
     end
   end
 
-  class S3KeyFilterStruct 
+  class S3KeyFilterStruct
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body, name: "FilterRule", structure: false)]
     property filter_rules : Array(FilterRuleStruct)?
 
-    def initialize(@filter_rules = nil )
+    def initialize(@filter_rules : Array(FilterRuleStruct) = nil)
     end
   end
 
-  class NotificationConfigurationFilterStruct 
+  class NotificationConfigurationFilterStruct
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body, name: "S3Key", structure: true)]
     property key : S3KeyFilterStruct?
 
-    def initialize(@key = nil )
+    def initialize(@key : S3KeyFilterStruct = nil)
     end
   end
 
-  class TopicConfigurationStruct 
+  class TopicConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # 
@@ -10459,11 +10926,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Filter", structure: true)]
     property filter : NotificationConfigurationFilterStruct?
 
-    def initialize(@topic_arn, @events, @id = nil , @filter = nil )
+    def initialize(@topic_arn : String, @events : Array(String), @id : String = nil, @filter : NotificationConfigurationFilterStruct = nil)
     end
   end
 
-  class QueueConfigurationStruct 
+  class QueueConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # 
@@ -10480,11 +10947,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Filter", structure: true)]
     property filter : NotificationConfigurationFilterStruct?
 
-    def initialize(@queue_arn, @events, @id = nil , @filter = nil )
+    def initialize(@queue_arn : String, @events : Array(String), @id : String = nil, @filter : NotificationConfigurationFilterStruct = nil)
     end
   end
 
-  class LambdaFunctionConfigurationStruct 
+  class LambdaFunctionConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # 
@@ -10503,11 +10970,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Filter", structure: true)]
     property filter : NotificationConfigurationFilterStruct?
 
-    def initialize(@lambda_function_arn, @events, @id = nil , @filter = nil )
+    def initialize(@lambda_function_arn : String, @events : Array(String), @id : String = nil, @filter : NotificationConfigurationFilterStruct = nil)
     end
   end
 
-  class NotificationConfigurationStruct 
+  class NotificationConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The topic to which notifications are sent and the events for which notifications are
@@ -10523,11 +10990,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "CloudFunctionConfiguration", structure: false)]
     property lambda_function_configurations : Array(LambdaFunctionConfigurationStruct)?
 
-    def initialize(@topic_configurations = nil , @queue_configurations = nil , @lambda_function_configurations = nil )
+    def initialize(@topic_configurations : Array(TopicConfigurationStruct) = nil, @queue_configurations : Array(QueueConfigurationStruct) = nil, @lambda_function_configurations : Array(LambdaFunctionConfigurationStruct) = nil)
     end
   end
 
-  class GetBucketOwnershipControlsRequest 
+  class GetBucketOwnershipControlsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>OwnershipControls</code> you want to retrieve.
@@ -10538,33 +11005,33 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class OwnershipControlsRuleStruct 
+  class OwnershipControlsRuleStruct
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body, name: "ObjectOwnership", structure: false)]
     property object_ownership : String
 
-    def initialize(@object_ownership)
+    def initialize(@object_ownership : String)
     end
   end
 
-  class OwnershipControlsStruct 
+  class OwnershipControlsStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The container element for an ownership control rule.</p>
     @[AWSSdk::Field(location: :body, name: "Rule", structure: false)]
     property rules : Array(OwnershipControlsRuleStruct)
 
-    def initialize(@rules)
+    def initialize(@rules : Array(OwnershipControlsRuleStruct))
     end
   end
 
-  class GetBucketOwnershipControlsOutput 
+  class GetBucketOwnershipControlsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The <code>OwnershipControls</code> (BucketOwnerPreferred or ObjectWriter) currently in
@@ -10572,11 +11039,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body_io, name: "OwnershipControls", structure: true)]
     property ownership_controls : OwnershipControlsStruct?
 
-    def initialize(@ownership_controls = nil )
+    def initialize(@ownership_controls : OwnershipControlsStruct = nil)
     end
   end
 
-  class GetBucketPolicyRequest 
+  class GetBucketPolicyRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name for which to get the bucket policy.</p>
@@ -10586,22 +11053,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketPolicyOutput 
+  class GetBucketPolicyOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket policy as a JSON document.</p>
     @[AWSSdk::Field(location: :body, name: "Policy", structure: false)]
     property policy : String?
 
-    def initialize(@policy = nil )
+    def initialize(@policy : String = nil)
     end
   end
 
-  class GetBucketPolicyStatusRequest 
+  class GetBucketPolicyStatusRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose policy status you want to retrieve.</p>
@@ -10611,11 +11078,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PolicyStatusStruct 
+  class PolicyStatusStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The policy status for this bucket. <code>TRUE</code> indicates that this bucket is
@@ -10623,22 +11090,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "IsPublic", structure: false)]
     property is_public : Bool?
 
-    def initialize(@is_public = nil )
+    def initialize(@is_public : Bool = nil)
     end
   end
 
-  class GetBucketPolicyStatusOutput 
+  class GetBucketPolicyStatusOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The policy status for the specified bucket.</p>
     @[AWSSdk::Field(location: :body_io, name: "PolicyStatus", structure: true)]
     property policy_status : PolicyStatusStruct?
 
-    def initialize(@policy_status = nil )
+    def initialize(@policy_status : PolicyStatusStruct = nil)
     end
   end
 
-  class GetBucketReplicationRequest 
+  class GetBucketReplicationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name for which to get the replication information.</p>
@@ -10648,11 +11115,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ReplicationRuleAndOperatorStruct 
+  class ReplicationRuleAndOperatorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>An object key name prefix that identifies the subset of objects to which the rule
@@ -10663,11 +11130,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Tag", structure: false)]
     property tags : Array(TagStruct)?
 
-    def initialize(@prefix = nil , @tags = nil )
+    def initialize(@prefix : String = nil, @tags : Array(TagStruct) = nil)
     end
   end
 
-  class SseKmsEncryptedObjectsStruct 
+  class SseKmsEncryptedObjectsStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether Amazon S3 replicates objects created with server-side encryption using a
@@ -10675,22 +11142,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String
 
-    def initialize(@status)
+    def initialize(@status : String)
     end
   end
 
-  class ReplicaModificationsStruct 
+  class ReplicaModificationsStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether Amazon S3 replicates modifications on replicas.</p>
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String
 
-    def initialize(@status)
+    def initialize(@status : String)
     end
   end
 
-  class SourceSelectionCriteriaStruct 
+  class SourceSelectionCriteriaStruct
     include AWSSdk::RestXML::Structure
 
     # <p> A container for filter information for the selection of Amazon S3 objects encrypted with AWS
@@ -10710,22 +11177,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "ReplicaModifications", structure: true)]
     property replica_modifications : ReplicaModificationsStruct?
 
-    def initialize(@sse_kms_encrypted_objects = nil , @replica_modifications = nil )
+    def initialize(@sse_kms_encrypted_objects : SseKmsEncryptedObjectsStruct = nil, @replica_modifications : ReplicaModificationsStruct = nil)
     end
   end
 
-  class ExistingObjectReplicationStruct 
+  class ExistingObjectReplicationStruct
     include AWSSdk::RestXML::Structure
 
     # <p></p>
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String
 
-    def initialize(@status)
+    def initialize(@status : String)
     end
   end
 
-  class AccessControlTranslationStruct 
+  class AccessControlTranslationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the replica ownership. For default and valid values, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html">PUT bucket
@@ -10733,11 +11200,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Owner", structure: false)]
     property owner : String
 
-    def initialize(@owner)
+    def initialize(@owner : String)
     end
   end
 
-  class EncryptionConfigurationStruct 
+  class EncryptionConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the ID (Key ARN or Alias ARN) of the customer managed customer master key
@@ -10749,11 +11216,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "ReplicaKmsKeyID", structure: false)]
     property replica_kms_key_id : String?
 
-    def initialize(@replica_kms_key_id = nil )
+    def initialize(@replica_kms_key_id : String = nil)
     end
   end
 
-  class ReplicationTimeValueStruct 
+  class ReplicationTimeValueStruct
     include AWSSdk::RestXML::Structure
 
     # <p> Contains an integer specifying time in minutes. </p>
@@ -10761,11 +11228,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Minutes", structure: false)]
     property minutes : Int32?
 
-    def initialize(@minutes = nil )
+    def initialize(@minutes : Int32 = nil)
     end
   end
 
-  class ReplicationTimeStruct 
+  class ReplicationTimeStruct
     include AWSSdk::RestXML::Structure
 
     # <p> Specifies whether the replication time is enabled. </p>
@@ -10776,11 +11243,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Time", structure: true)]
     property time : ReplicationTimeValueStruct
 
-    def initialize(@status, @time)
+    def initialize(@status : String, @time : ReplicationTimeValueStruct)
     end
   end
 
-  class MetricsStruct 
+  class MetricsStruct
     include AWSSdk::RestXML::Structure
 
     # <p> Specifies whether the replication metrics are enabled. </p>
@@ -10791,11 +11258,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "EventThreshold", structure: true)]
     property event_threshold : ReplicationTimeValueStruct?
 
-    def initialize(@status, @event_threshold = nil )
+    def initialize(@status : String, @event_threshold : ReplicationTimeValueStruct = nil)
     end
   end
 
-  class DestinationStruct 
+  class DestinationStruct
     include AWSSdk::RestXML::Structure
 
     # <p> The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store the
@@ -10837,11 +11304,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Metrics", structure: true)]
     property metrics : MetricsStruct?
 
-    def initialize(@bucket, @account = nil , @storage_class = nil , @access_control_translation = nil , @encryption_configuration = nil , @replication_time = nil , @metrics = nil )
+    def initialize(@bucket : String, @account : String = nil, @storage_class : String = nil, @access_control_translation : AccessControlTranslationStruct = nil, @encryption_configuration : EncryptionConfigurationStruct = nil, @replication_time : ReplicationTimeStruct = nil, @metrics : MetricsStruct = nil)
     end
   end
 
-  class DeleteMarkerReplicationStruct 
+  class DeleteMarkerReplicationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether to replicate delete markers.</p>
@@ -10851,11 +11318,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String?
 
-    def initialize(@status = nil )
+    def initialize(@status : String = nil)
     end
   end
 
-  class ReplicationRuleStruct 
+  class ReplicationRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A unique identifier for the rule. The maximum value is 255 characters.</p>
@@ -10899,11 +11366,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "DeleteMarkerReplication", structure: true)]
     property delete_marker_replication : DeleteMarkerReplicationStruct?
 
-    def initialize(@status, @destination, @id = nil , @priority = nil , @prefix = nil , @filter = nil , @source_selection_criteria = nil , @existing_object_replication = nil , @delete_marker_replication = nil )
+    def initialize(@status : String, @destination : DestinationStruct, @id : String = nil, @priority : Int32 = nil, @prefix : String = nil, @filter : ReplicationRuleFilterStruct = nil, @source_selection_criteria : SourceSelectionCriteriaStruct = nil, @existing_object_replication : ExistingObjectReplicationStruct = nil, @delete_marker_replication : DeleteMarkerReplicationStruct = nil)
     end
   end
 
-  class ReplicationConfigurationStruct 
+  class ReplicationConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that
@@ -10916,22 +11383,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Rule", structure: false)]
     property rules : Array(ReplicationRuleStruct)
 
-    def initialize(@role, @rules)
+    def initialize(@role : String, @rules : Array(ReplicationRuleStruct))
     end
   end
 
-  class GetBucketReplicationOutput 
+  class GetBucketReplicationOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body_io, name: "ReplicationConfiguration", structure: true)]
     property replication_configuration : ReplicationConfigurationStruct?
 
-    def initialize(@replication_configuration = nil )
+    def initialize(@replication_configuration : ReplicationConfigurationStruct = nil)
     end
   end
 
-  class GetBucketRequestPaymentRequest 
+  class GetBucketRequestPaymentRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to get the payment request configuration</p>
@@ -10941,22 +11408,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketRequestPaymentOutput 
+  class GetBucketRequestPaymentOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies who pays for the download and request fees.</p>
     @[AWSSdk::Field(location: :body, name: "Payer", structure: false)]
     property payer : String?
 
-    def initialize(@payer = nil )
+    def initialize(@payer : String = nil)
     end
   end
 
-  class GetBucketTaggingRequest 
+  class GetBucketTaggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to get the tagging information.</p>
@@ -10966,22 +11433,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketTaggingOutput 
+  class GetBucketTaggingOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Contains the tag set.</p>
     @[AWSSdk::Field(location: :body, name: "TagSet", structure: false)]
     property tag_set : Array(TagStruct)
 
-    def initialize(@tag_set)
+    def initialize(@tag_set : Array(TagStruct))
     end
   end
 
-  class GetBucketVersioningRequest 
+  class GetBucketVersioningRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to get the versioning information.</p>
@@ -10991,11 +11458,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetBucketVersioningOutput 
+  class GetBucketVersioningOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The versioning state of the bucket.</p>
@@ -11007,11 +11474,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "MfaDelete", structure: false)]
     property mfa_delete : String?
 
-    def initialize(@status = nil , @mfa_delete = nil )
+    def initialize(@status : String = nil, @mfa_delete : String = nil)
     end
   end
 
-  class GetBucketWebsiteRequest 
+  class GetBucketWebsiteRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name for which to get the website configuration.</p>
@@ -11021,11 +11488,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class RedirectAllRequestsToStruct 
+  class RedirectAllRequestsToStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Name of the host where requests are redirected.</p>
@@ -11036,11 +11503,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Protocol", structure: false)]
     property protocol : String?
 
-    def initialize(@host_name, @protocol = nil )
+    def initialize(@host_name : String, @protocol : String = nil)
     end
   end
 
-  class IndexDocumentStruct 
+  class IndexDocumentStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A suffix that is appended to a request that is for a directory on the website endpoint
@@ -11050,22 +11517,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Suffix", structure: false)]
     property suffix : String
 
-    def initialize(@suffix)
+    def initialize(@suffix : String)
     end
   end
 
-  class ErrorDocumentStruct 
+  class ErrorDocumentStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The object key name to use when a 4XX class error occurs.</p>
     @[AWSSdk::Field(location: :body, name: "Key", structure: false)]
     property key : String
 
-    def initialize(@key)
+    def initialize(@key : String)
     end
   end
 
-  class ConditionStruct 
+  class ConditionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The HTTP error code when the redirect is applied. In the event of an error, if the error
@@ -11086,11 +11553,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "KeyPrefixEquals", structure: false)]
     property key_prefix_equals : String?
 
-    def initialize(@http_error_code_returned_equals = nil , @key_prefix_equals = nil )
+    def initialize(@http_error_code_returned_equals : String = nil, @key_prefix_equals : String = nil)
     end
   end
 
-  class RedirectStruct 
+  class RedirectStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The host name to use in the redirect request.</p>
@@ -11118,11 +11585,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "ReplaceKeyWith", structure: false)]
     property replace_key_with : String?
 
-    def initialize(@host_name = nil , @http_redirect_code = nil , @protocol = nil , @replace_key_prefix_with = nil , @replace_key_with = nil )
+    def initialize(@host_name : String = nil, @http_redirect_code : String = nil, @protocol : String = nil, @replace_key_prefix_with : String = nil, @replace_key_with : String = nil)
     end
   end
 
-  class RoutingRuleStruct 
+  class RoutingRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A container for describing a condition that must be met for the specified redirect to
@@ -11137,11 +11604,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Redirect", structure: true)]
     property redirect : RedirectStruct
 
-    def initialize(@redirect, @condition = nil )
+    def initialize(@redirect : RedirectStruct, @condition : ConditionStruct = nil)
     end
   end
 
-  class GetBucketWebsiteOutput 
+  class GetBucketWebsiteOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3
@@ -11159,11 +11626,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "RoutingRules", structure: false)]
     property routing_rules : Array(RoutingRuleStruct)?
 
-    def initialize(@redirect_all_requests_to = nil , @index_document = nil , @error_document = nil , @routing_rules = nil )
+    def initialize(@redirect_all_requests_to : RedirectAllRequestsToStruct = nil, @index_document : IndexDocumentStruct = nil, @error_document : ErrorDocumentStruct = nil, @routing_rules : Array(RoutingRuleStruct) = nil)
     end
   end
 
-  class GetObjectRequest 
+  class GetObjectRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object. </p>
@@ -11246,11 +11713,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @part_number = nil , @request_payer = nil , @sse_customer_key_md5 = nil , @sse_customer_key = nil , @sse_customer_algorithm = nil , @version_id = nil , @response_expires = nil , @response_content_type = nil , @response_content_language = nil , @response_content_encoding = nil , @response_content_disposition = nil , @response_cache_control = nil , @range = nil , @if_unmodified_since = nil , @if_none_match = nil , @if_modified_since = nil , @if_match = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @part_number : Int32 = nil, @request_payer : String = nil, @sse_customer_key_md5 : String = nil, @sse_customer_key : String = nil, @sse_customer_algorithm : String = nil, @version_id : String = nil, @response_expires : Time = nil, @response_content_type : String = nil, @response_content_language : String = nil, @response_content_encoding : String = nil, @response_content_disposition : String = nil, @response_cache_control : String = nil, @range : String = nil, @if_unmodified_since : Time = nil, @if_none_match : String = nil, @if_modified_since : Time = nil, @if_match : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetObjectOutput 
+  class GetObjectOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Object data.</p>
@@ -11370,11 +11837,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-object-lock-legal-hold", structure: false)]
     property object_lock_legal_hold_status : String?
 
-    def initialize(@body = nil , @object_lock_retain_until_date = nil , @object_lock_mode = nil , @tag_count = nil , @parts_count = nil , @replication_status = nil , @request_charged = nil , @storage_class = nil , @bucket_key_enabled = nil , @ssekms_key_id = nil , @sse_customer_key_md5 = nil , @sse_customer_algorithm = nil , @metadata = nil , @server_side_encryption = nil , @website_redirect_location = nil , @expires = nil , @content_type = nil , @content_range = nil , @content_language = nil , @content_encoding = nil , @content_disposition = nil , @cache_control = nil , @version_id = nil , @missing_meta = nil , @e_tag = nil , @content_length = nil , @last_modified = nil , @restore = nil , @expiration = nil , @accept_ranges = nil , @delete_marker = nil , @object_lock_legal_hold_status = nil )
+    def initialize(@body : (IO | String | Bytes) = nil, @object_lock_retain_until_date : Time = nil, @object_lock_mode : String = nil, @tag_count : Int32 = nil, @parts_count : Int32 = nil, @replication_status : String = nil, @request_charged : String = nil, @storage_class : String = nil, @bucket_key_enabled : Bool = nil, @ssekms_key_id : String = nil, @sse_customer_key_md5 : String = nil, @sse_customer_algorithm : String = nil, @metadata : Hash(String, String) = nil, @server_side_encryption : String = nil, @website_redirect_location : String = nil, @expires : Time = nil, @content_type : String = nil, @content_range : String = nil, @content_language : String = nil, @content_encoding : String = nil, @content_disposition : String = nil, @cache_control : String = nil, @version_id : String = nil, @missing_meta : Int32 = nil, @e_tag : String = nil, @content_length : Int64 = nil, @last_modified : Time = nil, @restore : String = nil, @expiration : String = nil, @accept_ranges : String = nil, @delete_marker : Bool = nil, @object_lock_legal_hold_status : String = nil)
     end
   end
 
-  class InvalidObjectState < Exception
+  class InvalidObjectState
     include AWSSdk::RestXML::Structure
 
     # 
@@ -11384,11 +11851,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "AccessTier", structure: false)]
     property access_tier : String?
 
-    def initialize(@storage_class = nil , @access_tier = nil )
+    def initialize(@storage_class : String = nil, @access_tier : String = nil)
     end
   end
 
-  class NoSuchKey < Exception
+  class NoSuchKey
     include AWSSdk::RestXML::Structure
 
 
@@ -11396,7 +11863,7 @@ module AmazonS3
     end
   end
 
-  class GetObjectAclRequest 
+  class GetObjectAclRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name that contains the object for which to get the ACL information. </p>
@@ -11416,11 +11883,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @version_id = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @version_id : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetObjectAclOutput 
+  class GetObjectAclOutput
     include AWSSdk::RestXML::Structure
 
     # <p> Container for the bucket owner's display name and ID.</p>
@@ -11433,11 +11900,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@owner = nil , @grants = nil , @request_charged = nil )
+    def initialize(@owner : OwnerStruct = nil, @grants : Array(GrantStruct) = nil, @request_charged : String = nil)
     end
   end
 
-  class GetObjectLegalHoldRequest 
+  class GetObjectLegalHoldRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object whose Legal Hold status you want to retrieve. </p>
@@ -11457,33 +11924,33 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @version_id = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @version_id : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ObjectLockLegalHoldStruct 
+  class ObjectLockLegalHoldStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether the specified object has a Legal Hold in place.</p>
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String?
 
-    def initialize(@status = nil )
+    def initialize(@status : String = nil)
     end
   end
 
-  class GetObjectLegalHoldOutput 
+  class GetObjectLegalHoldOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The current Legal Hold status for the specified object.</p>
     @[AWSSdk::Field(location: :body_io, name: "ObjectLockLegalHold", structure: true)]
     property legal_hold : ObjectLockLegalHoldStruct?
 
-    def initialize(@legal_hold = nil )
+    def initialize(@legal_hold : ObjectLockLegalHoldStruct = nil)
     end
   end
 
-  class GetObjectLockConfigurationRequest 
+  class GetObjectLockConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket whose Object Lock configuration you want to retrieve.</p>
@@ -11494,11 +11961,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class DefaultRetentionStruct 
+  class DefaultRetentionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The default Object Lock retention mode you want to apply to new objects placed in the
@@ -11512,11 +11979,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Years", structure: false)]
     property years : Int32?
 
-    def initialize(@mode = nil , @days = nil , @years = nil )
+    def initialize(@mode : String = nil, @days : Int32 = nil, @years : Int32 = nil)
     end
   end
 
-  class ObjectLockRuleStruct 
+  class ObjectLockRuleStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The default retention period that you want to apply to new objects placed in the
@@ -11524,11 +11991,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "DefaultRetention", structure: true)]
     property default_retention : DefaultRetentionStruct?
 
-    def initialize(@default_retention = nil )
+    def initialize(@default_retention : DefaultRetentionStruct = nil)
     end
   end
 
-  class ObjectLockConfigurationStruct 
+  class ObjectLockConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether this bucket has an Object Lock configuration enabled.</p>
@@ -11538,22 +12005,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Rule", structure: true)]
     property rule : ObjectLockRuleStruct?
 
-    def initialize(@object_lock_enabled = nil , @rule = nil )
+    def initialize(@object_lock_enabled : String = nil, @rule : ObjectLockRuleStruct = nil)
     end
   end
 
-  class GetObjectLockConfigurationOutput 
+  class GetObjectLockConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The specified bucket's Object Lock configuration.</p>
     @[AWSSdk::Field(location: :body_io, name: "ObjectLockConfiguration", structure: true)]
     property object_lock_configuration : ObjectLockConfigurationStruct?
 
-    def initialize(@object_lock_configuration = nil )
+    def initialize(@object_lock_configuration : ObjectLockConfigurationStruct = nil)
     end
   end
 
-  class GetObjectRetentionRequest 
+  class GetObjectRetentionRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object whose retention settings you want to retrieve. </p>
@@ -11573,11 +12040,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @version_id = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @version_id : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ObjectLockRetentionStruct 
+  class ObjectLockRetentionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates the Retention mode for the specified object.</p>
@@ -11587,22 +12054,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "RetainUntilDate", structure: false)]
     property retain_until_date : Time?
 
-    def initialize(@mode = nil , @retain_until_date = nil )
+    def initialize(@mode : String = nil, @retain_until_date : Time = nil)
     end
   end
 
-  class GetObjectRetentionOutput 
+  class GetObjectRetentionOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The container element for an object's retention settings.</p>
     @[AWSSdk::Field(location: :body_io, name: "ObjectLockRetention", structure: true)]
     property retention : ObjectLockRetentionStruct?
 
-    def initialize(@retention = nil )
+    def initialize(@retention : ObjectLockRetentionStruct = nil)
     end
   end
 
-  class GetObjectTaggingRequest 
+  class GetObjectTaggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object for which to get the tagging information. </p>
@@ -11620,11 +12087,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @version_id = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @version_id : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetObjectTaggingOutput 
+  class GetObjectTaggingOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The versionId of the object for which you got the tagging information.</p>
@@ -11634,11 +12101,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "TagSet", structure: false)]
     property tag_set : Array(TagStruct)
 
-    def initialize(@tag_set, @version_id = nil )
+    def initialize(@tag_set : Array(TagStruct), @version_id : String = nil)
     end
   end
 
-  class GetObjectTorrentRequest 
+  class GetObjectTorrentRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the object for which to get the torrent files.</p>
@@ -11654,11 +12121,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GetObjectTorrentOutput 
+  class GetObjectTorrentOutput
     include AWSSdk::RestXML::Structure
 
     # <p>A Bencoded dictionary as defined by the BitTorrent specification</p>
@@ -11668,11 +12135,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@body = nil , @request_charged = nil )
+    def initialize(@body : (IO | String | Bytes) = nil, @request_charged : String = nil)
     end
   end
 
-  class GetPublicAccessBlockRequest 
+  class GetPublicAccessBlockRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>PublicAccessBlock</code> configuration you want
@@ -11683,11 +12150,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PublicAccessBlockConfigurationStruct 
+  class PublicAccessBlockConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether Amazon S3 should block public access control lists (ACLs) for this bucket
@@ -11731,11 +12198,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "RestrictPublicBuckets", structure: false)]
     property restrict_public_buckets : Bool?
 
-    def initialize(@block_public_acls = nil , @ignore_public_acls = nil , @block_public_policy = nil , @restrict_public_buckets = nil )
+    def initialize(@block_public_acls : Bool = nil, @ignore_public_acls : Bool = nil, @block_public_policy : Bool = nil, @restrict_public_buckets : Bool = nil)
     end
   end
 
-  class GetPublicAccessBlockOutput 
+  class GetPublicAccessBlockOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The <code>PublicAccessBlock</code> configuration currently in effect for this Amazon S3
@@ -11743,11 +12210,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body_io, name: "PublicAccessBlockConfiguration", structure: true)]
     property public_access_block_configuration : PublicAccessBlockConfigurationStruct?
 
-    def initialize(@public_access_block_configuration = nil )
+    def initialize(@public_access_block_configuration : PublicAccessBlockConfigurationStruct = nil)
     end
   end
 
-  class HeadBucketRequest 
+  class HeadBucketRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -11759,11 +12226,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @expected_bucket_owner : String = nil)
     end
   end
 
-  class NoSuchBucket < Exception
+  class NoSuchBucket
     include AWSSdk::RestXML::Structure
 
 
@@ -11771,7 +12238,7 @@ module AmazonS3
     end
   end
 
-  class HeadObjectRequest 
+  class HeadObjectRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the object.</p>
@@ -11836,11 +12303,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @if_match = nil , @if_modified_since = nil , @if_none_match = nil , @if_unmodified_since = nil , @range = nil , @version_id = nil , @sse_customer_algorithm = nil , @sse_customer_key = nil , @sse_customer_key_md5 = nil , @request_payer = nil , @part_number = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @if_match : String = nil, @if_modified_since : Time = nil, @if_none_match : String = nil, @if_unmodified_since : Time = nil, @range : String = nil, @version_id : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key : String = nil, @sse_customer_key_md5 : String = nil, @request_payer : String = nil, @part_number : Int32 = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class HeadObjectOutput 
+  class HeadObjectOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If
@@ -12014,11 +12481,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-object-lock-legal-hold", structure: false)]
     property object_lock_legal_hold_status : String?
 
-    def initialize(@delete_marker = nil , @object_lock_retain_until_date = nil , @object_lock_mode = nil , @parts_count = nil , @replication_status = nil , @request_charged = nil , @storage_class = nil , @bucket_key_enabled = nil , @ssekms_key_id = nil , @sse_customer_key_md5 = nil , @sse_customer_algorithm = nil , @metadata = nil , @server_side_encryption = nil , @website_redirect_location = nil , @expires = nil , @content_type = nil , @content_language = nil , @content_encoding = nil , @content_disposition = nil , @cache_control = nil , @version_id = nil , @missing_meta = nil , @e_tag = nil , @content_length = nil , @last_modified = nil , @archive_status = nil , @restore = nil , @expiration = nil , @accept_ranges = nil , @object_lock_legal_hold_status = nil )
+    def initialize(@delete_marker : Bool = nil, @object_lock_retain_until_date : Time = nil, @object_lock_mode : String = nil, @parts_count : Int32 = nil, @replication_status : String = nil, @request_charged : String = nil, @storage_class : String = nil, @bucket_key_enabled : Bool = nil, @ssekms_key_id : String = nil, @sse_customer_key_md5 : String = nil, @sse_customer_algorithm : String = nil, @metadata : Hash(String, String) = nil, @server_side_encryption : String = nil, @website_redirect_location : String = nil, @expires : Time = nil, @content_type : String = nil, @content_language : String = nil, @content_encoding : String = nil, @content_disposition : String = nil, @cache_control : String = nil, @version_id : String = nil, @missing_meta : Int32 = nil, @e_tag : String = nil, @content_length : Int64 = nil, @last_modified : Time = nil, @archive_status : String = nil, @restore : String = nil, @expiration : String = nil, @accept_ranges : String = nil, @object_lock_legal_hold_status : String = nil)
     end
   end
 
-  class ListBucketAnalyticsConfigurationsRequest 
+  class ListBucketAnalyticsConfigurationsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket from which analytics configurations are retrieved.</p>
@@ -12032,11 +12499,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @continuation_token = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @continuation_token : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ListBucketAnalyticsConfigurationsOutput 
+  class ListBucketAnalyticsConfigurationsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether the returned list of analytics configurations is complete. A value of
@@ -12059,11 +12526,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "AnalyticsConfiguration", structure: false)]
     property analytics_configuration_list : Array(AnalyticsConfigurationStruct)?
 
-    def initialize(@is_truncated = nil , @continuation_token = nil , @next_continuation_token = nil , @analytics_configuration_list = nil )
+    def initialize(@is_truncated : Bool = nil, @continuation_token : String = nil, @next_continuation_token : String = nil, @analytics_configuration_list : Array(AnalyticsConfigurationStruct) = nil)
     end
   end
 
-  class ListBucketIntelligentTieringConfigurationsRequest 
+  class ListBucketIntelligentTieringConfigurationsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -12074,11 +12541,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :query, name: "continuation-token", structure: false)]
     property continuation_token : String?
 
-    def initialize(@bucket, @continuation_token = nil )
+    def initialize(@bucket : String, @continuation_token : String = nil)
     end
   end
 
-  class ListBucketIntelligentTieringConfigurationsOutput 
+  class ListBucketIntelligentTieringConfigurationsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether the returned list of analytics configurations is complete. A value of
@@ -12099,11 +12566,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "IntelligentTieringConfiguration", structure: false)]
     property intelligent_tiering_configuration_list : Array(IntelligentTieringConfigurationStruct)?
 
-    def initialize(@is_truncated = nil , @continuation_token = nil , @next_continuation_token = nil , @intelligent_tiering_configuration_list = nil )
+    def initialize(@is_truncated : Bool = nil, @continuation_token : String = nil, @next_continuation_token : String = nil, @intelligent_tiering_configuration_list : Array(IntelligentTieringConfigurationStruct) = nil)
     end
   end
 
-  class ListBucketInventoryConfigurationsRequest 
+  class ListBucketInventoryConfigurationsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the inventory configurations to retrieve.</p>
@@ -12118,11 +12585,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @continuation_token = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @continuation_token : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ListBucketInventoryConfigurationsOutput 
+  class ListBucketInventoryConfigurationsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>If sent in the request, the marker that is used as a starting point for this inventory
@@ -12143,11 +12610,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "NextContinuationToken", structure: false)]
     property next_continuation_token : String?
 
-    def initialize(@continuation_token = nil , @inventory_configuration_list = nil , @is_truncated = nil , @next_continuation_token = nil )
+    def initialize(@continuation_token : String = nil, @inventory_configuration_list : Array(InventoryConfigurationStruct) = nil, @is_truncated : Bool = nil, @next_continuation_token : String = nil)
     end
   end
 
-  class ListBucketMetricsConfigurationsRequest 
+  class ListBucketMetricsConfigurationsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the metrics configurations to retrieve.</p>
@@ -12163,11 +12630,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @continuation_token = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @continuation_token : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ListBucketMetricsConfigurationsOutput 
+  class ListBucketMetricsConfigurationsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether the returned list of metrics configurations is complete. A value of
@@ -12189,11 +12656,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "MetricsConfiguration", structure: false)]
     property metrics_configuration_list : Array(MetricsConfigurationStruct)?
 
-    def initialize(@is_truncated = nil , @continuation_token = nil , @next_continuation_token = nil , @metrics_configuration_list = nil )
+    def initialize(@is_truncated : Bool = nil, @continuation_token : String = nil, @next_continuation_token : String = nil, @metrics_configuration_list : Array(MetricsConfigurationStruct) = nil)
     end
   end
 
-  class BucketStruct 
+  class BucketStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket.</p>
@@ -12203,11 +12670,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "CreationDate", structure: false)]
     property creation_date : Time?
 
-    def initialize(@name = nil , @creation_date = nil )
+    def initialize(@name : String = nil, @creation_date : Time = nil)
     end
   end
 
-  class ListBucketsOutput 
+  class ListBucketsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The list of buckets owned by the requestor.</p>
@@ -12217,11 +12684,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Owner", structure: true)]
     property owner : OwnerStruct?
 
-    def initialize(@buckets = nil , @owner = nil )
+    def initialize(@buckets : Array(BucketStruct) = nil, @owner : OwnerStruct = nil)
     end
   end
 
-  class ListMultipartUploadsRequest 
+  class ListMultipartUploadsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket to which the multipart upload was initiated. </p>
@@ -12272,11 +12739,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @delimiter = nil , @encoding_type = nil , @key_marker = nil , @max_uploads = nil , @prefix = nil , @upload_id_marker = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @delimiter : String = nil, @encoding_type : String = nil, @key_marker : String = nil, @max_uploads : Int32 = nil, @prefix : String = nil, @upload_id_marker : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class InitiatorStruct 
+  class InitiatorStruct
     include AWSSdk::RestXML::Structure
 
     # <p>If the principal is an AWS account, it provides the Canonical User ID. If the principal
@@ -12287,11 +12754,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "DisplayName", structure: false)]
     property display_name : String?
 
-    def initialize(@id = nil , @display_name = nil )
+    def initialize(@id : String = nil, @display_name : String = nil)
     end
   end
 
-  class MultipartUploadStruct 
+  class MultipartUploadStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Upload ID that identifies the multipart upload.</p>
@@ -12313,22 +12780,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Initiator", structure: true)]
     property initiator : InitiatorStruct?
 
-    def initialize(@upload_id = nil , @key = nil , @initiated = nil , @storage_class = nil , @owner = nil , @initiator = nil )
+    def initialize(@upload_id : String = nil, @key : String = nil, @initiated : Time = nil, @storage_class : String = nil, @owner : OwnerStruct = nil, @initiator : InitiatorStruct = nil)
     end
   end
 
-  class CommonPrefixStruct 
+  class CommonPrefixStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Container for the specified common prefix.</p>
     @[AWSSdk::Field(location: :body, name: "Prefix", structure: false)]
     property prefix : String?
 
-    def initialize(@prefix = nil )
+    def initialize(@prefix : String = nil)
     end
   end
 
-  class ListMultipartUploadsOutput 
+  class ListMultipartUploadsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket to which the multipart upload was initiated.</p>
@@ -12385,11 +12852,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "EncodingType", structure: false)]
     property encoding_type : String?
 
-    def initialize(@bucket = nil , @key_marker = nil , @upload_id_marker = nil , @next_key_marker = nil , @prefix = nil , @delimiter = nil , @next_upload_id_marker = nil , @max_uploads = nil , @is_truncated = nil , @uploads = nil , @common_prefixes = nil , @encoding_type = nil )
+    def initialize(@bucket : String = nil, @key_marker : String = nil, @upload_id_marker : String = nil, @next_key_marker : String = nil, @prefix : String = nil, @delimiter : String = nil, @next_upload_id_marker : String = nil, @max_uploads : Int32 = nil, @is_truncated : Bool = nil, @uploads : Array(MultipartUploadStruct) = nil, @common_prefixes : Array(CommonPrefixStruct) = nil, @encoding_type : String = nil)
     end
   end
 
-  class ListObjectsRequest 
+  class ListObjectsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket containing the objects.</p>
@@ -12422,11 +12889,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @delimiter = nil , @encoding_type = nil , @marker = nil , @max_keys = nil , @prefix = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @delimiter : String = nil, @encoding_type : String = nil, @marker : String = nil, @max_keys : Int32 = nil, @prefix : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ObjectStruct 
+  class ObjectStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The name that you assign to an object. You use the object key to retrieve the
@@ -12468,11 +12935,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Owner", structure: true)]
     property owner : OwnerStruct?
 
-    def initialize(@key = nil , @last_modified = nil , @e_tag = nil , @size = nil , @storage_class = nil , @owner = nil )
+    def initialize(@key : String = nil, @last_modified : Time = nil, @e_tag : String = nil, @size : Int32 = nil, @storage_class : String = nil, @owner : OwnerStruct = nil)
     end
   end
 
-  class ListObjectsOutput 
+  class ListObjectsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>A flag that indicates whether Amazon S3 returned all of the results that satisfied the search
@@ -12530,11 +12997,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "EncodingType", structure: false)]
     property encoding_type : String?
 
-    def initialize(@is_truncated = nil , @marker = nil , @next_marker = nil , @contents = nil , @name = nil , @prefix = nil , @delimiter = nil , @max_keys = nil , @common_prefixes = nil , @encoding_type = nil )
+    def initialize(@is_truncated : Bool = nil, @marker : String = nil, @next_marker : String = nil, @contents : Array(ObjectStruct) = nil, @name : String = nil, @prefix : String = nil, @delimiter : String = nil, @max_keys : Int32 = nil, @common_prefixes : Array(CommonPrefixStruct) = nil, @encoding_type : String = nil)
     end
   end
 
-  class ListObjectsV2Request 
+  class ListObjectsV2Request
     include AWSSdk::RestXML::Structure
 
     # <p>Bucket name to list. </p>
@@ -12577,11 +13044,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @delimiter = nil , @encoding_type = nil , @max_keys = nil , @prefix = nil , @continuation_token = nil , @fetch_owner = nil , @start_after = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @delimiter : String = nil, @encoding_type : String = nil, @max_keys : Int32 = nil, @prefix : String = nil, @continuation_token : String = nil, @fetch_owner : Bool = nil, @start_after : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ListObjectsV2Output 
+  class ListObjectsV2Output
     include AWSSdk::RestXML::Structure
 
     # <p>Set to false if all of the results were returned. Set to true if more keys are available
@@ -12660,11 +13127,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "StartAfter", structure: false)]
     property start_after : String?
 
-    def initialize(@is_truncated = nil , @contents = nil , @name = nil , @prefix = nil , @delimiter = nil , @max_keys = nil , @common_prefixes = nil , @encoding_type = nil , @key_count = nil , @continuation_token = nil , @next_continuation_token = nil , @start_after = nil )
+    def initialize(@is_truncated : Bool = nil, @contents : Array(ObjectStruct) = nil, @name : String = nil, @prefix : String = nil, @delimiter : String = nil, @max_keys : Int32 = nil, @common_prefixes : Array(CommonPrefixStruct) = nil, @encoding_type : String = nil, @key_count : Int32 = nil, @continuation_token : String = nil, @next_continuation_token : String = nil, @start_after : String = nil)
     end
   end
 
-  class ListObjectVersionsRequest 
+  class ListObjectVersionsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name that contains the objects. </p>
@@ -12704,11 +13171,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @delimiter = nil , @encoding_type = nil , @key_marker = nil , @max_keys = nil , @prefix = nil , @version_id_marker = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @delimiter : String = nil, @encoding_type : String = nil, @key_marker : String = nil, @max_keys : Int32 = nil, @prefix : String = nil, @version_id_marker : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class ObjectVersionStruct 
+  class ObjectVersionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The entity tag is an MD5 hash of that version of the object.</p>
@@ -12737,11 +13204,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Owner", structure: true)]
     property owner : OwnerStruct?
 
-    def initialize(@e_tag = nil , @size = nil , @storage_class = nil , @key = nil , @version_id = nil , @is_latest = nil , @last_modified = nil , @owner = nil )
+    def initialize(@e_tag : String = nil, @size : Int32 = nil, @storage_class : String = nil, @key : String = nil, @version_id : String = nil, @is_latest : Bool = nil, @last_modified : Time = nil, @owner : OwnerStruct = nil)
     end
   end
 
-  class DeleteMarkerEntryStruct 
+  class DeleteMarkerEntryStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The account that created the delete marker.></p>
@@ -12761,11 +13228,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "LastModified", structure: false)]
     property last_modified : Time?
 
-    def initialize(@owner = nil , @key = nil , @version_id = nil , @is_latest = nil , @last_modified = nil )
+    def initialize(@owner : OwnerStruct = nil, @key : String = nil, @version_id : String = nil, @is_latest : Bool = nil, @last_modified : Time = nil)
     end
   end
 
-  class ListObjectVersionsOutput 
+  class ListObjectVersionsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>A flag that indicates whether Amazon S3 returned all of the results that satisfied the search
@@ -12828,11 +13295,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "EncodingType", structure: false)]
     property encoding_type : String?
 
-    def initialize(@is_truncated = nil , @key_marker = nil , @version_id_marker = nil , @next_key_marker = nil , @next_version_id_marker = nil , @versions = nil , @delete_markers = nil , @name = nil , @prefix = nil , @delimiter = nil , @max_keys = nil , @common_prefixes = nil , @encoding_type = nil )
+    def initialize(@is_truncated : Bool = nil, @key_marker : String = nil, @version_id_marker : String = nil, @next_key_marker : String = nil, @next_version_id_marker : String = nil, @versions : Array(ObjectVersionStruct) = nil, @delete_markers : Array(DeleteMarkerEntryStruct) = nil, @name : String = nil, @prefix : String = nil, @delimiter : String = nil, @max_keys : Int32 = nil, @common_prefixes : Array(CommonPrefixStruct) = nil, @encoding_type : String = nil)
     end
   end
 
-  class ListPartsRequest 
+  class ListPartsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket to which the parts are being uploaded. </p>
@@ -12860,11 +13327,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @upload_id, @max_parts = nil , @part_number_marker = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @upload_id : String, @max_parts : Int32 = nil, @part_number_marker : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PartStruct 
+  class PartStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Part number identifying the part. This is a positive integer between 1 and
@@ -12881,11 +13348,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Size", structure: false)]
     property size : Int32?
 
-    def initialize(@part_number = nil , @last_modified = nil , @e_tag = nil , @size = nil )
+    def initialize(@part_number : Int32 = nil, @last_modified : Time = nil, @e_tag : String = nil, @size : Int32 = nil)
     end
   end
 
-  class ListPartsOutput 
+  class ListPartsOutput
     include AWSSdk::RestXML::Structure
 
     # <p>If the bucket has a lifecycle rule configured with an action to abort incomplete
@@ -12953,22 +13420,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@abort_date = nil , @abort_rule_id = nil , @bucket = nil , @key = nil , @upload_id = nil , @part_number_marker = nil , @next_part_number_marker = nil , @max_parts = nil , @is_truncated = nil , @parts = nil , @initiator = nil , @owner = nil , @storage_class = nil , @request_charged = nil )
+    def initialize(@abort_date : Time = nil, @abort_rule_id : String = nil, @bucket : String = nil, @key : String = nil, @upload_id : String = nil, @part_number_marker : String = nil, @next_part_number_marker : String = nil, @max_parts : Int32 = nil, @is_truncated : Bool = nil, @parts : Array(PartStruct) = nil, @initiator : InitiatorStruct = nil, @owner : OwnerStruct = nil, @storage_class : String = nil, @request_charged : String = nil)
     end
   end
 
-  class AccelerateConfigurationStruct 
+  class AccelerateConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the transfer acceleration status of the bucket.</p>
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String?
 
-    def initialize(@status = nil )
+    def initialize(@status : String = nil)
     end
   end
 
-  class PutBucketAccelerateConfigurationRequest 
+  class PutBucketAccelerateConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which the accelerate configuration is set.</p>
@@ -12981,11 +13448,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @accelerate_configuration, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @accelerate_configuration : AccelerateConfigurationStruct, @expected_bucket_owner : String = nil)
     end
   end
 
-  class AccessControlPolicyStruct 
+  class AccessControlPolicyStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A list of grants.</p>
@@ -12995,11 +13462,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Owner", structure: true)]
     property owner : OwnerStruct?
 
-    def initialize(@grants = nil , @owner = nil )
+    def initialize(@grants : Array(GrantStruct) = nil, @owner : OwnerStruct = nil)
     end
   end
 
-  class PutBucketAclRequest 
+  class PutBucketAclRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The canned ACL to apply to the bucket.</p>
@@ -13039,11 +13506,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @acl = nil , @access_control_policy = nil , @content_md5 = nil , @grant_full_control = nil , @grant_read = nil , @grant_read_acp = nil , @grant_write = nil , @grant_write_acp = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @acl : String = nil, @access_control_policy : AccessControlPolicyStruct = nil, @content_md5 : String = nil, @grant_full_control : String = nil, @grant_read : String = nil, @grant_read_acp : String = nil, @grant_write : String = nil, @grant_write_acp : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketAnalyticsConfigurationRequest 
+  class PutBucketAnalyticsConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket to which an analytics configuration is stored.</p>
@@ -13059,11 +13526,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @analytics_configuration, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @analytics_configuration : AnalyticsConfigurationStruct, @expected_bucket_owner : String = nil)
     end
   end
 
-  class CORSConfigurationStruct 
+  class CORSConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A set of origins and methods (cross-origin access that you want to allow). You can add
@@ -13071,11 +13538,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "CORSRule", structure: false)]
     property cors_rules : Array(CORSRuleStruct)
 
-    def initialize(@cors_rules)
+    def initialize(@cors_rules : Array(CORSRuleStruct))
     end
   end
 
-  class PutBucketCorsRequest 
+  class PutBucketCorsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the bucket impacted by the <code>cors</code>configuration.</p>
@@ -13098,11 +13565,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @cors_configuration, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @cors_configuration : CORSConfigurationStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketEncryptionRequest 
+  class PutBucketEncryptionRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies default encryption for a bucket using server-side encryption with Amazon S3-managed
@@ -13122,11 +13589,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @server_side_encryption_configuration, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @server_side_encryption_configuration : ServerSideEncryptionConfigurationStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketIntelligentTieringConfigurationRequest 
+  class PutBucketIntelligentTieringConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.</p>
@@ -13139,11 +13606,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body_io, name: "IntelligentTieringConfiguration", structure: true)]
     property intelligent_tiering_configuration : IntelligentTieringConfigurationStruct
 
-    def initialize(@bucket, @id, @intelligent_tiering_configuration)
+    def initialize(@bucket : String, @id : String, @intelligent_tiering_configuration : IntelligentTieringConfigurationStruct)
     end
   end
 
-  class PutBucketInventoryConfigurationRequest 
+  class PutBucketInventoryConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket where the inventory configuration will be stored.</p>
@@ -13159,22 +13626,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @inventory_configuration, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @inventory_configuration : InventoryConfigurationStruct, @expected_bucket_owner : String = nil)
     end
   end
 
-  class BucketLifecycleConfigurationStruct 
+  class BucketLifecycleConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A lifecycle rule for individual objects in an Amazon S3 bucket.</p>
     @[AWSSdk::Field(location: :body, name: "Rule", structure: false)]
     property rules : Array(LifecycleRuleStruct)
 
-    def initialize(@rules)
+    def initialize(@rules : Array(LifecycleRuleStruct))
     end
   end
 
-  class PutBucketLifecycleConfigurationRequest 
+  class PutBucketLifecycleConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to set the configuration.</p>
@@ -13187,22 +13654,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @lifecycle_configuration = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @lifecycle_configuration : BucketLifecycleConfigurationStruct = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class BucketLoggingStatusStruct 
+  class BucketLoggingStatusStruct
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :body, name: "LoggingEnabled", structure: true)]
     property logging_enabled : LoggingEnabledStruct?
 
-    def initialize(@logging_enabled = nil )
+    def initialize(@logging_enabled : LoggingEnabledStruct = nil)
     end
   end
 
-  class PutBucketLoggingRequest 
+  class PutBucketLoggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which to set the logging parameters.</p>
@@ -13219,11 +13686,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @bucket_logging_status, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @bucket_logging_status : BucketLoggingStatusStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketMetricsConfigurationRequest 
+  class PutBucketMetricsConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket for which the metrics configuration is set.</p>
@@ -13239,11 +13706,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @id, @metrics_configuration, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @id : String, @metrics_configuration : MetricsConfigurationStruct, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketNotificationConfigurationRequest 
+  class PutBucketNotificationConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket.</p>
@@ -13256,11 +13723,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @notification_configuration, @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @notification_configuration : NotificationConfigurationStruct, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketOwnershipControlsRequest 
+  class PutBucketOwnershipControlsRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>OwnershipControls</code> you want to set.</p>
@@ -13278,11 +13745,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body_io, name: "OwnershipControls", structure: true)]
     property ownership_controls : OwnershipControlsStruct
 
-    def initialize(@bucket, @ownership_controls, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @ownership_controls : OwnershipControlsStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketPolicyRequest 
+  class PutBucketPolicyRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket.</p>
@@ -13303,11 +13770,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @policy, @content_md5 = nil , @confirm_remove_self_bucket_access = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @policy : String, @content_md5 : String = nil, @confirm_remove_self_bucket_access : Bool = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutBucketReplicationRequest 
+  class PutBucketReplicationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket</p>
@@ -13329,22 +13796,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @replication_configuration, @content_md5 = nil , @token = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @replication_configuration : ReplicationConfigurationStruct, @content_md5 : String = nil, @token : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class RequestPaymentConfigurationStruct 
+  class RequestPaymentConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies who pays for the download and request fees.</p>
     @[AWSSdk::Field(location: :body, name: "Payer", structure: false)]
     property payer : String
 
-    def initialize(@payer)
+    def initialize(@payer : String)
     end
   end
 
-  class PutBucketRequestPaymentRequest 
+  class PutBucketRequestPaymentRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13364,22 +13831,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @request_payment_configuration, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @request_payment_configuration : RequestPaymentConfigurationStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class TaggingStruct 
+  class TaggingStruct
     include AWSSdk::RestXML::Structure
 
     # <p>A collection for a set of tags</p>
     @[AWSSdk::Field(location: :body, name: "TagSet", structure: false)]
     property tag_set : Array(TagStruct)
 
-    def initialize(@tag_set)
+    def initialize(@tag_set : Array(TagStruct))
     end
   end
 
-  class PutBucketTaggingRequest 
+  class PutBucketTaggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13398,11 +13865,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @tagging, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @tagging : TaggingStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class VersioningConfigurationStruct 
+  class VersioningConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether MFA delete is enabled in the bucket versioning configuration. This
@@ -13414,11 +13881,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Status", structure: false)]
     property status : String?
 
-    def initialize(@mfa_delete = nil , @status = nil )
+    def initialize(@mfa_delete : String = nil, @status : String = nil)
     end
   end
 
-  class PutBucketVersioningRequest 
+  class PutBucketVersioningRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13442,11 +13909,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @versioning_configuration, @content_md5 = nil , @mfa = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @versioning_configuration : VersioningConfigurationStruct, @content_md5 : String = nil, @mfa : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class WebsiteConfigurationStruct 
+  class WebsiteConfigurationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the error document for the website.</p>
@@ -13465,11 +13932,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "RoutingRules", structure: false)]
     property routing_rules : Array(RoutingRuleStruct)?
 
-    def initialize(@error_document = nil , @index_document = nil , @redirect_all_requests_to = nil , @routing_rules = nil )
+    def initialize(@error_document : ErrorDocumentStruct = nil, @index_document : IndexDocumentStruct = nil, @redirect_all_requests_to : RedirectAllRequestsToStruct = nil, @routing_rules : Array(RoutingRuleStruct) = nil)
     end
   end
 
-  class PutBucketWebsiteRequest 
+  class PutBucketWebsiteRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -13488,11 +13955,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @website_configuration, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @website_configuration : WebsiteConfigurationStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectRequest 
+  class PutObjectRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The canned ACL to apply to the object. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL">Canned
@@ -13658,11 +14125,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@key, @bucket, @acl = nil , @storage_class = nil , @website_redirect_location = nil , @sse_customer_algorithm = nil , @sse_customer_key = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @ssekms_encryption_context = nil , @bucket_key_enabled = nil , @request_payer = nil , @tagging = nil , @object_lock_mode = nil , @object_lock_retain_until_date = nil , @object_lock_legal_hold_status = nil , @server_side_encryption = nil , @metadata = nil , @grant_write_acp = nil , @grant_read_acp = nil , @grant_read = nil , @grant_full_control = nil , @expires = nil , @content_type = nil , @content_md5 = nil , @content_length = nil , @content_language = nil , @content_encoding = nil , @content_disposition = nil , @cache_control = nil , @body = nil , @expected_bucket_owner = nil )
+    def initialize(@key : String, @bucket : String, @acl : String = nil, @storage_class : String = nil, @website_redirect_location : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @ssekms_encryption_context : String = nil, @bucket_key_enabled : Bool = nil, @request_payer : String = nil, @tagging : String = nil, @object_lock_mode : String = nil, @object_lock_retain_until_date : Time = nil, @object_lock_legal_hold_status : String = nil, @server_side_encryption : String = nil, @metadata : Hash(String, String) = nil, @grant_write_acp : String = nil, @grant_read_acp : String = nil, @grant_read : String = nil, @grant_full_control : String = nil, @expires : Time = nil, @content_type : String = nil, @content_md5 : String = nil, @content_length : Int64 = nil, @content_language : String = nil, @content_encoding : String = nil, @content_disposition : String = nil, @cache_control : String = nil, @body : (IO | String | Bytes) = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectOutput 
+  class PutObjectOutput
     include AWSSdk::RestXML::Structure
 
     # <p> If the expiration is configured for the object (see <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html">PutBucketLifecycleConfiguration</a>), the response includes this header. It
@@ -13708,11 +14175,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@expiration = nil , @e_tag = nil , @server_side_encryption = nil , @version_id = nil , @sse_customer_algorithm = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @ssekms_encryption_context = nil , @bucket_key_enabled = nil , @request_charged = nil )
+    def initialize(@expiration : String = nil, @e_tag : String = nil, @server_side_encryption : String = nil, @version_id : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @ssekms_encryption_context : String = nil, @bucket_key_enabled : Bool = nil, @request_charged : String = nil)
     end
   end
 
-  class PutObjectAclRequest 
+  class PutObjectAclRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The canned ACL to apply to the object. For more information, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL">Canned ACL</a>.</p>
@@ -13770,22 +14237,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @acl = nil , @access_control_policy = nil , @content_md5 = nil , @grant_full_control = nil , @grant_read = nil , @grant_read_acp = nil , @grant_write = nil , @grant_write_acp = nil , @request_payer = nil , @version_id = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @acl : String = nil, @access_control_policy : AccessControlPolicyStruct = nil, @content_md5 : String = nil, @grant_full_control : String = nil, @grant_read : String = nil, @grant_read_acp : String = nil, @grant_write : String = nil, @grant_write_acp : String = nil, @request_payer : String = nil, @version_id : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectAclOutput 
+  class PutObjectAclOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@request_charged = nil )
+    def initialize(@request_charged : String = nil)
     end
   end
 
-  class PutObjectLegalHoldRequest 
+  class PutObjectLegalHoldRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object that you want to place a Legal Hold on. </p>
@@ -13813,22 +14280,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @legal_hold = nil , @request_payer = nil , @version_id = nil , @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @legal_hold : ObjectLockLegalHoldStruct = nil, @request_payer : String = nil, @version_id : String = nil, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectLegalHoldOutput 
+  class PutObjectLegalHoldOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@request_charged = nil )
+    def initialize(@request_charged : String = nil)
     end
   end
 
-  class PutObjectLockConfigurationRequest 
+  class PutObjectLockConfigurationRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket whose Object Lock configuration you want to create or replace.</p>
@@ -13851,22 +14318,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @object_lock_configuration = nil , @request_payer = nil , @token = nil , @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @object_lock_configuration : ObjectLockConfigurationStruct = nil, @request_payer : String = nil, @token : String = nil, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectLockConfigurationOutput 
+  class PutObjectLockConfigurationOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@request_charged = nil )
+    def initialize(@request_charged : String = nil)
     end
   end
 
-  class PutObjectRetentionRequest 
+  class PutObjectRetentionRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name that contains the object you want to apply this Object Retention
@@ -13899,22 +14366,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @retention = nil , @request_payer = nil , @version_id = nil , @bypass_governance_retention = nil , @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @retention : ObjectLockRetentionStruct = nil, @request_payer : String = nil, @version_id : String = nil, @bypass_governance_retention : Bool = nil, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectRetentionOutput 
+  class PutObjectRetentionOutput
     include AWSSdk::RestXML::Structure
 
     # 
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@request_charged = nil )
+    def initialize(@request_charged : String = nil)
     end
   end
 
-  class PutObjectTaggingRequest 
+  class PutObjectTaggingRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object. </p>
@@ -13939,22 +14406,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @tagging, @version_id = nil , @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @tagging : TaggingStruct, @version_id : String = nil, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class PutObjectTaggingOutput 
+  class PutObjectTaggingOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The versionId of the object the tag-set was added to.</p>
     @[AWSSdk::Field(location: :header, name: "x-amz-version-id", structure: false)]
     property version_id : String?
 
-    def initialize(@version_id = nil )
+    def initialize(@version_id : String = nil)
     end
   end
 
-  class PutPublicAccessBlockRequest 
+  class PutPublicAccessBlockRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the Amazon S3 bucket whose <code>PublicAccessBlock</code> configuration you want
@@ -13975,22 +14442,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @public_access_block_configuration, @content_md5 = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @public_access_block_configuration : PublicAccessBlockConfigurationStruct, @content_md5 : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class GlacierJobParametersStruct 
+  class GlacierJobParametersStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Retrieval tier at which the restore will be processed.</p>
     @[AWSSdk::Field(location: :body, name: "Tier", structure: false)]
     property tier : String
 
-    def initialize(@tier)
+    def initialize(@tier : String)
     end
   end
 
-  class CSVInputStruct 
+  class CSVInputStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Describes the first line of input. Valid values are:</p>
@@ -14046,22 +14513,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "AllowQuotedRecordDelimiter", structure: false)]
     property allow_quoted_record_delimiter : Bool?
 
-    def initialize(@file_header_info = nil , @comments = nil , @quote_escape_character = nil , @record_delimiter = nil , @field_delimiter = nil , @quote_character = nil , @allow_quoted_record_delimiter = nil )
+    def initialize(@file_header_info : String = nil, @comments : String = nil, @quote_escape_character : String = nil, @record_delimiter : String = nil, @field_delimiter : String = nil, @quote_character : String = nil, @allow_quoted_record_delimiter : Bool = nil)
     end
   end
 
-  class JSONInputStruct 
+  class JSONInputStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The type of JSON. Valid values: Document, Lines.</p>
     @[AWSSdk::Field(location: :body, name: "Type", structure: false)]
     property type : String?
 
-    def initialize(@type = nil )
+    def initialize(@type : String = nil)
     end
   end
 
-  class ParquetInputStruct 
+  class ParquetInputStruct
     include AWSSdk::RestXML::Structure
 
 
@@ -14069,7 +14536,7 @@ module AmazonS3
     end
   end
 
-  class InputSerializationStruct 
+  class InputSerializationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Describes the serialization of a CSV-encoded object.</p>
@@ -14086,11 +14553,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Parquet", structure: true)]
     property parquet : ParquetInputStruct?
 
-    def initialize(@csv = nil , @compression_type = nil , @json = nil , @parquet = nil )
+    def initialize(@csv : CSVInputStruct = nil, @compression_type : String = nil, @json : JSONInputStruct = nil, @parquet : ParquetInputStruct = nil)
     end
   end
 
-  class CSVOutput 
+  class CSVOutput
     include AWSSdk::RestXML::Structure
 
     # <p>Indicates whether to use quotation marks around output fields. </p>
@@ -14124,11 +14591,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "QuoteCharacter", structure: false)]
     property quote_character : String?
 
-    def initialize(@quote_fields = nil , @quote_escape_character = nil , @record_delimiter = nil , @field_delimiter = nil , @quote_character = nil )
+    def initialize(@quote_fields : String = nil, @quote_escape_character : String = nil, @record_delimiter : String = nil, @field_delimiter : String = nil, @quote_character : String = nil)
     end
   end
 
-  class JSONOutput 
+  class JSONOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The value used to separate individual records in the output. If no value is specified,
@@ -14136,11 +14603,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "RecordDelimiter", structure: false)]
     property record_delimiter : String?
 
-    def initialize(@record_delimiter = nil )
+    def initialize(@record_delimiter : String = nil)
     end
   end
 
-  class OutputSerializationStruct 
+  class OutputSerializationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Describes the serialization of CSV-encoded Select results.</p>
@@ -14150,11 +14617,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "JSON", structure: true)]
     property json : JSONOutput?
 
-    def initialize(@csv = nil , @json = nil )
+    def initialize(@csv : CSVOutput = nil, @json : JSONOutput = nil)
     end
   end
 
-  class SelectParametersStruct 
+  class SelectParametersStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Describes the serialization format of the object.</p>
@@ -14170,11 +14637,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "OutputSerialization", structure: true)]
     property output_serialization : OutputSerializationStruct
 
-    def initialize(@input_serialization, @expression_type, @expression, @output_serialization)
+    def initialize(@input_serialization : InputSerializationStruct, @expression_type : String, @expression : String, @output_serialization : OutputSerializationStruct)
     end
   end
 
-  class EncryptionStruct 
+  class EncryptionStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The server-side encryption algorithm used when storing job results in Amazon S3 (for example,
@@ -14193,11 +14660,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "KMSContext", structure: false)]
     property kms_context : String?
 
-    def initialize(@encryption_type, @kms_key_id = nil , @kms_context = nil )
+    def initialize(@encryption_type : String, @kms_key_id : String = nil, @kms_context : String = nil)
     end
   end
 
-  class MetadataEntryStruct 
+  class MetadataEntryStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Name of the Object.</p>
@@ -14207,11 +14674,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Value", structure: false)]
     property value : String?
 
-    def initialize(@name = nil , @value = nil )
+    def initialize(@name : String = nil, @value : String = nil)
     end
   end
 
-  class S3LocationStruct 
+  class S3LocationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The name of the bucket where the restore results will be placed.</p>
@@ -14239,22 +14706,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "StorageClass", structure: false)]
     property storage_class : String?
 
-    def initialize(@bucket_name, @prefix, @encryption = nil , @canned_acl = nil , @access_control_list = nil , @tagging = nil , @user_metadata = nil , @storage_class = nil )
+    def initialize(@bucket_name : String, @prefix : String, @encryption : EncryptionStruct = nil, @canned_acl : String = nil, @access_control_list : Array(GrantStruct) = nil, @tagging : TaggingStruct = nil, @user_metadata : Array(MetadataEntryStruct) = nil, @storage_class : String = nil)
     end
   end
 
-  class OutputLocationStruct 
+  class OutputLocationStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Describes an S3 location that will receive the results of the restore request.</p>
     @[AWSSdk::Field(location: :body, name: "S3", structure: true)]
     property s3 : S3LocationStruct?
 
-    def initialize(@s3 = nil )
+    def initialize(@s3 : S3LocationStruct = nil)
     end
   end
 
-  class RestoreRequest 
+  class RestoreRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Lifetime of the active copy in days. Do not use with restores that specify
@@ -14283,11 +14750,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "OutputLocation", structure: true)]
     property output_location : OutputLocationStruct?
 
-    def initialize(@days = nil , @glacier_job_parameters = nil , @type = nil , @tier = nil , @description = nil , @select_parameters = nil , @output_location = nil )
+    def initialize(@days : Int32 = nil, @glacier_job_parameters : GlacierJobParametersStruct = nil, @type : String = nil, @tier : String = nil, @description : String = nil, @select_parameters : SelectParametersStruct = nil, @output_location : OutputLocationStruct = nil)
     end
   end
 
-  class RestoreObjectRequest 
+  class RestoreObjectRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name containing the object to restore. </p>
@@ -14311,11 +14778,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @version_id = nil , @restore_request = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @version_id : String = nil, @restore_request : RestoreRequest = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class RestoreObjectOutput 
+  class RestoreObjectOutput
     include AWSSdk::RestXML::Structure
 
     # 
@@ -14326,11 +14793,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-restore-output-path", structure: false)]
     property restore_output_path : String?
 
-    def initialize(@request_charged = nil , @restore_output_path = nil )
+    def initialize(@request_charged : String = nil, @restore_output_path : String = nil)
     end
   end
 
-  class ObjectAlreadyInActiveTierError < Exception
+  class ObjectAlreadyInActiveTierError
     include AWSSdk::RestXML::Structure
 
 
@@ -14338,7 +14805,7 @@ module AmazonS3
     end
   end
 
-  class RequestProgressStruct 
+  class RequestProgressStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies whether periodic QueryProgress frames should be sent. Valid values: TRUE,
@@ -14346,11 +14813,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "Enabled", structure: false)]
     property enabled : Bool?
 
-    def initialize(@enabled = nil )
+    def initialize(@enabled : Bool = nil)
     end
   end
 
-  class ScanRangeStruct 
+  class ScanRangeStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Specifies the start of the byte range. This parameter is optional. Valid values:
@@ -14369,11 +14836,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "End", structure: false)]
     property end : Int64?
 
-    def initialize(@start = nil , @end = nil )
+    def initialize(@start : Int64 = nil, @end : Int64 = nil)
     end
   end
 
-  class SelectObjectContentRequest 
+  class SelectObjectContentRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The S3 bucket.</p>
@@ -14438,22 +14905,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @expression, @expression_type, @input_serialization, @output_serialization, @sse_customer_algorithm = nil , @sse_customer_key = nil , @sse_customer_key_md5 = nil , @request_progress = nil , @scan_range = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @expression : String, @expression_type : String, @input_serialization : InputSerializationStruct, @output_serialization : OutputSerializationStruct, @sse_customer_algorithm : String = nil, @sse_customer_key : String = nil, @sse_customer_key_md5 : String = nil, @request_progress : RequestProgressStruct = nil, @scan_range : ScanRangeStruct = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class RecordsEventStruct 
+  class RecordsEventStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The byte array of partial, one or more result records.</p>
     @[AWSSdk::Field(location: :body, name: "Payload", structure: false)]
     property payload : (IO | String | Bytes)?
 
-    def initialize(@payload = nil )
+    def initialize(@payload : (IO | String | Bytes) = nil)
     end
   end
 
-  class StatsStruct 
+  class StatsStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The total number of object bytes scanned.</p>
@@ -14466,22 +14933,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "BytesReturned", structure: false)]
     property bytes_returned : Int64?
 
-    def initialize(@bytes_scanned = nil , @bytes_processed = nil , @bytes_returned = nil )
+    def initialize(@bytes_scanned : Int64 = nil, @bytes_processed : Int64 = nil, @bytes_returned : Int64 = nil)
     end
   end
 
-  class StatsEventStruct 
+  class StatsEventStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The Stats event details.</p>
     @[AWSSdk::Field(location: :body, name: "Details", structure: true)]
     property details : StatsStruct?
 
-    def initialize(@details = nil )
+    def initialize(@details : StatsStruct = nil)
     end
   end
 
-  class ProgressStruct 
+  class ProgressStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The current number of object bytes scanned.</p>
@@ -14494,22 +14961,22 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "BytesReturned", structure: false)]
     property bytes_returned : Int64?
 
-    def initialize(@bytes_scanned = nil , @bytes_processed = nil , @bytes_returned = nil )
+    def initialize(@bytes_scanned : Int64 = nil, @bytes_processed : Int64 = nil, @bytes_returned : Int64 = nil)
     end
   end
 
-  class ProgressEventStruct 
+  class ProgressEventStruct
     include AWSSdk::RestXML::Structure
 
     # <p>The Progress event details.</p>
     @[AWSSdk::Field(location: :body, name: "Details", structure: true)]
     property details : ProgressStruct?
 
-    def initialize(@details = nil )
+    def initialize(@details : ProgressStruct = nil)
     end
   end
 
-  class ContinuationEventStruct 
+  class ContinuationEventStruct
     include AWSSdk::RestXML::Structure
 
 
@@ -14517,7 +14984,7 @@ module AmazonS3
     end
   end
 
-  class EndEventStruct 
+  class EndEventStruct
     include AWSSdk::RestXML::Structure
 
 
@@ -14525,18 +14992,18 @@ module AmazonS3
     end
   end
 
-  class SelectObjectContentOutput 
+  class SelectObjectContentOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The array of results.</p>
     @[AWSSdk::Field(location: :body_io, name: "nil", structure: false)]
     property payload : SelectObjectContentEventStreamStruct?
 
-    def initialize(@payload = nil )
+    def initialize(@payload : SelectObjectContentEventStreamStruct = nil)
     end
   end
 
-  class UploadPartRequest 
+  class UploadPartRequest
     include AWSSdk::RestXML::Structure
 
     # <p>Object data.</p>
@@ -14589,11 +15056,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-expected-bucket-owner", structure: false)]
     property expected_bucket_owner : String?
 
-    def initialize(@bucket, @key, @part_number, @upload_id, @body = nil , @content_length = nil , @content_md5 = nil , @sse_customer_algorithm = nil , @sse_customer_key = nil , @sse_customer_key_md5 = nil , @request_payer = nil , @expected_bucket_owner = nil )
+    def initialize(@bucket : String, @key : String, @part_number : Int32, @upload_id : String, @body : (IO | String | Bytes) = nil, @content_length : Int64 = nil, @content_md5 : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key : String = nil, @sse_customer_key_md5 : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil)
     end
   end
 
-  class UploadPartOutput 
+  class UploadPartOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The server-side encryption algorithm used when storing this object in Amazon S3 (for example,
@@ -14623,11 +15090,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@server_side_encryption = nil , @e_tag = nil , @sse_customer_algorithm = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @bucket_key_enabled = nil , @request_charged = nil )
+    def initialize(@server_side_encryption : String = nil, @e_tag : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @bucket_key_enabled : Bool = nil, @request_charged : String = nil)
     end
   end
 
-  class UploadPartCopyRequest 
+  class UploadPartCopyRequest
     include AWSSdk::RestXML::Structure
 
     # <p>The bucket name.</p>
@@ -14730,11 +15197,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-source-expected-bucket-owner", structure: false)]
     property expected_source_bucket_owner : String?
 
-    def initialize(@bucket, @upload_id, @part_number, @key, @copy_source, @copy_source_if_none_match = nil , @copy_source_if_unmodified_since = nil , @copy_source_range = nil , @copy_source_if_modified_since = nil , @copy_source_if_match = nil , @sse_customer_algorithm = nil , @sse_customer_key = nil , @sse_customer_key_md5 = nil , @copy_source_sse_customer_algorithm = nil , @copy_source_sse_customer_key = nil , @copy_source_sse_customer_key_md5 = nil , @request_payer = nil , @expected_bucket_owner = nil , @expected_source_bucket_owner = nil )
+    def initialize(@bucket : String, @upload_id : String, @part_number : Int32, @key : String, @copy_source : String, @copy_source_if_none_match : String = nil, @copy_source_if_unmodified_since : Time = nil, @copy_source_range : String = nil, @copy_source_if_modified_since : Time = nil, @copy_source_if_match : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key : String = nil, @sse_customer_key_md5 : String = nil, @copy_source_sse_customer_algorithm : String = nil, @copy_source_sse_customer_key : String = nil, @copy_source_sse_customer_key_md5 : String = nil, @request_payer : String = nil, @expected_bucket_owner : String = nil, @expected_source_bucket_owner : String = nil)
     end
   end
 
-  class CopyPartResultStruct 
+  class CopyPartResultStruct
     include AWSSdk::RestXML::Structure
 
     # <p>Entity tag of the object.</p>
@@ -14744,11 +15211,11 @@ module AmazonS3
     @[AWSSdk::Field(location: :body, name: "LastModified", structure: false)]
     property last_modified : Time?
 
-    def initialize(@e_tag = nil , @last_modified = nil )
+    def initialize(@e_tag : String = nil, @last_modified : Time = nil)
     end
   end
 
-  class UploadPartCopyOutput 
+  class UploadPartCopyOutput
     include AWSSdk::RestXML::Structure
 
     # <p>The version of the source object that was copied, if you have enabled versioning on the
@@ -14782,7 +15249,7 @@ module AmazonS3
     @[AWSSdk::Field(location: :header, name: "x-amz-request-charged", structure: false)]
     property request_charged : String?
 
-    def initialize(@copy_source_version_id = nil , @copy_part_result = nil , @server_side_encryption = nil , @sse_customer_algorithm = nil , @sse_customer_key_md5 = nil , @ssekms_key_id = nil , @bucket_key_enabled = nil , @request_charged = nil )
+    def initialize(@copy_source_version_id : String = nil, @copy_part_result : CopyPartResultStruct = nil, @server_side_encryption : String = nil, @sse_customer_algorithm : String = nil, @sse_customer_key_md5 : String = nil, @ssekms_key_id : String = nil, @bucket_key_enabled : Bool = nil, @request_charged : String = nil)
     end
   end
 
