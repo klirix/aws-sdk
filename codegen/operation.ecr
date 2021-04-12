@@ -1,6 +1,23 @@
   <% traits["smithy.api#documentation"].to_s.split('\n').each do |line| -%>
   # <%= line.strip %>
   <%- end -%>
+  <%- if input = @input -%>
+  def <%= name.underscore %>(<%= input.members.map do |key, value|
+      "#{key.underscore} : #{value.to_type}#{input.memberTraits[key].has_key?("smithy.api#required") ? "" : "? = nil"}"
+    end.sort do |a, b| 
+      a.includes?("nil").to_unsafe - b.includes?("nil").to_unsafe
+    end.join(", ") %>) : <%- if output = @output -%>
+    <%-= output.name %>
+    <%- else -%>
+    Nil
+    <%- end -%>
+    <%= name.underscore %>(<%= input.to_type %>.new(
+      <%= input.members.map do |key, value|
+        "#{key.underscore}: #{key.underscore}"
+      end.join(", ") %>
+    ))
+  end
+  <%- end -%>
   def <%= name.underscore %>(<% if input = @input %>input : <%= input.name %><% end %>) : <%- if output = @output -%>
   <%-= output.name %>
   <%- else -%>
