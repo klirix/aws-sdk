@@ -79,11 +79,17 @@ end
 aws_client = MyClient.new(region: "region_override")
 
 buckets = aws_client.s3.get_bucket_objects "buck"
+instances = aws_client.lightsail.get_instances
 ```
 
 ## Development
 
 TODO: Write development instructions here
+
+## Known Issues
+
+Cant annotate already existing message field on Exception
+Special cases are weird
 
 ## Contributing
 
