@@ -12,9 +12,26 @@ module <%= name %>
   module Methods
     abstract def send( request : HTTP::Request, prefix : String, success_code : Int32? )
 
-    <% operations.each do |operation| %>
-      <%= operation.to_code %>
-    <% end %>
+    def <%= traits.not_nil!["aws.api#service"]["endpointPrefix"] %> : <%= name %>Methods
+      if internal = @internal_<%= name %>
+        internal
+      else
+        @internal_<%= name %> = <%= name %>Methods.new(self)
+      end
+    end
+
+    class <%= name %>Methods
+      def initialize(@parent : <%= name %>::Methods)
+      end
+
+      def send( request : HTTP::Request, prefix : String, success_code : Int32? )
+        @parent.send( request, prefix, success_code )
+      end
+
+      <% operations.each do |operation| %>
+        <%= operation.to_code %>
+      <% end %>
+    end 
   end
 
 <% @namespace.structures.each do |structure| %>
