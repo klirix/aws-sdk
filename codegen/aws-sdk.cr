@@ -89,11 +89,15 @@ module Smithy
     def to_code
       ECR.render "codegen/service.ecr"
     end
+
+    def name : String
+      "Amazon#{@traits["aws.api#service"]["sdkId"]}"
+    end
   end
 
   class OperationType < AbstractType(ASTNodeOperation)
-    property input : DataType?
-    property output : DataType?
+    property input : StructureType?
+    property output : StructureType?
     property errors = Array(DataType).new
 
     def initialize(@namespace, @id, @node : ASTNodeOperation)
@@ -105,7 +109,7 @@ module Smithy
         end
       end
       if output = @node.output
-        @output = new_data_type(@namespace, output.target, @namespace.shapes[output.target])
+        @output = new_data_type(@namespace, output.target, @namespace.shapes[output.target]).as(StructureType)
         if output = @output && output.is_a? StructureType
           output.output = true
         end
