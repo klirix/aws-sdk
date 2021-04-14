@@ -76,7 +76,7 @@ module Smithy
     def protocol_module
       case traits
       when .has_key? "aws.protocols#restJson1"
-        "RestJson"
+        "RestJSON"
       when .has_key? "aws.protocols#restXml"
         "RestXML"
       when .has_key? "aws.protocols#awsJson1_1"

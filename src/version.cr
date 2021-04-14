@@ -6,18 +6,20 @@ end
 
 require "http"
 require "./clients/s3"
-require "./clients/lightsail"
+require "./clients/appconfig"
 
 include AWSSdk
 
 class MyClient < AWSSdk::Client
   include AmazonS3::Methods
-  include AmazonLightsail::Methods
+  include AmazonAppConfig::Methods
 end
 
-s3client = MyClient.new
+my_client = MyClient.new
 
-pp s3client.s3.put_object(
+my_client.appconfig.update_configuration_profile("app", "config")
+
+pp my_client.s3.put_object(
   bucket: "buckcket",
   key: "tex .txt",
   body: File.open("shard.yml")
