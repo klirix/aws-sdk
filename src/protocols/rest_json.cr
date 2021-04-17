@@ -33,12 +33,12 @@ module AWSSdk
                   json.field {{props[:name]}} do
                     json.array do
                       {{name.id}}.each do |el|
-                        {% if [String, Float32, Int32, Boolean].includes? props[:type].type_vars[0]  %}
-                          json.scalar el if el
-                        {% else %}
+                        {% if props[:is_structure] %}
                           json.object do
                             el.serialize(json)
                           end
+                        {% else %}
+                          json.scalar el if el
                         {% end %}
                       end
                     end

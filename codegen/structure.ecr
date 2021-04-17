@@ -22,7 +22,7 @@
       "location: :body_io, name: \"#{value.is_a?(StructureType) ? value.name : "nil"}\""
     else 
       "location: :body, name: \"#{traits["smithy.api#xmlName"]? || key}\""
-    end%>, structure: <%= value.is_a? StructureType %>)]
+    end%>, structure: <%= value.is_a?(ListType) ? value.member.is_a?(StructureType) : value.is_a?(StructureType) %>)]
     property <%= key.underscore %> : <%= value.to_type %><%= traits.try &.["smithy.api#required"]? ? "" : '?' %>
     <%- end -%>
 
