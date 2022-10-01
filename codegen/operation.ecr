@@ -7,7 +7,7 @@
     end.sort do |a, b| 
       a.includes?("nil").to_unsafe - b.includes?("nil").to_unsafe
     end.join(", ") %>) : <%- if output = @output -%>
-    <%-= output.name %>
+    <%-= output.name %>Struct
     <%- else -%>
     Nil
     <%- end -%>

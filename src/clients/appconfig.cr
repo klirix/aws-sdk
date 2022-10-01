@@ -29,7 +29,7 @@ module AmazonAppConfig
   # customers. For example, an application can be a microservice that runs on Amazon EC2 instances,
   # a mobile application installed by your users, a serverless application using Amazon API
   # Gateway and AWS Lambda, or any system you run on behalf of others.</p>
-  def create_application(name : String, description : String? = nil, tags : Hash(String, String)? = nil) : Application
+  def create_application(name : String, description : String? = nil, tags : Hash(String, String)? = nil) : ApplicationStruct
     create_application(CreateApplicationRequest.new(
       name: name, description: description, tags: tags
     ))
@@ -63,7 +63,7 @@ module AmazonAppConfig
   # <p>For more information, see <a href="http://docs.aws.amazon.com/systems-manager/latest/userguide/appconfig-creating-configuration-and-profile.html">Create a
   # Configuration and a Configuration Profile</a> in the
   # <i>AWS AppConfig User Guide</i>.</p>
-  def create_configuration_profile(application_id : String, name : String, location_uri : String, description : String? = nil, retrieval_role_arn : String? = nil, validators : Array(ValidatorStruct)? = nil, tags : Hash(String, String)? = nil) : ConfigurationProfile
+  def create_configuration_profile(application_id : String, name : String, location_uri : String, description : String? = nil, retrieval_role_arn : String? = nil, validators : Array(ValidatorStruct)? = nil, tags : Hash(String, String)? = nil) : ConfigurationProfileStruct
     create_configuration_profile(CreateConfigurationProfileRequest.new(
       application_id: application_id, name: name, description: description, location_uri: location_uri, retrieval_role_arn: retrieval_role_arn, validators: validators, tags: tags
     ))
@@ -88,7 +88,7 @@ module AmazonAppConfig
   # the designated targets. A deployment strategy includes: the overall duration required, a
   # percentage of targets to receive the deployment during each interval, an algorithm that
   # defines how percentage grows, and bake time.</p>
-  def create_deployment_strategy(name : String, deployment_duration_in_minutes : Int32, growth_factor : Float32, replicate_to : String, description : String? = nil, final_bake_time_in_minutes : Int32? = nil, growth_type : String? = nil, tags : Hash(String, String)? = nil) : DeploymentStrategy
+  def create_deployment_strategy(name : String, deployment_duration_in_minutes : Int32, growth_factor : Float32, replicate_to : String, description : String? = nil, final_bake_time_in_minutes : Int32? = nil, growth_type : String? = nil, tags : Hash(String, String)? = nil) : DeploymentStrategyStruct
     create_deployment_strategy(CreateDeploymentStrategyRequest.new(
       name: name, description: description, deployment_duration_in_minutes: deployment_duration_in_minutes, final_bake_time_in_minutes: final_bake_time_in_minutes, growth_factor: growth_factor, growth_type: growth_type, replicate_to: replicate_to, tags: tags
     ))
@@ -111,7 +111,7 @@ module AmazonAppConfig
   # components for your application. You can configure Amazon CloudWatch alarms for each environment.
   # The system monitors alarms during a configuration deployment. If an alarm is triggered, the
   # system rolls back the configuration.</p>
-  def create_environment(application_id : String, name : String, description : String? = nil, monitors : Array(MonitorStruct)? = nil, tags : Hash(String, String)? = nil) : Environment
+  def create_environment(application_id : String, name : String, description : String? = nil, monitors : Array(MonitorStruct)? = nil, tags : Hash(String, String)? = nil) : EnvironmentStruct
     create_environment(CreateEnvironmentRequest.new(
       application_id: application_id, name: name, description: description, monitors: monitors, tags: tags
     ))
@@ -133,7 +133,7 @@ module AmazonAppConfig
 
       
             # <p>Create a new configuration in the AppConfig configuration store.</p>
-  def create_hosted_configuration_version(application_id : String, configuration_profile_id : String, content : (IO | String | Bytes), content_type : String, description : String? = nil, latest_version_number : Int32? = nil) : HostedConfigurationVersion
+  def create_hosted_configuration_version(application_id : String, configuration_profile_id : String, content : (IO | String | Bytes), content_type : String, description : String? = nil, latest_version_number : Int32? = nil) : HostedConfigurationVersionStruct
     create_hosted_configuration_version(CreateHostedConfigurationVersionRequest.new(
       application_id: application_id, configuration_profile_id: configuration_profile_id, description: description, content: content, content_type: content_type, latest_version_number: latest_version_number
     ))
@@ -294,7 +294,7 @@ module AmazonAppConfig
 
       
             # <p>Retrieve information about an application.</p>
-  def get_application(application_id : String) : Application
+  def get_application(application_id : String) : ApplicationStruct
     get_application(GetApplicationRequest.new(
       application_id: application_id
     ))
@@ -328,7 +328,7 @@ module AmazonAppConfig
   # calls to <code>GetConfiguration</code> must pass this value by using the
   # <code>ClientConfigurationVersion</code> parameter. </p>
   # </important>
-  def get_configuration(application : String, environment : String, configuration : String, client_id : String, client_configuration_version : String? = nil) : Configuration
+  def get_configuration(application : String, environment : String, configuration : String, client_id : String, client_configuration_version : String? = nil) : ConfigurationStruct
     get_configuration(GetConfigurationRequest.new(
       application: application, environment: environment, configuration: configuration, client_id: client_id, client_configuration_version: client_configuration_version
     ))
@@ -360,7 +360,7 @@ module AmazonAppConfig
 
       
             # <p>Retrieve information about a configuration profile.</p>
-  def get_configuration_profile(application_id : String, configuration_profile_id : String) : ConfigurationProfile
+  def get_configuration_profile(application_id : String, configuration_profile_id : String) : ConfigurationProfileStruct
     get_configuration_profile(GetConfigurationProfileRequest.new(
       application_id: application_id, configuration_profile_id: configuration_profile_id
     ))
@@ -387,7 +387,7 @@ module AmazonAppConfig
 
       
             # <p>Retrieve information about a configuration deployment.</p>
-  def get_deployment(application_id : String, environment_id : String, deployment_number : Int32) : Deployment
+  def get_deployment(application_id : String, environment_id : String, deployment_number : Int32) : DeploymentStruct
     get_deployment(GetDeploymentRequest.new(
       application_id: application_id, environment_id: environment_id, deployment_number: deployment_number
     ))
@@ -423,7 +423,7 @@ module AmazonAppConfig
   # deployment strategy includes: the overall duration required, a percentage of targets to
   # receive the deployment during each interval, an algorithm that defines how percentage
   # grows, and bake time.</p>
-  def get_deployment_strategy(deployment_strategy_id : String) : DeploymentStrategy
+  def get_deployment_strategy(deployment_strategy_id : String) : DeploymentStrategyStruct
     get_deployment_strategy(GetDeploymentStrategyRequest.new(
       deployment_strategy_id: deployment_strategy_id
     ))
@@ -449,7 +449,7 @@ module AmazonAppConfig
   # in an <code>EU_Region</code> environment. Each configuration deployment targets an
   # environment. You can enable one or more Amazon CloudWatch alarms for an environment. If an alarm is
   # triggered during a deployment, AppConfig roles back the configuration.</p>
-  def get_environment(application_id : String, environment_id : String) : Environment
+  def get_environment(application_id : String, environment_id : String) : EnvironmentStruct
     get_environment(GetEnvironmentRequest.new(
       application_id: application_id, environment_id: environment_id
     ))
@@ -476,7 +476,7 @@ module AmazonAppConfig
 
       
             # <p>Get information about a specific configuration version.</p>
-  def get_hosted_configuration_version(application_id : String, configuration_profile_id : String, version_number : Int32) : HostedConfigurationVersion
+  def get_hosted_configuration_version(application_id : String, configuration_profile_id : String, version_number : Int32) : HostedConfigurationVersionStruct
     get_hosted_configuration_version(GetHostedConfigurationVersionRequest.new(
       application_id: application_id, configuration_profile_id: configuration_profile_id, version_number: version_number
     ))
@@ -508,7 +508,7 @@ module AmazonAppConfig
 
       
             # <p>List all applications in your AWS account.</p>
-  def list_applications(max_results : Int32? = nil, next_token : String? = nil) : Applications
+  def list_applications(max_results : Int32? = nil, next_token : String? = nil) : ApplicationsStruct
     list_applications(ListApplicationsRequest.new(
       max_results: max_results, next_token: next_token
     ))
@@ -525,7 +525,7 @@ module AmazonAppConfig
 
       
             # <p>Lists the configuration profiles for an application.</p>
-  def list_configuration_profiles(application_id : String, max_results : Int32? = nil, next_token : String? = nil) : ConfigurationProfiles
+  def list_configuration_profiles(application_id : String, max_results : Int32? = nil, next_token : String? = nil) : ConfigurationProfilesStruct
     list_configuration_profiles(ListConfigurationProfilesRequest.new(
       application_id: application_id, max_results: max_results, next_token: next_token
     ))
@@ -547,7 +547,7 @@ module AmazonAppConfig
 
       
             # <p>Lists the deployments for an environment.</p>
-  def list_deployments(application_id : String, environment_id : String, max_results : Int32? = nil, next_token : String? = nil) : Deployments
+  def list_deployments(application_id : String, environment_id : String, max_results : Int32? = nil, next_token : String? = nil) : DeploymentsStruct
     list_deployments(ListDeploymentsRequest.new(
       application_id: application_id, environment_id: environment_id, max_results: max_results, next_token: next_token
     ))
@@ -574,7 +574,7 @@ module AmazonAppConfig
 
       
             # <p>List deployment strategies.</p>
-  def list_deployment_strategies(max_results : Int32? = nil, next_token : String? = nil) : DeploymentStrategies
+  def list_deployment_strategies(max_results : Int32? = nil, next_token : String? = nil) : DeploymentStrategiesStruct
     list_deployment_strategies(ListDeploymentStrategiesRequest.new(
       max_results: max_results, next_token: next_token
     ))
@@ -591,7 +591,7 @@ module AmazonAppConfig
 
       
             # <p>List the environments for an application.</p>
-  def list_environments(application_id : String, max_results : Int32? = nil, next_token : String? = nil) : Environments
+  def list_environments(application_id : String, max_results : Int32? = nil, next_token : String? = nil) : EnvironmentsStruct
     list_environments(ListEnvironmentsRequest.new(
       application_id: application_id, max_results: max_results, next_token: next_token
     ))
@@ -614,7 +614,7 @@ module AmazonAppConfig
       
             # <p>View a list of configurations stored in the AppConfig configuration store by
   # version.</p>
-  def list_hosted_configuration_versions(application_id : String, configuration_profile_id : String, max_results : Int32? = nil, next_token : String? = nil) : HostedConfigurationVersions
+  def list_hosted_configuration_versions(application_id : String, configuration_profile_id : String, max_results : Int32? = nil, next_token : String? = nil) : HostedConfigurationVersionsStruct
     list_hosted_configuration_versions(ListHostedConfigurationVersionsRequest.new(
       application_id: application_id, configuration_profile_id: configuration_profile_id, max_results: max_results, next_token: next_token
     ))
@@ -641,7 +641,7 @@ module AmazonAppConfig
 
       
             # <p>Retrieves the list of key-value tags assigned to the resource.</p>
-  def list_tags_for_resource(resource_arn : String) : ResourceTags
+  def list_tags_for_resource(resource_arn : String) : ResourceTagsStruct
     list_tags_for_resource(ListTagsForResourceRequest.new(
       resource_arn: resource_arn
     ))
@@ -663,7 +663,7 @@ module AmazonAppConfig
 
       
             # <p>Starts a deployment.</p>
-  def start_deployment(application_id : String, environment_id : String, deployment_strategy_id : String, configuration_profile_id : String, configuration_version : String, description : String? = nil, tags : Hash(String, String)? = nil) : Deployment
+  def start_deployment(application_id : String, environment_id : String, deployment_strategy_id : String, configuration_profile_id : String, configuration_version : String, description : String? = nil, tags : Hash(String, String)? = nil) : DeploymentStruct
     start_deployment(StartDeploymentRequest.new(
       application_id: application_id, environment_id: environment_id, deployment_strategy_id: deployment_strategy_id, configuration_profile_id: configuration_profile_id, configuration_version: configuration_version, description: description, tags: tags
     ))
@@ -692,7 +692,7 @@ module AmazonAppConfig
             # <p>Stops a deployment. This API action works only on deployments that have a status of
   # <code>DEPLOYING</code>. This action moves the deployment to a status of
   # <code>ROLLED_BACK</code>.</p>
-  def stop_deployment(application_id : String, environment_id : String, deployment_number : Int32) : Deployment
+  def stop_deployment(application_id : String, environment_id : String, deployment_number : Int32) : DeploymentStruct
     stop_deployment(StopDeploymentRequest.new(
       application_id: application_id, environment_id: environment_id, deployment_number: deployment_number
     ))
@@ -770,7 +770,7 @@ module AmazonAppConfig
 
       
             # <p>Updates an application.</p>
-  def update_application(application_id : String, name : String? = nil, description : String? = nil) : Application
+  def update_application(application_id : String, name : String? = nil, description : String? = nil) : ApplicationStruct
     update_application(UpdateApplicationRequest.new(
       application_id: application_id, name: name, description: description
     ))
@@ -792,7 +792,7 @@ module AmazonAppConfig
 
       
             # <p>Updates a configuration profile.</p>
-  def update_configuration_profile(application_id : String, configuration_profile_id : String, name : String? = nil, description : String? = nil, retrieval_role_arn : String? = nil, validators : Array(ValidatorStruct)? = nil) : ConfigurationProfile
+  def update_configuration_profile(application_id : String, configuration_profile_id : String, name : String? = nil, description : String? = nil, retrieval_role_arn : String? = nil, validators : Array(ValidatorStruct)? = nil) : ConfigurationProfileStruct
     update_configuration_profile(UpdateConfigurationProfileRequest.new(
       application_id: application_id, configuration_profile_id: configuration_profile_id, name: name, description: description, retrieval_role_arn: retrieval_role_arn, validators: validators
     ))
@@ -819,7 +819,7 @@ module AmazonAppConfig
 
       
             # <p>Updates a deployment strategy.</p>
-  def update_deployment_strategy(deployment_strategy_id : String, description : String? = nil, deployment_duration_in_minutes : Int32? = nil, final_bake_time_in_minutes : Int32? = nil, growth_factor : Float32? = nil, growth_type : String? = nil) : DeploymentStrategy
+  def update_deployment_strategy(deployment_strategy_id : String, description : String? = nil, deployment_duration_in_minutes : Int32? = nil, final_bake_time_in_minutes : Int32? = nil, growth_factor : Float32? = nil, growth_type : String? = nil) : DeploymentStrategyStruct
     update_deployment_strategy(UpdateDeploymentStrategyRequest.new(
       deployment_strategy_id: deployment_strategy_id, description: description, deployment_duration_in_minutes: deployment_duration_in_minutes, final_bake_time_in_minutes: final_bake_time_in_minutes, growth_factor: growth_factor, growth_type: growth_type
     ))
@@ -841,7 +841,7 @@ module AmazonAppConfig
 
       
             # <p>Updates an environment.</p>
-  def update_environment(application_id : String, environment_id : String, name : String? = nil, description : String? = nil, monitors : Array(MonitorStruct)? = nil) : Environment
+  def update_environment(application_id : String, environment_id : String, name : String? = nil, description : String? = nil, monitors : Array(MonitorStruct)? = nil) : EnvironmentStruct
     update_environment(UpdateEnvironmentRequest.new(
       application_id: application_id, environment_id: environment_id, name: name, description: description, monitors: monitors
     ))
@@ -999,7 +999,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "RetrievalRoleArn", structure: false)]
     property retrieval_role_arn : String?
     # <p>A list of methods for validating the configuration.</p>
-    @[AWSSdk::Field(location: :body, name: "Validators", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Validators", structure: true)]
     property validators : Array(ValidatorStruct)?
     # <p>Metadata to assign to the configuration profile. Tags help organize and categorize your
     # AppConfig resources. Each tag consists of a key and an optional value, both of which you
@@ -1034,7 +1034,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "RetrievalRoleArn", structure: false)]
     property retrieval_role_arn : String?
     # <p>A list of methods for validating the configuration.</p>
-    @[AWSSdk::Field(location: :body, name: "Validators", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Validators", structure: true)]
     property validators : Array(ValidatorStruct)?
 
     def initialize(@application_id : String = nil, @id : String = nil, @name : String = nil, @description : String = nil, @location_uri : String = nil, @retrieval_role_arn : String = nil, @validators : Array(ValidatorStruct) = nil)
@@ -1181,7 +1181,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Description", structure: false)]
     property description : String?
     # <p>Amazon CloudWatch alarms to monitor during the deployment process.</p>
-    @[AWSSdk::Field(location: :body, name: "Monitors", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Monitors", structure: true)]
     property monitors : Array(MonitorStruct)?
     # <p>Metadata to assign to the environment. Tags help organize and categorize your AppConfig
     # resources. Each tag consists of a key and an optional value, both of which you
@@ -1215,7 +1215,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "State", structure: false)]
     property state : String?
     # <p>Amazon CloudWatch alarms monitored during the deployment.</p>
-    @[AWSSdk::Field(location: :body, name: "Monitors", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Monitors", structure: true)]
     property monitors : Array(MonitorStruct)?
 
     def initialize(@application_id : String = nil, @id : String = nil, @name : String = nil, @description : String = nil, @state : String = nil, @monitors : Array(MonitorStruct) = nil)
@@ -1566,7 +1566,7 @@ module AmazonAppConfig
     property state : String?
     # <p>A list containing all events related to a deployment. The most recent events are
     # displayed first.</p>
-    @[AWSSdk::Field(location: :body, name: "EventLog", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "EventLog", structure: true)]
     property event_log : Array(DeploymentEventStruct)?
     # <p>The percentage of targets for which the deployment is available.</p>
     @[AWSSdk::Field(location: :body, name: "PercentageComplete", structure: false)]
@@ -1578,7 +1578,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "CompletedAt", structure: false)]
     property completed_at : Time?
 
-    def initialize(@application_id : String = nil, @started_at : Time = nil, @percentage_complete : Float32 = nil, @event_log : Array(DeploymentEventStruct) = nil, @state : String = nil, @final_bake_time_in_minutes : Int32 = nil, @growth_factor : Float32 = nil, @growth_type : String = nil, @deployment_duration_in_minutes : Int32 = nil, @description : String = nil, @configuration_version : String = nil, @configuration_location_uri : String = nil, @configuration_name : String = nil, @deployment_number : Int32 = nil, @configuration_profile_id : String = nil, @deployment_strategy_id : String = nil, @environment_id : String = nil, @completed_at : Time = nil)
+    def initialize(@application_id : String = nil, @environment_id : String = nil, @deployment_strategy_id : String = nil, @configuration_profile_id : String = nil, @deployment_number : Int32 = nil, @configuration_name : String = nil, @configuration_location_uri : String = nil, @configuration_version : String = nil, @description : String = nil, @deployment_duration_in_minutes : Int32 = nil, @growth_type : String = nil, @growth_factor : Float32 = nil, @final_bake_time_in_minutes : Int32 = nil, @state : String = nil, @event_log : Array(DeploymentEventStruct) = nil, @percentage_complete : Float32 = nil, @started_at : Time = nil, @completed_at : Time = nil)
     end
   end
 
@@ -1643,7 +1643,7 @@ module AmazonAppConfig
     include AWSSdk::RestJSON::Structure
 
     # <p>The elements from this collection.</p>
-    @[AWSSdk::Field(location: :body, name: "Items", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Items", structure: true)]
     property items : Array(ApplicationStruct)?
     # <p>The token for the next set of items to return. Use this token to get the next set of
     # results.</p>
@@ -1699,7 +1699,7 @@ module AmazonAppConfig
     include AWSSdk::RestJSON::Structure
 
     # <p>The elements from this collection.</p>
-    @[AWSSdk::Field(location: :body, name: "Items", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Items", structure: true)]
     property items : Array(ConfigurationProfileSummaryStruct)?
     # <p>The token for the next set of items to return. Use this token to get the next set of
     # results.</p>
@@ -1778,7 +1778,7 @@ module AmazonAppConfig
     include AWSSdk::RestJSON::Structure
 
     # <p>The elements from this collection.</p>
-    @[AWSSdk::Field(location: :body, name: "Items", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Items", structure: true)]
     property items : Array(DeploymentSummaryStruct)?
     # <p>The token for the next set of items to return. Use this token to get the next set of
     # results.</p>
@@ -1808,7 +1808,7 @@ module AmazonAppConfig
     include AWSSdk::RestJSON::Structure
 
     # <p>The elements from this collection.</p>
-    @[AWSSdk::Field(location: :body, name: "Items", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Items", structure: true)]
     property items : Array(DeploymentStrategyStruct)?
     # <p>The token for the next set of items to return. Use this token to get the next set of
     # results.</p>
@@ -1841,7 +1841,7 @@ module AmazonAppConfig
     include AWSSdk::RestJSON::Structure
 
     # <p>The elements from this collection.</p>
-    @[AWSSdk::Field(location: :body, name: "Items", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Items", structure: true)]
     property items : Array(EnvironmentStruct)?
     # <p>The token for the next set of items to return. Use this token to get the next set of
     # results.</p>
@@ -1901,7 +1901,7 @@ module AmazonAppConfig
     include AWSSdk::RestJSON::Structure
 
     # <p>The elements from this collection.</p>
-    @[AWSSdk::Field(location: :body, name: "Items", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Items", structure: true)]
     property items : Array(HostedConfigurationVersionSummaryStruct)?
     # <p>The token for the next set of items to return. Use this token to get the next set of
     # results.</p>
@@ -2051,7 +2051,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "RetrievalRoleArn", structure: false)]
     property retrieval_role_arn : String?
     # <p>A list of methods for validating the configuration.</p>
-    @[AWSSdk::Field(location: :body, name: "Validators", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Validators", structure: true)]
     property validators : Array(ValidatorStruct)?
 
     def initialize(@application_id : String, @configuration_profile_id : String, @name : String = nil, @description : String = nil, @retrieval_role_arn : String = nil, @validators : Array(ValidatorStruct) = nil)
@@ -2130,7 +2130,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Description", structure: false)]
     property description : String?
     # <p>Amazon CloudWatch alarms to monitor during the deployment process.</p>
-    @[AWSSdk::Field(location: :body, name: "Monitors", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "Monitors", structure: true)]
     property monitors : Array(MonitorStruct)?
 
     def initialize(@application_id : String, @environment_id : String, @name : String = nil, @description : String = nil, @monitors : Array(MonitorStruct) = nil)
