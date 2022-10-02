@@ -8,15 +8,41 @@ module AWSCodegen
 
     getter version : String
     getter metadata : ServiceMetadata
+    getter operations : Hash(String, Operation)
+
+    @[JSON::Field(key: "shapes")]
     getter shape_data : Hash(String, ShapeData)
 
+    @shapes = Hash(String, Shape).new
+
     def shapes
+      if shape_data.size != @shapes.size
+        shape_data.each do |k, v|
+          @shapes[k] = Shape.new k, v
+        end
+      end
+      @shapes
     end
   end
 
-  class ShapesSerializer
-    def from_json(pull : JSON::PullParser)
-      pull
+  struct ShapeMember
+    include JSON::Serializable
+    getter shape : String
+  end
+
+  class Operation
+    include JSON::Serializable
+    getter name : String
+    getter http : OperationHttpData
+    getter input : ShapeMember
+    getter output : ShapeMember
+    getter errors : Array(ShapeMember)
+
+    class OperationHttpData
+      include JSON::Serializable
+
+      getter method : String
+      getter requestUri : String
     end
   end
 
@@ -26,11 +52,6 @@ module AWSCodegen
     getter type : String
     getter required : Array(String)?
     getter members : Hash(String, ShapeMember)?
-
-    struct ShapeMember
-      include JSON::Serializable
-      getter shape : String
-    end
   end
 
   class Shape < ShapeData
