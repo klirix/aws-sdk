@@ -7,30 +7,18 @@ end
 require "http"
 require "./clients/s3"
 require "./clients/appconfig"
+require "./clients/lightsail"
 require "./build"
 
 include AWSSdk
 
 class MyClient < AWSSdk::Client
   include AmazonS3::Methods
-  include AmazonAppConfig::Methods
-
-  module CLientNames
-    getter name = "UNdefined"
-  end
+  include Lightsail::Methods
 end
 
 my_client = MyClient.new
 
-my_client.appconfig.update_configuration_profile("app", "config")
+result = my_client.lightsail.get_static_ips(Lightsail::GetStaticIpsRequest.new)
 
-pp my_client.s3.put_object(
-  bucket: "buckcket",
-  key: "tex .txt",
-  body: File.open("shard.yml")
-)
-
-enum Status
-  Private
-  Delegate
-end
+pp result

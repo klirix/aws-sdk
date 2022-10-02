@@ -1,0 +1,4 @@
+    def <%= name.underscore %>(<%= input.shape.underscore %> : <%= input.shape %>) : <%= output.shape %>
+      request = HTTP::Request.new "<%= http.method %>", "<%= http.requestUri %>"
+      <%= output.shape %>.new send(<%= input.shape.underscore %>.fill_in(request), ENDPOINT_PREFIX, 200)
+    end

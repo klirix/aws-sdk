@@ -1,0 +1,46 @@
+<% if metadata.protocol == "rest_xml" %>
+require "../protocols/rest_xml"
+<% elsif metadata.protocol == "rest_json" %>
+require "../protocols/rest_json"
+require "json"
+<% elsif metadata.protocol == "json" %>
+require "../protocols/json1_1"
+require "json"
+<% elsif metadata.protocol == "query" %>
+require "../protocols/query"
+<% end %>
+require "./baseclient"
+module <%= metadata.serviceId %>
+  ENDPOINT_PREFIX = "<%= metadata.endpointPrefix %>"
+
+  module Methods
+    abstract def send( request : HTTP::Request, prefix : String, success_code : Int32? )
+
+    def <%= metadata.serviceId.downcase %> : <%= metadata.serviceId %>Methods
+      if internal = @internal_<%= metadata.serviceId.downcase %>
+        internal
+      else
+        @internal_<%= metadata.serviceId.downcase %> = <%= metadata.serviceId %>Methods.new(self)
+      end
+    end
+
+    class <%= metadata.serviceId %>Methods
+      def initialize(@parent : <%= metadata.serviceId %>::Methods)
+      end
+
+      def send( request : HTTP::Request, prefix : String, success_code : Int32? )
+        @parent.send( request, prefix, success_code )
+      end
+
+      <% operations.each do |key, val| %>
+      <%= val.to_code %>
+      <% end %>
+      
+    end 
+  end
+
+  <% shapes.each do |key, val| %>
+  <%= val.to_code %>
+  <% end %>
+
+end

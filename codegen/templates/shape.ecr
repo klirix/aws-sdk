@@ -1,0 +1,35 @@
+<% if type == "structure" %>
+  struct <%= name %>
+    <% if  @service.metadata.protocol == "json" %>
+    include JSON::Serializable
+    <% end %>
+
+    <% members.try &.each do |key, val| %>
+    property <%= key %> : <%= @service.shapes[val.shape].to_type %><% unless required.try &.includes? key %>?<% end %>
+    <% end %>
+
+    <% if is_request? %>
+    def fill_in(request : HTTP::Request) : HTTP::Request
+      <% if  @service.metadata.protocol == "json" %>
+      request.body = self.to_json
+      request
+      <% end %>
+    end
+
+    def initialize(<%= members.try &.map do |key, value|
+      "@#{key} : #{ @service.shapes[value.shape].to_type}#{required.try &.includes?(key) ? "" : "? = nil"}"
+    end.sort do |a, b| 
+      a.includes?("nil").to_unsafe - b.includes?("nil").to_unsafe
+    end.join(", ")%>)
+    end
+    <% end %>
+
+    <% if is_result? %>
+    def initialize(response : HTTP::Client::Response)
+      <% if  @service.metadata.protocol == "json" %>
+      <%= name %>.from_json response.body
+      <% end %>
+    end
+    <% end %>
+  end
+<% end %>
