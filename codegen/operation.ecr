@@ -19,7 +19,7 @@
   end
   <%- end -%>
   def <%= name.underscore %>(<% if input = @input %>input : <%= input.name %><% end %>) : <%- if output = @output -%>
-  <%-= output.name %>
+  <%-= output.name %>Struct
   <%- else -%>
   Nil
   <%- end -%>

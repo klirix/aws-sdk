@@ -40,5 +40,8 @@ module <%= name %>
 <% @namespace.unions.each do |structure| %>
   <%= structure.to_code %>
 <% end %>
+<% @namespace.enums.each do |structure| %>
+  <%= structure.to_code %>
+<% end %>
 
 end

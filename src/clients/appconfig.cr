@@ -34,7 +34,7 @@ module AmazonAppConfig
       name: name, description: description, tags: tags
     ))
   end
-  def create_application(input : CreateApplicationRequest) : Application
+  def create_application(input : CreateApplicationRequest) : ApplicationStruct
     path = "/applications"
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
@@ -68,7 +68,7 @@ module AmazonAppConfig
       application_id: application_id, name: name, description: description, location_uri: location_uri, retrieval_role_arn: retrieval_role_arn, validators: validators, tags: tags
     ))
   end
-  def create_configuration_profile(input : CreateConfigurationProfileRequest) : ConfigurationProfile
+  def create_configuration_profile(input : CreateConfigurationProfileRequest) : ConfigurationProfileStruct
     path = "/applications/{ApplicationId}/configurationprofiles"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -93,7 +93,7 @@ module AmazonAppConfig
       name: name, description: description, deployment_duration_in_minutes: deployment_duration_in_minutes, final_bake_time_in_minutes: final_bake_time_in_minutes, growth_factor: growth_factor, growth_type: growth_type, replicate_to: replicate_to, tags: tags
     ))
   end
-  def create_deployment_strategy(input : CreateDeploymentStrategyRequest) : DeploymentStrategy
+  def create_deployment_strategy(input : CreateDeploymentStrategyRequest) : DeploymentStrategyStruct
     path = "/deploymentstrategies"
     request = HTTP::Request.new("POST", path)
     request = input.process(request)
@@ -116,7 +116,7 @@ module AmazonAppConfig
       application_id: application_id, name: name, description: description, monitors: monitors, tags: tags
     ))
   end
-  def create_environment(input : CreateEnvironmentRequest) : Environment
+  def create_environment(input : CreateEnvironmentRequest) : EnvironmentStruct
     path = "/applications/{ApplicationId}/environments"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -138,7 +138,7 @@ module AmazonAppConfig
       application_id: application_id, configuration_profile_id: configuration_profile_id, description: description, content: content, content_type: content_type, latest_version_number: latest_version_number
     ))
   end
-  def create_hosted_configuration_version(input : CreateHostedConfigurationVersionRequest) : HostedConfigurationVersion
+  def create_hosted_configuration_version(input : CreateHostedConfigurationVersionRequest) : HostedConfigurationVersionStruct
     path = "/applications/{ApplicationId}/configurationprofiles/{ConfigurationProfileId}/hostedconfigurationversions"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -299,7 +299,7 @@ module AmazonAppConfig
       application_id: application_id
     ))
   end
-  def get_application(input : GetApplicationRequest) : Application
+  def get_application(input : GetApplicationRequest) : ApplicationStruct
     path = "/applications/{ApplicationId}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -333,7 +333,7 @@ module AmazonAppConfig
       application: application, environment: environment, configuration: configuration, client_id: client_id, client_configuration_version: client_configuration_version
     ))
   end
-  def get_configuration(input : GetConfigurationRequest) : Configuration
+  def get_configuration(input : GetConfigurationRequest) : ConfigurationStruct
     path = "/applications/{Application}/environments/{Environment}/configurations/{Configuration}"
     if label = input.application
       path = path.gsub("{Application}", URI.encode(label))
@@ -365,7 +365,7 @@ module AmazonAppConfig
       application_id: application_id, configuration_profile_id: configuration_profile_id
     ))
   end
-  def get_configuration_profile(input : GetConfigurationProfileRequest) : ConfigurationProfile
+  def get_configuration_profile(input : GetConfigurationProfileRequest) : ConfigurationProfileStruct
     path = "/applications/{ApplicationId}/configurationprofiles/{ConfigurationProfileId}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -392,7 +392,7 @@ module AmazonAppConfig
       application_id: application_id, environment_id: environment_id, deployment_number: deployment_number
     ))
   end
-  def get_deployment(input : GetDeploymentRequest) : Deployment
+  def get_deployment(input : GetDeploymentRequest) : DeploymentStruct
     path = "/applications/{ApplicationId}/environments/{EnvironmentId}/deployments/{DeploymentNumber}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -428,7 +428,7 @@ module AmazonAppConfig
       deployment_strategy_id: deployment_strategy_id
     ))
   end
-  def get_deployment_strategy(input : GetDeploymentStrategyRequest) : DeploymentStrategy
+  def get_deployment_strategy(input : GetDeploymentStrategyRequest) : DeploymentStrategyStruct
     path = "/deploymentstrategies/{DeploymentStrategyId}"
     if label = input.deployment_strategy_id
       path = path.gsub("{DeploymentStrategyId}", URI.encode(label))
@@ -454,7 +454,7 @@ module AmazonAppConfig
       application_id: application_id, environment_id: environment_id
     ))
   end
-  def get_environment(input : GetEnvironmentRequest) : Environment
+  def get_environment(input : GetEnvironmentRequest) : EnvironmentStruct
     path = "/applications/{ApplicationId}/environments/{EnvironmentId}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -481,7 +481,7 @@ module AmazonAppConfig
       application_id: application_id, configuration_profile_id: configuration_profile_id, version_number: version_number
     ))
   end
-  def get_hosted_configuration_version(input : GetHostedConfigurationVersionRequest) : HostedConfigurationVersion
+  def get_hosted_configuration_version(input : GetHostedConfigurationVersionRequest) : HostedConfigurationVersionStruct
     path = "/applications/{ApplicationId}/configurationprofiles/{ConfigurationProfileId}/hostedconfigurationversions/{VersionNumber}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -513,7 +513,7 @@ module AmazonAppConfig
       max_results: max_results, next_token: next_token
     ))
   end
-  def list_applications(input : ListApplicationsRequest) : Applications
+  def list_applications(input : ListApplicationsRequest) : ApplicationsStruct
     path = "/applications"
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
@@ -530,7 +530,7 @@ module AmazonAppConfig
       application_id: application_id, max_results: max_results, next_token: next_token
     ))
   end
-  def list_configuration_profiles(input : ListConfigurationProfilesRequest) : ConfigurationProfiles
+  def list_configuration_profiles(input : ListConfigurationProfilesRequest) : ConfigurationProfilesStruct
     path = "/applications/{ApplicationId}/configurationprofiles"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -552,7 +552,7 @@ module AmazonAppConfig
       application_id: application_id, environment_id: environment_id, max_results: max_results, next_token: next_token
     ))
   end
-  def list_deployments(input : ListDeploymentsRequest) : Deployments
+  def list_deployments(input : ListDeploymentsRequest) : DeploymentsStruct
     path = "/applications/{ApplicationId}/environments/{EnvironmentId}/deployments"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -579,7 +579,7 @@ module AmazonAppConfig
       max_results: max_results, next_token: next_token
     ))
   end
-  def list_deployment_strategies(input : ListDeploymentStrategiesRequest) : DeploymentStrategies
+  def list_deployment_strategies(input : ListDeploymentStrategiesRequest) : DeploymentStrategiesStruct
     path = "/deploymentstrategies"
     request = HTTP::Request.new("GET", path)
     request = input.process(request)
@@ -596,7 +596,7 @@ module AmazonAppConfig
       application_id: application_id, max_results: max_results, next_token: next_token
     ))
   end
-  def list_environments(input : ListEnvironmentsRequest) : Environments
+  def list_environments(input : ListEnvironmentsRequest) : EnvironmentsStruct
     path = "/applications/{ApplicationId}/environments"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -619,7 +619,7 @@ module AmazonAppConfig
       application_id: application_id, configuration_profile_id: configuration_profile_id, max_results: max_results, next_token: next_token
     ))
   end
-  def list_hosted_configuration_versions(input : ListHostedConfigurationVersionsRequest) : HostedConfigurationVersions
+  def list_hosted_configuration_versions(input : ListHostedConfigurationVersionsRequest) : HostedConfigurationVersionsStruct
     path = "/applications/{ApplicationId}/configurationprofiles/{ConfigurationProfileId}/hostedconfigurationversions"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -646,7 +646,7 @@ module AmazonAppConfig
       resource_arn: resource_arn
     ))
   end
-  def list_tags_for_resource(input : ListTagsForResourceRequest) : ResourceTags
+  def list_tags_for_resource(input : ListTagsForResourceRequest) : ResourceTagsStruct
     path = "/tags/{ResourceArn}"
     if label = input.resource_arn
       path = path.gsub("{ResourceArn}", URI.encode(label))
@@ -668,7 +668,7 @@ module AmazonAppConfig
       application_id: application_id, environment_id: environment_id, deployment_strategy_id: deployment_strategy_id, configuration_profile_id: configuration_profile_id, configuration_version: configuration_version, description: description, tags: tags
     ))
   end
-  def start_deployment(input : StartDeploymentRequest) : Deployment
+  def start_deployment(input : StartDeploymentRequest) : DeploymentStruct
     path = "/applications/{ApplicationId}/environments/{EnvironmentId}/deployments"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -697,7 +697,7 @@ module AmazonAppConfig
       application_id: application_id, environment_id: environment_id, deployment_number: deployment_number
     ))
   end
-  def stop_deployment(input : StopDeploymentRequest) : Deployment
+  def stop_deployment(input : StopDeploymentRequest) : DeploymentStruct
     path = "/applications/{ApplicationId}/environments/{EnvironmentId}/deployments/{DeploymentNumber}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -775,7 +775,7 @@ module AmazonAppConfig
       application_id: application_id, name: name, description: description
     ))
   end
-  def update_application(input : UpdateApplicationRequest) : Application
+  def update_application(input : UpdateApplicationRequest) : ApplicationStruct
     path = "/applications/{ApplicationId}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -797,7 +797,7 @@ module AmazonAppConfig
       application_id: application_id, configuration_profile_id: configuration_profile_id, name: name, description: description, retrieval_role_arn: retrieval_role_arn, validators: validators
     ))
   end
-  def update_configuration_profile(input : UpdateConfigurationProfileRequest) : ConfigurationProfile
+  def update_configuration_profile(input : UpdateConfigurationProfileRequest) : ConfigurationProfileStruct
     path = "/applications/{ApplicationId}/configurationprofiles/{ConfigurationProfileId}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -824,7 +824,7 @@ module AmazonAppConfig
       deployment_strategy_id: deployment_strategy_id, description: description, deployment_duration_in_minutes: deployment_duration_in_minutes, final_bake_time_in_minutes: final_bake_time_in_minutes, growth_factor: growth_factor, growth_type: growth_type
     ))
   end
-  def update_deployment_strategy(input : UpdateDeploymentStrategyRequest) : DeploymentStrategy
+  def update_deployment_strategy(input : UpdateDeploymentStrategyRequest) : DeploymentStrategyStruct
     path = "/deploymentstrategies/{DeploymentStrategyId}"
     if label = input.deployment_strategy_id
       path = path.gsub("{DeploymentStrategyId}", URI.encode(label))
@@ -846,7 +846,7 @@ module AmazonAppConfig
       application_id: application_id, environment_id: environment_id, name: name, description: description, monitors: monitors
     ))
   end
-  def update_environment(input : UpdateEnvironmentRequest) : Environment
+  def update_environment(input : UpdateEnvironmentRequest) : EnvironmentStruct
     path = "/applications/{ApplicationId}/environments/{EnvironmentId}"
     if label = input.application_id
       path = path.gsub("{ApplicationId}", URI.encode(label))
@@ -913,7 +913,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Tags", structure: false)]
     property tags : Hash(String, String)?
 
-    def initialize(@name : String, @description : String = nil, @tags : Hash(String, String) = nil)
+    def initialize(@name : String, @description : String? = nil, @tags : Hash(String, String)? = nil)
     end
   end
 
@@ -930,7 +930,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Description", structure: false)]
     property description : String?
 
-    def initialize(@id : String = nil, @name : String = nil, @description : String = nil)
+    def initialize(@id : String? = nil, @name : String? = nil, @description : String? = nil)
     end
   end
 
@@ -941,7 +941,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Message", structure: false)]
     property message : String?
 
-    def initialize(@message : String = nil)
+    def initialize(@message : String? = nil)
     end
   end
 
@@ -952,7 +952,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Message", structure: false)]
     property message : String?
 
-    def initialize(@message : String = nil)
+    def initialize(@message : String? = nil)
     end
   end
 
@@ -1007,7 +1007,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Tags", structure: false)]
     property tags : Hash(String, String)?
 
-    def initialize(@application_id : String, @name : String, @location_uri : String, @description : String = nil, @retrieval_role_arn : String = nil, @validators : Array(ValidatorStruct) = nil, @tags : Hash(String, String) = nil)
+    def initialize(@application_id : String, @name : String, @location_uri : String, @description : String? = nil, @retrieval_role_arn : String? = nil, @validators : Array(ValidatorStruct)? = nil, @tags : Hash(String, String)? = nil)
     end
   end
 
@@ -1037,7 +1037,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Validators", structure: true)]
     property validators : Array(ValidatorStruct)?
 
-    def initialize(@application_id : String = nil, @id : String = nil, @name : String = nil, @description : String = nil, @location_uri : String = nil, @retrieval_role_arn : String = nil, @validators : Array(ValidatorStruct) = nil)
+    def initialize(@application_id : String? = nil, @id : String? = nil, @name : String? = nil, @description : String? = nil, @location_uri : String? = nil, @retrieval_role_arn : String? = nil, @validators : Array(ValidatorStruct)? = nil)
     end
   end
 
@@ -1051,7 +1051,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "ResourceName", structure: false)]
     property resource_name : String?
 
-    def initialize(@message : String = nil, @resource_name : String = nil)
+    def initialize(@message : String? = nil, @resource_name : String? = nil)
     end
   end
 
@@ -1116,7 +1116,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Tags", structure: false)]
     property tags : Hash(String, String)?
 
-    def initialize(@name : String, @deployment_duration_in_minutes : Int32, @growth_factor : Float32, @replicate_to : String, @description : String = nil, @final_bake_time_in_minutes : Int32 = nil, @growth_type : String = nil, @tags : Hash(String, String) = nil)
+    def initialize(@name : String, @deployment_duration_in_minutes : Int32, @growth_factor : Float32, @replicate_to : String, @description : String? = nil, @final_bake_time_in_minutes : Int32? = nil, @growth_type : String? = nil, @tags : Hash(String, String)? = nil)
     end
   end
 
@@ -1150,7 +1150,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "ReplicateTo", structure: false)]
     property replicate_to : String?
 
-    def initialize(@id : String = nil, @name : String = nil, @description : String = nil, @deployment_duration_in_minutes : Int32 = nil, @growth_type : String = nil, @growth_factor : Float32 = nil, @final_bake_time_in_minutes : Int32 = nil, @replicate_to : String = nil)
+    def initialize(@id : String? = nil, @name : String? = nil, @description : String? = nil, @deployment_duration_in_minutes : Int32? = nil, @growth_type : String? = nil, @growth_factor : Float32? = nil, @final_bake_time_in_minutes : Int32? = nil, @replicate_to : String? = nil)
     end
   end
 
@@ -1164,7 +1164,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "AlarmRoleArn", structure: false)]
     property alarm_role_arn : String?
 
-    def initialize(@alarm_arn : String = nil, @alarm_role_arn : String = nil)
+    def initialize(@alarm_arn : String? = nil, @alarm_role_arn : String? = nil)
     end
   end
 
@@ -1189,7 +1189,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Tags", structure: false)]
     property tags : Hash(String, String)?
 
-    def initialize(@application_id : String, @name : String, @description : String = nil, @monitors : Array(MonitorStruct) = nil, @tags : Hash(String, String) = nil)
+    def initialize(@application_id : String, @name : String, @description : String? = nil, @monitors : Array(MonitorStruct)? = nil, @tags : Hash(String, String)? = nil)
     end
   end
 
@@ -1218,7 +1218,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Monitors", structure: true)]
     property monitors : Array(MonitorStruct)?
 
-    def initialize(@application_id : String = nil, @id : String = nil, @name : String = nil, @description : String = nil, @state : String = nil, @monitors : Array(MonitorStruct) = nil)
+    def initialize(@application_id : String? = nil, @id : String? = nil, @name : String? = nil, @description : String? = nil, @state : String? = nil, @monitors : Array(MonitorStruct)? = nil)
     end
   end
 
@@ -1248,7 +1248,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :header, name: "Latest-Version-Number", structure: false)]
     property latest_version_number : Int32?
 
-    def initialize(@application_id : String, @configuration_profile_id : String, @content : (IO | String | Bytes), @content_type : String, @description : String = nil, @latest_version_number : Int32 = nil)
+    def initialize(@application_id : String, @configuration_profile_id : String, @content : (IO | String | Bytes), @content_type : String, @description : String? = nil, @latest_version_number : Int32? = nil)
     end
   end
 
@@ -1275,7 +1275,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :header, name: "Content-Type", structure: false)]
     property content_type : String?
 
-    def initialize(@application_id : String = nil, @configuration_profile_id : String = nil, @version_number : Int32 = nil, @description : String = nil, @content : (IO | String | Bytes) = nil, @content_type : String = nil)
+    def initialize(@application_id : String? = nil, @configuration_profile_id : String? = nil, @version_number : Int32? = nil, @description : String? = nil, @content : (IO | String | Bytes)? = nil, @content_type : String? = nil)
     end
   end
 
@@ -1286,7 +1286,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Message", structure: false)]
     property message : String?
 
-    def initialize(@message : String = nil)
+    def initialize(@message : String? = nil)
     end
   end
 
@@ -1306,7 +1306,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Size", structure: false)]
     property size : Float32?
 
-    def initialize(@message : String = nil, @measure : String = nil, @limit : Float32 = nil, @size : Float32 = nil)
+    def initialize(@message : String? = nil, @measure : String? = nil, @limit : Float32? = nil, @size : Float32? = nil)
     end
   end
 
@@ -1317,7 +1317,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Message", structure: false)]
     property message : String?
 
-    def initialize(@message : String = nil)
+    def initialize(@message : String? = nil)
     end
   end
 
@@ -1437,7 +1437,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "client_configuration_version", structure: false)]
     property client_configuration_version : String?
 
-    def initialize(@application : String, @environment : String, @configuration : String, @client_id : String, @client_configuration_version : String = nil)
+    def initialize(@application : String, @environment : String, @configuration : String, @client_id : String, @client_configuration_version : String? = nil)
     end
   end
 
@@ -1455,7 +1455,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :header, name: "Content-Type", structure: false)]
     property content_type : String?
 
-    def initialize(@content : (IO | String | Bytes) = nil, @configuration_version : String = nil, @content_type : String = nil)
+    def initialize(@content : (IO | String | Bytes)? = nil, @configuration_version : String? = nil, @content_type : String? = nil)
     end
   end
 
@@ -1513,7 +1513,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "OccurredAt", structure: false)]
     property occurred_at : Time?
 
-    def initialize(@event_type : String = nil, @triggered_by : String = nil, @description : String = nil, @occurred_at : Time = nil)
+    def initialize(@event_type : String? = nil, @triggered_by : String? = nil, @description : String? = nil, @occurred_at : Time? = nil)
     end
   end
 
@@ -1578,7 +1578,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "CompletedAt", structure: false)]
     property completed_at : Time?
 
-    def initialize(@application_id : String = nil, @environment_id : String = nil, @deployment_strategy_id : String = nil, @configuration_profile_id : String = nil, @deployment_number : Int32 = nil, @configuration_name : String = nil, @configuration_location_uri : String = nil, @configuration_version : String = nil, @description : String = nil, @deployment_duration_in_minutes : Int32 = nil, @growth_type : String = nil, @growth_factor : Float32 = nil, @final_bake_time_in_minutes : Int32 = nil, @state : String = nil, @event_log : Array(DeploymentEventStruct) = nil, @percentage_complete : Float32 = nil, @started_at : Time = nil, @completed_at : Time = nil)
+    def initialize(@application_id : String? = nil, @environment_id : String? = nil, @deployment_strategy_id : String? = nil, @configuration_profile_id : String? = nil, @deployment_number : Int32? = nil, @configuration_name : String? = nil, @configuration_location_uri : String? = nil, @configuration_version : String? = nil, @description : String? = nil, @deployment_duration_in_minutes : Int32? = nil, @growth_type : String? = nil, @growth_factor : Float32? = nil, @final_bake_time_in_minutes : Int32? = nil, @state : String? = nil, @event_log : Array(DeploymentEventStruct)? = nil, @percentage_complete : Float32? = nil, @started_at : Time? = nil, @completed_at : Time? = nil)
     end
   end
 
@@ -1635,7 +1635,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "next_token", structure: false)]
     property next_token : String?
 
-    def initialize(@max_results : Int32 = nil, @next_token : String = nil)
+    def initialize(@max_results : Int32? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1650,7 +1650,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "NextToken", structure: false)]
     property next_token : String?
 
-    def initialize(@items : Array(ApplicationStruct) = nil, @next_token : String = nil)
+    def initialize(@items : Array(ApplicationStruct)? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1668,7 +1668,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "next_token", structure: false)]
     property next_token : String?
 
-    def initialize(@application_id : String, @max_results : Int32 = nil, @next_token : String = nil)
+    def initialize(@application_id : String, @max_results : Int32? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1691,7 +1691,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "ValidatorTypes", structure: false)]
     property validator_types : Array(String)?
 
-    def initialize(@application_id : String = nil, @id : String = nil, @name : String = nil, @location_uri : String = nil, @validator_types : Array(String) = nil)
+    def initialize(@application_id : String? = nil, @id : String? = nil, @name : String? = nil, @location_uri : String? = nil, @validator_types : Array(String)? = nil)
     end
   end
 
@@ -1706,7 +1706,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "NextToken", structure: false)]
     property next_token : String?
 
-    def initialize(@items : Array(ConfigurationProfileSummaryStruct) = nil, @next_token : String = nil)
+    def initialize(@items : Array(ConfigurationProfileSummaryStruct)? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1727,7 +1727,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "next_token", structure: false)]
     property next_token : String?
 
-    def initialize(@application_id : String, @environment_id : String, @max_results : Int32 = nil, @next_token : String = nil)
+    def initialize(@application_id : String, @environment_id : String, @max_results : Int32? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1770,7 +1770,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "CompletedAt", structure: false)]
     property completed_at : Time?
 
-    def initialize(@deployment_number : Int32 = nil, @configuration_name : String = nil, @configuration_version : String = nil, @deployment_duration_in_minutes : Int32 = nil, @growth_type : String = nil, @growth_factor : Float32 = nil, @final_bake_time_in_minutes : Int32 = nil, @state : String = nil, @percentage_complete : Float32 = nil, @started_at : Time = nil, @completed_at : Time = nil)
+    def initialize(@deployment_number : Int32? = nil, @configuration_name : String? = nil, @configuration_version : String? = nil, @deployment_duration_in_minutes : Int32? = nil, @growth_type : String? = nil, @growth_factor : Float32? = nil, @final_bake_time_in_minutes : Int32? = nil, @state : String? = nil, @percentage_complete : Float32? = nil, @started_at : Time? = nil, @completed_at : Time? = nil)
     end
   end
 
@@ -1785,7 +1785,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "NextToken", structure: false)]
     property next_token : String?
 
-    def initialize(@items : Array(DeploymentSummaryStruct) = nil, @next_token : String = nil)
+    def initialize(@items : Array(DeploymentSummaryStruct)? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1800,7 +1800,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "next_token", structure: false)]
     property next_token : String?
 
-    def initialize(@max_results : Int32 = nil, @next_token : String = nil)
+    def initialize(@max_results : Int32? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1815,7 +1815,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "NextToken", structure: false)]
     property next_token : String?
 
-    def initialize(@items : Array(DeploymentStrategyStruct) = nil, @next_token : String = nil)
+    def initialize(@items : Array(DeploymentStrategyStruct)? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1833,7 +1833,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "next_token", structure: false)]
     property next_token : String?
 
-    def initialize(@application_id : String, @max_results : Int32 = nil, @next_token : String = nil)
+    def initialize(@application_id : String, @max_results : Int32? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1848,7 +1848,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "NextToken", structure: false)]
     property next_token : String?
 
-    def initialize(@items : Array(EnvironmentStruct) = nil, @next_token : String = nil)
+    def initialize(@items : Array(EnvironmentStruct)? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1869,7 +1869,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :query, name: "next_token", structure: false)]
     property next_token : String?
 
-    def initialize(@application_id : String, @configuration_profile_id : String, @max_results : Int32 = nil, @next_token : String = nil)
+    def initialize(@application_id : String, @configuration_profile_id : String, @max_results : Int32? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1893,7 +1893,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "ContentType", structure: false)]
     property content_type : String?
 
-    def initialize(@application_id : String = nil, @configuration_profile_id : String = nil, @version_number : Int32 = nil, @description : String = nil, @content_type : String = nil)
+    def initialize(@application_id : String? = nil, @configuration_profile_id : String? = nil, @version_number : Int32? = nil, @description : String? = nil, @content_type : String? = nil)
     end
   end
 
@@ -1908,7 +1908,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "NextToken", structure: false)]
     property next_token : String?
 
-    def initialize(@items : Array(HostedConfigurationVersionSummaryStruct) = nil, @next_token : String = nil)
+    def initialize(@items : Array(HostedConfigurationVersionSummaryStruct)? = nil, @next_token : String? = nil)
     end
   end
 
@@ -1932,7 +1932,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Tags", structure: false)]
     property tags : Hash(String, String)?
 
-    def initialize(@tags : Hash(String, String) = nil)
+    def initialize(@tags : Hash(String, String)? = nil)
     end
   end
 
@@ -1963,7 +1963,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Tags", structure: false)]
     property tags : Hash(String, String)?
 
-    def initialize(@application_id : String, @environment_id : String, @deployment_strategy_id : String, @configuration_profile_id : String, @configuration_version : String, @description : String = nil, @tags : Hash(String, String) = nil)
+    def initialize(@application_id : String, @environment_id : String, @deployment_strategy_id : String, @configuration_profile_id : String, @configuration_version : String, @description : String? = nil, @tags : Hash(String, String)? = nil)
     end
   end
 
@@ -2027,7 +2027,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Description", structure: false)]
     property description : String?
 
-    def initialize(@application_id : String, @name : String = nil, @description : String = nil)
+    def initialize(@application_id : String, @name : String? = nil, @description : String? = nil)
     end
   end
 
@@ -2054,7 +2054,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Validators", structure: true)]
     property validators : Array(ValidatorStruct)?
 
-    def initialize(@application_id : String, @configuration_profile_id : String, @name : String = nil, @description : String = nil, @retrieval_role_arn : String = nil, @validators : Array(ValidatorStruct) = nil)
+    def initialize(@application_id : String, @configuration_profile_id : String, @name : String? = nil, @description : String? = nil, @retrieval_role_arn : String? = nil, @validators : Array(ValidatorStruct)? = nil)
     end
   end
 
@@ -2110,7 +2110,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "GrowthType", structure: false)]
     property growth_type : String?
 
-    def initialize(@deployment_strategy_id : String, @description : String = nil, @deployment_duration_in_minutes : Int32 = nil, @final_bake_time_in_minutes : Int32 = nil, @growth_factor : Float32 = nil, @growth_type : String = nil)
+    def initialize(@deployment_strategy_id : String, @description : String? = nil, @deployment_duration_in_minutes : Int32? = nil, @final_bake_time_in_minutes : Int32? = nil, @growth_factor : Float32? = nil, @growth_type : String? = nil)
     end
   end
 
@@ -2133,7 +2133,7 @@ module AmazonAppConfig
     @[AWSSdk::Field(location: :body, name: "Monitors", structure: true)]
     property monitors : Array(MonitorStruct)?
 
-    def initialize(@application_id : String, @environment_id : String, @name : String = nil, @description : String = nil, @monitors : Array(MonitorStruct) = nil)
+    def initialize(@application_id : String, @environment_id : String, @name : String? = nil, @description : String? = nil, @monitors : Array(MonitorStruct)? = nil)
     end
   end
 

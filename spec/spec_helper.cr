@@ -1,2 +1,2 @@
 require "spec"
-require "../src/aws-sdk"
+require "../codegen/aws_codegen.cr"

@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe Aws::Sdk do
+describe AWSCodegen do
   # TODO: Write tests
 
   it "works" do

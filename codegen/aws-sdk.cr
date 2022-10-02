@@ -4,9 +4,7 @@ require "./json-ast"
 require "ecr"
 
 module Smithy
-
   abstract class AbstractType(T)
-
     def_equals @id
 
     def_hash @id
@@ -14,7 +12,6 @@ module Smithy
     property id : String
     property traits = Hash(String, JSON::Any).new
     property namespace : Namespace
-
 
     def name : String
       @id.split('#')[1]
@@ -31,7 +28,7 @@ module Smithy
       @namespace.datatypes.fetch id do
         {% begin %}
           case shape
-            {% for type in %w{Structure Map List Union}+PRIMITIVE_TYPENAMES%}
+            {% for type in %w{Structure Map List Union Enum} + PRIMITIVE_TYPENAMES %}
             when ASTNode{{type.id}}
               new_node = {{type.id}}Type.new(namespace, id, shape)
               @namespace.datatypes[id] = new_node
@@ -42,11 +39,9 @@ module Smithy
             raise "What kind of type is that??"
           end
         {% end %}
-
       end
     end
   end
-
 
   class ServiceType < AbstractType(ASTNodeService)
     property operations : Array(OperationType)
@@ -133,11 +128,12 @@ module Smithy
     end
   end
 
-  alias DataType = DoubleType | UnionType | LongType | BooleanType | StructureType | MapType | ListType | IntegerType | FloatType | BlobType | StringType | TimestampType
+  alias DataType = DoubleType | UnionType | LongType | BooleanType | StructureType | MapType | ListType | IntegerType | FloatType | BlobType | StringType | TimestampType | EnumType
 
   class StructureType < AbstractType(ASTNodeStructure)
     property members = Hash(String, DataType).new
     property memberTraits = Hash(String, Hash(String, JSON::Any)).new
+
     def initialize(@namespace, @id, @node : ASTNodeStructure)
       @traits = @node.traits
       @node.members.each do |name, member|
@@ -176,9 +172,28 @@ module Smithy
     end
   end
 
+  class EnumType < AbstractType(ASTNodeEnum)
+    property members = Hash(String, String).new
+
+    def initialize(@namespace, @id, @node : ASTNodeEnum)
+      @node.members.map do |name, member|
+        @members[name] = member.traits["smithy.api#enumValue"].to_s
+      end
+      @namespace.enums << self
+    end
+
+    def to_code
+      ECR.render "codegen/enum.ecr"
+    end
+
+    def to_type
+      "String"
+    end
+  end
 
   class UnionType < AbstractType(ASTNodeUnion)
     property members = Hash(String, DataType).new
+
     def initialize(@namespace, @id, @node : ASTNodeUnion)
       @node.members.each do |name, member|
         shape = @namespace.shapes[member.target]
@@ -192,13 +207,14 @@ module Smithy
     end
 
     def to_type
-      "#{name}Struct"
+      "#{name}"
     end
   end
 
   class ListType < AbstractType(ASTNodeList)
     property member : DataType
     property member_traits : Hash(String, JSON::Any)?
+
     def initialize(@namespace, @id, @node : ASTNodeList)
       shape = @namespace.shapes[@node.member.target]
       @member = new_data_type(@namespace, @node.member.target, shape)
@@ -213,6 +229,7 @@ module Smithy
   class MapType < AbstractType(ASTNodeMap)
     property key : DataType
     property value : DataType
+
     def initialize(@namespace, @id, @node : ASTNodeMap)
       shape = @namespace.shapes[@node.key.target]
       @key = new_data_type(@namespace, @node.key.target, shape)
@@ -278,11 +295,11 @@ module Smithy
     end
   end
 
-
   class Namespace
     property shapes : Hash(String, Shape)
     property structures : Set(StructureType) = Set(StructureType).new
     property unions = Set(UnionType).new
+    property enums = Set(EnumType).new
     getter service : ServiceType?
     property datatypes = Hash(String, DataType).new
 
@@ -296,7 +313,7 @@ module Smithy
 
     def initialize(filename)
       @shapes = Hash(String, Smithy::Shape).from_json(File.read(filename), "shapes")
-      id, node = @shapes.find {|_, x| x.type == "service"}.not_nil!
+      id, node = @shapes.find { |_, x| x.type == "service" }.not_nil!
       @service = ServiceType.new(self, id, node.as(ASTNodeService))
     end
   end

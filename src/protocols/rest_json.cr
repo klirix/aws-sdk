@@ -1,9 +1,11 @@
+require "json"
+
 module AWSSdk
   annotation Field
   end
+
   module RestJSON
     module Structure
-
       def serialize(json : JSON::Builder)
         {% begin %}
           {% properties = {} of Nil => Nil %}
@@ -53,6 +55,7 @@ module AWSSdk
           {% end %}
         {% end %}
       end
+
       def process(request : HTTP::Request)
         {% begin %}
           {% properties = {} of Nil => Nil %}
@@ -98,6 +101,7 @@ module AWSSdk
           request
         {% end %}
       end
+
       macro included
         def self.deserialize(xml : XML::Node)
           {% begin %}
@@ -174,7 +178,7 @@ module AWSSdk
                 {{name.id}}: request.body.bytes,
               {% end %}
             {% elsif props[:location] == :header %}
-              {%if props[:type] == String %}
+              {% if props[:type] == String %}
                 {{name.id}}: request.headers[{{props[:name]}}],
               {% end %}
             {% end %}

@@ -27,7 +27,7 @@
     <%- end -%>
 
     def initialize(<%= @members.map do |key, value|
-      "@#{key.underscore} : #{value.to_type}#{@memberTraits[key].has_key?("smithy.api#required") ? "" : " = nil"}"
+      "@#{key.underscore} : #{value.to_type}#{@memberTraits[key].has_key?("smithy.api#required") ? "" : "? = nil"}"
     end.sort do |a, b| 
       a.includes?("nil").to_unsafe - b.includes?("nil").to_unsafe
     end.join(", ")%>)

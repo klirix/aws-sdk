@@ -7,12 +7,17 @@ end
 require "http"
 require "./clients/s3"
 require "./clients/appconfig"
+require "./build"
 
 include AWSSdk
 
 class MyClient < AWSSdk::Client
   include AmazonS3::Methods
   include AmazonAppConfig::Methods
+
+  module CLientNames
+    getter name = "UNdefined"
+  end
 end
 
 my_client = MyClient.new
@@ -24,3 +29,8 @@ pp my_client.s3.put_object(
   key: "tex .txt",
   body: File.open("shard.yml")
 )
+
+enum Status
+  Private
+  Delegate
+end

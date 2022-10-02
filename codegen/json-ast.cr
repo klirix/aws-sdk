@@ -5,20 +5,21 @@ module Smithy
     include JSON::Serializable
 
     use_json_discriminator "type", {
-      service: ASTNodeService,
+      service:   ASTNodeService,
       structure: ASTNodeStructure,
-      union: ASTNodeUnion,
-      list: ASTNodeList,
-      string: ASTNodeString,
-      float: ASTNodeFloat,
-      long: ASTNodeLong,
-      double: ASTNodeDouble,
-      blob: ASTNodeBlob,
-      boolean: ASTNodeBoolean,
-      integer: ASTNodeInteger,
+      union:     ASTNodeUnion,
+      list:      ASTNodeList,
+      string:    ASTNodeString,
+      float:     ASTNodeFloat,
+      long:      ASTNodeLong,
+      double:    ASTNodeDouble,
+      blob:      ASTNodeBlob,
+      boolean:   ASTNodeBoolean,
+      integer:   ASTNodeInteger,
       timestamp: ASTNodeTimestamp,
-      map: ASTNodeMap,
-      operation: ASTNodeOperation
+      map:       ASTNodeMap,
+      operation: ASTNodeOperation,
+      enum:      ASTNodeEnum,
     }
 
     property type : String
@@ -27,7 +28,7 @@ module Smithy
 
   PRIMITIVE_TYPENAMES = %w(String Float Blob Integer Timestamp Boolean Long Double)
 
-  {% for primitive in PRIMITIVE_TYPENAMES%}
+  {% for primitive in PRIMITIVE_TYPENAMES %}
     class ASTNode{{primitive.id}} < Shape
     end
   {% end %}
@@ -42,6 +43,10 @@ module Smithy
   end
 
   class ASTNodeUnion < Shape
+    property members : Hash(String, ShapeMember)
+  end
+
+  class ASTNodeEnum < Shape
     property members : Hash(String, ShapeMember)
   end
 
@@ -65,5 +70,4 @@ module Smithy
     property target : String
     property traits : Hash(String, JSON::Any) = Hash(String, JSON::Any).new
   end
-
 end

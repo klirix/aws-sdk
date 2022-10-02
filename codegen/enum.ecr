@@ -1,0 +1,7 @@
+module <%= name %>
+
+  <%- members.each do |name, member| -%>
+  getter <%= name == "Private" ? "priv" : name.downcase %> = "<%= member %>"
+
+  <%- end -%>
+end

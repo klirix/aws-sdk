@@ -1,12 +1,12 @@
+
 require "../protocols/json1_1"
 
 require "./baseclient"
-
 module AmazonLightsail
   ENDPOINT_PREFIX = "lightsail"
 
   module Methods
-    abstract def send(request : HTTP::Request, prefix : String, success_code : Int32?)
+    abstract def send( request : HTTP::Request, prefix : String, success_code : Int32? )
 
     def lightsail : AmazonLightsailMethods
       if internal = @internal_AmazonLightsail
@@ -20,2817 +20,3322 @@ module AmazonLightsail
       def initialize(@parent : AmazonLightsail::Methods)
       end
 
-      def send(request : HTTP::Request, prefix : String, success_code : Int32?)
-        @parent.send(request, prefix, success_code)
-      end
-
-      # <p>Allocates a static IP address.</p>
-      def allocate_static_ip(static_ip_name : String) : AllocateStaticIpResult
-        allocate_static_ip(AllocateStaticIpRequest.new(
-          static_ip_name: static_ip_name
-        ))
-      end
-
-      def allocate_static_ip(input : AllocateStaticIpRequest) : AllocateStaticIpResult
-        path = "/ls/api/2016-11-28/AllocateStaticIp"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        AllocateStaticIpResult.from_response(response)
-      end
-
-      # <p>Attaches an SSL/TLS certificate to your Amazon Lightsail content delivery network (CDN)
-      # distribution.</p>
-      # <p>After the certificate is attached, your distribution accepts HTTPS traffic for all of the
-      # domains that are associated with the certificate.</p>
-      # <p>Use the <code>CreateCertificate</code> action to create a certificate that you can attach
-      # to your distribution.</p>
-      # <important>
-      # <p>Only certificates created in the <code>us-east-1</code> AWS Region can be attached to
-      # Lightsail distributions. Lightsail distributions are global resources that can reference
-      # an origin in any AWS Region, and distribute its content globally. However, all
-      # distributions are located in the <code>us-east-1</code> Region.</p>
-      # </important>
-      def attach_certificate_to_distribution(distribution_name : String, certificate_name : String) : AttachCertificateToDistributionResult
-        attach_certificate_to_distribution(AttachCertificateToDistributionRequest.new(
-          distribution_name: distribution_name, certificate_name: certificate_name
-        ))
-      end
-
-      def attach_certificate_to_distribution(input : AttachCertificateToDistributionRequest) : AttachCertificateToDistributionResult
-        path = "/ls/api/2016-11-28/AttachCertificateToDistribution"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        AttachCertificateToDistributionResult.from_response(response)
-      end
-
-      # <p>Attaches a block storage disk to a running or stopped Lightsail instance and exposes it
-      # to the instance with the specified disk name.</p>
-      # <p>The <code>attach disk</code> operation supports tag-based access control via resource tags
-      # applied to the resource identified by <code>disk name</code>. For more information, see the
-      # <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def attach_disk(disk_name : String, instance_name : String, disk_path : String) : AttachDiskResult
-        attach_disk(AttachDiskRequest.new(
-          disk_name: disk_name, instance_name: instance_name, disk_path: disk_path
-        ))
-      end
-
-      def attach_disk(input : AttachDiskRequest) : AttachDiskResult
-        path = "/ls/api/2016-11-28/AttachDisk"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        AttachDiskResult.from_response(response)
-      end
-
-      # <p>Attaches one or more Lightsail instances to a load balancer.</p>
-      # <p>After some time, the instances are attached to the load balancer and the health check
-      # status is available.</p>
-      # <p>The <code>attach instances to load balancer</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by <code>load balancer
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def attach_instances_to_load_balancer(load_balancer_name : String, instance_names : Array(String)) : AttachInstancesToLoadBalancerResult
-        attach_instances_to_load_balancer(AttachInstancesToLoadBalancerRequest.new(
-          load_balancer_name: load_balancer_name, instance_names: instance_names
-        ))
-      end
-
-      def attach_instances_to_load_balancer(input : AttachInstancesToLoadBalancerRequest) : AttachInstancesToLoadBalancerResult
-        path = "/ls/api/2016-11-28/AttachInstancesToLoadBalancer"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        AttachInstancesToLoadBalancerResult.from_response(response)
-      end
-
-      # <p>Attaches a Transport Layer Security (TLS) certificate to your load balancer. TLS is just
-      # an updated, more secure version of Secure Socket Layer (SSL).</p>
-      # <p>Once you create and validate your certificate, you can attach it to your load balancer.
-      # You can also use this API to rotate the certificates on your account. Use the
-      # <code>AttachLoadBalancerTlsCertificate</code> action with the non-attached certificate, and
-      # it will replace the existing one and become the attached certificate.</p>
-      # <p>The <code>AttachLoadBalancerTlsCertificate</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by <code>load balancer
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def attach_load_balancer_tls_certificate(load_balancer_name : String, certificate_name : String) : AttachLoadBalancerTlsCertificateResult
-        attach_load_balancer_tls_certificate(AttachLoadBalancerTlsCertificateRequest.new(
-          load_balancer_name: load_balancer_name, certificate_name: certificate_name
-        ))
-      end
-
-      def attach_load_balancer_tls_certificate(input : AttachLoadBalancerTlsCertificateRequest) : AttachLoadBalancerTlsCertificateResult
-        path = "/ls/api/2016-11-28/AttachLoadBalancerTlsCertificate"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        AttachLoadBalancerTlsCertificateResult.from_response(response)
-      end
-
-      # <p>Attaches a static IP address to a specific Amazon Lightsail instance.</p>
-      def attach_static_ip(static_ip_name : String, instance_name : String) : AttachStaticIpResult
-        attach_static_ip(AttachStaticIpRequest.new(
-          static_ip_name: static_ip_name, instance_name: instance_name
-        ))
-      end
-
-      def attach_static_ip(input : AttachStaticIpRequest) : AttachStaticIpResult
-        path = "/ls/api/2016-11-28/AttachStaticIp"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        AttachStaticIpResult.from_response(response)
-      end
-
-      # <p>Closes ports for a specific Amazon Lightsail instance.</p>
-      # <p>The <code>CloseInstancePublicPorts</code> action supports tag-based access control via
-      # resource tags applied to the resource identified by <code>instanceName</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def close_instance_public_ports(port_info : PortInfoStruct, instance_name : String) : CloseInstancePublicPortsResult
-        close_instance_public_ports(CloseInstancePublicPortsRequest.new(
-          port_info: port_info, instance_name: instance_name
-        ))
-      end
-
-      def close_instance_public_ports(input : CloseInstancePublicPortsRequest) : CloseInstancePublicPortsResult
-        path = "/ls/api/2016-11-28/CloseInstancePublicPorts"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CloseInstancePublicPortsResult.from_response(response)
-      end
-
-      # <p>Copies a manual snapshot of an instance or disk as another manual snapshot, or copies an
-      # automatic snapshot of an instance or disk as a manual snapshot. This operation can also be
-      # used to copy a manual or automatic snapshot of an instance or a disk from one AWS Region to
-      # another in Amazon Lightsail.</p>
-      # <p>When copying a <i>manual snapshot</i>, be sure to define the <code>source
-      # region</code>, <code>source snapshot name</code>, and <code>target snapshot name</code>
-      # parameters.</p>
-      # <p>When copying an <i>automatic snapshot</i>, be sure to define the
-      # <code>source region</code>, <code>source resource name</code>, <code>target snapshot
-      # name</code>, and either the <code>restore date</code> or the <code>use latest restorable
-      # auto snapshot</code> parameters.</p>
-      def copy_snapshot(target_snapshot_name : String, source_region : String, source_snapshot_name : String? = nil, source_resource_name : String? = nil, restore_date : String? = nil, use_latest_restorable_auto_snapshot : Bool? = nil) : CopySnapshotResult
-        copy_snapshot(CopySnapshotRequest.new(
-          source_snapshot_name: source_snapshot_name, source_resource_name: source_resource_name, restore_date: restore_date, use_latest_restorable_auto_snapshot: use_latest_restorable_auto_snapshot, target_snapshot_name: target_snapshot_name, source_region: source_region
-        ))
-      end
-
-      def copy_snapshot(input : CopySnapshotRequest) : CopySnapshotResult
-        path = "/ls/api/2016-11-28/CopySnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CopySnapshotResult.from_response(response)
-      end
-
-      # <p>Creates an SSL/TLS certificate for a Amazon Lightsail content delivery network (CDN)
-      # distribution.</p>
-      # <p>After the certificate is created, use the <code>AttachCertificateToDistribution</code>
-      # action to attach the certificate to your distribution.</p>
-      # <important>
-      # <p>Only certificates created in the <code>us-east-1</code> AWS Region can be attached to
-      # Lightsail distributions. Lightsail distributions are global resources that can reference
-      # an origin in any AWS Region, and distribute its content globally. However, all
-      # distributions are located in the <code>us-east-1</code> Region.</p>
-      # </important>
-      def create_certificate(certificate_name : String, domain_name : String, subject_alternative_names : Array(String)? = nil, tags : Array(TagStruct)? = nil) : CreateCertificateResult
-        create_certificate(CreateCertificateRequest.new(
-          certificate_name: certificate_name, domain_name: domain_name, subject_alternative_names: subject_alternative_names, tags: tags
-        ))
-      end
-
-      def create_certificate(input : CreateCertificateRequest) : CreateCertificateResult
-        path = "/ls/api/2016-11-28/CreateCertificate"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateCertificateResult.from_response(response)
-      end
-
-      # <p>Creates an AWS CloudFormation stack, which creates a new Amazon EC2 instance from an exported
-      # Amazon Lightsail snapshot. This operation results in a CloudFormation stack record that can be
-      # used to track the AWS CloudFormation stack created. Use the <code>get cloud formation stack
-      # records</code> operation to get a list of the CloudFormation stacks created.</p>
-      # <important>
-      # <p>Wait until after your new Amazon EC2 instance is created before running the <code>create
-      # cloud formation stack</code> operation again with the same export snapshot record.</p>
-      # </important>
-      def create_cloud_formation_stack(instances : Array(InstanceEntryStruct)) : CreateCloudFormationStackResult
-        create_cloud_formation_stack(CreateCloudFormationStackRequest.new(
-          instances: instances
-        ))
-      end
-
-      def create_cloud_formation_stack(input : CreateCloudFormationStackRequest) : CreateCloudFormationStackResult
-        path = "/ls/api/2016-11-28/CreateCloudFormationStack"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateCloudFormationStackResult.from_response(response)
-      end
-
-      # <p>Creates an email or SMS text message contact method.</p>
-      # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
-      # You can add one email address and one mobile phone number contact method in each AWS Region.
-      # However, SMS text messaging is not supported in some AWS Regions, and SMS text messages
-      # cannot be sent to some countries/regions. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
-      def create_contact_method(protocol : String, contact_endpoint : String) : CreateContactMethodResult
-        create_contact_method(CreateContactMethodRequest.new(
-          protocol: protocol, contact_endpoint: contact_endpoint
-        ))
-      end
-
-      def create_contact_method(input : CreateContactMethodRequest) : CreateContactMethodResult
-        path = "/ls/api/2016-11-28/CreateContactMethod"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateContactMethodResult.from_response(response)
-      end
-
-      # <p>Creates an Amazon Lightsail container service.</p>
-      #
-      # <p>A Lightsail container service is a compute resource to which you can deploy containers.
-      # For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-containers">Container services in Amazon Lightsail</a> in the <i>Lightsail Dev
-      # Guide</i>.</p>
-      def create_container_service(service_name : String, power : String, scale : Int32, tags : Array(TagStruct)? = nil, public_domain_names : Hash(String, Array(String))? = nil, deployment : ContainerServiceDeploymentRequest? = nil) : CreateContainerServiceResult
-        create_container_service(CreateContainerServiceRequest.new(
-          service_name: service_name, power: power, scale: scale, tags: tags, public_domain_names: public_domain_names, deployment: deployment
-        ))
-      end
-
-      def create_container_service(input : CreateContainerServiceRequest) : CreateContainerServiceResult
-        path = "/ls/api/2016-11-28/container-services"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 201, prefix: ENDPOINT_PREFIX)
-
-        CreateContainerServiceResult.from_response(response)
-      end
-
-      # <p>Creates a deployment for your Amazon Lightsail container service.</p>
-      #
-      # <p>A deployment specifies the containers that will be launched on the container service and
-      # their settings, such as the ports to open, the environment variables to apply, and the launch
-      # command to run. It also specifies the container that will serve as the public endpoint of the
-      # deployment and its settings, such as the HTTP or HTTPS port to use, and the health check
-      # configuration.</p>
-      #
-      # <p>You can deploy containers to your container service using container images from a public
-      # registry like Docker Hub, or from your local machine. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-container-images">Creating container images for your Amazon Lightsail container services</a> in the
-      # <i>Lightsail Dev Guide</i>.</p>
-      def create_container_service_deployment(service_name : String, containers : Hash(String, ContainerStruct)? = nil, public_endpoint : EndpointRequest? = nil) : CreateContainerServiceDeploymentResult
-        create_container_service_deployment(CreateContainerServiceDeploymentRequest.new(
-          service_name: service_name, containers: containers, public_endpoint: public_endpoint
-        ))
-      end
-
-      def create_container_service_deployment(input : CreateContainerServiceDeploymentRequest) : CreateContainerServiceDeploymentResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/deployments"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 201, prefix: ENDPOINT_PREFIX)
-
-        CreateContainerServiceDeploymentResult.from_response(response)
-      end
-
-      # <p>Creates a temporary set of log in credentials that you can use to log in to the Docker
-      # process on your local machine. After you're logged in, you can use the native Docker commands
-      # to push your local container images to the container image registry of your Amazon Lightsail
-      # account so that you can use them with your Lightsail container service. The log in
-      # credentials expire 12 hours after they are created, at which point you will need to create a
-      # new set of log in credentials.</p>
-      #
-      # <note>
-      # <p>You can only push container images to the container service registry of your Lightsail
-      # account. You cannot pull container images perform any other container image management
-      # actions on the container service registry of your Lightsail account.</p>
-      # </note>
-      #
-      # <p>After you push your container images to the container image registry of your Lightsail
-      # account, use the <code>RegisterContainerImage</code> action to register the pushed images to a
-      # specific Lightsail container service.</p>
-      #
-      # <note>
-      # <p>This action is not required if you install and use the Lightsail Control
-      # (lightsailctl) plugin to push container images to your Lightsail container service. For
-      # more information, see <a href="amazon-lightsail-pushing-container-images">Pushing and
-      # managing container images on your Amazon Lightsail container services</a> in the
-      # <i>Lightsail Dev Guide</i>.</p>
-      # </note>
-      def create_container_service_registry_login : CreateContainerServiceRegistryLoginResult
-        create_container_service_registry_login(CreateContainerServiceRegistryLoginRequest.new)
-      end
-
-      def create_container_service_registry_login(input : CreateContainerServiceRegistryLoginRequest) : CreateContainerServiceRegistryLoginResult
-        path = "/ls/api/2016-11-28/container-registry-login"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateContainerServiceRegistryLoginResult.from_response(response)
-      end
-
-      # <p>Creates a block storage disk that can be attached to an Amazon Lightsail instance in the
-      # same Availability Zone (e.g., <code>us-east-2a</code>).</p>
-      # <p>The <code>create disk</code> operation supports tag-based access control via request tags.
-      # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_disk(disk_name : String, availability_zone : String, size_in_gb : Int32, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil) : CreateDiskResult
-        create_disk(CreateDiskRequest.new(
-          disk_name: disk_name, availability_zone: availability_zone, size_in_gb: size_in_gb, tags: tags, add_ons: add_ons
-        ))
-      end
-
-      def create_disk(input : CreateDiskRequest) : CreateDiskResult
-        path = "/ls/api/2016-11-28/CreateDisk"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateDiskResult.from_response(response)
-      end
-
-      # <p>Creates a block storage disk from a manual or automatic snapshot of a disk. The resulting
-      # disk can be attached to an Amazon Lightsail instance in the same Availability Zone (e.g.,
-      # <code>us-east-2a</code>).</p>
-      # <p>The <code>create disk from snapshot</code> operation supports tag-based access control via
-      # request tags and resource tags applied to the resource identified by <code>disk snapshot
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_disk_from_snapshot(disk_name : String, availability_zone : String, size_in_gb : Int32, disk_snapshot_name : String? = nil, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil, source_disk_name : String? = nil, restore_date : String? = nil, use_latest_restorable_auto_snapshot : Bool? = nil) : CreateDiskFromSnapshotResult
-        create_disk_from_snapshot(CreateDiskFromSnapshotRequest.new(
-          disk_name: disk_name, disk_snapshot_name: disk_snapshot_name, availability_zone: availability_zone, size_in_gb: size_in_gb, tags: tags, add_ons: add_ons, source_disk_name: source_disk_name, restore_date: restore_date, use_latest_restorable_auto_snapshot: use_latest_restorable_auto_snapshot
-        ))
-      end
-
-      def create_disk_from_snapshot(input : CreateDiskFromSnapshotRequest) : CreateDiskFromSnapshotResult
-        path = "/ls/api/2016-11-28/CreateDiskFromSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateDiskFromSnapshotResult.from_response(response)
-      end
-
-      # <p>Creates a snapshot of a block storage disk. You can use snapshots for backups, to make
-      # copies of disks, and to save data before shutting down a Lightsail instance.</p>
-      # <p>You can take a snapshot of an attached disk that is in use; however, snapshots only
-      # capture data that has been written to your disk at the time the snapshot command is issued.
-      # This may exclude any data that has been cached by any applications or the operating system. If
-      # you can pause any file systems on the disk long enough to take a snapshot, your snapshot
-      # should be complete. Nevertheless, if you cannot pause all file writes to the disk, you should
-      # unmount the disk from within the Lightsail instance, issue the create disk snapshot command,
-      # and then remount the disk to ensure a consistent and complete snapshot. You may remount and
-      # use your disk while the snapshot status is pending.</p>
-      # <p>You can also use this operation to create a snapshot of an instance's system volume. You
-      # might want to do this, for example, to recover data from the system volume of a botched
-      # instance or to create a backup of the system volume like you would for a block storage disk.
-      # To create a snapshot of a system volume, just define the <code>instance name</code> parameter
-      # when issuing the snapshot command, and a snapshot of the defined instance's system volume will
-      # be created. After the snapshot is available, you can create a block storage disk from the
-      # snapshot and attach it to a running instance to access the data on the disk.</p>
-      #
-      # <p>The <code>create disk snapshot</code> operation supports tag-based access control via
-      # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_disk_snapshot(disk_snapshot_name : String, disk_name : String? = nil, instance_name : String? = nil, tags : Array(TagStruct)? = nil) : CreateDiskSnapshotResult
-        create_disk_snapshot(CreateDiskSnapshotRequest.new(
-          disk_name: disk_name, disk_snapshot_name: disk_snapshot_name, instance_name: instance_name, tags: tags
-        ))
-      end
-
-      def create_disk_snapshot(input : CreateDiskSnapshotRequest) : CreateDiskSnapshotResult
-        path = "/ls/api/2016-11-28/CreateDiskSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateDiskSnapshotResult.from_response(response)
-      end
-
-      # <p>Creates an Amazon Lightsail content delivery network (CDN) distribution.</p>
-      # <p>A distribution is a globally distributed network of caching servers that improve the
-      # performance of your website or web application hosted on a Lightsail instance. For more
-      # information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-content-delivery-network-distributions">Content delivery networks in Amazon Lightsail</a>.</p>
-      def create_distribution(distribution_name : String, origin : InputOriginStruct, default_cache_behavior : CacheBehaviorStruct, bundle_id : String, cache_behavior_settings : CacheSettingsStruct? = nil, cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, tags : Array(TagStruct)? = nil) : CreateDistributionResult
-        create_distribution(CreateDistributionRequest.new(
-          distribution_name: distribution_name, origin: origin, default_cache_behavior: default_cache_behavior, cache_behavior_settings: cache_behavior_settings, cache_behaviors: cache_behaviors, bundle_id: bundle_id, tags: tags
-        ))
-      end
-
-      def create_distribution(input : CreateDistributionRequest) : CreateDistributionResult
-        path = "/ls/api/2016-11-28/CreateDistribution"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateDistributionResult.from_response(response)
-      end
-
-      # <p>Creates a domain resource for the specified domain (e.g., example.com).</p>
-      # <p>The <code>create domain</code> operation supports tag-based access control via request
-      # tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_domain(domain_name : String, tags : Array(TagStruct)? = nil) : CreateDomainResult
-        create_domain(CreateDomainRequest.new(
-          domain_name: domain_name, tags: tags
-        ))
-      end
-
-      def create_domain(input : CreateDomainRequest) : CreateDomainResult
-        path = "/ls/api/2016-11-28/CreateDomain"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateDomainResult.from_response(response)
-      end
-
-      # <p>Creates one of the following domain name system (DNS) records in a domain DNS zone:
-      # Address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority
-      # (SOA), service locator (SRV), or text (TXT).</p>
-      #
-      #
-      #
-      # <p>The <code>create domain entry</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by <code>domain name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_domain_entry(domain_name : String, domain_entry : DomainEntryStruct) : CreateDomainEntryResult
-        create_domain_entry(CreateDomainEntryRequest.new(
-          domain_name: domain_name, domain_entry: domain_entry
-        ))
-      end
-
-      def create_domain_entry(input : CreateDomainEntryRequest) : CreateDomainEntryResult
-        path = "/ls/api/2016-11-28/CreateDomainEntry"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateDomainEntryResult.from_response(response)
-      end
-
-      # <p>Creates one or more Amazon Lightsail instances.</p>
-      # <p>The <code>create instances</code> operation supports tag-based access control via request
-      # tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_instances(instance_names : Array(String), availability_zone : String, blueprint_id : String, bundle_id : String, custom_image_name : String? = nil, user_data : String? = nil, key_pair_name : String? = nil, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil) : CreateInstancesResult
-        create_instances(CreateInstancesRequest.new(
-          instance_names: instance_names, availability_zone: availability_zone, custom_image_name: custom_image_name, blueprint_id: blueprint_id, bundle_id: bundle_id, user_data: user_data, key_pair_name: key_pair_name, tags: tags, add_ons: add_ons
-        ))
-      end
-
-      def create_instances(input : CreateInstancesRequest) : CreateInstancesResult
-        path = "/ls/api/2016-11-28/CreateInstances"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateInstancesResult.from_response(response)
-      end
-
-      # <p>Creates one or more new instances from a manual or automatic snapshot of an
-      # instance.</p>
-      # <p>The <code>create instances from snapshot</code> operation supports tag-based access
-      # control via request tags and resource tags applied to the resource identified by
-      # <code>instance snapshot name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_instances_from_snapshot(instance_names : Array(String), availability_zone : String, bundle_id : String, attached_disk_mapping : Hash(String, Array(DiskMapStruct))? = nil, instance_snapshot_name : String? = nil, user_data : String? = nil, key_pair_name : String? = nil, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil, source_instance_name : String? = nil, restore_date : String? = nil, use_latest_restorable_auto_snapshot : Bool? = nil) : CreateInstancesFromSnapshotResult
-        create_instances_from_snapshot(CreateInstancesFromSnapshotRequest.new(
-          instance_names: instance_names, attached_disk_mapping: attached_disk_mapping, availability_zone: availability_zone, instance_snapshot_name: instance_snapshot_name, bundle_id: bundle_id, user_data: user_data, key_pair_name: key_pair_name, tags: tags, add_ons: add_ons, source_instance_name: source_instance_name, restore_date: restore_date, use_latest_restorable_auto_snapshot: use_latest_restorable_auto_snapshot
-        ))
-      end
-
-      def create_instances_from_snapshot(input : CreateInstancesFromSnapshotRequest) : CreateInstancesFromSnapshotResult
-        path = "/ls/api/2016-11-28/CreateInstancesFromSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateInstancesFromSnapshotResult.from_response(response)
-      end
-
-      # <p>Creates a snapshot of a specific virtual private server, or <i>instance</i>.
-      # You can use a snapshot to create a new instance that is based on that snapshot.</p>
-      # <p>The <code>create instance snapshot</code> operation supports tag-based access control via
-      # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_instance_snapshot(instance_snapshot_name : String, instance_name : String, tags : Array(TagStruct)? = nil) : CreateInstanceSnapshotResult
-        create_instance_snapshot(CreateInstanceSnapshotRequest.new(
-          instance_snapshot_name: instance_snapshot_name, instance_name: instance_name, tags: tags
-        ))
-      end
-
-      def create_instance_snapshot(input : CreateInstanceSnapshotRequest) : CreateInstanceSnapshotResult
-        path = "/ls/api/2016-11-28/CreateInstanceSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateInstanceSnapshotResult.from_response(response)
-      end
-
-      # <p>Creates an SSH key pair.</p>
-      # <p>The <code>create key pair</code> operation supports tag-based access control via request
-      # tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_key_pair(key_pair_name : String, tags : Array(TagStruct)? = nil) : CreateKeyPairResult
-        create_key_pair(CreateKeyPairRequest.new(
-          key_pair_name: key_pair_name, tags: tags
-        ))
-      end
-
-      def create_key_pair(input : CreateKeyPairRequest) : CreateKeyPairResult
-        path = "/ls/api/2016-11-28/CreateKeyPair"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateKeyPairResult.from_response(response)
-      end
-
-      # <p>Creates a Lightsail load balancer. To learn more about deciding whether to load balance
-      # your application, see <a href="https://lightsail.aws.amazon.com/ls/docs/how-to/article/configure-lightsail-instances-for-load-balancing">Configure your Lightsail instances for load balancing</a>. You can create up to 5
-      # load balancers per AWS Region in your account.</p>
-      # <p>When you create a load balancer, you can specify a unique name and port settings. To
-      # change additional load balancer settings, use the <code>UpdateLoadBalancerAttribute</code>
-      # operation.</p>
-      # <p>The <code>create load balancer</code> operation supports tag-based access control via
-      # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_load_balancer(load_balancer_name : String, instance_port : Int32, health_check_path : String? = nil, certificate_name : String? = nil, certificate_domain_name : String? = nil, certificate_alternative_names : Array(String)? = nil, tags : Array(TagStruct)? = nil) : CreateLoadBalancerResult
-        create_load_balancer(CreateLoadBalancerRequest.new(
-          load_balancer_name: load_balancer_name, instance_port: instance_port, health_check_path: health_check_path, certificate_name: certificate_name, certificate_domain_name: certificate_domain_name, certificate_alternative_names: certificate_alternative_names, tags: tags
-        ))
-      end
-
-      def create_load_balancer(input : CreateLoadBalancerRequest) : CreateLoadBalancerResult
-        path = "/ls/api/2016-11-28/CreateLoadBalancer"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateLoadBalancerResult.from_response(response)
-      end
-
-      # <p>Creates a Lightsail load balancer TLS certificate.</p>
-      # <p>TLS is just an updated, more secure version of Secure Socket Layer (SSL).</p>
-      # <p>The <code>CreateLoadBalancerTlsCertificate</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by <code>load balancer
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_load_balancer_tls_certificate(load_balancer_name : String, certificate_name : String, certificate_domain_name : String, certificate_alternative_names : Array(String)? = nil, tags : Array(TagStruct)? = nil) : CreateLoadBalancerTlsCertificateResult
-        create_load_balancer_tls_certificate(CreateLoadBalancerTlsCertificateRequest.new(
-          load_balancer_name: load_balancer_name, certificate_name: certificate_name, certificate_domain_name: certificate_domain_name, certificate_alternative_names: certificate_alternative_names, tags: tags
-        ))
-      end
-
-      def create_load_balancer_tls_certificate(input : CreateLoadBalancerTlsCertificateRequest) : CreateLoadBalancerTlsCertificateResult
-        path = "/ls/api/2016-11-28/CreateLoadBalancerTlsCertificate"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateLoadBalancerTlsCertificateResult.from_response(response)
-      end
-
-      # <p>Creates a new database in Amazon Lightsail.</p>
-      # <p>The <code>create relational database</code> operation supports tag-based access control
-      # via request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_relational_database(relational_database_name : String, relational_database_blueprint_id : String, relational_database_bundle_id : String, master_database_name : String, master_username : String, availability_zone : String? = nil, master_user_password : String? = nil, preferred_backup_window : String? = nil, preferred_maintenance_window : String? = nil, publicly_accessible : Bool? = nil, tags : Array(TagStruct)? = nil) : CreateRelationalDatabaseResult
-        create_relational_database(CreateRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name, availability_zone: availability_zone, relational_database_blueprint_id: relational_database_blueprint_id, relational_database_bundle_id: relational_database_bundle_id, master_database_name: master_database_name, master_username: master_username, master_user_password: master_user_password, preferred_backup_window: preferred_backup_window, preferred_maintenance_window: preferred_maintenance_window, publicly_accessible: publicly_accessible, tags: tags
-        ))
-      end
-
-      def create_relational_database(input : CreateRelationalDatabaseRequest) : CreateRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/CreateRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Creates a new database from an existing database snapshot in Amazon Lightsail.</p>
-      # <p>You can create a new database from a snapshot in if something goes wrong with your
-      # original database, or to change it to a different plan, such as a high availability or
-      # standard plan.</p>
-      # <p>The <code>create relational database from snapshot</code> operation supports tag-based
-      # access control via request tags and resource tags applied to the resource identified by
-      # relationalDatabaseSnapshotName. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_relational_database_from_snapshot(relational_database_name : String, availability_zone : String? = nil, publicly_accessible : Bool? = nil, relational_database_snapshot_name : String? = nil, relational_database_bundle_id : String? = nil, source_relational_database_name : String? = nil, restore_time : Time? = nil, use_latest_restorable_time : Bool? = nil, tags : Array(TagStruct)? = nil) : CreateRelationalDatabaseFromSnapshotResult
-        create_relational_database_from_snapshot(CreateRelationalDatabaseFromSnapshotRequest.new(
-          relational_database_name: relational_database_name, availability_zone: availability_zone, publicly_accessible: publicly_accessible, relational_database_snapshot_name: relational_database_snapshot_name, relational_database_bundle_id: relational_database_bundle_id, source_relational_database_name: source_relational_database_name, restore_time: restore_time, use_latest_restorable_time: use_latest_restorable_time, tags: tags
-        ))
-      end
-
-      def create_relational_database_from_snapshot(input : CreateRelationalDatabaseFromSnapshotRequest) : CreateRelationalDatabaseFromSnapshotResult
-        path = "/ls/api/2016-11-28/CreateRelationalDatabaseFromSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateRelationalDatabaseFromSnapshotResult.from_response(response)
-      end
-
-      # <p>Creates a snapshot of your database in Amazon Lightsail. You can use snapshots for backups,
-      # to make copies of a database, and to save data before deleting a database.</p>
-      # <p>The <code>create relational database snapshot</code> operation supports tag-based access
-      # control via request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def create_relational_database_snapshot(relational_database_name : String, relational_database_snapshot_name : String, tags : Array(TagStruct)? = nil) : CreateRelationalDatabaseSnapshotResult
-        create_relational_database_snapshot(CreateRelationalDatabaseSnapshotRequest.new(
-          relational_database_name: relational_database_name, relational_database_snapshot_name: relational_database_snapshot_name, tags: tags
-        ))
-      end
-
-      def create_relational_database_snapshot(input : CreateRelationalDatabaseSnapshotRequest) : CreateRelationalDatabaseSnapshotResult
-        path = "/ls/api/2016-11-28/CreateRelationalDatabaseSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        CreateRelationalDatabaseSnapshotResult.from_response(response)
-      end
-
-      # <p>Deletes an alarm.</p>
-      # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
-      # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
-      # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
-      # in Amazon Lightsail</a>.</p>
-      def delete_alarm(alarm_name : String) : DeleteAlarmResult
-        delete_alarm(DeleteAlarmRequest.new(
-          alarm_name: alarm_name
-        ))
-      end
-
-      def delete_alarm(input : DeleteAlarmRequest) : DeleteAlarmResult
-        path = "/ls/api/2016-11-28/DeleteAlarm"
-        request = HTTP::Request.new("DELETE", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteAlarmResult.from_response(response)
-      end
-
-      # <p>Deletes an automatic snapshot of an instance or disk. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
-      def delete_auto_snapshot(resource_name : String, date : String) : DeleteAutoSnapshotResult
-        delete_auto_snapshot(DeleteAutoSnapshotRequest.new(
-          resource_name: resource_name, date: date
-        ))
-      end
-
-      def delete_auto_snapshot(input : DeleteAutoSnapshotRequest) : DeleteAutoSnapshotResult
-        path = "/ls/api/2016-11-28/DeleteAutoSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteAutoSnapshotResult.from_response(response)
-      end
-
-      # <p>Deletes an SSL/TLS certificate for your Amazon Lightsail content delivery network (CDN)
-      # distribution.</p>
-      # <p>Certificates that are currently attached to a distribution cannot be deleted. Use the
-      # <code>DetachCertificateFromDistribution</code> action to detach a certificate from a
-      # distribution.</p>
-      def delete_certificate(certificate_name : String) : DeleteCertificateResult
-        delete_certificate(DeleteCertificateRequest.new(
-          certificate_name: certificate_name
-        ))
-      end
-
-      def delete_certificate(input : DeleteCertificateRequest) : DeleteCertificateResult
-        path = "/ls/api/2016-11-28/DeleteCertificate"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteCertificateResult.from_response(response)
-      end
-
-      # <p>Deletes a contact method.</p>
-      # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
-      # You can add one email address and one mobile phone number contact method in each AWS Region.
-      # However, SMS text messaging is not supported in some AWS Regions, and SMS text messages
-      # cannot be sent to some countries/regions. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
-      def delete_contact_method(protocol : String) : DeleteContactMethodResult
-        delete_contact_method(DeleteContactMethodRequest.new(
-          protocol: protocol
-        ))
-      end
-
-      def delete_contact_method(input : DeleteContactMethodRequest) : DeleteContactMethodResult
-        path = "/ls/api/2016-11-28/DeleteContactMethod"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteContactMethodResult.from_response(response)
-      end
-
-      # <p>Deletes a container image that is registered to your Amazon Lightsail container
-      # service.</p>
-      def delete_container_image(service_name : String, image : String) : DeleteContainerImageResult
-        delete_container_image(DeleteContainerImageRequest.new(
-          service_name: service_name, image: image
-        ))
-      end
-
-      def delete_container_image(input : DeleteContainerImageRequest) : DeleteContainerImageResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/images/{image}"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        if label = input.image
-          path = path.gsub("{image}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: image"
-        end
-        request = HTTP::Request.new("DELETE", path)
-        request = input.process(request)
-        response = send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
-
-        DeleteContainerImageResult.from_response(response)
-      end
-
-      # <p>Deletes your Amazon Lightsail container service.</p>
-      def delete_container_service(service_name : String) : DeleteContainerServiceResult
-        delete_container_service(DeleteContainerServiceRequest.new(
-          service_name: service_name
-        ))
-      end
-
-      def delete_container_service(input : DeleteContainerServiceRequest) : DeleteContainerServiceResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("DELETE", path)
-        request = input.process(request)
-        response = send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
-
-        DeleteContainerServiceResult.from_response(response)
-      end
-
-      # <p>Deletes the specified block storage disk. The disk must be in the <code>available</code>
-      # state (not attached to a Lightsail instance).</p>
-      # <note>
-      # <p>The disk may remain in the <code>deleting</code> state for several minutes.</p>
-      # </note>
-      # <p>The <code>delete disk</code> operation supports tag-based access control via resource tags
-      # applied to the resource identified by <code>disk name</code>. For more information, see the
-      # <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_disk(disk_name : String, force_delete_add_ons : Bool? = nil) : DeleteDiskResult
-        delete_disk(DeleteDiskRequest.new(
-          disk_name: disk_name, force_delete_add_ons: force_delete_add_ons
-        ))
-      end
-
-      def delete_disk(input : DeleteDiskRequest) : DeleteDiskResult
-        path = "/ls/api/2016-11-28/DeleteDisk"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteDiskResult.from_response(response)
-      end
-
-      # <p>Deletes the specified disk snapshot.</p>
-      # <p>When you make periodic snapshots of a disk, the snapshots are incremental, and only the
-      # blocks on the device that have changed since your last snapshot are saved in the new snapshot.
-      # When you delete a snapshot, only the data not needed for any other snapshot is removed. So
-      # regardless of which prior snapshots have been deleted, all active snapshots will have access
-      # to all the information needed to restore the disk.</p>
-      # <p>The <code>delete disk snapshot</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by <code>disk snapshot name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_disk_snapshot(disk_snapshot_name : String) : DeleteDiskSnapshotResult
-        delete_disk_snapshot(DeleteDiskSnapshotRequest.new(
-          disk_snapshot_name: disk_snapshot_name
-        ))
-      end
-
-      def delete_disk_snapshot(input : DeleteDiskSnapshotRequest) : DeleteDiskSnapshotResult
-        path = "/ls/api/2016-11-28/DeleteDiskSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteDiskSnapshotResult.from_response(response)
-      end
-
-      # <p>Deletes your Amazon Lightsail content delivery network (CDN) distribution.</p>
-      def delete_distribution(distribution_name : String? = nil) : DeleteDistributionResult
-        delete_distribution(DeleteDistributionRequest.new(
-          distribution_name: distribution_name
-        ))
-      end
-
-      def delete_distribution(input : DeleteDistributionRequest) : DeleteDistributionResult
-        path = "/ls/api/2016-11-28/DeleteDistribution"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteDistributionResult.from_response(response)
-      end
-
-      # <p>Deletes the specified domain recordset and all of its domain records.</p>
-      # <p>The <code>delete domain</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>domain name</code>. For more information, see
-      # the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_domain(domain_name : String) : DeleteDomainResult
-        delete_domain(DeleteDomainRequest.new(
-          domain_name: domain_name
-        ))
-      end
-
-      def delete_domain(input : DeleteDomainRequest) : DeleteDomainResult
-        path = "/ls/api/2016-11-28/DeleteDomain"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteDomainResult.from_response(response)
-      end
-
-      # <p>Deletes a specific domain entry.</p>
-      # <p>The <code>delete domain entry</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by <code>domain name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_domain_entry(domain_name : String, domain_entry : DomainEntryStruct) : DeleteDomainEntryResult
-        delete_domain_entry(DeleteDomainEntryRequest.new(
-          domain_name: domain_name, domain_entry: domain_entry
-        ))
-      end
-
-      def delete_domain_entry(input : DeleteDomainEntryRequest) : DeleteDomainEntryResult
-        path = "/ls/api/2016-11-28/DeleteDomainEntry"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteDomainEntryResult.from_response(response)
-      end
-
-      # <p>Deletes an Amazon Lightsail instance.</p>
-      # <p>The <code>delete instance</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>instance name</code>. For more information,
-      # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_instance(instance_name : String, force_delete_add_ons : Bool? = nil) : DeleteInstanceResult
-        delete_instance(DeleteInstanceRequest.new(
-          instance_name: instance_name, force_delete_add_ons: force_delete_add_ons
-        ))
-      end
-
-      def delete_instance(input : DeleteInstanceRequest) : DeleteInstanceResult
-        path = "/ls/api/2016-11-28/DeleteInstance"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteInstanceResult.from_response(response)
-      end
-
-      # <p>Deletes a specific snapshot of a virtual private server (or
-      # <i>instance</i>).</p>
-      # <p>The <code>delete instance snapshot</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by <code>instance snapshot name</code>. For
-      # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_instance_snapshot(instance_snapshot_name : String) : DeleteInstanceSnapshotResult
-        delete_instance_snapshot(DeleteInstanceSnapshotRequest.new(
-          instance_snapshot_name: instance_snapshot_name
-        ))
-      end
-
-      def delete_instance_snapshot(input : DeleteInstanceSnapshotRequest) : DeleteInstanceSnapshotResult
-        path = "/ls/api/2016-11-28/DeleteInstanceSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteInstanceSnapshotResult.from_response(response)
-      end
-
-      # <p>Deletes a specific SSH key pair.</p>
-      # <p>The <code>delete key pair</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>key pair name</code>. For more information,
-      # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_key_pair(key_pair_name : String) : DeleteKeyPairResult
-        delete_key_pair(DeleteKeyPairRequest.new(
-          key_pair_name: key_pair_name
-        ))
-      end
-
-      def delete_key_pair(input : DeleteKeyPairRequest) : DeleteKeyPairResult
-        path = "/ls/api/2016-11-28/DeleteKeyPair"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteKeyPairResult.from_response(response)
-      end
-
-      # <p>Deletes the known host key or certificate used by the Amazon Lightsail browser-based SSH or
-      # RDP clients to authenticate an instance. This operation enables the Lightsail browser-based
-      # SSH or RDP clients to connect to the instance after a host key mismatch.</p>
-      # <important>
-      # <p>Perform this operation only if you were expecting the host key or certificate mismatch
-      # or if you are familiar with the new host key or certificate on the instance. For more
-      # information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-troubleshooting-browser-based-ssh-rdp-client-connection">Troubleshooting connection issues when using the Amazon Lightsail browser-based SSH or RDP
-      # client</a>.</p>
-      # </important>
-      def delete_known_host_keys(instance_name : String) : DeleteKnownHostKeysResult
-        delete_known_host_keys(DeleteKnownHostKeysRequest.new(
-          instance_name: instance_name
-        ))
-      end
-
-      def delete_known_host_keys(input : DeleteKnownHostKeysRequest) : DeleteKnownHostKeysResult
-        path = "/ls/api/2016-11-28/DeleteKnownHostKeys"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteKnownHostKeysResult.from_response(response)
-      end
-
-      # <p>Deletes a Lightsail load balancer and all its associated SSL/TLS certificates. Once the
-      # load balancer is deleted, you will need to create a new load balancer, create a new
-      # certificate, and verify domain ownership again.</p>
-      # <p>The <code>delete load balancer</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by <code>load balancer name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_load_balancer(load_balancer_name : String) : DeleteLoadBalancerResult
-        delete_load_balancer(DeleteLoadBalancerRequest.new(
-          load_balancer_name: load_balancer_name
-        ))
-      end
-
-      def delete_load_balancer(input : DeleteLoadBalancerRequest) : DeleteLoadBalancerResult
-        path = "/ls/api/2016-11-28/DeleteLoadBalancer"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteLoadBalancerResult.from_response(response)
-      end
-
-      # <p>Deletes an SSL/TLS certificate associated with a Lightsail load balancer.</p>
-      # <p>The <code>DeleteLoadBalancerTlsCertificate</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by <code>load balancer
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_load_balancer_tls_certificate(load_balancer_name : String, certificate_name : String, force : Bool? = nil) : DeleteLoadBalancerTlsCertificateResult
-        delete_load_balancer_tls_certificate(DeleteLoadBalancerTlsCertificateRequest.new(
-          load_balancer_name: load_balancer_name, certificate_name: certificate_name, force: force
-        ))
-      end
-
-      def delete_load_balancer_tls_certificate(input : DeleteLoadBalancerTlsCertificateRequest) : DeleteLoadBalancerTlsCertificateResult
-        path = "/ls/api/2016-11-28/DeleteLoadBalancerTlsCertificate"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteLoadBalancerTlsCertificateResult.from_response(response)
-      end
-
-      # <p>Deletes a database in Amazon Lightsail.</p>
-      # <p>The <code>delete relational database</code> operation supports tag-based access control
-      # via resource tags applied to the resource identified by relationalDatabaseName. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_relational_database(relational_database_name : String, skip_final_snapshot : Bool? = nil, final_relational_database_snapshot_name : String? = nil) : DeleteRelationalDatabaseResult
-        delete_relational_database(DeleteRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name, skip_final_snapshot: skip_final_snapshot, final_relational_database_snapshot_name: final_relational_database_snapshot_name
-        ))
-      end
-
-      def delete_relational_database(input : DeleteRelationalDatabaseRequest) : DeleteRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/DeleteRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Deletes a database snapshot in Amazon Lightsail.</p>
-      # <p>The <code>delete relational database snapshot</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by relationalDatabaseName. For
-      # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def delete_relational_database_snapshot(relational_database_snapshot_name : String) : DeleteRelationalDatabaseSnapshotResult
-        delete_relational_database_snapshot(DeleteRelationalDatabaseSnapshotRequest.new(
-          relational_database_snapshot_name: relational_database_snapshot_name
-        ))
-      end
-
-      def delete_relational_database_snapshot(input : DeleteRelationalDatabaseSnapshotRequest) : DeleteRelationalDatabaseSnapshotResult
-        path = "/ls/api/2016-11-28/DeleteRelationalDatabaseSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DeleteRelationalDatabaseSnapshotResult.from_response(response)
-      end
-
-      # <p>Detaches an SSL/TLS certificate from your Amazon Lightsail content delivery network (CDN)
-      # distribution.</p>
-      # <p>After the certificate is detached, your distribution stops accepting traffic for all of
-      # the domains that are associated with the certificate.</p>
-      def detach_certificate_from_distribution(distribution_name : String) : DetachCertificateFromDistributionResult
-        detach_certificate_from_distribution(DetachCertificateFromDistributionRequest.new(
-          distribution_name: distribution_name
-        ))
-      end
-
-      def detach_certificate_from_distribution(input : DetachCertificateFromDistributionRequest) : DetachCertificateFromDistributionResult
-        path = "/ls/api/2016-11-28/DetachCertificateFromDistribution"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DetachCertificateFromDistributionResult.from_response(response)
-      end
-
-      # <p>Detaches a stopped block storage disk from a Lightsail instance. Make sure to unmount
-      # any file systems on the device within your operating system before stopping the instance and
-      # detaching the disk.</p>
-      # <p>The <code>detach disk</code> operation supports tag-based access control via resource tags
-      # applied to the resource identified by <code>disk name</code>. For more information, see the
-      # <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def detach_disk(disk_name : String) : DetachDiskResult
-        detach_disk(DetachDiskRequest.new(
-          disk_name: disk_name
-        ))
-      end
-
-      def detach_disk(input : DetachDiskRequest) : DetachDiskResult
-        path = "/ls/api/2016-11-28/DetachDisk"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DetachDiskResult.from_response(response)
-      end
-
-      # <p>Detaches the specified instances from a Lightsail load balancer.</p>
-      # <p>This operation waits until the instances are no longer needed before they are detached
-      # from the load balancer.</p>
-      # <p>The <code>detach instances from load balancer</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by <code>load balancer
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def detach_instances_from_load_balancer(load_balancer_name : String, instance_names : Array(String)) : DetachInstancesFromLoadBalancerResult
-        detach_instances_from_load_balancer(DetachInstancesFromLoadBalancerRequest.new(
-          load_balancer_name: load_balancer_name, instance_names: instance_names
-        ))
-      end
-
-      def detach_instances_from_load_balancer(input : DetachInstancesFromLoadBalancerRequest) : DetachInstancesFromLoadBalancerResult
-        path = "/ls/api/2016-11-28/DetachInstancesFromLoadBalancer"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DetachInstancesFromLoadBalancerResult.from_response(response)
-      end
-
-      # <p>Detaches a static IP from the Amazon Lightsail instance to which it is attached.</p>
-      def detach_static_ip(static_ip_name : String) : DetachStaticIpResult
-        detach_static_ip(DetachStaticIpRequest.new(
-          static_ip_name: static_ip_name
-        ))
-      end
-
-      def detach_static_ip(input : DetachStaticIpRequest) : DetachStaticIpResult
-        path = "/ls/api/2016-11-28/DetachStaticIp"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DetachStaticIpResult.from_response(response)
-      end
-
-      # <p>Disables an add-on for an Amazon Lightsail resource. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
-      def disable_add_on(add_on_type : String, resource_name : String) : DisableAddOnResult
-        disable_add_on(DisableAddOnRequest.new(
-          add_on_type: add_on_type, resource_name: resource_name
-        ))
-      end
-
-      def disable_add_on(input : DisableAddOnRequest) : DisableAddOnResult
-        path = "/ls/api/2016-11-28/DisableAddOn"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DisableAddOnResult.from_response(response)
-      end
-
-      # <p>Downloads the default SSH key pair from the user's account.</p>
-      def download_default_key_pair : DownloadDefaultKeyPairResult
-        download_default_key_pair(DownloadDefaultKeyPairRequest.new)
-      end
-
-      def download_default_key_pair(input : DownloadDefaultKeyPairRequest) : DownloadDefaultKeyPairResult
-        path = "/ls/api/2016-11-28/DownloadDefaultKeyPair"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        DownloadDefaultKeyPairResult.from_response(response)
-      end
-
-      # <p>Enables or modifies an add-on for an Amazon Lightsail resource. For more information, see
-      # the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
-      def enable_add_on(resource_name : String, add_on_request : AddOnRequest) : EnableAddOnResult
-        enable_add_on(EnableAddOnRequest.new(
-          resource_name: resource_name, add_on_request: add_on_request
-        ))
-      end
-
-      def enable_add_on(input : EnableAddOnRequest) : EnableAddOnResult
-        path = "/ls/api/2016-11-28/EnableAddOn"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        EnableAddOnResult.from_response(response)
-      end
-
-      # <p>Exports an Amazon Lightsail instance or block storage disk snapshot to Amazon Elastic Compute Cloud (Amazon EC2).
-      # This operation results in an export snapshot record that can be used with the <code>create
-      # cloud formation stack</code> operation to create new Amazon EC2 instances.</p>
-      # <p>Exported instance snapshots appear in Amazon EC2 as Amazon Machine Images (AMIs), and the
-      # instance system disk appears as an Amazon Elastic Block Store (Amazon EBS) volume. Exported disk snapshots appear in
-      # Amazon EC2 as Amazon EBS volumes. Snapshots are exported to the same Amazon Web Services Region in Amazon EC2 as the
-      # source Lightsail snapshot.</p>
-      # <p></p>
-      # <p>The <code>export snapshot</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>source snapshot name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      # <note>
-      # <p>Use the <code>get instance snapshots</code> or <code>get disk snapshots</code>
-      # operations to get a list of snapshots that you can export to Amazon EC2.</p>
-      # </note>
-      def export_snapshot(source_snapshot_name : String) : ExportSnapshotResult
-        export_snapshot(ExportSnapshotRequest.new(
-          source_snapshot_name: source_snapshot_name
-        ))
-      end
-
-      def export_snapshot(input : ExportSnapshotRequest) : ExportSnapshotResult
-        path = "/ls/api/2016-11-28/ExportSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        ExportSnapshotResult.from_response(response)
-      end
-
-      # <p>Returns the names of all active (not deleted) resources.</p>
-      def get_active_names(page_token : String? = nil) : GetActiveNamesResult
-        get_active_names(GetActiveNamesRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_active_names(input : GetActiveNamesRequest) : GetActiveNamesResult
-        path = "/ls/api/2016-11-28/GetActiveNames"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetActiveNamesResult.from_response(response)
-      end
-
-      # <p>Returns information about the configured alarms. Specify an alarm name in your request to
-      # return information about a specific alarm, or specify a monitored resource name to return
-      # information about all alarms for a specific resource.</p>
-      # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
-      # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
-      # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
-      # in Amazon Lightsail</a>.</p>
-      def get_alarms(alarm_name : String? = nil, page_token : String? = nil, monitored_resource_name : String? = nil) : GetAlarmsResult
-        get_alarms(GetAlarmsRequest.new(
-          alarm_name: alarm_name, page_token: page_token, monitored_resource_name: monitored_resource_name
-        ))
-      end
-
-      def get_alarms(input : GetAlarmsRequest) : GetAlarmsResult
-        path = "/ls/api/2016-11-28/GetAlarms"
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetAlarmsResult.from_response(response)
-      end
-
-      # <p>Returns the available automatic snapshots for an instance or disk. For more information,
-      # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
-      def get_auto_snapshots(resource_name : String) : GetAutoSnapshotsResult
-        get_auto_snapshots(GetAutoSnapshotsRequest.new(
-          resource_name: resource_name
-        ))
-      end
-
-      def get_auto_snapshots(input : GetAutoSnapshotsRequest) : GetAutoSnapshotsResult
-        path = "/ls/api/2016-11-28/GetAutoSnapshots"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetAutoSnapshotsResult.from_response(response)
-      end
-
-      # <p>Returns the list of available instance images, or <i>blueprints</i>. You can
-      # use a blueprint to create a new instance already running a specific operating system, as well
-      # as a preinstalled app or development stack. The software each instance is running depends on
-      # the blueprint image you choose.</p>
-      # <note>
-      # <p>Use active blueprints when creating new instances. Inactive blueprints are listed to
-      # support customers with existing instances and are not necessarily available to create new
-      # instances. Blueprints are marked inactive when they become outdated due to operating system
-      # updates or new application releases.</p>
-      # </note>
-      def get_blueprints(include_inactive : Bool? = nil, page_token : String? = nil) : GetBlueprintsResult
-        get_blueprints(GetBlueprintsRequest.new(
-          include_inactive: include_inactive, page_token: page_token
-        ))
-      end
-
-      def get_blueprints(input : GetBlueprintsRequest) : GetBlueprintsResult
-        path = "/ls/api/2016-11-28/GetBlueprints"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetBlueprintsResult.from_response(response)
-      end
-
-      # <p>Returns the list of bundles that are available for purchase. A bundle describes the specs
-      # for your virtual private server (or <i>instance</i>).</p>
-      def get_bundles(include_inactive : Bool? = nil, page_token : String? = nil) : GetBundlesResult
-        get_bundles(GetBundlesRequest.new(
-          include_inactive: include_inactive, page_token: page_token
-        ))
-      end
-
-      def get_bundles(input : GetBundlesRequest) : GetBundlesResult
-        path = "/ls/api/2016-11-28/GetBundles"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetBundlesResult.from_response(response)
-      end
-
-      # <p>Returns information about one or more Amazon Lightsail SSL/TLS certificates.</p>
-      # <note>
-      # <p>To get a summary of a certificate, ommit <code>includeCertificateDetails</code> from
-      # your request. The response will include only the certificate Amazon Resource Name (ARN),
-      # certificate name, domain name, and tags.</p>
-      # </note>
-      def get_certificates(certificate_statuses : Array(String)? = nil, include_certificate_details : Bool? = nil, certificate_name : String? = nil) : GetCertificatesResult
-        get_certificates(GetCertificatesRequest.new(
-          certificate_statuses: certificate_statuses, include_certificate_details: include_certificate_details, certificate_name: certificate_name
-        ))
-      end
-
-      def get_certificates(input : GetCertificatesRequest) : GetCertificatesResult
-        path = "/ls/api/2016-11-28/GetCertificates"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetCertificatesResult.from_response(response)
-      end
-
-      # <p>Returns the CloudFormation stack record created as a result of the <code>create cloud
-      # formation stack</code> operation.</p>
-      # <p>An AWS CloudFormation stack is used to create a new Amazon EC2 instance from an exported Lightsail
-      # snapshot.</p>
-      def get_cloud_formation_stack_records(page_token : String? = nil) : GetCloudFormationStackRecordsResult
-        get_cloud_formation_stack_records(GetCloudFormationStackRecordsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_cloud_formation_stack_records(input : GetCloudFormationStackRecordsRequest) : GetCloudFormationStackRecordsResult
-        path = "/ls/api/2016-11-28/GetCloudFormationStackRecords"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetCloudFormationStackRecordsResult.from_response(response)
-      end
-
-      # <p>Returns information about the configured contact methods. Specify a protocol in your
-      # request to return information about a specific contact method.</p>
-      # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
-      # You can add one email address and one mobile phone number contact method in each AWS Region.
-      # However, SMS text messaging is not supported in some AWS Regions, and SMS text messages
-      # cannot be sent to some countries/regions. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
-      def get_contact_methods(protocols : Array(String)? = nil) : GetContactMethodsResult
-        get_contact_methods(GetContactMethodsRequest.new(
-          protocols: protocols
-        ))
-      end
-
-      def get_contact_methods(input : GetContactMethodsRequest) : GetContactMethodsResult
-        path = "/ls/api/2016-11-28/GetContactMethods"
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContactMethodsResult.from_response(response)
-      end
-
-      # <p>Returns information about Amazon Lightsail containers, such as the current version of the
-      # Lightsail Control (lightsailctl) plugin.</p>
-      def get_container_api_metadata : GetContainerAPIMetadataResult
-        get_container_api_metadata(GetContainerAPIMetadataRequest.new)
-      end
-
-      def get_container_api_metadata(input : GetContainerAPIMetadataRequest) : GetContainerAPIMetadataResult
-        path = "/ls/api/2016-11-28/container-api-metadata"
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContainerAPIMetadataResult.from_response(response)
-      end
-
-      # <p>Returns the container images that are registered to your Amazon Lightsail container
-      # service.</p>
-      #
-      # <note>
-      # <p>If you created a deployment on your Lightsail container service that uses container
-      # images from a public registry like Docker Hub, those images are not returned as part of this
-      # action. Those images are not registered to your Lightsail container service.</p>
-      # </note>
-      def get_container_images(service_name : String) : GetContainerImagesResult
-        get_container_images(GetContainerImagesRequest.new(
-          service_name: service_name
-        ))
-      end
-
-      def get_container_images(input : GetContainerImagesRequest) : GetContainerImagesResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/images"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContainerImagesResult.from_response(response)
-      end
-
-      # <p>Returns the log events of a container of your Amazon Lightsail container service.</p>
-      #
-      # <p>If your container service has more than one node (i.e., a scale greater than 1), then the
-      # log events that are returned for the specified container are merged from all nodes on your
-      # container service.</p>
-      #
-      # <note>
-      # <p>Container logs are retained for a certain amount of time. For more information, see
-      # <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
-      # endpoints and quotas</a> in the <i>AWS General Reference</i>.</p>
-      # </note>
-      def get_container_log(service_name : String, container_name : String, start_time : Time? = nil, end_time : Time? = nil, filter_pattern : String? = nil, page_token : String? = nil) : GetContainerLogResult
-        get_container_log(GetContainerLogRequest.new(
-          service_name: service_name, container_name: container_name, start_time: start_time, end_time: end_time, filter_pattern: filter_pattern, page_token: page_token
-        ))
-      end
-
-      def get_container_log(input : GetContainerLogRequest) : GetContainerLogResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/containers/{containerName}/log"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        if label = input.container_name
-          path = path.gsub("{containerName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: containerName"
-        end
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContainerLogResult.from_response(response)
-      end
-
-      # <p>Returns the deployments for your Amazon Lightsail container service</p>
-      #
-      # <p>A deployment specifies the settings, such as the ports and launch command, of containers
-      # that are deployed to your container service.</p>
-      #
-      # <p>The deployments are ordered by version in ascending order. The newest version is listed at
-      # the top of the response.</p>
-      #
-      # <note>
-      # <p>A set number of deployments are kept before the oldest one is replaced with the newest
-      # one. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
-      # endpoints and quotas</a> in the <i>AWS General Reference</i>.</p>
-      # </note>
-      def get_container_service_deployments(service_name : String) : GetContainerServiceDeploymentsResult
-        get_container_service_deployments(GetContainerServiceDeploymentsRequest.new(
-          service_name: service_name
-        ))
-      end
-
-      def get_container_service_deployments(input : GetContainerServiceDeploymentsRequest) : GetContainerServiceDeploymentsResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/deployments"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContainerServiceDeploymentsResult.from_response(response)
-      end
-
-      # <p>Returns the data points of a specific metric of your Amazon Lightsail container
-      # service.</p>
-      #
-      # <p>Metrics report the utilization of your resources. Monitor and collect metric data
-      # regularly to maintain the reliability, availability, and performance of your resources.</p>
-      def get_container_service_metric_data(service_name : String, metric_name : String, start_time : Time, end_time : Time, period : Int32, statistics : Array(String)) : GetContainerServiceMetricDataResult
-        get_container_service_metric_data(GetContainerServiceMetricDataRequest.new(
-          service_name: service_name, metric_name: metric_name, start_time: start_time, end_time: end_time, period: period, statistics: statistics
-        ))
-      end
-
-      def get_container_service_metric_data(input : GetContainerServiceMetricDataRequest) : GetContainerServiceMetricDataResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/metrics"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContainerServiceMetricDataResult.from_response(response)
-      end
-
-      # <p>Returns the list of powers that can be specified for your Amazon Lightsail container
-      # services.</p>
-      #
-      # <p>The power specifies the amount of memory, the number of vCPUs, and the base price of the
-      # container service.</p>
-      def get_container_service_powers : GetContainerServicePowersResult
-        get_container_service_powers(GetContainerServicePowersRequest.new)
-      end
-
-      def get_container_service_powers(input : GetContainerServicePowersRequest) : GetContainerServicePowersResult
-        path = "/ls/api/2016-11-28/container-service-powers"
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetContainerServicePowersResult.from_response(response)
-      end
-
-      # <p>Returns information about one or more of your Amazon Lightsail container services.</p>
-      def get_container_services(service_name : String? = nil) : ContainerServicesListResult
-        get_container_services(GetContainerServicesRequest.new(
-          service_name: service_name
-        ))
-      end
-
-      def get_container_services(input : GetContainerServicesRequest) : ContainerServicesListResult
-        path = "/ls/api/2016-11-28/container-services"
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        ContainerServicesListResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific block storage disk.</p>
-      def get_disk(disk_name : String) : GetDiskResult
-        get_disk(GetDiskRequest.new(
-          disk_name: disk_name
-        ))
-      end
-
-      def get_disk(input : GetDiskRequest) : GetDiskResult
-        path = "/ls/api/2016-11-28/GetDisk"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDiskResult.from_response(response)
-      end
-
-      # <p>Returns information about all block storage disks in your AWS account and region.</p>
-      def get_disks(page_token : String? = nil) : GetDisksResult
-        get_disks(GetDisksRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_disks(input : GetDisksRequest) : GetDisksResult
-        path = "/ls/api/2016-11-28/GetDisks"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDisksResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific block storage disk snapshot.</p>
-      def get_disk_snapshot(disk_snapshot_name : String) : GetDiskSnapshotResult
-        get_disk_snapshot(GetDiskSnapshotRequest.new(
-          disk_snapshot_name: disk_snapshot_name
-        ))
-      end
-
-      def get_disk_snapshot(input : GetDiskSnapshotRequest) : GetDiskSnapshotResult
-        path = "/ls/api/2016-11-28/GetDiskSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDiskSnapshotResult.from_response(response)
-      end
-
-      # <p>Returns information about all block storage disk snapshots in your AWS account and
-      # region.</p>
-      def get_disk_snapshots(page_token : String? = nil) : GetDiskSnapshotsResult
-        get_disk_snapshots(GetDiskSnapshotsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_disk_snapshots(input : GetDiskSnapshotsRequest) : GetDiskSnapshotsResult
-        path = "/ls/api/2016-11-28/GetDiskSnapshots"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDiskSnapshotsResult.from_response(response)
-      end
-
-      # <p>Returns the list bundles that can be applied to you Amazon Lightsail content delivery
-      # network (CDN) distributions.</p>
-      # <p>A distribution bundle specifies the monthly network transfer quota and monthly cost of
-      # your dsitribution.</p>
-      def get_distribution_bundles : GetDistributionBundlesResult
-        get_distribution_bundles(GetDistributionBundlesRequest.new)
-      end
-
-      def get_distribution_bundles(input : GetDistributionBundlesRequest) : GetDistributionBundlesResult
-        path = "/ls/api/2016-11-28/GetDistributionBundles"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDistributionBundlesResult.from_response(response)
-      end
-
-      # <p>Returns the timestamp and status of the last cache reset of a specific Amazon Lightsail
-      # content delivery network (CDN) distribution.</p>
-      def get_distribution_latest_cache_reset(distribution_name : String? = nil) : GetDistributionLatestCacheResetResult
-        get_distribution_latest_cache_reset(GetDistributionLatestCacheResetRequest.new(
-          distribution_name: distribution_name
-        ))
-      end
-
-      def get_distribution_latest_cache_reset(input : GetDistributionLatestCacheResetRequest) : GetDistributionLatestCacheResetResult
-        path = "/ls/api/2016-11-28/GetDistributionLatestCacheReset"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDistributionLatestCacheResetResult.from_response(response)
-      end
-
-      # <p>Returns the data points of a specific metric for an Amazon Lightsail content delivery
-      # network (CDN) distribution.</p>
-      # <p>Metrics report the utilization of your resources, and the error counts generated by them.
-      # Monitor and collect metric data regularly to maintain the reliability, availability, and
-      # performance of your resources.</p>
-      def get_distribution_metric_data(distribution_name : String, metric_name : String, start_time : Time, end_time : Time, period : Int32, unit : String, statistics : Array(String)) : GetDistributionMetricDataResult
-        get_distribution_metric_data(GetDistributionMetricDataRequest.new(
-          distribution_name: distribution_name, metric_name: metric_name, start_time: start_time, end_time: end_time, period: period, unit: unit, statistics: statistics
-        ))
-      end
-
-      def get_distribution_metric_data(input : GetDistributionMetricDataRequest) : GetDistributionMetricDataResult
-        path = "/ls/api/2016-11-28/GetDistributionMetricData"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDistributionMetricDataResult.from_response(response)
-      end
-
-      # <p>Returns information about one or more of your Amazon Lightsail content delivery network
-      # (CDN) distributions.</p>
-      def get_distributions(distribution_name : String? = nil, page_token : String? = nil) : GetDistributionsResult
-        get_distributions(GetDistributionsRequest.new(
-          distribution_name: distribution_name, page_token: page_token
-        ))
-      end
-
-      def get_distributions(input : GetDistributionsRequest) : GetDistributionsResult
-        path = "/ls/api/2016-11-28/GetDistributions"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDistributionsResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific domain recordset.</p>
-      def get_domain(domain_name : String) : GetDomainResult
-        get_domain(GetDomainRequest.new(
-          domain_name: domain_name
-        ))
-      end
-
-      def get_domain(input : GetDomainRequest) : GetDomainResult
-        path = "/ls/api/2016-11-28/GetDomain"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDomainResult.from_response(response)
-      end
-
-      # <p>Returns a list of all domains in the user's account.</p>
-      def get_domains(page_token : String? = nil) : GetDomainsResult
-        get_domains(GetDomainsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_domains(input : GetDomainsRequest) : GetDomainsResult
-        path = "/ls/api/2016-11-28/GetDomains"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetDomainsResult.from_response(response)
-      end
-
-      # <p>Returns the export snapshot record created as a result of the <code>export snapshot</code>
-      # operation.</p>
-      # <p>An export snapshot record can be used to create a new Amazon EC2 instance and its related
-      # resources with the <code>create cloud formation stack</code> operation.</p>
-      def get_export_snapshot_records(page_token : String? = nil) : GetExportSnapshotRecordsResult
-        get_export_snapshot_records(GetExportSnapshotRecordsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_export_snapshot_records(input : GetExportSnapshotRecordsRequest) : GetExportSnapshotRecordsResult
-        path = "/ls/api/2016-11-28/GetExportSnapshotRecords"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetExportSnapshotRecordsResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific Amazon Lightsail instance, which is a virtual private
-      # server.</p>
-      def get_instance(instance_name : String) : GetInstanceResult
-        get_instance(GetInstanceRequest.new(
-          instance_name: instance_name
-        ))
-      end
-
-      def get_instance(input : GetInstanceRequest) : GetInstanceResult
-        path = "/ls/api/2016-11-28/GetInstance"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstanceResult.from_response(response)
-      end
-
-      # <p>Returns temporary SSH keys you can use to connect to a specific virtual private server, or
-      # <i>instance</i>.</p>
-      # <p>The <code>get instance access details</code> operation supports tag-based access control
-      # via resource tags applied to the resource identified by <code>instance name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def get_instance_access_details(instance_name : String, protocol : String? = nil) : GetInstanceAccessDetailsResult
-        get_instance_access_details(GetInstanceAccessDetailsRequest.new(
-          instance_name: instance_name, protocol: protocol
-        ))
-      end
-
-      def get_instance_access_details(input : GetInstanceAccessDetailsRequest) : GetInstanceAccessDetailsResult
-        path = "/ls/api/2016-11-28/GetInstanceAccessDetails"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstanceAccessDetailsResult.from_response(response)
-      end
-
-      # <p>Returns the data points for the specified Amazon Lightsail instance metric, given an
-      # instance name.</p>
-      # <p>Metrics report the utilization of your resources, and the error counts generated by them.
-      # Monitor and collect metric data regularly to maintain the reliability, availability, and
-      # performance of your resources.</p>
-      def get_instance_metric_data(instance_name : String, metric_name : String, period : Int32, start_time : Time, end_time : Time, unit : String, statistics : Array(String)) : GetInstanceMetricDataResult
-        get_instance_metric_data(GetInstanceMetricDataRequest.new(
-          instance_name: instance_name, metric_name: metric_name, period: period, start_time: start_time, end_time: end_time, unit: unit, statistics: statistics
-        ))
-      end
-
-      def get_instance_metric_data(input : GetInstanceMetricDataRequest) : GetInstanceMetricDataResult
-        path = "/ls/api/2016-11-28/GetInstanceMetricData"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstanceMetricDataResult.from_response(response)
-      end
-
-      # <p>Returns the firewall port states for a specific Amazon Lightsail instance, the IP addresses
-      # allowed to connect to the instance through the ports, and the protocol.</p>
-      def get_instance_port_states(instance_name : String) : GetInstancePortStatesResult
-        get_instance_port_states(GetInstancePortStatesRequest.new(
-          instance_name: instance_name
-        ))
-      end
-
-      def get_instance_port_states(input : GetInstancePortStatesRequest) : GetInstancePortStatesResult
-        path = "/ls/api/2016-11-28/GetInstancePortStates"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstancePortStatesResult.from_response(response)
-      end
-
-      # <p>Returns information about all Amazon Lightsail virtual private servers, or
-      # <i>instances</i>.</p>
-      def get_instances(page_token : String? = nil) : GetInstancesResult
-        get_instances(GetInstancesRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_instances(input : GetInstancesRequest) : GetInstancesResult
-        path = "/ls/api/2016-11-28/GetInstances"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstancesResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific instance snapshot.</p>
-      def get_instance_snapshot(instance_snapshot_name : String) : GetInstanceSnapshotResult
-        get_instance_snapshot(GetInstanceSnapshotRequest.new(
-          instance_snapshot_name: instance_snapshot_name
-        ))
-      end
-
-      def get_instance_snapshot(input : GetInstanceSnapshotRequest) : GetInstanceSnapshotResult
-        path = "/ls/api/2016-11-28/GetInstanceSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstanceSnapshotResult.from_response(response)
-      end
-
-      # <p>Returns all instance snapshots for the user's account.</p>
-      def get_instance_snapshots(page_token : String? = nil) : GetInstanceSnapshotsResult
-        get_instance_snapshots(GetInstanceSnapshotsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_instance_snapshots(input : GetInstanceSnapshotsRequest) : GetInstanceSnapshotsResult
-        path = "/ls/api/2016-11-28/GetInstanceSnapshots"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstanceSnapshotsResult.from_response(response)
-      end
-
-      # <p>Returns the state of a specific instance. Works on one instance at a time.</p>
-      def get_instance_state(instance_name : String) : GetInstanceStateResult
-        get_instance_state(GetInstanceStateRequest.new(
-          instance_name: instance_name
-        ))
-      end
-
-      def get_instance_state(input : GetInstanceStateRequest) : GetInstanceStateResult
-        path = "/ls/api/2016-11-28/GetInstanceState"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetInstanceStateResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific key pair.</p>
-      def get_key_pair(key_pair_name : String) : GetKeyPairResult
-        get_key_pair(GetKeyPairRequest.new(
-          key_pair_name: key_pair_name
-        ))
-      end
-
-      def get_key_pair(input : GetKeyPairRequest) : GetKeyPairResult
-        path = "/ls/api/2016-11-28/GetKeyPair"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetKeyPairResult.from_response(response)
-      end
-
-      # <p>Returns information about all key pairs in the user's account.</p>
-      def get_key_pairs(page_token : String? = nil) : GetKeyPairsResult
-        get_key_pairs(GetKeyPairsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_key_pairs(input : GetKeyPairsRequest) : GetKeyPairsResult
-        path = "/ls/api/2016-11-28/GetKeyPairs"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetKeyPairsResult.from_response(response)
-      end
-
-      # <p>Returns information about the specified Lightsail load balancer.</p>
-      def get_load_balancer(load_balancer_name : String) : GetLoadBalancerResult
-        get_load_balancer(GetLoadBalancerRequest.new(
-          load_balancer_name: load_balancer_name
-        ))
-      end
-
-      def get_load_balancer(input : GetLoadBalancerRequest) : GetLoadBalancerResult
-        path = "/ls/api/2016-11-28/GetLoadBalancer"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetLoadBalancerResult.from_response(response)
-      end
-
-      # <p>Returns information about health metrics for your Lightsail load balancer.</p>
-      # <p>Metrics report the utilization of your resources, and the error counts generated by them.
-      # Monitor and collect metric data regularly to maintain the reliability, availability, and
-      # performance of your resources.</p>
-      def get_load_balancer_metric_data(load_balancer_name : String, metric_name : String, period : Int32, start_time : Time, end_time : Time, unit : String, statistics : Array(String)) : GetLoadBalancerMetricDataResult
-        get_load_balancer_metric_data(GetLoadBalancerMetricDataRequest.new(
-          load_balancer_name: load_balancer_name, metric_name: metric_name, period: period, start_time: start_time, end_time: end_time, unit: unit, statistics: statistics
-        ))
-      end
-
-      def get_load_balancer_metric_data(input : GetLoadBalancerMetricDataRequest) : GetLoadBalancerMetricDataResult
-        path = "/ls/api/2016-11-28/GetLoadBalancerMetricData"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetLoadBalancerMetricDataResult.from_response(response)
-      end
-
-      # <p>Returns information about all load balancers in an account.</p>
-      def get_load_balancers(page_token : String? = nil) : GetLoadBalancersResult
-        get_load_balancers(GetLoadBalancersRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_load_balancers(input : GetLoadBalancersRequest) : GetLoadBalancersResult
-        path = "/ls/api/2016-11-28/GetLoadBalancers"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetLoadBalancersResult.from_response(response)
-      end
-
-      # <p>Returns information about the TLS certificates that are associated with the specified
-      # Lightsail load balancer.</p>
-      # <p>TLS is just an updated, more secure version of Secure Socket Layer (SSL).</p>
-      # <p>You can have a maximum of 2 certificates associated with a Lightsail load balancer. One
-      # is active and the other is inactive.</p>
-      def get_load_balancer_tls_certificates(load_balancer_name : String) : GetLoadBalancerTlsCertificatesResult
-        get_load_balancer_tls_certificates(GetLoadBalancerTlsCertificatesRequest.new(
-          load_balancer_name: load_balancer_name
-        ))
-      end
-
-      def get_load_balancer_tls_certificates(input : GetLoadBalancerTlsCertificatesRequest) : GetLoadBalancerTlsCertificatesResult
-        path = "/ls/api/2016-11-28/GetLoadBalancerTlsCertificates"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetLoadBalancerTlsCertificatesResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific operation. Operations include events such as when you
-      # create an instance, allocate a static IP, attach a static IP, and so on.</p>
-      def get_operation(operation_id : String) : GetOperationResult
-        get_operation(GetOperationRequest.new(
-          operation_id: operation_id
-        ))
-      end
-
-      def get_operation(input : GetOperationRequest) : GetOperationResult
-        path = "/ls/api/2016-11-28/GetOperation"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetOperationResult.from_response(response)
-      end
-
-      # <p>Returns information about all operations.</p>
-      # <p>Results are returned from oldest to newest, up to a maximum of 200. Results can be paged
-      # by making each subsequent call to <code>GetOperations</code> use the maximum (last)
-      # <code>statusChangedAt</code> value from the previous request.</p>
-      def get_operations(page_token : String? = nil) : GetOperationsResult
-        get_operations(GetOperationsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_operations(input : GetOperationsRequest) : GetOperationsResult
-        path = "/ls/api/2016-11-28/GetOperations"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetOperationsResult.from_response(response)
-      end
-
-      # <p>Gets operations for a specific resource (e.g., an instance or a static IP).</p>
-      def get_operations_for_resource(resource_name : String, page_token : String? = nil) : GetOperationsForResourceResult
-        get_operations_for_resource(GetOperationsForResourceRequest.new(
-          resource_name: resource_name, page_token: page_token
-        ))
-      end
-
-      def get_operations_for_resource(input : GetOperationsForResourceRequest) : GetOperationsForResourceResult
-        path = "/ls/api/2016-11-28/GetOperationsForResource"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetOperationsForResourceResult.from_response(response)
-      end
-
-      # <p>Returns a list of all valid regions for Amazon Lightsail. Use the <code>include
-      # availability zones</code> parameter to also return the Availability Zones in a
-      # region.</p>
-      def get_regions(include_availability_zones : Bool? = nil, include_relational_database_availability_zones : Bool? = nil) : GetRegionsResult
-        get_regions(GetRegionsRequest.new(
-          include_availability_zones: include_availability_zones, include_relational_database_availability_zones: include_relational_database_availability_zones
-        ))
-      end
-
-      def get_regions(input : GetRegionsRequest) : GetRegionsResult
-        path = "/ls/api/2016-11-28/GetRegions"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRegionsResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific database in Amazon Lightsail.</p>
-      def get_relational_database(relational_database_name : String) : GetRelationalDatabaseResult
-        get_relational_database(GetRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name
-        ))
-      end
-
-      def get_relational_database(input : GetRelationalDatabaseRequest) : GetRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Returns a list of available database blueprints in Amazon Lightsail. A blueprint describes
-      # the major engine version of a database.</p>
-      # <p>You can use a blueprint ID to create a new database that runs a specific database
-      # engine.</p>
-      def get_relational_database_blueprints(page_token : String? = nil) : GetRelationalDatabaseBlueprintsResult
-        get_relational_database_blueprints(GetRelationalDatabaseBlueprintsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_relational_database_blueprints(input : GetRelationalDatabaseBlueprintsRequest) : GetRelationalDatabaseBlueprintsResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseBlueprints"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseBlueprintsResult.from_response(response)
-      end
-
-      # <p>Returns the list of bundles that are available in Amazon Lightsail. A bundle describes the
-      # performance specifications for a database.</p>
-      # <p>You can use a bundle ID to create a new database with explicit performance
-      # specifications.</p>
-      def get_relational_database_bundles(page_token : String? = nil) : GetRelationalDatabaseBundlesResult
-        get_relational_database_bundles(GetRelationalDatabaseBundlesRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_relational_database_bundles(input : GetRelationalDatabaseBundlesRequest) : GetRelationalDatabaseBundlesResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseBundles"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseBundlesResult.from_response(response)
-      end
-
-      # <p>Returns a list of events for a specific database in Amazon Lightsail.</p>
-      def get_relational_database_events(relational_database_name : String, duration_in_minutes : Int32? = nil, page_token : String? = nil) : GetRelationalDatabaseEventsResult
-        get_relational_database_events(GetRelationalDatabaseEventsRequest.new(
-          relational_database_name: relational_database_name, duration_in_minutes: duration_in_minutes, page_token: page_token
-        ))
-      end
-
-      def get_relational_database_events(input : GetRelationalDatabaseEventsRequest) : GetRelationalDatabaseEventsResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseEvents"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseEventsResult.from_response(response)
-      end
-
-      # <p>Returns a list of log events for a database in Amazon Lightsail.</p>
-      def get_relational_database_log_events(relational_database_name : String, log_stream_name : String, start_time : Time? = nil, end_time : Time? = nil, start_from_head : Bool? = nil, page_token : String? = nil) : GetRelationalDatabaseLogEventsResult
-        get_relational_database_log_events(GetRelationalDatabaseLogEventsRequest.new(
-          relational_database_name: relational_database_name, log_stream_name: log_stream_name, start_time: start_time, end_time: end_time, start_from_head: start_from_head, page_token: page_token
-        ))
-      end
-
-      def get_relational_database_log_events(input : GetRelationalDatabaseLogEventsRequest) : GetRelationalDatabaseLogEventsResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseLogEvents"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseLogEventsResult.from_response(response)
-      end
-
-      # <p>Returns a list of available log streams for a specific database in Amazon Lightsail.</p>
-      def get_relational_database_log_streams(relational_database_name : String) : GetRelationalDatabaseLogStreamsResult
-        get_relational_database_log_streams(GetRelationalDatabaseLogStreamsRequest.new(
-          relational_database_name: relational_database_name
-        ))
-      end
-
-      def get_relational_database_log_streams(input : GetRelationalDatabaseLogStreamsRequest) : GetRelationalDatabaseLogStreamsResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseLogStreams"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseLogStreamsResult.from_response(response)
-      end
-
-      # <p>Returns the current, previous, or pending versions of the master user password for a
-      # Lightsail database.</p>
-      # <p>The <code>GetRelationalDatabaseMasterUserPassword</code> operation supports tag-based
-      # access control via resource tags applied to the resource identified by
-      # relationalDatabaseName.</p>
-      def get_relational_database_master_user_password(relational_database_name : String, password_version : String? = nil) : GetRelationalDatabaseMasterUserPasswordResult
-        get_relational_database_master_user_password(GetRelationalDatabaseMasterUserPasswordRequest.new(
-          relational_database_name: relational_database_name, password_version: password_version
-        ))
-      end
-
-      def get_relational_database_master_user_password(input : GetRelationalDatabaseMasterUserPasswordRequest) : GetRelationalDatabaseMasterUserPasswordResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseMasterUserPassword"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseMasterUserPasswordResult.from_response(response)
-      end
-
-      # <p>Returns the data points of the specified metric for a database in Amazon Lightsail.</p>
-      # <p>Metrics report the utilization of your resources, and the error counts generated by them.
-      # Monitor and collect metric data regularly to maintain the reliability, availability, and
-      # performance of your resources.</p>
-      def get_relational_database_metric_data(relational_database_name : String, metric_name : String, period : Int32, start_time : Time, end_time : Time, unit : String, statistics : Array(String)) : GetRelationalDatabaseMetricDataResult
-        get_relational_database_metric_data(GetRelationalDatabaseMetricDataRequest.new(
-          relational_database_name: relational_database_name, metric_name: metric_name, period: period, start_time: start_time, end_time: end_time, unit: unit, statistics: statistics
-        ))
-      end
-
-      def get_relational_database_metric_data(input : GetRelationalDatabaseMetricDataRequest) : GetRelationalDatabaseMetricDataResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseMetricData"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseMetricDataResult.from_response(response)
-      end
-
-      # <p>Returns all of the runtime parameters offered by the underlying database software, or
-      # engine, for a specific database in Amazon Lightsail.</p>
-      # <p>In addition to the parameter names and values, this operation returns other information
-      # about each parameter. This information includes whether changes require a reboot, whether the
-      # parameter is modifiable, the allowed values, and the data types.</p>
-      def get_relational_database_parameters(relational_database_name : String, page_token : String? = nil) : GetRelationalDatabaseParametersResult
-        get_relational_database_parameters(GetRelationalDatabaseParametersRequest.new(
-          relational_database_name: relational_database_name, page_token: page_token
-        ))
-      end
-
-      def get_relational_database_parameters(input : GetRelationalDatabaseParametersRequest) : GetRelationalDatabaseParametersResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseParameters"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseParametersResult.from_response(response)
-      end
-
-      # <p>Returns information about all of your databases in Amazon Lightsail.</p>
-      def get_relational_databases(page_token : String? = nil) : GetRelationalDatabasesResult
-        get_relational_databases(GetRelationalDatabasesRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_relational_databases(input : GetRelationalDatabasesRequest) : GetRelationalDatabasesResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabases"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabasesResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific database snapshot in Amazon Lightsail.</p>
-      def get_relational_database_snapshot(relational_database_snapshot_name : String) : GetRelationalDatabaseSnapshotResult
-        get_relational_database_snapshot(GetRelationalDatabaseSnapshotRequest.new(
-          relational_database_snapshot_name: relational_database_snapshot_name
-        ))
-      end
-
-      def get_relational_database_snapshot(input : GetRelationalDatabaseSnapshotRequest) : GetRelationalDatabaseSnapshotResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseSnapshot"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseSnapshotResult.from_response(response)
-      end
-
-      # <p>Returns information about all of your database snapshots in Amazon Lightsail.</p>
-      def get_relational_database_snapshots(page_token : String? = nil) : GetRelationalDatabaseSnapshotsResult
-        get_relational_database_snapshots(GetRelationalDatabaseSnapshotsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_relational_database_snapshots(input : GetRelationalDatabaseSnapshotsRequest) : GetRelationalDatabaseSnapshotsResult
-        path = "/ls/api/2016-11-28/GetRelationalDatabaseSnapshots"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetRelationalDatabaseSnapshotsResult.from_response(response)
-      end
-
-      # <p>Returns information about a specific static IP.</p>
-      def get_static_ip(static_ip_name : String) : GetStaticIpResult
-        get_static_ip(GetStaticIpRequest.new(
-          static_ip_name: static_ip_name
-        ))
-      end
-
-      def get_static_ip(input : GetStaticIpRequest) : GetStaticIpResult
-        path = "/ls/api/2016-11-28/GetStaticIp"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetStaticIpResult.from_response(response)
-      end
-
-      # <p>Returns information about all static IPs in the user's account.</p>
-      def get_static_ips(page_token : String? = nil) : GetStaticIpsResult
-        get_static_ips(GetStaticIpsRequest.new(
-          page_token: page_token
-        ))
-      end
-
-      def get_static_ips(input : GetStaticIpsRequest) : GetStaticIpsResult
-        path = "/ls/api/2016-11-28/GetStaticIps"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        GetStaticIpsResult.from_response(response)
-      end
-
-      # <p>Imports a public SSH key from a specific key pair.</p>
-      def import_key_pair(key_pair_name : String, public_key_base64 : String) : ImportKeyPairResult
-        import_key_pair(ImportKeyPairRequest.new(
-          key_pair_name: key_pair_name, public_key_base64: public_key_base64
-        ))
-      end
-
-      def import_key_pair(input : ImportKeyPairRequest) : ImportKeyPairResult
-        path = "/ls/api/2016-11-28/ImportKeyPair"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        ImportKeyPairResult.from_response(response)
-      end
-
-      # <p>Returns a Boolean value indicating whether your Lightsail VPC is peered.</p>
-      def is_vpc_peered : IsVpcPeeredResult
-        is_vpc_peered(IsVpcPeeredRequest.new)
-      end
-
-      def is_vpc_peered(input : IsVpcPeeredRequest) : IsVpcPeeredResult
-        path = "/ls/api/2016-11-28/IsVpcPeered"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        IsVpcPeeredResult.from_response(response)
-      end
-
-      # <p>Opens ports for a specific Amazon Lightsail instance, and specifies the IP addresses
-      # allowed to connect to the instance through the ports, and the protocol.</p>
-      # <p>The <code>OpenInstancePublicPorts</code> action supports tag-based access control via
-      # resource tags applied to the resource identified by <code>instanceName</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def open_instance_public_ports(port_info : PortInfoStruct, instance_name : String) : OpenInstancePublicPortsResult
-        open_instance_public_ports(OpenInstancePublicPortsRequest.new(
-          port_info: port_info, instance_name: instance_name
-        ))
-      end
-
-      def open_instance_public_ports(input : OpenInstancePublicPortsRequest) : OpenInstancePublicPortsResult
-        path = "/ls/api/2016-11-28/OpenInstancePublicPorts"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        OpenInstancePublicPortsResult.from_response(response)
-      end
-
-      # <p>Tries to peer the Lightsail VPC with the user's default VPC.</p>
-      def peer_vpc : PeerVpcResult
-        peer_vpc(PeerVpcRequest.new)
-      end
-
-      def peer_vpc(input : PeerVpcRequest) : PeerVpcResult
-        path = "/ls/api/2016-11-28/PeerVpc"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        PeerVpcResult.from_response(response)
-      end
-
-      # <p>Creates or updates an alarm, and associates it with the specified metric.</p>
-      # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
-      # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
-      # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
-      # in Amazon Lightsail</a>.</p>
-      # <p>When this action creates an alarm, the alarm state is immediately set to
-      # <code>INSUFFICIENT_DATA</code>. The alarm is then evaluated and its state is set
-      # appropriately. Any actions associated with the new state are then executed.</p>
-      # <p>When you update an existing alarm, its state is left unchanged, but the update completely
-      # overwrites the previous configuration of the alarm. The alarm is then evaluated with the
-      # updated configuration.</p>
-      def put_alarm(alarm_name : String, metric_name : String, monitored_resource_name : String, comparison_operator : String, threshold : Float64, evaluation_periods : Int32, datapoints_to_alarm : Int32? = nil, treat_missing_data : String? = nil, contact_protocols : Array(String)? = nil, notification_triggers : Array(String)? = nil, notification_enabled : Bool? = nil) : PutAlarmResult
-        put_alarm(PutAlarmRequest.new(
-          alarm_name: alarm_name, metric_name: metric_name, monitored_resource_name: monitored_resource_name, comparison_operator: comparison_operator, threshold: threshold, evaluation_periods: evaluation_periods, datapoints_to_alarm: datapoints_to_alarm, treat_missing_data: treat_missing_data, contact_protocols: contact_protocols, notification_triggers: notification_triggers, notification_enabled: notification_enabled
-        ))
-      end
-
-      def put_alarm(input : PutAlarmRequest) : PutAlarmResult
-        path = "/ls/api/2016-11-28/PutAlarm"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        PutAlarmResult.from_response(response)
-      end
-
-      # <p>Opens ports for a specific Amazon Lightsail instance, and specifies the IP addresses
-      # allowed to connect to the instance through the ports, and the protocol. This action also
-      # closes all currently open ports that are not included in the request. Include all of the ports
-      # and the protocols you want to open in your <code>PutInstancePublicPorts</code>request. Or use
-      # the <code>OpenInstancePublicPorts</code> action to open ports without closing currently open
-      # ports.</p>
-      # <p>The <code>PutInstancePublicPorts</code> action supports tag-based access control via
-      # resource tags applied to the resource identified by <code>instanceName</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def put_instance_public_ports(port_infos : Array(PortInfoStruct), instance_name : String) : PutInstancePublicPortsResult
-        put_instance_public_ports(PutInstancePublicPortsRequest.new(
-          port_infos: port_infos, instance_name: instance_name
-        ))
-      end
-
-      def put_instance_public_ports(input : PutInstancePublicPortsRequest) : PutInstancePublicPortsResult
-        path = "/ls/api/2016-11-28/PutInstancePublicPorts"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        PutInstancePublicPortsResult.from_response(response)
-      end
-
-      # <p>Restarts a specific instance.</p>
-      # <p>The <code>reboot instance</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>instance name</code>. For more information,
-      # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def reboot_instance(instance_name : String) : RebootInstanceResult
-        reboot_instance(RebootInstanceRequest.new(
-          instance_name: instance_name
-        ))
-      end
-
-      def reboot_instance(input : RebootInstanceRequest) : RebootInstanceResult
-        path = "/ls/api/2016-11-28/RebootInstance"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        RebootInstanceResult.from_response(response)
-      end
-
-      # <p>Restarts a specific database in Amazon Lightsail.</p>
-      # <p>The <code>reboot relational database</code> operation supports tag-based access control
-      # via resource tags applied to the resource identified by relationalDatabaseName. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def reboot_relational_database(relational_database_name : String) : RebootRelationalDatabaseResult
-        reboot_relational_database(RebootRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name
-        ))
-      end
-
-      def reboot_relational_database(input : RebootRelationalDatabaseRequest) : RebootRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/RebootRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        RebootRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Registers a container image to your Amazon Lightsail container service.</p>
-      #
-      # <note>
-      # <p>This action is not required if you install and use the Lightsail Control
-      # (lightsailctl) plugin to push container images to your Lightsail container service. For
-      # more information, see <a href="amazon-lightsail-pushing-container-images">Pushing and
-      # managing container images on your Amazon Lightsail container services</a> in the
-      # <i>Lightsail Dev Guide</i>.</p>
-      # </note>
-      def register_container_image(service_name : String, label : String, digest : String) : RegisterContainerImageResult
-        register_container_image(RegisterContainerImageRequest.new(
-          service_name: service_name, label: label, digest: digest
-        ))
-      end
-
-      def register_container_image(input : RegisterContainerImageRequest) : RegisterContainerImageResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}/images"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        RegisterContainerImageResult.from_response(response)
-      end
-
-      # <p>Deletes a specific static IP from your account.</p>
-      def release_static_ip(static_ip_name : String) : ReleaseStaticIpResult
-        release_static_ip(ReleaseStaticIpRequest.new(
-          static_ip_name: static_ip_name
-        ))
-      end
-
-      def release_static_ip(input : ReleaseStaticIpRequest) : ReleaseStaticIpResult
-        path = "/ls/api/2016-11-28/ReleaseStaticIp"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        ReleaseStaticIpResult.from_response(response)
-      end
-
-      # <p>Deletes currently cached content from your Amazon Lightsail content delivery network (CDN)
-      # distribution.</p>
-      # <p>After resetting the cache, the next time a content request is made, your distribution
-      # pulls, serves, and caches it from the origin.</p>
-      def reset_distribution_cache(distribution_name : String? = nil) : ResetDistributionCacheResult
-        reset_distribution_cache(ResetDistributionCacheRequest.new(
-          distribution_name: distribution_name
-        ))
-      end
-
-      def reset_distribution_cache(input : ResetDistributionCacheRequest) : ResetDistributionCacheResult
-        path = "/ls/api/2016-11-28/ResetDistributionCache"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        ResetDistributionCacheResult.from_response(response)
-      end
-
-      # <p>Sends a verification request to an email contact method to ensure it's owned by the
-      # requester. SMS contact methods don't need to be verified.</p>
-      # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
-      # You can add one email address and one mobile phone number contact method in each AWS Region.
-      # However, SMS text messaging is not supported in some AWS Regions, and SMS text messages
-      # cannot be sent to some countries/regions. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
-      # <p>A verification request is sent to the contact method when you initially create it. Use
-      # this action to send another verification request if a previous verification request was
-      # deleted, or has expired.</p>
-      # <important>
-      # <p>Notifications are not sent to an email contact method until after it is verified, and
-      # confirmed as valid.</p>
-      # </important>
-      def send_contact_method_verification(protocol : String) : SendContactMethodVerificationResult
-        send_contact_method_verification(SendContactMethodVerificationRequest.new(
-          protocol: protocol
-        ))
-      end
-
-      def send_contact_method_verification(input : SendContactMethodVerificationRequest) : SendContactMethodVerificationResult
-        path = "/ls/api/2016-11-28/SendContactMethodVerification"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        SendContactMethodVerificationResult.from_response(response)
-      end
-
-      # <p>Starts a specific Amazon Lightsail instance from a stopped state. To restart an instance,
-      # use the <code>reboot instance</code> operation.</p>
-      # <note>
-      # <p>When you start a stopped instance, Lightsail assigns a new public IP address to the
-      # instance. To use the same IP address after stopping and starting an instance, create a
-      # static IP address and attach it to the instance. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip">Lightsail Dev Guide</a>.</p>
-      # </note>
-      # <p>The <code>start instance</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>instance name</code>. For more information,
-      # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def start_instance(instance_name : String) : StartInstanceResult
-        start_instance(StartInstanceRequest.new(
-          instance_name: instance_name
-        ))
-      end
-
-      def start_instance(input : StartInstanceRequest) : StartInstanceResult
-        path = "/ls/api/2016-11-28/StartInstance"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        StartInstanceResult.from_response(response)
-      end
-
-      # <p>Starts a specific database from a stopped state in Amazon Lightsail. To restart a database,
-      # use the <code>reboot relational database</code> operation.</p>
-      # <p>The <code>start relational database</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by relationalDatabaseName. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def start_relational_database(relational_database_name : String) : StartRelationalDatabaseResult
-        start_relational_database(StartRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name
-        ))
-      end
-
-      def start_relational_database(input : StartRelationalDatabaseRequest) : StartRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/StartRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        StartRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Stops a specific Amazon Lightsail instance that is currently running.</p>
-      # <note>
-      # <p>When you start a stopped instance, Lightsail assigns a new public IP address to the
-      # instance. To use the same IP address after stopping and starting an instance, create a
-      # static IP address and attach it to the instance. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip">Lightsail Dev Guide</a>.</p>
-      # </note>
-      # <p>The <code>stop instance</code> operation supports tag-based access control via resource
-      # tags applied to the resource identified by <code>instance name</code>. For more information,
-      # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def stop_instance(instance_name : String, force : Bool? = nil) : StopInstanceResult
-        stop_instance(StopInstanceRequest.new(
-          instance_name: instance_name, force: force
-        ))
-      end
-
-      def stop_instance(input : StopInstanceRequest) : StopInstanceResult
-        path = "/ls/api/2016-11-28/StopInstance"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        StopInstanceResult.from_response(response)
-      end
-
-      # <p>Stops a specific database that is currently running in Amazon Lightsail.</p>
-      # <p>The <code>stop relational database</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by relationalDatabaseName. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def stop_relational_database(relational_database_name : String, relational_database_snapshot_name : String? = nil) : StopRelationalDatabaseResult
-        stop_relational_database(StopRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name, relational_database_snapshot_name: relational_database_snapshot_name
-        ))
-      end
-
-      def stop_relational_database(input : StopRelationalDatabaseRequest) : StopRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/StopRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        StopRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Adds one or more tags to the specified Amazon Lightsail resource. Each resource can have a
-      # maximum of 50 tags. Each tag consists of a key and an optional value. Tag keys must be unique
-      # per resource. For more information about tags, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-      # Dev Guide</a>.</p>
-      # <p>The <code>tag resource</code> operation supports tag-based access control via request tags
-      # and resource tags applied to the resource identified by <code>resource name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def tag_resource(resource_name : String, tags : Array(TagStruct), resource_arn : String? = nil) : TagResourceResult
-        tag_resource(TagResourceRequest.new(
-          resource_name: resource_name, resource_arn: resource_arn, tags: tags
-        ))
-      end
-
-      def tag_resource(input : TagResourceRequest) : TagResourceResult
-        path = "/ls/api/2016-11-28/TagResource"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        TagResourceResult.from_response(response)
-      end
-
-      # <p>Tests an alarm by displaying a banner on the Amazon Lightsail console. If a notification
-      # trigger is configured for the specified alarm, the test also sends a notification to the
-      # notification protocol (<code>Email</code> and/or <code>SMS</code>) configured for the
-      # alarm.</p>
-      # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
-      # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
-      # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
-      # in Amazon Lightsail</a>.</p>
-      def test_alarm(alarm_name : String, state : String) : TestAlarmResult
-        test_alarm(TestAlarmRequest.new(
-          alarm_name: alarm_name, state: state
-        ))
-      end
-
-      def test_alarm(input : TestAlarmRequest) : TestAlarmResult
-        path = "/ls/api/2016-11-28/TestAlarm"
-        request = HTTP::Request.new("GET", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        TestAlarmResult.from_response(response)
-      end
-
-      # <p>Attempts to unpeer the Lightsail VPC from the user's default VPC.</p>
-      def unpeer_vpc : UnpeerVpcResult
-        unpeer_vpc(UnpeerVpcRequest.new)
-      end
-
-      def unpeer_vpc(input : UnpeerVpcRequest) : UnpeerVpcResult
-        path = "/ls/api/2016-11-28/UnpeerVpc"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UnpeerVpcResult.from_response(response)
-      end
-
-      # <p>Deletes the specified set of tag keys and their values from the specified Amazon Lightsail
-      # resource.</p>
-      # <p>The <code>untag resource</code> operation supports tag-based access control via request
-      # tags and resource tags applied to the resource identified by <code>resource name</code>. For
-      # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def untag_resource(resource_name : String, tag_keys : Array(String), resource_arn : String? = nil) : UntagResourceResult
-        untag_resource(UntagResourceRequest.new(
-          resource_name: resource_name, resource_arn: resource_arn, tag_keys: tag_keys
-        ))
-      end
-
-      def untag_resource(input : UntagResourceRequest) : UntagResourceResult
-        path = "/ls/api/2016-11-28/UntagResource"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UntagResourceResult.from_response(response)
-      end
-
-      # <p>Updates the configuration of your Amazon Lightsail container service, such as its power,
-      # scale, and public domain names.</p>
-      def update_container_service(service_name : String, power : String? = nil, scale : Int32? = nil, is_disabled : Bool? = nil, public_domain_names : Hash(String, Array(String))? = nil) : UpdateContainerServiceResult
-        update_container_service(UpdateContainerServiceRequest.new(
-          service_name: service_name, power: power, scale: scale, is_disabled: is_disabled, public_domain_names: public_domain_names
-        ))
-      end
-
-      def update_container_service(input : UpdateContainerServiceRequest) : UpdateContainerServiceResult
-        path = "/ls/api/2016-11-28/container-services/{serviceName}"
-        if label = input.service_name
-          path = path.gsub("{serviceName}", URI.encode(label))
-        else
-          raise "No value provided for input HTTP label: serviceName"
-        end
-        request = HTTP::Request.new("PATCH", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateContainerServiceResult.from_response(response)
-      end
-
-      # <p>Updates an existing Amazon Lightsail content delivery network (CDN) distribution.</p>
-      # <p>Use this action to update the configuration of your existing distribution</p>
-      def update_distribution(distribution_name : String, origin : InputOriginStruct? = nil, default_cache_behavior : CacheBehaviorStruct? = nil, cache_behavior_settings : CacheSettingsStruct? = nil, cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, is_enabled : Bool? = nil) : UpdateDistributionResult
-        update_distribution(UpdateDistributionRequest.new(
-          distribution_name: distribution_name, origin: origin, default_cache_behavior: default_cache_behavior, cache_behavior_settings: cache_behavior_settings, cache_behaviors: cache_behaviors, is_enabled: is_enabled
-        ))
-      end
-
-      def update_distribution(input : UpdateDistributionRequest) : UpdateDistributionResult
-        path = "/ls/api/2016-11-28/UpdateDistribution"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateDistributionResult.from_response(response)
-      end
-
-      # <p>Updates the bundle of your Amazon Lightsail content delivery network (CDN)
-      # distribution.</p>
-      # <p>A distribution bundle specifies the monthly network transfer quota and monthly cost of
-      # your dsitribution.</p>
-      # <p>Update your distribution's bundle if your distribution is going over its monthly network
-      # transfer quota and is incurring an overage fee.</p>
-      # <p>You can update your distribution's bundle only one time within your monthly AWS billing
-      # cycle. To determine if you can update your distribution's bundle, use the
-      # <code>GetDistributions</code> action. The <code>ableToUpdateBundle</code> parameter in the
-      # result will indicate whether you can currently update your distribution's bundle.</p>
-      def update_distribution_bundle(distribution_name : String? = nil, bundle_id : String? = nil) : UpdateDistributionBundleResult
-        update_distribution_bundle(UpdateDistributionBundleRequest.new(
-          distribution_name: distribution_name, bundle_id: bundle_id
-        ))
-      end
-
-      def update_distribution_bundle(input : UpdateDistributionBundleRequest) : UpdateDistributionBundleResult
-        path = "/ls/api/2016-11-28/UpdateDistributionBundle"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateDistributionBundleResult.from_response(response)
-      end
-
-      # <p>Updates a domain recordset after it is created.</p>
-      # <p>The <code>update domain entry</code> operation supports tag-based access control via
-      # resource tags applied to the resource identified by <code>domain name</code>. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def update_domain_entry(domain_name : String, domain_entry : DomainEntryStruct) : UpdateDomainEntryResult
-        update_domain_entry(UpdateDomainEntryRequest.new(
-          domain_name: domain_name, domain_entry: domain_entry
-        ))
-      end
-
-      def update_domain_entry(input : UpdateDomainEntryRequest) : UpdateDomainEntryResult
-        path = "/ls/api/2016-11-28/UpdateDomainEntry"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateDomainEntryResult.from_response(response)
-      end
-
-      # <p>Updates the specified attribute for a load balancer. You can only update one attribute at
-      # a time.</p>
-      # <p>The <code>update load balancer attribute</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by <code>load balancer
-      # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def update_load_balancer_attribute(load_balancer_name : String, attribute_name : String, attribute_value : String) : UpdateLoadBalancerAttributeResult
-        update_load_balancer_attribute(UpdateLoadBalancerAttributeRequest.new(
-          load_balancer_name: load_balancer_name, attribute_name: attribute_name, attribute_value: attribute_value
-        ))
-      end
-
-      def update_load_balancer_attribute(input : UpdateLoadBalancerAttributeRequest) : UpdateLoadBalancerAttributeResult
-        path = "/ls/api/2016-11-28/UpdateLoadBalancerAttribute"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateLoadBalancerAttributeResult.from_response(response)
-      end
-
-      # <p>Allows the update of one or more attributes of a database in Amazon Lightsail.</p>
-      # <p>Updates are applied immediately, or in cases where the updates could result in an outage,
-      # are applied during the database's predefined maintenance window.</p>
-      # <p>The <code>update relational database</code> operation supports tag-based access control
-      # via resource tags applied to the resource identified by relationalDatabaseName. For more
-      # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def update_relational_database(relational_database_name : String, master_user_password : String? = nil, rotate_master_user_password : Bool? = nil, preferred_backup_window : String? = nil, preferred_maintenance_window : String? = nil, enable_backup_retention : Bool? = nil, disable_backup_retention : Bool? = nil, publicly_accessible : Bool? = nil, apply_immediately : Bool? = nil, ca_certificate_identifier : String? = nil) : UpdateRelationalDatabaseResult
-        update_relational_database(UpdateRelationalDatabaseRequest.new(
-          relational_database_name: relational_database_name, master_user_password: master_user_password, rotate_master_user_password: rotate_master_user_password, preferred_backup_window: preferred_backup_window, preferred_maintenance_window: preferred_maintenance_window, enable_backup_retention: enable_backup_retention, disable_backup_retention: disable_backup_retention, publicly_accessible: publicly_accessible, apply_immediately: apply_immediately, ca_certificate_identifier: ca_certificate_identifier
-        ))
-      end
-
-      def update_relational_database(input : UpdateRelationalDatabaseRequest) : UpdateRelationalDatabaseResult
-        path = "/ls/api/2016-11-28/UpdateRelationalDatabase"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateRelationalDatabaseResult.from_response(response)
-      end
-
-      # <p>Allows the update of one or more parameters of a database in Amazon Lightsail.</p>
-      # <p>Parameter updates don't cause outages; therefore, their application is not subject to the
-      # preferred maintenance window. However, there are two ways in which parameter updates are
-      # applied: <code>dynamic</code> or <code>pending-reboot</code>. Parameters marked with a
-      # <code>dynamic</code> apply type are applied immediately. Parameters marked with a
-      # <code>pending-reboot</code> apply type are applied only after the database is rebooted using
-      # the <code>reboot relational database</code> operation.</p>
-      # <p>The <code>update relational database parameters</code> operation supports tag-based access
-      # control via resource tags applied to the resource identified by relationalDatabaseName. For
-      # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a>.</p>
-      def update_relational_database_parameters(relational_database_name : String, parameters : Array(RelationalDatabaseParameterStruct)) : UpdateRelationalDatabaseParametersResult
-        update_relational_database_parameters(UpdateRelationalDatabaseParametersRequest.new(
-          relational_database_name: relational_database_name, parameters: parameters
-        ))
-      end
-
-      def update_relational_database_parameters(input : UpdateRelationalDatabaseParametersRequest) : UpdateRelationalDatabaseParametersResult
-        path = "/ls/api/2016-11-28/UpdateRelationalDatabaseParameters"
-        request = HTTP::Request.new("POST", path)
-        request = input.process(request)
-        response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
-
-        UpdateRelationalDatabaseParametersResult.from_response(response)
-      end
-    end
+      def send( request : HTTP::Request, prefix : String, success_code : Int32? )
+        @parent.send( request, prefix, success_code )
+      end
+
+      
+            # <p>Allocates a static IP address.</p>
+  def allocate_static_ip(static_ip_name : String) : AllocateStaticIpResultStruct
+    allocate_static_ip(AllocateStaticIpRequest.new(
+      static_ip_name: static_ip_name
+    ))
   end
+  def allocate_static_ip(input : AllocateStaticIpRequest) : AllocateStaticIpResultStruct
+    path = "/ls/api/2016-11-28/AllocateStaticIp"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    AllocateStaticIpResult.from_response(response)
+  end
+
+
+      
+            # <p>Attaches an SSL/TLS certificate to your Amazon Lightsail content delivery network (CDN)
+  # distribution.</p>
+  # <p>After the certificate is attached, your distribution accepts HTTPS traffic for all of the
+  # domains that are associated with the certificate.</p>
+  # <p>Use the <code>CreateCertificate</code> action to create a certificate that you can attach
+  # to your distribution.</p>
+  # <important>
+  # <p>Only certificates created in the <code>us-east-1</code>
+  # Amazon Web Services Region can be attached to Lightsail distributions. Lightsail
+  # distributions are global resources that can reference an origin in any Amazon Web Services
+  # Region, and distribute its content globally. However, all distributions are located in the
+  # <code>us-east-1</code> Region.</p>
+  # </important>
+  def attach_certificate_to_distribution(distribution_name : String, certificate_name : String) : AttachCertificateToDistributionResultStruct
+    attach_certificate_to_distribution(AttachCertificateToDistributionRequest.new(
+      distribution_name: distribution_name, certificate_name: certificate_name
+    ))
+  end
+  def attach_certificate_to_distribution(input : AttachCertificateToDistributionRequest) : AttachCertificateToDistributionResultStruct
+    path = "/ls/api/2016-11-28/AttachCertificateToDistribution"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    AttachCertificateToDistributionResult.from_response(response)
+  end
+
+
+      
+            # <p>Attaches a block storage disk to a running or stopped Lightsail instance and exposes it
+  # to the instance with the specified disk name.</p>
+  # <p>The <code>attach disk</code> operation supports tag-based access control via resource tags
+  # applied to the resource identified by <code>disk name</code>. For more information, see the
+  # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def attach_disk(disk_name : String, instance_name : String, disk_path : String) : AttachDiskResultStruct
+    attach_disk(AttachDiskRequest.new(
+      disk_name: disk_name, instance_name: instance_name, disk_path: disk_path
+    ))
+  end
+  def attach_disk(input : AttachDiskRequest) : AttachDiskResultStruct
+    path = "/ls/api/2016-11-28/AttachDisk"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    AttachDiskResult.from_response(response)
+  end
+
+
+      
+            # <p>Attaches one or more Lightsail instances to a load balancer.</p>
+  # <p>After some time, the instances are attached to the load balancer and the health check
+  # status is available.</p>
+  # <p>The <code>attach instances to load balancer</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by <code>load balancer
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Developer Guide</a>.</p>
+  def attach_instances_to_load_balancer(load_balancer_name : String, instance_names : Array(String)) : AttachInstancesToLoadBalancerResultStruct
+    attach_instances_to_load_balancer(AttachInstancesToLoadBalancerRequest.new(
+      load_balancer_name: load_balancer_name, instance_names: instance_names
+    ))
+  end
+  def attach_instances_to_load_balancer(input : AttachInstancesToLoadBalancerRequest) : AttachInstancesToLoadBalancerResultStruct
+    path = "/ls/api/2016-11-28/AttachInstancesToLoadBalancer"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    AttachInstancesToLoadBalancerResult.from_response(response)
+  end
+
+
+      
+            # <p>Attaches a Transport Layer Security (TLS) certificate to your load balancer. TLS is just
+  # an updated, more secure version of Secure Socket Layer (SSL).</p>
+  # <p>Once you create and validate your certificate, you can attach it to your load balancer.
+  # You can also use this API to rotate the certificates on your account. Use the
+  # <code>AttachLoadBalancerTlsCertificate</code> action with the non-attached certificate, and
+  # it will replace the existing one and become the attached certificate.</p>
+  # <p>The <code>AttachLoadBalancerTlsCertificate</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by <code>load balancer
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def attach_load_balancer_tls_certificate(load_balancer_name : String, certificate_name : String) : AttachLoadBalancerTlsCertificateResultStruct
+    attach_load_balancer_tls_certificate(AttachLoadBalancerTlsCertificateRequest.new(
+      load_balancer_name: load_balancer_name, certificate_name: certificate_name
+    ))
+  end
+  def attach_load_balancer_tls_certificate(input : AttachLoadBalancerTlsCertificateRequest) : AttachLoadBalancerTlsCertificateResultStruct
+    path = "/ls/api/2016-11-28/AttachLoadBalancerTlsCertificate"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    AttachLoadBalancerTlsCertificateResult.from_response(response)
+  end
+
+
+      
+            # <p>Attaches a static IP address to a specific Amazon Lightsail instance.</p>
+  def attach_static_ip(static_ip_name : String, instance_name : String) : AttachStaticIpResultStruct
+    attach_static_ip(AttachStaticIpRequest.new(
+      static_ip_name: static_ip_name, instance_name: instance_name
+    ))
+  end
+  def attach_static_ip(input : AttachStaticIpRequest) : AttachStaticIpResultStruct
+    path = "/ls/api/2016-11-28/AttachStaticIp"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    AttachStaticIpResult.from_response(response)
+  end
+
+
+      
+            # <p>Closes ports for a specific Amazon Lightsail instance.</p>
+  # <p>The <code>CloseInstancePublicPorts</code> action supports tag-based access control via
+  # resource tags applied to the resource identified by <code>instanceName</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def close_instance_public_ports(port_info : PortInfoStruct, instance_name : String) : CloseInstancePublicPortsResultStruct
+    close_instance_public_ports(CloseInstancePublicPortsRequest.new(
+      port_info: port_info, instance_name: instance_name
+    ))
+  end
+  def close_instance_public_ports(input : CloseInstancePublicPortsRequest) : CloseInstancePublicPortsResultStruct
+    path = "/ls/api/2016-11-28/CloseInstancePublicPorts"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CloseInstancePublicPortsResult.from_response(response)
+  end
+
+
+      
+            # <p>Copies a manual snapshot of an instance or disk as another manual snapshot, or copies an
+  # automatic snapshot of an instance or disk as a manual snapshot. This operation can also be
+  # used to copy a manual or automatic snapshot of an instance or a disk from one Amazon Web Services Region to another in Amazon Lightsail.</p>
+  # <p>When copying a <i>manual snapshot</i>, be sure to define the <code>source
+  # region</code>, <code>source snapshot name</code>, and <code>target snapshot name</code>
+  # parameters.</p>
+  # <p>When copying an <i>automatic snapshot</i>, be sure to define the
+  # <code>source region</code>, <code>source resource name</code>, <code>target snapshot
+  # name</code>, and either the <code>restore date</code> or the <code>use latest restorable
+  # auto snapshot</code> parameters.</p>
+  def copy_snapshot(target_snapshot_name : String, source_region : String, source_snapshot_name : String? = nil, source_resource_name : String? = nil, restore_date : String? = nil, use_latest_restorable_auto_snapshot : Bool? = nil) : CopySnapshotResultStruct
+    copy_snapshot(CopySnapshotRequest.new(
+      source_snapshot_name: source_snapshot_name, source_resource_name: source_resource_name, restore_date: restore_date, use_latest_restorable_auto_snapshot: use_latest_restorable_auto_snapshot, target_snapshot_name: target_snapshot_name, source_region: source_region
+    ))
+  end
+  def copy_snapshot(input : CopySnapshotRequest) : CopySnapshotResultStruct
+    path = "/ls/api/2016-11-28/CopySnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CopySnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an Amazon Lightsail bucket.</p>
+  # 
+  # <p>A bucket is a cloud storage resource available in the Lightsail object storage service.
+  # Use buckets to store objects such as data and its descriptive metadata. For more information
+  # about buckets, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/buckets-in-amazon-lightsail">Buckets in Amazon Lightsail</a> in the <i>Amazon Lightsail Developer
+  # Guide</i>.</p>
+  def create_bucket(bucket_name : String, bundle_id : String, tags : Array(TagStruct)? = nil, enable_object_versioning : Bool? = nil) : CreateBucketResultStruct
+    create_bucket(CreateBucketRequest.new(
+      bucket_name: bucket_name, bundle_id: bundle_id, tags: tags, enable_object_versioning: enable_object_versioning
+    ))
+  end
+  def create_bucket(input : CreateBucketRequest) : CreateBucketResultStruct
+    path = "/ls/api/2016-11-28/CreateBucket"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateBucketResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a new access key for the specified Amazon Lightsail bucket. Access keys consist of
+  # an access key ID and corresponding secret access key.</p>
+  # 
+  # <p>Access keys grant full programmatic access to the specified bucket and its objects. You
+  # can have a maximum of two access keys per bucket. Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketAccessKeys.html">GetBucketAccessKeys</a> action to get a list of current access keys for a specific bucket. For more
+  # information about access keys, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-bucket-access-keys">Creating access keys for a bucket in Amazon Lightsail</a> in the
+  # <i>Amazon Lightsail Developer Guide</i>.</p>
+  # 
+  # <important>
+  # <p>The <code>secretAccessKey</code> value is returned only in response to the
+  # <code>CreateBucketAccessKey</code> action. You can get a secret access key only when you
+  # first create an access key; you cannot get the secret access key later. If you lose the
+  # secret access key, you must create a new access key.</p>
+  # </important>
+  def create_bucket_access_key(bucket_name : String) : CreateBucketAccessKeyResultStruct
+    create_bucket_access_key(CreateBucketAccessKeyRequest.new(
+      bucket_name: bucket_name
+    ))
+  end
+  def create_bucket_access_key(input : CreateBucketAccessKeyRequest) : CreateBucketAccessKeyResultStruct
+    path = "/ls/api/2016-11-28/CreateBucketAccessKey"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateBucketAccessKeyResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an SSL/TLS certificate for an Amazon Lightsail content delivery network (CDN)
+  # distribution and a container service.</p>
+  # <p>After the certificate is valid, use the <code>AttachCertificateToDistribution</code>
+  # action to use the certificate and its domains with your distribution. Or use the
+  # <code>UpdateContainerService</code> action to use the certificate and its domains with your
+  # container service.</p>
+  # <important>
+  # <p>Only certificates created in the <code>us-east-1</code>
+  # Amazon Web Services Region can be attached to Lightsail distributions. Lightsail
+  # distributions are global resources that can reference an origin in any Amazon Web Services
+  # Region, and distribute its content globally. However, all distributions are located in the
+  # <code>us-east-1</code> Region.</p>
+  # </important>
+  def create_certificate(certificate_name : String, domain_name : String, subject_alternative_names : Array(String)? = nil, tags : Array(TagStruct)? = nil) : CreateCertificateResultStruct
+    create_certificate(CreateCertificateRequest.new(
+      certificate_name: certificate_name, domain_name: domain_name, subject_alternative_names: subject_alternative_names, tags: tags
+    ))
+  end
+  def create_certificate(input : CreateCertificateRequest) : CreateCertificateResultStruct
+    path = "/ls/api/2016-11-28/CreateCertificate"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateCertificateResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an AWS CloudFormation stack, which creates a new Amazon EC2 instance from an exported
+  # Amazon Lightsail snapshot. This operation results in a CloudFormation stack record that can be
+  # used to track the AWS CloudFormation stack created. Use the <code>get cloud formation stack
+  # records</code> operation to get a list of the CloudFormation stacks created.</p>
+  # <important>
+  # <p>Wait until after your new Amazon EC2 instance is created before running the <code>create
+  # cloud formation stack</code> operation again with the same export snapshot record.</p>
+  # </important>
+  def create_cloud_formation_stack(instances : Array(InstanceEntryStruct)) : CreateCloudFormationStackResultStruct
+    create_cloud_formation_stack(CreateCloudFormationStackRequest.new(
+      instances: instances
+    ))
+  end
+  def create_cloud_formation_stack(input : CreateCloudFormationStackRequest) : CreateCloudFormationStackResultStruct
+    path = "/ls/api/2016-11-28/CreateCloudFormationStack"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateCloudFormationStackResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an email or SMS text message contact method.</p>
+  # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
+  # You can add one email address and one mobile phone number contact method in each Amazon Web Services Region. However, SMS text messaging is not supported in some Amazon Web Services
+  # Regions, and SMS text messages cannot be sent to some countries/regions. For more information,
+  # see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
+  def create_contact_method(protocol : String, contact_endpoint : String) : CreateContactMethodResultStruct
+    create_contact_method(CreateContactMethodRequest.new(
+      protocol: protocol, contact_endpoint: contact_endpoint
+    ))
+  end
+  def create_contact_method(input : CreateContactMethodRequest) : CreateContactMethodResultStruct
+    path = "/ls/api/2016-11-28/CreateContactMethod"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateContactMethodResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an Amazon Lightsail container service.</p>
+  # 
+  # <p>A Lightsail container service is a compute resource to which you can deploy containers.
+  # For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-services">Container services in Amazon Lightsail</a> in the <i>Lightsail Dev
+  # Guide</i>.</p>
+  def create_container_service(service_name : String, power : String, scale : Int32, tags : Array(TagStruct)? = nil, public_domain_names : Hash(String, Array(String))? = nil, deployment : ContainerServiceDeploymentRequest? = nil, private_registry_access : PrivateRegistryAccessRequest? = nil) : CreateContainerServiceResultStruct
+    create_container_service(CreateContainerServiceRequest.new(
+      service_name: service_name, power: power, scale: scale, tags: tags, public_domain_names: public_domain_names, deployment: deployment, private_registry_access: private_registry_access
+    ))
+  end
+  def create_container_service(input : CreateContainerServiceRequest) : CreateContainerServiceResultStruct
+    path = "/ls/api/2016-11-28/container-services"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 201, prefix: ENDPOINT_PREFIX)
+
+    CreateContainerServiceResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a deployment for your Amazon Lightsail container service.</p>
+  # 
+  # <p>A deployment specifies the containers that will be launched on the container service and
+  # their settings, such as the ports to open, the environment variables to apply, and the launch
+  # command to run. It also specifies the container that will serve as the public endpoint of the
+  # deployment and its settings, such as the HTTP or HTTPS port to use, and the health check
+  # configuration.</p>
+  # 
+  # <p>You can deploy containers to your container service using container images from a public
+  # registry such as Amazon ECR Public, or from your local machine. For more information, see
+  # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-container-images">Creating container images for your Amazon Lightsail container services</a> in the
+  # <i>Amazon Lightsail Developer Guide</i>.</p>
+  def create_container_service_deployment(service_name : String, containers : Hash(String, ContainerStruct)? = nil, public_endpoint : EndpointRequest? = nil) : CreateContainerServiceDeploymentResultStruct
+    create_container_service_deployment(CreateContainerServiceDeploymentRequest.new(
+      service_name: service_name, containers: containers, public_endpoint: public_endpoint
+    ))
+  end
+  def create_container_service_deployment(input : CreateContainerServiceDeploymentRequest) : CreateContainerServiceDeploymentResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/deployments"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 201, prefix: ENDPOINT_PREFIX)
+
+    CreateContainerServiceDeploymentResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a temporary set of log in credentials that you can use to log in to the Docker
+  # process on your local machine. After you're logged in, you can use the native Docker commands
+  # to push your local container images to the container image registry of your Amazon Lightsail
+  # account so that you can use them with your Lightsail container service. The log in
+  # credentials expire 12 hours after they are created, at which point you will need to create a
+  # new set of log in credentials.</p>
+  # 
+  # <note>
+  # <p>You can only push container images to the container service registry of your Lightsail
+  # account. You cannot pull container images or perform any other container image management
+  # actions on the container service registry.</p>
+  # </note>
+  # 
+  # <p>After you push your container images to the container image registry of your Lightsail
+  # account, use the <code>RegisterContainerImage</code> action to register the pushed images to a
+  # specific Lightsail container service.</p>
+  # 
+  # <note>
+  # <p>This action is not required if you install and use the Lightsail Control
+  # (lightsailctl) plugin to push container images to your Lightsail container service. For
+  # more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-pushing-container-images">Pushing and managing container images on your Amazon Lightsail container services</a>
+  # in the <i>Amazon Lightsail Developer Guide</i>.</p>
+  # </note>
+  def create_container_service_registry_login() : CreateContainerServiceRegistryLoginResultStruct
+    create_container_service_registry_login(CreateContainerServiceRegistryLoginRequest.new(
+      
+    ))
+  end
+  def create_container_service_registry_login(input : CreateContainerServiceRegistryLoginRequest) : CreateContainerServiceRegistryLoginResultStruct
+    path = "/ls/api/2016-11-28/container-registry-login"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateContainerServiceRegistryLoginResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a block storage disk that can be attached to an Amazon Lightsail instance in the
+  # same Availability Zone (e.g., <code>us-east-2a</code>).</p>
+  # <p>The <code>create disk</code> operation supports tag-based access control via request tags.
+  # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_disk(disk_name : String, availability_zone : String, size_in_gb : Int32, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil) : CreateDiskResultStruct
+    create_disk(CreateDiskRequest.new(
+      disk_name: disk_name, availability_zone: availability_zone, size_in_gb: size_in_gb, tags: tags, add_ons: add_ons
+    ))
+  end
+  def create_disk(input : CreateDiskRequest) : CreateDiskResultStruct
+    path = "/ls/api/2016-11-28/CreateDisk"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateDiskResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a block storage disk from a manual or automatic snapshot of a disk. The resulting
+  # disk can be attached to an Amazon Lightsail instance in the same Availability Zone (e.g.,
+  # <code>us-east-2a</code>).</p>
+  # <p>The <code>create disk from snapshot</code> operation supports tag-based access control via
+  # request tags and resource tags applied to the resource identified by <code>disk snapshot
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_disk_from_snapshot(disk_name : String, availability_zone : String, size_in_gb : Int32, disk_snapshot_name : String? = nil, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil, source_disk_name : String? = nil, restore_date : String? = nil, use_latest_restorable_auto_snapshot : Bool? = nil) : CreateDiskFromSnapshotResultStruct
+    create_disk_from_snapshot(CreateDiskFromSnapshotRequest.new(
+      disk_name: disk_name, disk_snapshot_name: disk_snapshot_name, availability_zone: availability_zone, size_in_gb: size_in_gb, tags: tags, add_ons: add_ons, source_disk_name: source_disk_name, restore_date: restore_date, use_latest_restorable_auto_snapshot: use_latest_restorable_auto_snapshot
+    ))
+  end
+  def create_disk_from_snapshot(input : CreateDiskFromSnapshotRequest) : CreateDiskFromSnapshotResultStruct
+    path = "/ls/api/2016-11-28/CreateDiskFromSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateDiskFromSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a snapshot of a block storage disk. You can use snapshots for backups, to make
+  # copies of disks, and to save data before shutting down a Lightsail instance.</p>
+  # <p>You can take a snapshot of an attached disk that is in use; however, snapshots only
+  # capture data that has been written to your disk at the time the snapshot command is issued.
+  # This may exclude any data that has been cached by any applications or the operating system. If
+  # you can pause any file systems on the disk long enough to take a snapshot, your snapshot
+  # should be complete. Nevertheless, if you cannot pause all file writes to the disk, you should
+  # unmount the disk from within the Lightsail instance, issue the create disk snapshot command,
+  # and then remount the disk to ensure a consistent and complete snapshot. You may remount and
+  # use your disk while the snapshot status is pending.</p>
+  # <p>You can also use this operation to create a snapshot of an instance's system volume. You
+  # might want to do this, for example, to recover data from the system volume of a botched
+  # instance or to create a backup of the system volume like you would for a block storage disk.
+  # To create a snapshot of a system volume, just define the <code>instance name</code> parameter
+  # when issuing the snapshot command, and a snapshot of the defined instance's system volume will
+  # be created. After the snapshot is available, you can create a block storage disk from the
+  # snapshot and attach it to a running instance to access the data on the disk.</p>
+  # 
+  # <p>The <code>create disk snapshot</code> operation supports tag-based access control via
+  # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_disk_snapshot(disk_snapshot_name : String, disk_name : String? = nil, instance_name : String? = nil, tags : Array(TagStruct)? = nil) : CreateDiskSnapshotResultStruct
+    create_disk_snapshot(CreateDiskSnapshotRequest.new(
+      disk_name: disk_name, disk_snapshot_name: disk_snapshot_name, instance_name: instance_name, tags: tags
+    ))
+  end
+  def create_disk_snapshot(input : CreateDiskSnapshotRequest) : CreateDiskSnapshotResultStruct
+    path = "/ls/api/2016-11-28/CreateDiskSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateDiskSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an Amazon Lightsail content delivery network (CDN) distribution.</p>
+  # <p>A distribution is a globally distributed network of caching servers that improve the
+  # performance of your website or web application hosted on a Lightsail instance. For more
+  # information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-content-delivery-network-distributions">Content delivery networks in Amazon Lightsail</a>.</p>
+  def create_distribution(distribution_name : String, origin : InputOriginStruct, default_cache_behavior : CacheBehaviorStruct, bundle_id : String, cache_behavior_settings : CacheSettingsStruct? = nil, cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, ip_address_type : String? = nil, tags : Array(TagStruct)? = nil) : CreateDistributionResultStruct
+    create_distribution(CreateDistributionRequest.new(
+      distribution_name: distribution_name, origin: origin, default_cache_behavior: default_cache_behavior, cache_behavior_settings: cache_behavior_settings, cache_behaviors: cache_behaviors, bundle_id: bundle_id, ip_address_type: ip_address_type, tags: tags
+    ))
+  end
+  def create_distribution(input : CreateDistributionRequest) : CreateDistributionResultStruct
+    path = "/ls/api/2016-11-28/CreateDistribution"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateDistributionResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a domain resource for the specified domain (e.g., example.com).</p>
+  # <p>The <code>create domain</code> operation supports tag-based access control via request
+  # tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_domain(domain_name : String, tags : Array(TagStruct)? = nil) : CreateDomainResultStruct
+    create_domain(CreateDomainRequest.new(
+      domain_name: domain_name, tags: tags
+    ))
+  end
+  def create_domain(input : CreateDomainRequest) : CreateDomainResultStruct
+    path = "/ls/api/2016-11-28/CreateDomain"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateDomainResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates one of the following domain name system (DNS) records in a domain DNS zone:
+  # Address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority
+  # (SOA), service locator (SRV), or text (TXT).</p>
+  # 
+  # 
+  # 
+  # <p>The <code>create domain entry</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by <code>domain name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_domain_entry(domain_name : String, domain_entry : DomainEntryStruct) : CreateDomainEntryResultStruct
+    create_domain_entry(CreateDomainEntryRequest.new(
+      domain_name: domain_name, domain_entry: domain_entry
+    ))
+  end
+  def create_domain_entry(input : CreateDomainEntryRequest) : CreateDomainEntryResultStruct
+    path = "/ls/api/2016-11-28/CreateDomainEntry"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateDomainEntryResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates one or more Amazon Lightsail instances.</p>
+  # <p>The <code>create instances</code> operation supports tag-based access control via request
+  # tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Developer Guide</a>.</p>
+  def create_instances(instance_names : Array(String), availability_zone : String, blueprint_id : String, bundle_id : String, custom_image_name : String? = nil, user_data : String? = nil, key_pair_name : String? = nil, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil, ip_address_type : String? = nil) : CreateInstancesResultStruct
+    create_instances(CreateInstancesRequest.new(
+      instance_names: instance_names, availability_zone: availability_zone, custom_image_name: custom_image_name, blueprint_id: blueprint_id, bundle_id: bundle_id, user_data: user_data, key_pair_name: key_pair_name, tags: tags, add_ons: add_ons, ip_address_type: ip_address_type
+    ))
+  end
+  def create_instances(input : CreateInstancesRequest) : CreateInstancesResultStruct
+    path = "/ls/api/2016-11-28/CreateInstances"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateInstancesResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates one or more new instances from a manual or automatic snapshot of an
+  # instance.</p>
+  # <p>The <code>create instances from snapshot</code> operation supports tag-based access
+  # control via request tags and resource tags applied to the resource identified by
+  # <code>instance snapshot name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_instances_from_snapshot(instance_names : Array(String), availability_zone : String, bundle_id : String, attached_disk_mapping : Hash(String, Array(DiskMapStruct))? = nil, instance_snapshot_name : String? = nil, user_data : String? = nil, key_pair_name : String? = nil, tags : Array(TagStruct)? = nil, add_ons : Array(AddOnRequest)? = nil, ip_address_type : String? = nil, source_instance_name : String? = nil, restore_date : String? = nil, use_latest_restorable_auto_snapshot : Bool? = nil) : CreateInstancesFromSnapshotResultStruct
+    create_instances_from_snapshot(CreateInstancesFromSnapshotRequest.new(
+      instance_names: instance_names, attached_disk_mapping: attached_disk_mapping, availability_zone: availability_zone, instance_snapshot_name: instance_snapshot_name, bundle_id: bundle_id, user_data: user_data, key_pair_name: key_pair_name, tags: tags, add_ons: add_ons, ip_address_type: ip_address_type, source_instance_name: source_instance_name, restore_date: restore_date, use_latest_restorable_auto_snapshot: use_latest_restorable_auto_snapshot
+    ))
+  end
+  def create_instances_from_snapshot(input : CreateInstancesFromSnapshotRequest) : CreateInstancesFromSnapshotResultStruct
+    path = "/ls/api/2016-11-28/CreateInstancesFromSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateInstancesFromSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a snapshot of a specific virtual private server, or <i>instance</i>.
+  # You can use a snapshot to create a new instance that is based on that snapshot.</p>
+  # <p>The <code>create instance snapshot</code> operation supports tag-based access control via
+  # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_instance_snapshot(instance_snapshot_name : String, instance_name : String, tags : Array(TagStruct)? = nil) : CreateInstanceSnapshotResultStruct
+    create_instance_snapshot(CreateInstanceSnapshotRequest.new(
+      instance_snapshot_name: instance_snapshot_name, instance_name: instance_name, tags: tags
+    ))
+  end
+  def create_instance_snapshot(input : CreateInstanceSnapshotRequest) : CreateInstanceSnapshotResultStruct
+    path = "/ls/api/2016-11-28/CreateInstanceSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateInstanceSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a custom SSH key pair that you can use with an Amazon Lightsail
+  # instance.</p>
+  # <note>
+  # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_DownloadDefaultKeyPair.html">DownloadDefaultKeyPair</a> action to create a Lightsail default key
+  # pair in an Amazon Web Services Region where a default key pair does not currently
+  # exist.</p>
+  # </note>
+  # <p>The <code>create key pair</code> operation supports tag-based access control via request
+  # tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_key_pair(key_pair_name : String, tags : Array(TagStruct)? = nil) : CreateKeyPairResultStruct
+    create_key_pair(CreateKeyPairRequest.new(
+      key_pair_name: key_pair_name, tags: tags
+    ))
+  end
+  def create_key_pair(input : CreateKeyPairRequest) : CreateKeyPairResultStruct
+    path = "/ls/api/2016-11-28/CreateKeyPair"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateKeyPairResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a Lightsail load balancer. To learn more about deciding whether to load balance
+  # your application, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/configure-lightsail-instances-for-load-balancing">Configure your Lightsail instances for load balancing</a>. You can create up to 5
+  # load balancers per AWS Region in your account.</p>
+  # <p>When you create a load balancer, you can specify a unique name and port settings. To
+  # change additional load balancer settings, use the <code>UpdateLoadBalancerAttribute</code>
+  # operation.</p>
+  # <p>The <code>create load balancer</code> operation supports tag-based access control via
+  # request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_load_balancer(load_balancer_name : String, instance_port : Int32, health_check_path : String? = nil, certificate_name : String? = nil, certificate_domain_name : String? = nil, certificate_alternative_names : Array(String)? = nil, tags : Array(TagStruct)? = nil, ip_address_type : String? = nil, tls_policy_name : String? = nil) : CreateLoadBalancerResultStruct
+    create_load_balancer(CreateLoadBalancerRequest.new(
+      load_balancer_name: load_balancer_name, instance_port: instance_port, health_check_path: health_check_path, certificate_name: certificate_name, certificate_domain_name: certificate_domain_name, certificate_alternative_names: certificate_alternative_names, tags: tags, ip_address_type: ip_address_type, tls_policy_name: tls_policy_name
+    ))
+  end
+  def create_load_balancer(input : CreateLoadBalancerRequest) : CreateLoadBalancerResultStruct
+    path = "/ls/api/2016-11-28/CreateLoadBalancer"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateLoadBalancerResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates an SSL/TLS certificate for an Amazon Lightsail load balancer.</p>
+  # <p>TLS is just an updated, more secure version of Secure Socket Layer (SSL).</p>
+  # <p>The <code>CreateLoadBalancerTlsCertificate</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by <code>load balancer
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_load_balancer_tls_certificate(load_balancer_name : String, certificate_name : String, certificate_domain_name : String, certificate_alternative_names : Array(String)? = nil, tags : Array(TagStruct)? = nil) : CreateLoadBalancerTlsCertificateResultStruct
+    create_load_balancer_tls_certificate(CreateLoadBalancerTlsCertificateRequest.new(
+      load_balancer_name: load_balancer_name, certificate_name: certificate_name, certificate_domain_name: certificate_domain_name, certificate_alternative_names: certificate_alternative_names, tags: tags
+    ))
+  end
+  def create_load_balancer_tls_certificate(input : CreateLoadBalancerTlsCertificateRequest) : CreateLoadBalancerTlsCertificateResultStruct
+    path = "/ls/api/2016-11-28/CreateLoadBalancerTlsCertificate"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateLoadBalancerTlsCertificateResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a new database in Amazon Lightsail.</p>
+  # <p>The <code>create relational database</code> operation supports tag-based access control
+  # via request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_relational_database(relational_database_name : String, relational_database_blueprint_id : String, relational_database_bundle_id : String, master_database_name : String, master_username : String, availability_zone : String? = nil, master_user_password : String? = nil, preferred_backup_window : String? = nil, preferred_maintenance_window : String? = nil, publicly_accessible : Bool? = nil, tags : Array(TagStruct)? = nil) : CreateRelationalDatabaseResultStruct
+    create_relational_database(CreateRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name, availability_zone: availability_zone, relational_database_blueprint_id: relational_database_blueprint_id, relational_database_bundle_id: relational_database_bundle_id, master_database_name: master_database_name, master_username: master_username, master_user_password: master_user_password, preferred_backup_window: preferred_backup_window, preferred_maintenance_window: preferred_maintenance_window, publicly_accessible: publicly_accessible, tags: tags
+    ))
+  end
+  def create_relational_database(input : CreateRelationalDatabaseRequest) : CreateRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/CreateRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a new database from an existing database snapshot in Amazon Lightsail.</p>
+  # <p>You can create a new database from a snapshot in if something goes wrong with your
+  # original database, or to change it to a different plan, such as a high availability or
+  # standard plan.</p>
+  # <p>The <code>create relational database from snapshot</code> operation supports tag-based
+  # access control via request tags and resource tags applied to the resource identified by
+  # relationalDatabaseSnapshotName. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_relational_database_from_snapshot(relational_database_name : String, availability_zone : String? = nil, publicly_accessible : Bool? = nil, relational_database_snapshot_name : String? = nil, relational_database_bundle_id : String? = nil, source_relational_database_name : String? = nil, restore_time : Time? = nil, use_latest_restorable_time : Bool? = nil, tags : Array(TagStruct)? = nil) : CreateRelationalDatabaseFromSnapshotResultStruct
+    create_relational_database_from_snapshot(CreateRelationalDatabaseFromSnapshotRequest.new(
+      relational_database_name: relational_database_name, availability_zone: availability_zone, publicly_accessible: publicly_accessible, relational_database_snapshot_name: relational_database_snapshot_name, relational_database_bundle_id: relational_database_bundle_id, source_relational_database_name: source_relational_database_name, restore_time: restore_time, use_latest_restorable_time: use_latest_restorable_time, tags: tags
+    ))
+  end
+  def create_relational_database_from_snapshot(input : CreateRelationalDatabaseFromSnapshotRequest) : CreateRelationalDatabaseFromSnapshotResultStruct
+    path = "/ls/api/2016-11-28/CreateRelationalDatabaseFromSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateRelationalDatabaseFromSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates a snapshot of your database in Amazon Lightsail. You can use snapshots for backups,
+  # to make copies of a database, and to save data before deleting a database.</p>
+  # <p>The <code>create relational database snapshot</code> operation supports tag-based access
+  # control via request tags. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def create_relational_database_snapshot(relational_database_name : String, relational_database_snapshot_name : String, tags : Array(TagStruct)? = nil) : CreateRelationalDatabaseSnapshotResultStruct
+    create_relational_database_snapshot(CreateRelationalDatabaseSnapshotRequest.new(
+      relational_database_name: relational_database_name, relational_database_snapshot_name: relational_database_snapshot_name, tags: tags
+    ))
+  end
+  def create_relational_database_snapshot(input : CreateRelationalDatabaseSnapshotRequest) : CreateRelationalDatabaseSnapshotResultStruct
+    path = "/ls/api/2016-11-28/CreateRelationalDatabaseSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    CreateRelationalDatabaseSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes an alarm.</p>
+  # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
+  # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
+  # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
+  # in Amazon Lightsail</a>.</p>
+  def delete_alarm(alarm_name : String) : DeleteAlarmResultStruct
+    delete_alarm(DeleteAlarmRequest.new(
+      alarm_name: alarm_name
+    ))
+  end
+  def delete_alarm(input : DeleteAlarmRequest) : DeleteAlarmResultStruct
+    path = "/ls/api/2016-11-28/DeleteAlarm"
+    request = HTTP::Request.new("DELETE", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteAlarmResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes an automatic snapshot of an instance or disk. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_auto_snapshot(resource_name : String, date : String) : DeleteAutoSnapshotResultStruct
+    delete_auto_snapshot(DeleteAutoSnapshotRequest.new(
+      resource_name: resource_name, date: date
+    ))
+  end
+  def delete_auto_snapshot(input : DeleteAutoSnapshotRequest) : DeleteAutoSnapshotResultStruct
+    path = "/ls/api/2016-11-28/DeleteAutoSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteAutoSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a Amazon Lightsail bucket.</p>
+  # 
+  # <note>
+  # <p>When you delete your bucket, the bucket name is released and can be reused for a new
+  # bucket in your account or another Amazon Web Services account.</p>
+  # </note>
+  def delete_bucket(bucket_name : String, force_delete : Bool? = nil) : DeleteBucketResultStruct
+    delete_bucket(DeleteBucketRequest.new(
+      bucket_name: bucket_name, force_delete: force_delete
+    ))
+  end
+  def delete_bucket(input : DeleteBucketRequest) : DeleteBucketResultStruct
+    path = "/ls/api/2016-11-28/DeleteBucket"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteBucketResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes an access key for the specified Amazon Lightsail bucket.</p>
+  # 
+  # <p>We recommend that you delete an access key if the secret access key is compromised.</p>
+  # 
+  # <p>For more information about access keys, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-bucket-access-keys">Creating access keys for a bucket in Amazon Lightsail</a> in the
+  # <i>Amazon Lightsail Developer Guide</i>.</p>
+  def delete_bucket_access_key(bucket_name : String, access_key_id : String) : DeleteBucketAccessKeyResultStruct
+    delete_bucket_access_key(DeleteBucketAccessKeyRequest.new(
+      bucket_name: bucket_name, access_key_id: access_key_id
+    ))
+  end
+  def delete_bucket_access_key(input : DeleteBucketAccessKeyRequest) : DeleteBucketAccessKeyResultStruct
+    path = "/ls/api/2016-11-28/DeleteBucketAccessKey"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteBucketAccessKeyResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes an SSL/TLS certificate for your Amazon Lightsail content delivery network (CDN)
+  # distribution.</p>
+  # <p>Certificates that are currently attached to a distribution cannot be deleted. Use the
+  # <code>DetachCertificateFromDistribution</code> action to detach a certificate from a
+  # distribution.</p>
+  def delete_certificate(certificate_name : String) : DeleteCertificateResultStruct
+    delete_certificate(DeleteCertificateRequest.new(
+      certificate_name: certificate_name
+    ))
+  end
+  def delete_certificate(input : DeleteCertificateRequest) : DeleteCertificateResultStruct
+    path = "/ls/api/2016-11-28/DeleteCertificate"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteCertificateResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a contact method.</p>
+  # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
+  # You can add one email address and one mobile phone number contact method in each Amazon Web Services Region. However, SMS text messaging is not supported in some Amazon Web Services
+  # Regions, and SMS text messages cannot be sent to some countries/regions. For more information,
+  # see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
+  def delete_contact_method(protocol : String) : DeleteContactMethodResultStruct
+    delete_contact_method(DeleteContactMethodRequest.new(
+      protocol: protocol
+    ))
+  end
+  def delete_contact_method(input : DeleteContactMethodRequest) : DeleteContactMethodResultStruct
+    path = "/ls/api/2016-11-28/DeleteContactMethod"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteContactMethodResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a container image that is registered to your Amazon Lightsail container
+  # service.</p>
+  def delete_container_image(service_name : String, image : String) : DeleteContainerImageResultStruct
+    delete_container_image(DeleteContainerImageRequest.new(
+      service_name: service_name, image: image
+    ))
+  end
+  def delete_container_image(input : DeleteContainerImageRequest) : DeleteContainerImageResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/images/{image}"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    if label = input.image
+      path = path.gsub("{image}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: image"
+    end
+    request = HTTP::Request.new("DELETE", path)
+    request = input.process(request)
+    response = send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
+
+    DeleteContainerImageResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes your Amazon Lightsail container service.</p>
+  def delete_container_service(service_name : String) : DeleteContainerServiceResultStruct
+    delete_container_service(DeleteContainerServiceRequest.new(
+      service_name: service_name
+    ))
+  end
+  def delete_container_service(input : DeleteContainerServiceRequest) : DeleteContainerServiceResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("DELETE", path)
+    request = input.process(request)
+    response = send(request, success_code: 204, prefix: ENDPOINT_PREFIX)
+
+    DeleteContainerServiceResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes the specified block storage disk. The disk must be in the <code>available</code>
+  # state (not attached to a Lightsail instance).</p>
+  # <note>
+  # <p>The disk may remain in the <code>deleting</code> state for several minutes.</p>
+  # </note>
+  # <p>The <code>delete disk</code> operation supports tag-based access control via resource tags
+  # applied to the resource identified by <code>disk name</code>. For more information, see the
+  # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_disk(disk_name : String, force_delete_add_ons : Bool? = nil) : DeleteDiskResultStruct
+    delete_disk(DeleteDiskRequest.new(
+      disk_name: disk_name, force_delete_add_ons: force_delete_add_ons
+    ))
+  end
+  def delete_disk(input : DeleteDiskRequest) : DeleteDiskResultStruct
+    path = "/ls/api/2016-11-28/DeleteDisk"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteDiskResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes the specified disk snapshot.</p>
+  # <p>When you make periodic snapshots of a disk, the snapshots are incremental, and only the
+  # blocks on the device that have changed since your last snapshot are saved in the new snapshot.
+  # When you delete a snapshot, only the data not needed for any other snapshot is removed. So
+  # regardless of which prior snapshots have been deleted, all active snapshots will have access
+  # to all the information needed to restore the disk.</p>
+  # <p>The <code>delete disk snapshot</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by <code>disk snapshot name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_disk_snapshot(disk_snapshot_name : String) : DeleteDiskSnapshotResultStruct
+    delete_disk_snapshot(DeleteDiskSnapshotRequest.new(
+      disk_snapshot_name: disk_snapshot_name
+    ))
+  end
+  def delete_disk_snapshot(input : DeleteDiskSnapshotRequest) : DeleteDiskSnapshotResultStruct
+    path = "/ls/api/2016-11-28/DeleteDiskSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteDiskSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes your Amazon Lightsail content delivery network (CDN) distribution.</p>
+  def delete_distribution(distribution_name : String? = nil) : DeleteDistributionResultStruct
+    delete_distribution(DeleteDistributionRequest.new(
+      distribution_name: distribution_name
+    ))
+  end
+  def delete_distribution(input : DeleteDistributionRequest) : DeleteDistributionResultStruct
+    path = "/ls/api/2016-11-28/DeleteDistribution"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteDistributionResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes the specified domain recordset and all of its domain records.</p>
+  # <p>The <code>delete domain</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>domain name</code>. For more information, see
+  # the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_domain(domain_name : String) : DeleteDomainResultStruct
+    delete_domain(DeleteDomainRequest.new(
+      domain_name: domain_name
+    ))
+  end
+  def delete_domain(input : DeleteDomainRequest) : DeleteDomainResultStruct
+    path = "/ls/api/2016-11-28/DeleteDomain"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteDomainResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a specific domain entry.</p>
+  # <p>The <code>delete domain entry</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by <code>domain name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_domain_entry(domain_name : String, domain_entry : DomainEntryStruct) : DeleteDomainEntryResultStruct
+    delete_domain_entry(DeleteDomainEntryRequest.new(
+      domain_name: domain_name, domain_entry: domain_entry
+    ))
+  end
+  def delete_domain_entry(input : DeleteDomainEntryRequest) : DeleteDomainEntryResultStruct
+    path = "/ls/api/2016-11-28/DeleteDomainEntry"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteDomainEntryResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes an Amazon Lightsail instance.</p>
+  # <p>The <code>delete instance</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>instance name</code>. For more information,
+  # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_instance(instance_name : String, force_delete_add_ons : Bool? = nil) : DeleteInstanceResultStruct
+    delete_instance(DeleteInstanceRequest.new(
+      instance_name: instance_name, force_delete_add_ons: force_delete_add_ons
+    ))
+  end
+  def delete_instance(input : DeleteInstanceRequest) : DeleteInstanceResultStruct
+    path = "/ls/api/2016-11-28/DeleteInstance"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteInstanceResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a specific snapshot of a virtual private server (or
+  # <i>instance</i>).</p>
+  # <p>The <code>delete instance snapshot</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by <code>instance snapshot name</code>. For
+  # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_instance_snapshot(instance_snapshot_name : String) : DeleteInstanceSnapshotResultStruct
+    delete_instance_snapshot(DeleteInstanceSnapshotRequest.new(
+      instance_snapshot_name: instance_snapshot_name
+    ))
+  end
+  def delete_instance_snapshot(input : DeleteInstanceSnapshotRequest) : DeleteInstanceSnapshotResultStruct
+    path = "/ls/api/2016-11-28/DeleteInstanceSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteInstanceSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes the specified key pair by removing the public key from Amazon Lightsail.</p>
+  # <p>You can delete key pairs that were created using the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_ImportKeyPair.html">ImportKeyPair</a> and
+  # <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateKeyPair.html">CreateKeyPair</a> actions, as well as the Lightsail default key pair. A new default
+  # key pair will not be created unless you launch an instance without specifying a custom key
+  # pair, or you call the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_DownloadDefaultKeyPair.html">DownloadDefaultKeyPair</a> API. </p>
+  # 
+  # <p>The <code>delete key pair</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>key pair name</code>. For more information,
+  # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_key_pair(key_pair_name : String, expected_fingerprint : String? = nil) : DeleteKeyPairResultStruct
+    delete_key_pair(DeleteKeyPairRequest.new(
+      key_pair_name: key_pair_name, expected_fingerprint: expected_fingerprint
+    ))
+  end
+  def delete_key_pair(input : DeleteKeyPairRequest) : DeleteKeyPairResultStruct
+    path = "/ls/api/2016-11-28/DeleteKeyPair"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteKeyPairResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes the known host key or certificate used by the Amazon Lightsail browser-based SSH or
+  # RDP clients to authenticate an instance. This operation enables the Lightsail browser-based
+  # SSH or RDP clients to connect to the instance after a host key mismatch.</p>
+  # <important>
+  # <p>Perform this operation only if you were expecting the host key or certificate mismatch
+  # or if you are familiar with the new host key or certificate on the instance. For more
+  # information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-troubleshooting-browser-based-ssh-rdp-client-connection">Troubleshooting connection issues when using the Amazon Lightsail browser-based SSH or RDP
+  # client</a>.</p>
+  # </important>
+  def delete_known_host_keys(instance_name : String) : DeleteKnownHostKeysResultStruct
+    delete_known_host_keys(DeleteKnownHostKeysRequest.new(
+      instance_name: instance_name
+    ))
+  end
+  def delete_known_host_keys(input : DeleteKnownHostKeysRequest) : DeleteKnownHostKeysResultStruct
+    path = "/ls/api/2016-11-28/DeleteKnownHostKeys"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteKnownHostKeysResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a Lightsail load balancer and all its associated SSL/TLS certificates. Once the
+  # load balancer is deleted, you will need to create a new load balancer, create a new
+  # certificate, and verify domain ownership again.</p>
+  # <p>The <code>delete load balancer</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by <code>load balancer name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_load_balancer(load_balancer_name : String) : DeleteLoadBalancerResultStruct
+    delete_load_balancer(DeleteLoadBalancerRequest.new(
+      load_balancer_name: load_balancer_name
+    ))
+  end
+  def delete_load_balancer(input : DeleteLoadBalancerRequest) : DeleteLoadBalancerResultStruct
+    path = "/ls/api/2016-11-28/DeleteLoadBalancer"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteLoadBalancerResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes an SSL/TLS certificate associated with a Lightsail load balancer.</p>
+  # <p>The <code>DeleteLoadBalancerTlsCertificate</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by <code>load balancer
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_load_balancer_tls_certificate(load_balancer_name : String, certificate_name : String, force : Bool? = nil) : DeleteLoadBalancerTlsCertificateResultStruct
+    delete_load_balancer_tls_certificate(DeleteLoadBalancerTlsCertificateRequest.new(
+      load_balancer_name: load_balancer_name, certificate_name: certificate_name, force: force
+    ))
+  end
+  def delete_load_balancer_tls_certificate(input : DeleteLoadBalancerTlsCertificateRequest) : DeleteLoadBalancerTlsCertificateResultStruct
+    path = "/ls/api/2016-11-28/DeleteLoadBalancerTlsCertificate"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteLoadBalancerTlsCertificateResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a database in Amazon Lightsail.</p>
+  # <p>The <code>delete relational database</code> operation supports tag-based access control
+  # via resource tags applied to the resource identified by relationalDatabaseName. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_relational_database(relational_database_name : String, skip_final_snapshot : Bool? = nil, final_relational_database_snapshot_name : String? = nil) : DeleteRelationalDatabaseResultStruct
+    delete_relational_database(DeleteRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name, skip_final_snapshot: skip_final_snapshot, final_relational_database_snapshot_name: final_relational_database_snapshot_name
+    ))
+  end
+  def delete_relational_database(input : DeleteRelationalDatabaseRequest) : DeleteRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/DeleteRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a database snapshot in Amazon Lightsail.</p>
+  # <p>The <code>delete relational database snapshot</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by relationalDatabaseName. For
+  # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def delete_relational_database_snapshot(relational_database_snapshot_name : String) : DeleteRelationalDatabaseSnapshotResultStruct
+    delete_relational_database_snapshot(DeleteRelationalDatabaseSnapshotRequest.new(
+      relational_database_snapshot_name: relational_database_snapshot_name
+    ))
+  end
+  def delete_relational_database_snapshot(input : DeleteRelationalDatabaseSnapshotRequest) : DeleteRelationalDatabaseSnapshotResultStruct
+    path = "/ls/api/2016-11-28/DeleteRelationalDatabaseSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DeleteRelationalDatabaseSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Detaches an SSL/TLS certificate from your Amazon Lightsail content delivery network (CDN)
+  # distribution.</p>
+  # <p>After the certificate is detached, your distribution stops accepting traffic for all of
+  # the domains that are associated with the certificate.</p>
+  def detach_certificate_from_distribution(distribution_name : String) : DetachCertificateFromDistributionResultStruct
+    detach_certificate_from_distribution(DetachCertificateFromDistributionRequest.new(
+      distribution_name: distribution_name
+    ))
+  end
+  def detach_certificate_from_distribution(input : DetachCertificateFromDistributionRequest) : DetachCertificateFromDistributionResultStruct
+    path = "/ls/api/2016-11-28/DetachCertificateFromDistribution"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DetachCertificateFromDistributionResult.from_response(response)
+  end
+
+
+      
+            # <p>Detaches a stopped block storage disk from a Lightsail instance. Make sure to unmount
+  # any file systems on the device within your operating system before stopping the instance and
+  # detaching the disk.</p>
+  # <p>The <code>detach disk</code> operation supports tag-based access control via resource tags
+  # applied to the resource identified by <code>disk name</code>. For more information, see the
+  # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def detach_disk(disk_name : String) : DetachDiskResultStruct
+    detach_disk(DetachDiskRequest.new(
+      disk_name: disk_name
+    ))
+  end
+  def detach_disk(input : DetachDiskRequest) : DetachDiskResultStruct
+    path = "/ls/api/2016-11-28/DetachDisk"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DetachDiskResult.from_response(response)
+  end
+
+
+      
+            # <p>Detaches the specified instances from a Lightsail load balancer.</p>
+  # <p>This operation waits until the instances are no longer needed before they are detached
+  # from the load balancer.</p>
+  # <p>The <code>detach instances from load balancer</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by <code>load balancer
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def detach_instances_from_load_balancer(load_balancer_name : String, instance_names : Array(String)) : DetachInstancesFromLoadBalancerResultStruct
+    detach_instances_from_load_balancer(DetachInstancesFromLoadBalancerRequest.new(
+      load_balancer_name: load_balancer_name, instance_names: instance_names
+    ))
+  end
+  def detach_instances_from_load_balancer(input : DetachInstancesFromLoadBalancerRequest) : DetachInstancesFromLoadBalancerResultStruct
+    path = "/ls/api/2016-11-28/DetachInstancesFromLoadBalancer"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DetachInstancesFromLoadBalancerResult.from_response(response)
+  end
+
+
+      
+            # <p>Detaches a static IP from the Amazon Lightsail instance to which it is attached.</p>
+  def detach_static_ip(static_ip_name : String) : DetachStaticIpResultStruct
+    detach_static_ip(DetachStaticIpRequest.new(
+      static_ip_name: static_ip_name
+    ))
+  end
+  def detach_static_ip(input : DetachStaticIpRequest) : DetachStaticIpResultStruct
+    path = "/ls/api/2016-11-28/DetachStaticIp"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DetachStaticIpResult.from_response(response)
+  end
+
+
+      
+            # <p>Disables an add-on for an Amazon Lightsail resource. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
+  def disable_add_on(add_on_type : String, resource_name : String) : DisableAddOnResultStruct
+    disable_add_on(DisableAddOnRequest.new(
+      add_on_type: add_on_type, resource_name: resource_name
+    ))
+  end
+  def disable_add_on(input : DisableAddOnRequest) : DisableAddOnResultStruct
+    path = "/ls/api/2016-11-28/DisableAddOn"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DisableAddOnResult.from_response(response)
+  end
+
+
+      
+            # <p>Downloads the regional Amazon Lightsail default key pair.</p>
+  # <p>This action also creates a Lightsail default key pair if a default key pair
+  # does not currently exist in the Amazon Web Services Region.</p>
+  def download_default_key_pair() : DownloadDefaultKeyPairResultStruct
+    download_default_key_pair(DownloadDefaultKeyPairRequest.new(
+      
+    ))
+  end
+  def download_default_key_pair(input : DownloadDefaultKeyPairRequest) : DownloadDefaultKeyPairResultStruct
+    path = "/ls/api/2016-11-28/DownloadDefaultKeyPair"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    DownloadDefaultKeyPairResult.from_response(response)
+  end
+
+
+      
+            # <p>Enables or modifies an add-on for an Amazon Lightsail resource. For more information, see
+  # the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
+  def enable_add_on(resource_name : String, add_on_request : AddOnRequest) : EnableAddOnResultStruct
+    enable_add_on(EnableAddOnRequest.new(
+      resource_name: resource_name, add_on_request: add_on_request
+    ))
+  end
+  def enable_add_on(input : EnableAddOnRequest) : EnableAddOnResultStruct
+    path = "/ls/api/2016-11-28/EnableAddOn"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    EnableAddOnResult.from_response(response)
+  end
+
+
+      
+            # <p>Exports an Amazon Lightsail instance or block storage disk snapshot to Amazon Elastic Compute Cloud (Amazon EC2).
+  # This operation results in an export snapshot record that can be used with the <code>create
+  # cloud formation stack</code> operation to create new Amazon EC2 instances.</p>
+  # <p>Exported instance snapshots appear in Amazon EC2 as Amazon Machine Images (AMIs), and the
+  # instance system disk appears as an Amazon Elastic Block Store (Amazon EBS) volume. Exported disk snapshots appear in
+  # Amazon EC2 as Amazon EBS volumes. Snapshots are exported to the same Amazon Web Services Region in
+  # Amazon EC2 as the source Lightsail snapshot.</p>
+  # <p></p>
+  # <p>The <code>export snapshot</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>source snapshot name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  # <note>
+  # <p>Use the <code>get instance snapshots</code> or <code>get disk snapshots</code>
+  # operations to get a list of snapshots that you can export to Amazon EC2.</p>
+  # </note>
+  def export_snapshot(source_snapshot_name : String) : ExportSnapshotResultStruct
+    export_snapshot(ExportSnapshotRequest.new(
+      source_snapshot_name: source_snapshot_name
+    ))
+  end
+  def export_snapshot(input : ExportSnapshotRequest) : ExportSnapshotResultStruct
+    path = "/ls/api/2016-11-28/ExportSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    ExportSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the names of all active (not deleted) resources.</p>
+  def get_active_names(page_token : String? = nil) : GetActiveNamesResultStruct
+    get_active_names(GetActiveNamesRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_active_names(input : GetActiveNamesRequest) : GetActiveNamesResultStruct
+    path = "/ls/api/2016-11-28/GetActiveNames"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetActiveNamesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about the configured alarms. Specify an alarm name in your request to
+  # return information about a specific alarm, or specify a monitored resource name to return
+  # information about all alarms for a specific resource.</p>
+  # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
+  # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
+  # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
+  # in Amazon Lightsail</a>.</p>
+  def get_alarms(alarm_name : String? = nil, page_token : String? = nil, monitored_resource_name : String? = nil) : GetAlarmsResultStruct
+    get_alarms(GetAlarmsRequest.new(
+      alarm_name: alarm_name, page_token: page_token, monitored_resource_name: monitored_resource_name
+    ))
+  end
+  def get_alarms(input : GetAlarmsRequest) : GetAlarmsResultStruct
+    path = "/ls/api/2016-11-28/GetAlarms"
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetAlarmsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the available automatic snapshots for an instance or disk. For more information,
+  # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
+  def get_auto_snapshots(resource_name : String) : GetAutoSnapshotsResultStruct
+    get_auto_snapshots(GetAutoSnapshotsRequest.new(
+      resource_name: resource_name
+    ))
+  end
+  def get_auto_snapshots(input : GetAutoSnapshotsRequest) : GetAutoSnapshotsResultStruct
+    path = "/ls/api/2016-11-28/GetAutoSnapshots"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetAutoSnapshotsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the list of available instance images, or <i>blueprints</i>. You can
+  # use a blueprint to create a new instance already running a specific operating system, as well
+  # as a preinstalled app or development stack. The software each instance is running depends on
+  # the blueprint image you choose.</p>
+  # <note>
+  # <p>Use active blueprints when creating new instances. Inactive blueprints are listed to
+  # support customers with existing instances and are not necessarily available to create new
+  # instances. Blueprints are marked inactive when they become outdated due to operating system
+  # updates or new application releases.</p>
+  # </note>
+  def get_blueprints(include_inactive : Bool? = nil, page_token : String? = nil) : GetBlueprintsResultStruct
+    get_blueprints(GetBlueprintsRequest.new(
+      include_inactive: include_inactive, page_token: page_token
+    ))
+  end
+  def get_blueprints(input : GetBlueprintsRequest) : GetBlueprintsResultStruct
+    path = "/ls/api/2016-11-28/GetBlueprints"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetBlueprintsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the existing access key IDs for the specified Amazon Lightsail bucket.</p>
+  # 
+  # <important>
+  # <p>This action does not return the secret access key value of an access key. You can get a
+  # secret access key only when you create it from the response of the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateBucketAccessKey.html">CreateBucketAccessKey</a> action. If you lose the secret access key, you must create
+  # a new access key.</p>
+  # </important>
+  def get_bucket_access_keys(bucket_name : String) : GetBucketAccessKeysResultStruct
+    get_bucket_access_keys(GetBucketAccessKeysRequest.new(
+      bucket_name: bucket_name
+    ))
+  end
+  def get_bucket_access_keys(input : GetBucketAccessKeysRequest) : GetBucketAccessKeysResultStruct
+    path = "/ls/api/2016-11-28/GetBucketAccessKeys"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetBucketAccessKeysResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the bundles that you can apply to a Amazon Lightsail bucket.</p>
+  # 
+  # <p>The bucket bundle specifies the monthly cost, storage quota, and data transfer quota for a
+  # bucket.</p>
+  # 
+  # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html">UpdateBucketBundle</a> action to update the
+  # bundle for a bucket.</p>
+  def get_bucket_bundles(include_inactive : Bool? = nil) : GetBucketBundlesResultStruct
+    get_bucket_bundles(GetBucketBundlesRequest.new(
+      include_inactive: include_inactive
+    ))
+  end
+  def get_bucket_bundles(input : GetBucketBundlesRequest) : GetBucketBundlesResultStruct
+    path = "/ls/api/2016-11-28/GetBucketBundles"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetBucketBundlesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the data points of a specific metric for an Amazon Lightsail bucket.</p>
+  # 
+  # <p>Metrics report the utilization of a bucket. View and collect metric data regularly to
+  # monitor the number of objects stored in a bucket (including object versions) and the storage
+  # space used by those objects.</p>
+  def get_bucket_metric_data(bucket_name : String, metric_name : String, start_time : Time, end_time : Time, period : Int32, statistics : Array(String), unit : String) : GetBucketMetricDataResultStruct
+    get_bucket_metric_data(GetBucketMetricDataRequest.new(
+      bucket_name: bucket_name, metric_name: metric_name, start_time: start_time, end_time: end_time, period: period, statistics: statistics, unit: unit
+    ))
+  end
+  def get_bucket_metric_data(input : GetBucketMetricDataRequest) : GetBucketMetricDataResultStruct
+    path = "/ls/api/2016-11-28/GetBucketMetricData"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetBucketMetricDataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about one or more Amazon Lightsail buckets. The information returned
+  # includes the synchronization status of the Amazon Simple Storage Service (Amazon S3)
+  # account-level block public access feature for your Lightsail buckets.</p>
+  # 
+  # <p>For more information about buckets, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/buckets-in-amazon-lightsail">Buckets in Amazon Lightsail</a> in the <i>Amazon Lightsail Developer
+  # Guide</i>.</p>
+  def get_buckets(bucket_name : String? = nil, page_token : String? = nil, include_connected_resources : Bool? = nil) : GetBucketsResultStruct
+    get_buckets(GetBucketsRequest.new(
+      bucket_name: bucket_name, page_token: page_token, include_connected_resources: include_connected_resources
+    ))
+  end
+  def get_buckets(input : GetBucketsRequest) : GetBucketsResultStruct
+    path = "/ls/api/2016-11-28/GetBuckets"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetBucketsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the bundles that you can apply to an Amazon Lightsail instance when you create
+  # it.</p>
+  # 
+  # <p>A bundle describes the specifications of an instance, such as the monthly cost, amount of
+  # memory, the number of vCPUs, amount of storage space, and monthly network data transfer
+  # quota.</p>
+  # 
+  # <note>
+  # <p>Bundles are referred to as <i>instance plans</i> in the Lightsail
+  # console.</p>
+  # </note>
+  def get_bundles(include_inactive : Bool? = nil, page_token : String? = nil) : GetBundlesResultStruct
+    get_bundles(GetBundlesRequest.new(
+      include_inactive: include_inactive, page_token: page_token
+    ))
+  end
+  def get_bundles(input : GetBundlesRequest) : GetBundlesResultStruct
+    path = "/ls/api/2016-11-28/GetBundles"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetBundlesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about one or more Amazon Lightsail SSL/TLS certificates.</p>
+  # <note>
+  # <p>To get a summary of a certificate, ommit <code>includeCertificateDetails</code> from
+  # your request. The response will include only the certificate Amazon Resource Name (ARN),
+  # certificate name, domain name, and tags.</p>
+  # </note>
+  def get_certificates(certificate_statuses : Array(String)? = nil, include_certificate_details : Bool? = nil, certificate_name : String? = nil) : GetCertificatesResultStruct
+    get_certificates(GetCertificatesRequest.new(
+      certificate_statuses: certificate_statuses, include_certificate_details: include_certificate_details, certificate_name: certificate_name
+    ))
+  end
+  def get_certificates(input : GetCertificatesRequest) : GetCertificatesResultStruct
+    path = "/ls/api/2016-11-28/GetCertificates"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetCertificatesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the CloudFormation stack record created as a result of the <code>create cloud
+  # formation stack</code> operation.</p>
+  # <p>An AWS CloudFormation stack is used to create a new Amazon EC2 instance from an exported Lightsail
+  # snapshot.</p>
+  def get_cloud_formation_stack_records(page_token : String? = nil) : GetCloudFormationStackRecordsResultStruct
+    get_cloud_formation_stack_records(GetCloudFormationStackRecordsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_cloud_formation_stack_records(input : GetCloudFormationStackRecordsRequest) : GetCloudFormationStackRecordsResultStruct
+    path = "/ls/api/2016-11-28/GetCloudFormationStackRecords"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetCloudFormationStackRecordsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about the configured contact methods. Specify a protocol in your
+  # request to return information about a specific contact method.</p>
+  # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
+  # You can add one email address and one mobile phone number contact method in each Amazon Web Services Region. However, SMS text messaging is not supported in some Amazon Web Services
+  # Regions, and SMS text messages cannot be sent to some countries/regions. For more information,
+  # see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
+  def get_contact_methods(protocols : Array(String)? = nil) : GetContactMethodsResultStruct
+    get_contact_methods(GetContactMethodsRequest.new(
+      protocols: protocols
+    ))
+  end
+  def get_contact_methods(input : GetContactMethodsRequest) : GetContactMethodsResultStruct
+    path = "/ls/api/2016-11-28/GetContactMethods"
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContactMethodsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about Amazon Lightsail containers, such as the current version of the
+  # Lightsail Control (lightsailctl) plugin.</p>
+  def get_container_api_metadata() : GetContainerAPIMetadataResultStruct
+    get_container_api_metadata(GetContainerAPIMetadataRequest.new(
+      
+    ))
+  end
+  def get_container_api_metadata(input : GetContainerAPIMetadataRequest) : GetContainerAPIMetadataResultStruct
+    path = "/ls/api/2016-11-28/container-api-metadata"
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContainerAPIMetadataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the container images that are registered to your Amazon Lightsail container
+  # service.</p>
+  # 
+  # <note>
+  # <p>If you created a deployment on your Lightsail container service that uses container
+  # images from a public registry like Docker Hub, those images are not returned as part of this
+  # action. Those images are not registered to your Lightsail container service.</p>
+  # </note>
+  def get_container_images(service_name : String) : GetContainerImagesResultStruct
+    get_container_images(GetContainerImagesRequest.new(
+      service_name: service_name
+    ))
+  end
+  def get_container_images(input : GetContainerImagesRequest) : GetContainerImagesResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/images"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContainerImagesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the log events of a container of your Amazon Lightsail container service.</p>
+  # 
+  # <p>If your container service has more than one node (i.e., a scale greater than 1), then the
+  # log events that are returned for the specified container are merged from all nodes on your
+  # container service.</p>
+  # 
+  # <note>
+  # <p>Container logs are retained for a certain amount of time. For more information, see
+  # <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
+  # endpoints and quotas</a> in the <i>AWS General Reference</i>.</p>
+  # </note>
+  def get_container_log(service_name : String, container_name : String, start_time : Time? = nil, end_time : Time? = nil, filter_pattern : String? = nil, page_token : String? = nil) : GetContainerLogResultStruct
+    get_container_log(GetContainerLogRequest.new(
+      service_name: service_name, container_name: container_name, start_time: start_time, end_time: end_time, filter_pattern: filter_pattern, page_token: page_token
+    ))
+  end
+  def get_container_log(input : GetContainerLogRequest) : GetContainerLogResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/containers/{containerName}/log"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    if label = input.container_name
+      path = path.gsub("{containerName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: containerName"
+    end
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContainerLogResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the deployments for your Amazon Lightsail container service</p>
+  # 
+  # <p>A deployment specifies the settings, such as the ports and launch command, of containers
+  # that are deployed to your container service.</p>
+  # 
+  # <p>The deployments are ordered by version in ascending order. The newest version is listed at
+  # the top of the response.</p>
+  # 
+  # <note>
+  # <p>A set number of deployments are kept before the oldest one is replaced with the newest
+  # one. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/lightsail.html">Amazon Lightsail
+  # endpoints and quotas</a> in the <i>AWS General Reference</i>.</p>
+  # </note>
+  def get_container_service_deployments(service_name : String) : GetContainerServiceDeploymentsResultStruct
+    get_container_service_deployments(GetContainerServiceDeploymentsRequest.new(
+      service_name: service_name
+    ))
+  end
+  def get_container_service_deployments(input : GetContainerServiceDeploymentsRequest) : GetContainerServiceDeploymentsResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/deployments"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContainerServiceDeploymentsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the data points of a specific metric of your Amazon Lightsail container
+  # service.</p>
+  # 
+  # <p>Metrics report the utilization of your resources. Monitor and collect metric data
+  # regularly to maintain the reliability, availability, and performance of your resources.</p>
+  def get_container_service_metric_data(service_name : String, metric_name : String, start_time : Time, end_time : Time, period : Int32, statistics : Array(String)) : GetContainerServiceMetricDataResultStruct
+    get_container_service_metric_data(GetContainerServiceMetricDataRequest.new(
+      service_name: service_name, metric_name: metric_name, start_time: start_time, end_time: end_time, period: period, statistics: statistics
+    ))
+  end
+  def get_container_service_metric_data(input : GetContainerServiceMetricDataRequest) : GetContainerServiceMetricDataResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/metrics"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContainerServiceMetricDataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the list of powers that can be specified for your Amazon Lightsail container
+  # services.</p>
+  # 
+  # <p>The power specifies the amount of memory, the number of vCPUs, and the base price of the
+  # container service.</p>
+  def get_container_service_powers() : GetContainerServicePowersResultStruct
+    get_container_service_powers(GetContainerServicePowersRequest.new(
+      
+    ))
+  end
+  def get_container_service_powers(input : GetContainerServicePowersRequest) : GetContainerServicePowersResultStruct
+    path = "/ls/api/2016-11-28/container-service-powers"
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetContainerServicePowersResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about one or more of your Amazon Lightsail container services.</p>
+  def get_container_services(service_name : String? = nil) : ContainerServicesListResultStruct
+    get_container_services(GetContainerServicesRequest.new(
+      service_name: service_name
+    ))
+  end
+  def get_container_services(input : GetContainerServicesRequest) : ContainerServicesListResultStruct
+    path = "/ls/api/2016-11-28/container-services"
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    ContainerServicesListResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific block storage disk.</p>
+  def get_disk(disk_name : String) : GetDiskResultStruct
+    get_disk(GetDiskRequest.new(
+      disk_name: disk_name
+    ))
+  end
+  def get_disk(input : GetDiskRequest) : GetDiskResultStruct
+    path = "/ls/api/2016-11-28/GetDisk"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDiskResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all block storage disks in your AWS account and region.</p>
+  def get_disks(page_token : String? = nil) : GetDisksResultStruct
+    get_disks(GetDisksRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_disks(input : GetDisksRequest) : GetDisksResultStruct
+    path = "/ls/api/2016-11-28/GetDisks"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDisksResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific block storage disk snapshot.</p>
+  def get_disk_snapshot(disk_snapshot_name : String) : GetDiskSnapshotResultStruct
+    get_disk_snapshot(GetDiskSnapshotRequest.new(
+      disk_snapshot_name: disk_snapshot_name
+    ))
+  end
+  def get_disk_snapshot(input : GetDiskSnapshotRequest) : GetDiskSnapshotResultStruct
+    path = "/ls/api/2016-11-28/GetDiskSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDiskSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all block storage disk snapshots in your AWS account and
+  # region.</p>
+  def get_disk_snapshots(page_token : String? = nil) : GetDiskSnapshotsResultStruct
+    get_disk_snapshots(GetDiskSnapshotsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_disk_snapshots(input : GetDiskSnapshotsRequest) : GetDiskSnapshotsResultStruct
+    path = "/ls/api/2016-11-28/GetDiskSnapshots"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDiskSnapshotsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the bundles that can be applied to your Amazon Lightsail content delivery network
+  # (CDN) distributions.</p>
+  # <p>A distribution bundle specifies the monthly network transfer quota and monthly cost of
+  # your distribution.</p>
+  def get_distribution_bundles() : GetDistributionBundlesResultStruct
+    get_distribution_bundles(GetDistributionBundlesRequest.new(
+      
+    ))
+  end
+  def get_distribution_bundles(input : GetDistributionBundlesRequest) : GetDistributionBundlesResultStruct
+    path = "/ls/api/2016-11-28/GetDistributionBundles"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDistributionBundlesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the timestamp and status of the last cache reset of a specific Amazon Lightsail
+  # content delivery network (CDN) distribution.</p>
+  def get_distribution_latest_cache_reset(distribution_name : String? = nil) : GetDistributionLatestCacheResetResultStruct
+    get_distribution_latest_cache_reset(GetDistributionLatestCacheResetRequest.new(
+      distribution_name: distribution_name
+    ))
+  end
+  def get_distribution_latest_cache_reset(input : GetDistributionLatestCacheResetRequest) : GetDistributionLatestCacheResetResultStruct
+    path = "/ls/api/2016-11-28/GetDistributionLatestCacheReset"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDistributionLatestCacheResetResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the data points of a specific metric for an Amazon Lightsail content delivery
+  # network (CDN) distribution.</p>
+  # <p>Metrics report the utilization of your resources, and the error counts generated by them.
+  # Monitor and collect metric data regularly to maintain the reliability, availability, and
+  # performance of your resources.</p>
+  def get_distribution_metric_data(distribution_name : String, metric_name : String, start_time : Time, end_time : Time, period : Int32, unit : String, statistics : Array(String)) : GetDistributionMetricDataResultStruct
+    get_distribution_metric_data(GetDistributionMetricDataRequest.new(
+      distribution_name: distribution_name, metric_name: metric_name, start_time: start_time, end_time: end_time, period: period, unit: unit, statistics: statistics
+    ))
+  end
+  def get_distribution_metric_data(input : GetDistributionMetricDataRequest) : GetDistributionMetricDataResultStruct
+    path = "/ls/api/2016-11-28/GetDistributionMetricData"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDistributionMetricDataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about one or more of your Amazon Lightsail content delivery network
+  # (CDN) distributions.</p>
+  def get_distributions(distribution_name : String? = nil, page_token : String? = nil) : GetDistributionsResultStruct
+    get_distributions(GetDistributionsRequest.new(
+      distribution_name: distribution_name, page_token: page_token
+    ))
+  end
+  def get_distributions(input : GetDistributionsRequest) : GetDistributionsResultStruct
+    path = "/ls/api/2016-11-28/GetDistributions"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDistributionsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific domain recordset.</p>
+  def get_domain(domain_name : String) : GetDomainResultStruct
+    get_domain(GetDomainRequest.new(
+      domain_name: domain_name
+    ))
+  end
+  def get_domain(input : GetDomainRequest) : GetDomainResultStruct
+    path = "/ls/api/2016-11-28/GetDomain"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDomainResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of all domains in the user's account.</p>
+  def get_domains(page_token : String? = nil) : GetDomainsResultStruct
+    get_domains(GetDomainsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_domains(input : GetDomainsRequest) : GetDomainsResultStruct
+    path = "/ls/api/2016-11-28/GetDomains"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetDomainsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns all export snapshot records created as a result of the <code>export
+  # snapshot</code> operation.</p>
+  # <p>An export snapshot record can be used to create a new Amazon EC2 instance and its related
+  # resources with the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateCloudFormationStack.html">CreateCloudFormationStack</a>
+  # action.</p>
+  def get_export_snapshot_records(page_token : String? = nil) : GetExportSnapshotRecordsResultStruct
+    get_export_snapshot_records(GetExportSnapshotRecordsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_export_snapshot_records(input : GetExportSnapshotRecordsRequest) : GetExportSnapshotRecordsResultStruct
+    path = "/ls/api/2016-11-28/GetExportSnapshotRecords"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetExportSnapshotRecordsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific Amazon Lightsail instance, which is a virtual private
+  # server.</p>
+  def get_instance(instance_name : String) : GetInstanceResultStruct
+    get_instance(GetInstanceRequest.new(
+      instance_name: instance_name
+    ))
+  end
+  def get_instance(input : GetInstanceRequest) : GetInstanceResultStruct
+    path = "/ls/api/2016-11-28/GetInstance"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstanceResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns temporary SSH keys you can use to connect to a specific virtual private server, or
+  # <i>instance</i>.</p>
+  # <p>The <code>get instance access details</code> operation supports tag-based access control
+  # via resource tags applied to the resource identified by <code>instance name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def get_instance_access_details(instance_name : String, protocol : String? = nil) : GetInstanceAccessDetailsResultStruct
+    get_instance_access_details(GetInstanceAccessDetailsRequest.new(
+      instance_name: instance_name, protocol: protocol
+    ))
+  end
+  def get_instance_access_details(input : GetInstanceAccessDetailsRequest) : GetInstanceAccessDetailsResultStruct
+    path = "/ls/api/2016-11-28/GetInstanceAccessDetails"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstanceAccessDetailsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the data points for the specified Amazon Lightsail instance metric, given an
+  # instance name.</p>
+  # <p>Metrics report the utilization of your resources, and the error counts generated by them.
+  # Monitor and collect metric data regularly to maintain the reliability, availability, and
+  # performance of your resources.</p>
+  def get_instance_metric_data(instance_name : String, metric_name : String, period : Int32, start_time : Time, end_time : Time, unit : String, statistics : Array(String)) : GetInstanceMetricDataResultStruct
+    get_instance_metric_data(GetInstanceMetricDataRequest.new(
+      instance_name: instance_name, metric_name: metric_name, period: period, start_time: start_time, end_time: end_time, unit: unit, statistics: statistics
+    ))
+  end
+  def get_instance_metric_data(input : GetInstanceMetricDataRequest) : GetInstanceMetricDataResultStruct
+    path = "/ls/api/2016-11-28/GetInstanceMetricData"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstanceMetricDataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the firewall port states for a specific Amazon Lightsail instance, the IP addresses
+  # allowed to connect to the instance through the ports, and the protocol.</p>
+  def get_instance_port_states(instance_name : String) : GetInstancePortStatesResultStruct
+    get_instance_port_states(GetInstancePortStatesRequest.new(
+      instance_name: instance_name
+    ))
+  end
+  def get_instance_port_states(input : GetInstancePortStatesRequest) : GetInstancePortStatesResultStruct
+    path = "/ls/api/2016-11-28/GetInstancePortStates"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstancePortStatesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all Amazon Lightsail virtual private servers, or
+  # <i>instances</i>.</p>
+  def get_instances(page_token : String? = nil) : GetInstancesResultStruct
+    get_instances(GetInstancesRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_instances(input : GetInstancesRequest) : GetInstancesResultStruct
+    path = "/ls/api/2016-11-28/GetInstances"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstancesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific instance snapshot.</p>
+  def get_instance_snapshot(instance_snapshot_name : String) : GetInstanceSnapshotResultStruct
+    get_instance_snapshot(GetInstanceSnapshotRequest.new(
+      instance_snapshot_name: instance_snapshot_name
+    ))
+  end
+  def get_instance_snapshot(input : GetInstanceSnapshotRequest) : GetInstanceSnapshotResultStruct
+    path = "/ls/api/2016-11-28/GetInstanceSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstanceSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns all instance snapshots for the user's account.</p>
+  def get_instance_snapshots(page_token : String? = nil) : GetInstanceSnapshotsResultStruct
+    get_instance_snapshots(GetInstanceSnapshotsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_instance_snapshots(input : GetInstanceSnapshotsRequest) : GetInstanceSnapshotsResultStruct
+    path = "/ls/api/2016-11-28/GetInstanceSnapshots"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstanceSnapshotsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the state of a specific instance. Works on one instance at a time.</p>
+  def get_instance_state(instance_name : String) : GetInstanceStateResultStruct
+    get_instance_state(GetInstanceStateRequest.new(
+      instance_name: instance_name
+    ))
+  end
+  def get_instance_state(input : GetInstanceStateRequest) : GetInstanceStateResultStruct
+    path = "/ls/api/2016-11-28/GetInstanceState"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetInstanceStateResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific key pair.</p>
+  def get_key_pair(key_pair_name : String) : GetKeyPairResultStruct
+    get_key_pair(GetKeyPairRequest.new(
+      key_pair_name: key_pair_name
+    ))
+  end
+  def get_key_pair(input : GetKeyPairRequest) : GetKeyPairResultStruct
+    path = "/ls/api/2016-11-28/GetKeyPair"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetKeyPairResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all key pairs in the user's account.</p>
+  def get_key_pairs(page_token : String? = nil, include_default_key_pair : Bool? = nil) : GetKeyPairsResultStruct
+    get_key_pairs(GetKeyPairsRequest.new(
+      page_token: page_token, include_default_key_pair: include_default_key_pair
+    ))
+  end
+  def get_key_pairs(input : GetKeyPairsRequest) : GetKeyPairsResultStruct
+    path = "/ls/api/2016-11-28/GetKeyPairs"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetKeyPairsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about the specified Lightsail load balancer.</p>
+  def get_load_balancer(load_balancer_name : String) : GetLoadBalancerResultStruct
+    get_load_balancer(GetLoadBalancerRequest.new(
+      load_balancer_name: load_balancer_name
+    ))
+  end
+  def get_load_balancer(input : GetLoadBalancerRequest) : GetLoadBalancerResultStruct
+    path = "/ls/api/2016-11-28/GetLoadBalancer"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetLoadBalancerResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about health metrics for your Lightsail load balancer.</p>
+  # <p>Metrics report the utilization of your resources, and the error counts generated by them.
+  # Monitor and collect metric data regularly to maintain the reliability, availability, and
+  # performance of your resources.</p>
+  def get_load_balancer_metric_data(load_balancer_name : String, metric_name : String, period : Int32, start_time : Time, end_time : Time, unit : String, statistics : Array(String)) : GetLoadBalancerMetricDataResultStruct
+    get_load_balancer_metric_data(GetLoadBalancerMetricDataRequest.new(
+      load_balancer_name: load_balancer_name, metric_name: metric_name, period: period, start_time: start_time, end_time: end_time, unit: unit, statistics: statistics
+    ))
+  end
+  def get_load_balancer_metric_data(input : GetLoadBalancerMetricDataRequest) : GetLoadBalancerMetricDataResultStruct
+    path = "/ls/api/2016-11-28/GetLoadBalancerMetricData"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetLoadBalancerMetricDataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all load balancers in an account.</p>
+  def get_load_balancers(page_token : String? = nil) : GetLoadBalancersResultStruct
+    get_load_balancers(GetLoadBalancersRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_load_balancers(input : GetLoadBalancersRequest) : GetLoadBalancersResultStruct
+    path = "/ls/api/2016-11-28/GetLoadBalancers"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetLoadBalancersResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about the TLS certificates that are associated with the specified
+  # Lightsail load balancer.</p>
+  # <p>TLS is just an updated, more secure version of Secure Socket Layer (SSL).</p>
+  # <p>You can have a maximum of 2 certificates associated with a Lightsail load balancer. One
+  # is active and the other is inactive.</p>
+  def get_load_balancer_tls_certificates(load_balancer_name : String) : GetLoadBalancerTlsCertificatesResultStruct
+    get_load_balancer_tls_certificates(GetLoadBalancerTlsCertificatesRequest.new(
+      load_balancer_name: load_balancer_name
+    ))
+  end
+  def get_load_balancer_tls_certificates(input : GetLoadBalancerTlsCertificatesRequest) : GetLoadBalancerTlsCertificatesResultStruct
+    path = "/ls/api/2016-11-28/GetLoadBalancerTlsCertificates"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetLoadBalancerTlsCertificatesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of TLS security policies that you can apply to Lightsail load
+  # balancers.</p>
+  # 
+  # <p>For more information about load balancer TLS security policies, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy">Configuring TLS security policies on your Amazon Lightsail load
+  # balancers</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+  def get_load_balancer_tls_policies(page_token : String? = nil) : GetLoadBalancerTlsPoliciesResultStruct
+    get_load_balancer_tls_policies(GetLoadBalancerTlsPoliciesRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_load_balancer_tls_policies(input : GetLoadBalancerTlsPoliciesRequest) : GetLoadBalancerTlsPoliciesResultStruct
+    path = "/ls/api/2016-11-28/GetLoadBalancerTlsPolicies"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetLoadBalancerTlsPoliciesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific operation. Operations include events such as when you
+  # create an instance, allocate a static IP, attach a static IP, and so on.</p>
+  def get_operation(operation_id : String) : GetOperationResultStruct
+    get_operation(GetOperationRequest.new(
+      operation_id: operation_id
+    ))
+  end
+  def get_operation(input : GetOperationRequest) : GetOperationResultStruct
+    path = "/ls/api/2016-11-28/GetOperation"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetOperationResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all operations.</p>
+  # <p>Results are returned from oldest to newest, up to a maximum of 200. Results can be paged
+  # by making each subsequent call to <code>GetOperations</code> use the maximum (last)
+  # <code>statusChangedAt</code> value from the previous request.</p>
+  def get_operations(page_token : String? = nil) : GetOperationsResultStruct
+    get_operations(GetOperationsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_operations(input : GetOperationsRequest) : GetOperationsResultStruct
+    path = "/ls/api/2016-11-28/GetOperations"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetOperationsResult.from_response(response)
+  end
+
+
+      
+            # <p>Gets operations for a specific resource (e.g., an instance or a static IP).</p>
+  def get_operations_for_resource(resource_name : String, page_token : String? = nil) : GetOperationsForResourceResultStruct
+    get_operations_for_resource(GetOperationsForResourceRequest.new(
+      resource_name: resource_name, page_token: page_token
+    ))
+  end
+  def get_operations_for_resource(input : GetOperationsForResourceRequest) : GetOperationsForResourceResultStruct
+    path = "/ls/api/2016-11-28/GetOperationsForResource"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetOperationsForResourceResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of all valid regions for Amazon Lightsail. Use the <code>include
+  # availability zones</code> parameter to also return the Availability Zones in a
+  # region.</p>
+  def get_regions(include_availability_zones : Bool? = nil, include_relational_database_availability_zones : Bool? = nil) : GetRegionsResultStruct
+    get_regions(GetRegionsRequest.new(
+      include_availability_zones: include_availability_zones, include_relational_database_availability_zones: include_relational_database_availability_zones
+    ))
+  end
+  def get_regions(input : GetRegionsRequest) : GetRegionsResultStruct
+    path = "/ls/api/2016-11-28/GetRegions"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRegionsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific database in Amazon Lightsail.</p>
+  def get_relational_database(relational_database_name : String) : GetRelationalDatabaseResultStruct
+    get_relational_database(GetRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name
+    ))
+  end
+  def get_relational_database(input : GetRelationalDatabaseRequest) : GetRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of available database blueprints in Amazon Lightsail. A blueprint describes
+  # the major engine version of a database.</p>
+  # <p>You can use a blueprint ID to create a new database that runs a specific database
+  # engine.</p>
+  def get_relational_database_blueprints(page_token : String? = nil) : GetRelationalDatabaseBlueprintsResultStruct
+    get_relational_database_blueprints(GetRelationalDatabaseBlueprintsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_relational_database_blueprints(input : GetRelationalDatabaseBlueprintsRequest) : GetRelationalDatabaseBlueprintsResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseBlueprints"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseBlueprintsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the list of bundles that are available in Amazon Lightsail. A bundle describes the
+  # performance specifications for a database.</p>
+  # <p>You can use a bundle ID to create a new database with explicit performance
+  # specifications.</p>
+  def get_relational_database_bundles(page_token : String? = nil, include_inactive : Bool? = nil) : GetRelationalDatabaseBundlesResultStruct
+    get_relational_database_bundles(GetRelationalDatabaseBundlesRequest.new(
+      page_token: page_token, include_inactive: include_inactive
+    ))
+  end
+  def get_relational_database_bundles(input : GetRelationalDatabaseBundlesRequest) : GetRelationalDatabaseBundlesResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseBundles"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseBundlesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of events for a specific database in Amazon Lightsail.</p>
+  def get_relational_database_events(relational_database_name : String, duration_in_minutes : Int32? = nil, page_token : String? = nil) : GetRelationalDatabaseEventsResultStruct
+    get_relational_database_events(GetRelationalDatabaseEventsRequest.new(
+      relational_database_name: relational_database_name, duration_in_minutes: duration_in_minutes, page_token: page_token
+    ))
+  end
+  def get_relational_database_events(input : GetRelationalDatabaseEventsRequest) : GetRelationalDatabaseEventsResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseEvents"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseEventsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of log events for a database in Amazon Lightsail.</p>
+  def get_relational_database_log_events(relational_database_name : String, log_stream_name : String, start_time : Time? = nil, end_time : Time? = nil, start_from_head : Bool? = nil, page_token : String? = nil) : GetRelationalDatabaseLogEventsResultStruct
+    get_relational_database_log_events(GetRelationalDatabaseLogEventsRequest.new(
+      relational_database_name: relational_database_name, log_stream_name: log_stream_name, start_time: start_time, end_time: end_time, start_from_head: start_from_head, page_token: page_token
+    ))
+  end
+  def get_relational_database_log_events(input : GetRelationalDatabaseLogEventsRequest) : GetRelationalDatabaseLogEventsResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseLogEvents"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseLogEventsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a list of available log streams for a specific database in Amazon Lightsail.</p>
+  def get_relational_database_log_streams(relational_database_name : String) : GetRelationalDatabaseLogStreamsResultStruct
+    get_relational_database_log_streams(GetRelationalDatabaseLogStreamsRequest.new(
+      relational_database_name: relational_database_name
+    ))
+  end
+  def get_relational_database_log_streams(input : GetRelationalDatabaseLogStreamsRequest) : GetRelationalDatabaseLogStreamsResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseLogStreams"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseLogStreamsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the current, previous, or pending versions of the master user password for a
+  # Lightsail database.</p>
+  # <p>The <code>GetRelationalDatabaseMasterUserPassword</code> operation supports tag-based
+  # access control via resource tags applied to the resource identified by
+  # relationalDatabaseName.</p>
+  def get_relational_database_master_user_password(relational_database_name : String, password_version : String? = nil) : GetRelationalDatabaseMasterUserPasswordResultStruct
+    get_relational_database_master_user_password(GetRelationalDatabaseMasterUserPasswordRequest.new(
+      relational_database_name: relational_database_name, password_version: password_version
+    ))
+  end
+  def get_relational_database_master_user_password(input : GetRelationalDatabaseMasterUserPasswordRequest) : GetRelationalDatabaseMasterUserPasswordResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseMasterUserPassword"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseMasterUserPasswordResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns the data points of the specified metric for a database in Amazon Lightsail.</p>
+  # <p>Metrics report the utilization of your resources, and the error counts generated by them.
+  # Monitor and collect metric data regularly to maintain the reliability, availability, and
+  # performance of your resources.</p>
+  def get_relational_database_metric_data(relational_database_name : String, metric_name : String, period : Int32, start_time : Time, end_time : Time, unit : String, statistics : Array(String)) : GetRelationalDatabaseMetricDataResultStruct
+    get_relational_database_metric_data(GetRelationalDatabaseMetricDataRequest.new(
+      relational_database_name: relational_database_name, metric_name: metric_name, period: period, start_time: start_time, end_time: end_time, unit: unit, statistics: statistics
+    ))
+  end
+  def get_relational_database_metric_data(input : GetRelationalDatabaseMetricDataRequest) : GetRelationalDatabaseMetricDataResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseMetricData"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseMetricDataResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns all of the runtime parameters offered by the underlying database software, or
+  # engine, for a specific database in Amazon Lightsail.</p>
+  # <p>In addition to the parameter names and values, this operation returns other information
+  # about each parameter. This information includes whether changes require a reboot, whether the
+  # parameter is modifiable, the allowed values, and the data types.</p>
+  def get_relational_database_parameters(relational_database_name : String, page_token : String? = nil) : GetRelationalDatabaseParametersResultStruct
+    get_relational_database_parameters(GetRelationalDatabaseParametersRequest.new(
+      relational_database_name: relational_database_name, page_token: page_token
+    ))
+  end
+  def get_relational_database_parameters(input : GetRelationalDatabaseParametersRequest) : GetRelationalDatabaseParametersResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseParameters"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseParametersResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all of your databases in Amazon Lightsail.</p>
+  def get_relational_databases(page_token : String? = nil) : GetRelationalDatabasesResultStruct
+    get_relational_databases(GetRelationalDatabasesRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_relational_databases(input : GetRelationalDatabasesRequest) : GetRelationalDatabasesResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabases"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabasesResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about a specific database snapshot in Amazon Lightsail.</p>
+  def get_relational_database_snapshot(relational_database_snapshot_name : String) : GetRelationalDatabaseSnapshotResultStruct
+    get_relational_database_snapshot(GetRelationalDatabaseSnapshotRequest.new(
+      relational_database_snapshot_name: relational_database_snapshot_name
+    ))
+  end
+  def get_relational_database_snapshot(input : GetRelationalDatabaseSnapshotRequest) : GetRelationalDatabaseSnapshotResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseSnapshot"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseSnapshotResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all of your database snapshots in Amazon Lightsail.</p>
+  def get_relational_database_snapshots(page_token : String? = nil) : GetRelationalDatabaseSnapshotsResultStruct
+    get_relational_database_snapshots(GetRelationalDatabaseSnapshotsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_relational_database_snapshots(input : GetRelationalDatabaseSnapshotsRequest) : GetRelationalDatabaseSnapshotsResultStruct
+    path = "/ls/api/2016-11-28/GetRelationalDatabaseSnapshots"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetRelationalDatabaseSnapshotsResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about an Amazon Lightsail static IP.</p>
+  def get_static_ip(static_ip_name : String) : GetStaticIpResultStruct
+    get_static_ip(GetStaticIpRequest.new(
+      static_ip_name: static_ip_name
+    ))
+  end
+  def get_static_ip(input : GetStaticIpRequest) : GetStaticIpResultStruct
+    path = "/ls/api/2016-11-28/GetStaticIp"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetStaticIpResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns information about all static IPs in the user's account.</p>
+  def get_static_ips(page_token : String? = nil) : GetStaticIpsResultStruct
+    get_static_ips(GetStaticIpsRequest.new(
+      page_token: page_token
+    ))
+  end
+  def get_static_ips(input : GetStaticIpsRequest) : GetStaticIpsResultStruct
+    path = "/ls/api/2016-11-28/GetStaticIps"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    GetStaticIpsResult.from_response(response)
+  end
+
+
+      
+            # <p>Imports a public SSH key from a specific key pair.</p>
+  def import_key_pair(key_pair_name : String, public_key_base64 : String) : ImportKeyPairResultStruct
+    import_key_pair(ImportKeyPairRequest.new(
+      key_pair_name: key_pair_name, public_key_base64: public_key_base64
+    ))
+  end
+  def import_key_pair(input : ImportKeyPairRequest) : ImportKeyPairResultStruct
+    path = "/ls/api/2016-11-28/ImportKeyPair"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    ImportKeyPairResult.from_response(response)
+  end
+
+
+      
+            # <p>Returns a Boolean value indicating whether your Lightsail VPC is peered.</p>
+  def is_vpc_peered() : IsVpcPeeredResultStruct
+    is_vpc_peered(IsVpcPeeredRequest.new(
+      
+    ))
+  end
+  def is_vpc_peered(input : IsVpcPeeredRequest) : IsVpcPeeredResultStruct
+    path = "/ls/api/2016-11-28/IsVpcPeered"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    IsVpcPeeredResult.from_response(response)
+  end
+
+
+      
+            # <p>Opens ports for a specific Amazon Lightsail instance, and specifies the IP addresses
+  # allowed to connect to the instance through the ports, and the protocol.</p>
+  # <p>The <code>OpenInstancePublicPorts</code> action supports tag-based access control via
+  # resource tags applied to the resource identified by <code>instanceName</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def open_instance_public_ports(port_info : PortInfoStruct, instance_name : String) : OpenInstancePublicPortsResultStruct
+    open_instance_public_ports(OpenInstancePublicPortsRequest.new(
+      port_info: port_info, instance_name: instance_name
+    ))
+  end
+  def open_instance_public_ports(input : OpenInstancePublicPortsRequest) : OpenInstancePublicPortsResultStruct
+    path = "/ls/api/2016-11-28/OpenInstancePublicPorts"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    OpenInstancePublicPortsResult.from_response(response)
+  end
+
+
+      
+            # <p>Peers the Lightsail VPC with the user's default VPC.</p>
+  def peer_vpc() : PeerVpcResultStruct
+    peer_vpc(PeerVpcRequest.new(
+      
+    ))
+  end
+  def peer_vpc(input : PeerVpcRequest) : PeerVpcResultStruct
+    path = "/ls/api/2016-11-28/PeerVpc"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    PeerVpcResult.from_response(response)
+  end
+
+
+      
+            # <p>Creates or updates an alarm, and associates it with the specified metric.</p>
+  # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
+  # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
+  # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
+  # in Amazon Lightsail</a>.</p>
+  # <p>When this action creates an alarm, the alarm state is immediately set to
+  # <code>INSUFFICIENT_DATA</code>. The alarm is then evaluated and its state is set
+  # appropriately. Any actions associated with the new state are then executed.</p>
+  # <p>When you update an existing alarm, its state is left unchanged, but the update completely
+  # overwrites the previous configuration of the alarm. The alarm is then evaluated with the
+  # updated configuration.</p>
+  def put_alarm(alarm_name : String, metric_name : String, monitored_resource_name : String, comparison_operator : String, threshold : Float64, evaluation_periods : Int32, datapoints_to_alarm : Int32? = nil, treat_missing_data : String? = nil, contact_protocols : Array(String)? = nil, notification_triggers : Array(String)? = nil, notification_enabled : Bool? = nil) : PutAlarmResultStruct
+    put_alarm(PutAlarmRequest.new(
+      alarm_name: alarm_name, metric_name: metric_name, monitored_resource_name: monitored_resource_name, comparison_operator: comparison_operator, threshold: threshold, evaluation_periods: evaluation_periods, datapoints_to_alarm: datapoints_to_alarm, treat_missing_data: treat_missing_data, contact_protocols: contact_protocols, notification_triggers: notification_triggers, notification_enabled: notification_enabled
+    ))
+  end
+  def put_alarm(input : PutAlarmRequest) : PutAlarmResultStruct
+    path = "/ls/api/2016-11-28/PutAlarm"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    PutAlarmResult.from_response(response)
+  end
+
+
+      
+            # <p>Opens ports for a specific Amazon Lightsail instance, and specifies the IP addresses
+  # allowed to connect to the instance through the ports, and the protocol. This action also
+  # closes all currently open ports that are not included in the request. Include all of the ports
+  # and the protocols you want to open in your <code>PutInstancePublicPorts</code>request. Or use
+  # the <code>OpenInstancePublicPorts</code> action to open ports without closing currently open
+  # ports.</p>
+  # <p>The <code>PutInstancePublicPorts</code> action supports tag-based access control via
+  # resource tags applied to the resource identified by <code>instanceName</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def put_instance_public_ports(port_infos : Array(PortInfoStruct), instance_name : String) : PutInstancePublicPortsResultStruct
+    put_instance_public_ports(PutInstancePublicPortsRequest.new(
+      port_infos: port_infos, instance_name: instance_name
+    ))
+  end
+  def put_instance_public_ports(input : PutInstancePublicPortsRequest) : PutInstancePublicPortsResultStruct
+    path = "/ls/api/2016-11-28/PutInstancePublicPorts"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    PutInstancePublicPortsResult.from_response(response)
+  end
+
+
+      
+            # <p>Restarts a specific instance.</p>
+  # <p>The <code>reboot instance</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>instance name</code>. For more information,
+  # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def reboot_instance(instance_name : String) : RebootInstanceResultStruct
+    reboot_instance(RebootInstanceRequest.new(
+      instance_name: instance_name
+    ))
+  end
+  def reboot_instance(input : RebootInstanceRequest) : RebootInstanceResultStruct
+    path = "/ls/api/2016-11-28/RebootInstance"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    RebootInstanceResult.from_response(response)
+  end
+
+
+      
+            # <p>Restarts a specific database in Amazon Lightsail.</p>
+  # <p>The <code>reboot relational database</code> operation supports tag-based access control
+  # via resource tags applied to the resource identified by relationalDatabaseName. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def reboot_relational_database(relational_database_name : String) : RebootRelationalDatabaseResultStruct
+    reboot_relational_database(RebootRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name
+    ))
+  end
+  def reboot_relational_database(input : RebootRelationalDatabaseRequest) : RebootRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/RebootRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    RebootRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Registers a container image to your Amazon Lightsail container service.</p>
+  # 
+  # <note>
+  # <p>This action is not required if you install and use the Lightsail Control
+  # (lightsailctl) plugin to push container images to your Lightsail container service. For
+  # more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-pushing-container-images">Pushing and managing container images on your Amazon Lightsail container services</a>
+  # in the <i>Amazon Lightsail Developer Guide</i>.</p>
+  # </note>
+  def register_container_image(service_name : String, label : String, digest : String) : RegisterContainerImageResultStruct
+    register_container_image(RegisterContainerImageRequest.new(
+      service_name: service_name, label: label, digest: digest
+    ))
+  end
+  def register_container_image(input : RegisterContainerImageRequest) : RegisterContainerImageResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}/images"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    RegisterContainerImageResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes a specific static IP from your account.</p>
+  def release_static_ip(static_ip_name : String) : ReleaseStaticIpResultStruct
+    release_static_ip(ReleaseStaticIpRequest.new(
+      static_ip_name: static_ip_name
+    ))
+  end
+  def release_static_ip(input : ReleaseStaticIpRequest) : ReleaseStaticIpResultStruct
+    path = "/ls/api/2016-11-28/ReleaseStaticIp"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    ReleaseStaticIpResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes currently cached content from your Amazon Lightsail content delivery network (CDN)
+  # distribution.</p>
+  # <p>After resetting the cache, the next time a content request is made, your distribution
+  # pulls, serves, and caches it from the origin.</p>
+  def reset_distribution_cache(distribution_name : String? = nil) : ResetDistributionCacheResultStruct
+    reset_distribution_cache(ResetDistributionCacheRequest.new(
+      distribution_name: distribution_name
+    ))
+  end
+  def reset_distribution_cache(input : ResetDistributionCacheRequest) : ResetDistributionCacheResultStruct
+    path = "/ls/api/2016-11-28/ResetDistributionCache"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    ResetDistributionCacheResult.from_response(response)
+  end
+
+
+      
+            # <p>Sends a verification request to an email contact method to ensure it's owned by the
+  # requester. SMS contact methods don't need to be verified.</p>
+  # <p>A contact method is used to send you notifications about your Amazon Lightsail resources.
+  # You can add one email address and one mobile phone number contact method in each Amazon Web Services Region. However, SMS text messaging is not supported in some Amazon Web Services
+  # Regions, and SMS text messages cannot be sent to some countries/regions. For more information,
+  # see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
+  # <p>A verification request is sent to the contact method when you initially create it. Use
+  # this action to send another verification request if a previous verification request was
+  # deleted, or has expired.</p>
+  # <important>
+  # <p>Notifications are not sent to an email contact method until after it is verified, and
+  # confirmed as valid.</p>
+  # </important>
+  def send_contact_method_verification(protocol : String) : SendContactMethodVerificationResultStruct
+    send_contact_method_verification(SendContactMethodVerificationRequest.new(
+      protocol: protocol
+    ))
+  end
+  def send_contact_method_verification(input : SendContactMethodVerificationRequest) : SendContactMethodVerificationResultStruct
+    path = "/ls/api/2016-11-28/SendContactMethodVerification"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    SendContactMethodVerificationResult.from_response(response)
+  end
+
+
+      
+            # <p>Sets the IP address type for an Amazon Lightsail resource.</p>
+  # 
+  # <p>Use this action to enable dual-stack for a resource, which enables IPv4 and IPv6 for the
+  # specified resource. Alternately, you can use this action to disable dual-stack, and enable
+  # IPv4 only.</p>
+  def set_ip_address_type(resource_type : String, resource_name : String, ip_address_type : String) : SetIpAddressTypeResultStruct
+    set_ip_address_type(SetIpAddressTypeRequest.new(
+      resource_type: resource_type, resource_name: resource_name, ip_address_type: ip_address_type
+    ))
+  end
+  def set_ip_address_type(input : SetIpAddressTypeRequest) : SetIpAddressTypeResultStruct
+    path = "/ls/api/2016-11-28/SetIpAddressType"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    SetIpAddressTypeResult.from_response(response)
+  end
+
+
+      
+            # <p>Sets the Amazon Lightsail resources that can access the specified Lightsail
+  # bucket.</p>
+  # 
+  # <p>Lightsail buckets currently support setting access for Lightsail instances in the same
+  # Amazon Web Services Region.</p>
+  def set_resource_access_for_bucket(resource_name : String, bucket_name : String, access : String) : SetResourceAccessForBucketResultStruct
+    set_resource_access_for_bucket(SetResourceAccessForBucketRequest.new(
+      resource_name: resource_name, bucket_name: bucket_name, access: access
+    ))
+  end
+  def set_resource_access_for_bucket(input : SetResourceAccessForBucketRequest) : SetResourceAccessForBucketResultStruct
+    path = "/ls/api/2016-11-28/SetResourceAccessForBucket"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    SetResourceAccessForBucketResult.from_response(response)
+  end
+
+
+      
+            # <p>Starts a specific Amazon Lightsail instance from a stopped state. To restart an instance,
+  # use the <code>reboot instance</code> operation.</p>
+  # <note>
+  # <p>When you start a stopped instance, Lightsail assigns a new public IP address to the
+  # instance. To use the same IP address after stopping and starting an instance, create a
+  # static IP address and attach it to the instance. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-create-static-ip">Amazon Lightsail Developer Guide</a>.</p>
+  # </note>
+  # <p>The <code>start instance</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>instance name</code>. For more information,
+  # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def start_instance(instance_name : String) : StartInstanceResultStruct
+    start_instance(StartInstanceRequest.new(
+      instance_name: instance_name
+    ))
+  end
+  def start_instance(input : StartInstanceRequest) : StartInstanceResultStruct
+    path = "/ls/api/2016-11-28/StartInstance"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    StartInstanceResult.from_response(response)
+  end
+
+
+      
+            # <p>Starts a specific database from a stopped state in Amazon Lightsail. To restart a database,
+  # use the <code>reboot relational database</code> operation.</p>
+  # <p>The <code>start relational database</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by relationalDatabaseName. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def start_relational_database(relational_database_name : String) : StartRelationalDatabaseResultStruct
+    start_relational_database(StartRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name
+    ))
+  end
+  def start_relational_database(input : StartRelationalDatabaseRequest) : StartRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/StartRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    StartRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Stops a specific Amazon Lightsail instance that is currently running.</p>
+  # <note>
+  # <p>When you start a stopped instance, Lightsail assigns a new public IP address to the
+  # instance. To use the same IP address after stopping and starting an instance, create a
+  # static IP address and attach it to the instance. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-create-static-ip">Amazon Lightsail Developer Guide</a>.</p>
+  # </note>
+  # <p>The <code>stop instance</code> operation supports tag-based access control via resource
+  # tags applied to the resource identified by <code>instance name</code>. For more information,
+  # see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def stop_instance(instance_name : String, force : Bool? = nil) : StopInstanceResultStruct
+    stop_instance(StopInstanceRequest.new(
+      instance_name: instance_name, force: force
+    ))
+  end
+  def stop_instance(input : StopInstanceRequest) : StopInstanceResultStruct
+    path = "/ls/api/2016-11-28/StopInstance"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    StopInstanceResult.from_response(response)
+  end
+
+
+      
+            # <p>Stops a specific database that is currently running in Amazon Lightsail.</p>
+  # <p>The <code>stop relational database</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by relationalDatabaseName. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def stop_relational_database(relational_database_name : String, relational_database_snapshot_name : String? = nil) : StopRelationalDatabaseResultStruct
+    stop_relational_database(StopRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name, relational_database_snapshot_name: relational_database_snapshot_name
+    ))
+  end
+  def stop_relational_database(input : StopRelationalDatabaseRequest) : StopRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/StopRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    StopRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Adds one or more tags to the specified Amazon Lightsail resource. Each resource can have a
+  # maximum of 50 tags. Each tag consists of a key and an optional value. Tag keys must be unique
+  # per resource. For more information about tags, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+  # <p>The <code>tag resource</code> operation supports tag-based access control via request tags
+  # and resource tags applied to the resource identified by <code>resource name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def tag_resource(resource_name : String, tags : Array(TagStruct), resource_arn : String? = nil) : TagResourceResultStruct
+    tag_resource(TagResourceRequest.new(
+      resource_name: resource_name, resource_arn: resource_arn, tags: tags
+    ))
+  end
+  def tag_resource(input : TagResourceRequest) : TagResourceResultStruct
+    path = "/ls/api/2016-11-28/TagResource"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    TagResourceResult.from_response(response)
+  end
+
+
+      
+            # <p>Tests an alarm by displaying a banner on the Amazon Lightsail console. If a notification
+  # trigger is configured for the specified alarm, the test also sends a notification to the
+  # notification protocol (<code>Email</code> and/or <code>SMS</code>) configured for the
+  # alarm.</p>
+  # <p>An alarm is used to monitor a single metric for one of your resources. When a metric
+  # condition is met, the alarm can notify you by email, SMS text message, and a banner displayed
+  # on the Amazon Lightsail console. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms">Alarms
+  # in Amazon Lightsail</a>.</p>
+  def test_alarm(alarm_name : String, state : String) : TestAlarmResultStruct
+    test_alarm(TestAlarmRequest.new(
+      alarm_name: alarm_name, state: state
+    ))
+  end
+  def test_alarm(input : TestAlarmRequest) : TestAlarmResultStruct
+    path = "/ls/api/2016-11-28/TestAlarm"
+    request = HTTP::Request.new("GET", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    TestAlarmResult.from_response(response)
+  end
+
+
+      
+            # <p>Unpeers the Lightsail VPC from the user's default VPC.</p>
+  def unpeer_vpc() : UnpeerVpcResultStruct
+    unpeer_vpc(UnpeerVpcRequest.new(
+      
+    ))
+  end
+  def unpeer_vpc(input : UnpeerVpcRequest) : UnpeerVpcResultStruct
+    path = "/ls/api/2016-11-28/UnpeerVpc"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UnpeerVpcResult.from_response(response)
+  end
+
+
+      
+            # <p>Deletes the specified set of tag keys and their values from the specified Amazon Lightsail
+  # resource.</p>
+  # <p>The <code>untag resource</code> operation supports tag-based access control via request
+  # tags and resource tags applied to the resource identified by <code>resource name</code>. For
+  # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def untag_resource(resource_name : String, tag_keys : Array(String), resource_arn : String? = nil) : UntagResourceResultStruct
+    untag_resource(UntagResourceRequest.new(
+      resource_name: resource_name, resource_arn: resource_arn, tag_keys: tag_keys
+    ))
+  end
+  def untag_resource(input : UntagResourceRequest) : UntagResourceResultStruct
+    path = "/ls/api/2016-11-28/UntagResource"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UntagResourceResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates an existing Amazon Lightsail bucket.</p>
+  # 
+  # <p>Use this action to update the configuration of an existing bucket, such as versioning,
+  # public accessibility, and the Amazon Web Services accounts that can access the bucket.</p>
+  def update_bucket(bucket_name : String, access_rules : AccessRulesStruct? = nil, versioning : String? = nil, readonly_access_accounts : Array(String)? = nil, access_log_config : BucketAccessLogConfigStruct? = nil) : UpdateBucketResultStruct
+    update_bucket(UpdateBucketRequest.new(
+      bucket_name: bucket_name, access_rules: access_rules, versioning: versioning, readonly_access_accounts: readonly_access_accounts, access_log_config: access_log_config
+    ))
+  end
+  def update_bucket(input : UpdateBucketRequest) : UpdateBucketResultStruct
+    path = "/ls/api/2016-11-28/UpdateBucket"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateBucketResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates the bundle, or storage plan, of an existing Amazon Lightsail bucket.</p>
+  # 
+  # <p>A bucket bundle specifies the monthly cost, storage space, and data transfer quota for a
+  # bucket. You can update a bucket's bundle only one time within a monthly AWS billing cycle. To
+  # determine if you can update a bucket's bundle, use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBuckets.html">GetBuckets</a> action. The
+  # <code>ableToUpdateBundle</code> parameter in the response will indicate whether you can
+  # currently update a bucket's bundle.</p>
+  # 
+  # <p>Update a bucket's bundle if it's consistently going over its storage space or data
+  # transfer quota, or if a bucket's usage is consistently in the lower range of its storage space
+  # or data transfer quota. Due to the unpredictable usage fluctuations that a bucket might
+  # experience, we strongly recommend that you update a bucket's bundle only as a long-term
+  # strategy, instead of as a short-term, monthly cost-cutting measure. Choose a bucket bundle
+  # that will provide the bucket with ample storage space and data transfer for a long time to
+  # come.</p>
+  def update_bucket_bundle(bucket_name : String, bundle_id : String) : UpdateBucketBundleResultStruct
+    update_bucket_bundle(UpdateBucketBundleRequest.new(
+      bucket_name: bucket_name, bundle_id: bundle_id
+    ))
+  end
+  def update_bucket_bundle(input : UpdateBucketBundleRequest) : UpdateBucketBundleResultStruct
+    path = "/ls/api/2016-11-28/UpdateBucketBundle"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateBucketBundleResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates the configuration of your Amazon Lightsail container service, such as its power,
+  # scale, and public domain names.</p>
+  def update_container_service(service_name : String, power : String? = nil, scale : Int32? = nil, is_disabled : Bool? = nil, public_domain_names : Hash(String, Array(String))? = nil, private_registry_access : PrivateRegistryAccessRequest? = nil) : UpdateContainerServiceResultStruct
+    update_container_service(UpdateContainerServiceRequest.new(
+      service_name: service_name, power: power, scale: scale, is_disabled: is_disabled, public_domain_names: public_domain_names, private_registry_access: private_registry_access
+    ))
+  end
+  def update_container_service(input : UpdateContainerServiceRequest) : UpdateContainerServiceResultStruct
+    path = "/ls/api/2016-11-28/container-services/{serviceName}"
+    if label = input.service_name
+      path = path.gsub("{serviceName}", URI.encode(label))
+    else
+      raise "No value provided for input HTTP label: serviceName"
+    end
+    request = HTTP::Request.new("PATCH", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateContainerServiceResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates an existing Amazon Lightsail content delivery network (CDN) distribution.</p>
+  # <p>Use this action to update the configuration of your existing distribution.</p>
+  def update_distribution(distribution_name : String, origin : InputOriginStruct? = nil, default_cache_behavior : CacheBehaviorStruct? = nil, cache_behavior_settings : CacheSettingsStruct? = nil, cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, is_enabled : Bool? = nil) : UpdateDistributionResultStruct
+    update_distribution(UpdateDistributionRequest.new(
+      distribution_name: distribution_name, origin: origin, default_cache_behavior: default_cache_behavior, cache_behavior_settings: cache_behavior_settings, cache_behaviors: cache_behaviors, is_enabled: is_enabled
+    ))
+  end
+  def update_distribution(input : UpdateDistributionRequest) : UpdateDistributionResultStruct
+    path = "/ls/api/2016-11-28/UpdateDistribution"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateDistributionResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates the bundle of your Amazon Lightsail content delivery network (CDN)
+  # distribution.</p>
+  # <p>A distribution bundle specifies the monthly network transfer quota and monthly cost of
+  # your distribution.</p>
+  # <p>Update your distribution's bundle if your distribution is going over its monthly network
+  # transfer quota and is incurring an overage fee.</p>
+  # <p>You can update your distribution's bundle only one time within your monthly AWS billing
+  # cycle. To determine if you can update your distribution's bundle, use the
+  # <code>GetDistributions</code> action. The <code>ableToUpdateBundle</code> parameter in the
+  # result will indicate whether you can currently update your distribution's bundle.</p>
+  def update_distribution_bundle(distribution_name : String? = nil, bundle_id : String? = nil) : UpdateDistributionBundleResultStruct
+    update_distribution_bundle(UpdateDistributionBundleRequest.new(
+      distribution_name: distribution_name, bundle_id: bundle_id
+    ))
+  end
+  def update_distribution_bundle(input : UpdateDistributionBundleRequest) : UpdateDistributionBundleResultStruct
+    path = "/ls/api/2016-11-28/UpdateDistributionBundle"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateDistributionBundleResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates a domain recordset after it is created.</p>
+  # <p>The <code>update domain entry</code> operation supports tag-based access control via
+  # resource tags applied to the resource identified by <code>domain name</code>. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def update_domain_entry(domain_name : String, domain_entry : DomainEntryStruct) : UpdateDomainEntryResultStruct
+    update_domain_entry(UpdateDomainEntryRequest.new(
+      domain_name: domain_name, domain_entry: domain_entry
+    ))
+  end
+  def update_domain_entry(input : UpdateDomainEntryRequest) : UpdateDomainEntryResultStruct
+    path = "/ls/api/2016-11-28/UpdateDomainEntry"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateDomainEntryResult.from_response(response)
+  end
+
+
+      
+            # <p>Modifies the Amazon Lightsail instance metadata parameters on a running or stopped
+  # instance. When you modify the parameters on a running instance, the <code>GetInstance</code>
+  # or <code>GetInstances</code> API operation initially responds with a state of
+  # <code>pending</code>. After the parameter modifications are successfully applied, the state
+  # changes to <code>applied</code> in subsequent <code>GetInstance</code> or
+  # <code>GetInstances</code> API calls. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-instance-metadata-service">Use IMDSv2 with an Amazon Lightsail instance</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+  def update_instance_metadata_options(instance_name : String, http_tokens : String? = nil, http_endpoint : String? = nil, http_put_response_hop_limit : Int32? = nil, http_protocol_ipv6 : String? = nil) : UpdateInstanceMetadataOptionsResultStruct
+    update_instance_metadata_options(UpdateInstanceMetadataOptionsRequest.new(
+      instance_name: instance_name, http_tokens: http_tokens, http_endpoint: http_endpoint, http_put_response_hop_limit: http_put_response_hop_limit, http_protocol_ipv6: http_protocol_ipv6
+    ))
+  end
+  def update_instance_metadata_options(input : UpdateInstanceMetadataOptionsRequest) : UpdateInstanceMetadataOptionsResultStruct
+    path = "/ls/api/2016-11-28/UpdateInstanceMetadataOptions"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateInstanceMetadataOptionsResult.from_response(response)
+  end
+
+
+      
+            # <p>Updates the specified attribute for a load balancer. You can only update one attribute at
+  # a time.</p>
+  # <p>The <code>update load balancer attribute</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by <code>load balancer
+  # name</code>. For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def update_load_balancer_attribute(load_balancer_name : String, attribute_name : String, attribute_value : String) : UpdateLoadBalancerAttributeResultStruct
+    update_load_balancer_attribute(UpdateLoadBalancerAttributeRequest.new(
+      load_balancer_name: load_balancer_name, attribute_name: attribute_name, attribute_value: attribute_value
+    ))
+  end
+  def update_load_balancer_attribute(input : UpdateLoadBalancerAttributeRequest) : UpdateLoadBalancerAttributeResultStruct
+    path = "/ls/api/2016-11-28/UpdateLoadBalancerAttribute"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateLoadBalancerAttributeResult.from_response(response)
+  end
+
+
+      
+            # <p>Allows the update of one or more attributes of a database in Amazon Lightsail.</p>
+  # <p>Updates are applied immediately, or in cases where the updates could result in an outage,
+  # are applied during the database's predefined maintenance window.</p>
+  # <p>The <code>update relational database</code> operation supports tag-based access control
+  # via resource tags applied to the resource identified by relationalDatabaseName. For more
+  # information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def update_relational_database(relational_database_name : String, master_user_password : String? = nil, rotate_master_user_password : Bool? = nil, preferred_backup_window : String? = nil, preferred_maintenance_window : String? = nil, enable_backup_retention : Bool? = nil, disable_backup_retention : Bool? = nil, publicly_accessible : Bool? = nil, apply_immediately : Bool? = nil, ca_certificate_identifier : String? = nil) : UpdateRelationalDatabaseResultStruct
+    update_relational_database(UpdateRelationalDatabaseRequest.new(
+      relational_database_name: relational_database_name, master_user_password: master_user_password, rotate_master_user_password: rotate_master_user_password, preferred_backup_window: preferred_backup_window, preferred_maintenance_window: preferred_maintenance_window, enable_backup_retention: enable_backup_retention, disable_backup_retention: disable_backup_retention, publicly_accessible: publicly_accessible, apply_immediately: apply_immediately, ca_certificate_identifier: ca_certificate_identifier
+    ))
+  end
+  def update_relational_database(input : UpdateRelationalDatabaseRequest) : UpdateRelationalDatabaseResultStruct
+    path = "/ls/api/2016-11-28/UpdateRelationalDatabase"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateRelationalDatabaseResult.from_response(response)
+  end
+
+
+      
+            # <p>Allows the update of one or more parameters of a database in Amazon Lightsail.</p>
+  # <p>Parameter updates don't cause outages; therefore, their application is not subject to the
+  # preferred maintenance window. However, there are two ways in which parameter updates are
+  # applied: <code>dynamic</code> or <code>pending-reboot</code>. Parameters marked with a
+  # <code>dynamic</code> apply type are applied immediately. Parameters marked with a
+  # <code>pending-reboot</code> apply type are applied only after the database is rebooted using
+  # the <code>reboot relational database</code> operation.</p>
+  # <p>The <code>update relational database parameters</code> operation supports tag-based access
+  # control via resource tags applied to the resource identified by relationalDatabaseName. For
+  # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-controlling-access-using-tags">Amazon Lightsail Developer Guide</a>.</p>
+  def update_relational_database_parameters(relational_database_name : String, parameters : Array(RelationalDatabaseParameterStruct)) : UpdateRelationalDatabaseParametersResultStruct
+    update_relational_database_parameters(UpdateRelationalDatabaseParametersRequest.new(
+      relational_database_name: relational_database_name, parameters: parameters
+    ))
+  end
+  def update_relational_database_parameters(input : UpdateRelationalDatabaseParametersRequest) : UpdateRelationalDatabaseParametersResultStruct
+    path = "/ls/api/2016-11-28/UpdateRelationalDatabaseParameters"
+    request = HTTP::Request.new("POST", path)
+    request = input.process(request)
+    response = send(request, success_code: 200, prefix: ENDPOINT_PREFIX)
+
+    UpdateRelationalDatabaseParametersResult.from_response(response)
+  end
+
+
+      
+    end 
+  end
+
 
   class AllocateStaticIpRequest
     include AWSSdk::JSON1_1::Structure
@@ -2853,7 +3358,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "regionName", structure: false)]
     property region_name : String?
 
-    def initialize(@availability_zone : String = nil, @region_name : String = nil)
+    def initialize(@availability_zone : String? = nil, @region_name : String? = nil)
     end
   end
 
@@ -2873,7 +3378,7 @@ module AmazonLightsail
     # <code>1479816991.349</code>).</p>
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
-    # <p>The AWS Region and Availability Zone.</p>
+    # <p>The Amazon Web Services Region and Availability Zone.</p>
     @[AWSSdk::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>A Boolean value indicating whether the operation is terminal.</p>
@@ -2898,7 +3403,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "errorDetails", structure: false)]
     property error_details : String?
 
-    def initialize(@id : String = nil, @resource_name : String = nil, @resource_type : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @is_terminal : Bool = nil, @operation_details : String = nil, @operation_type : String = nil, @status : String = nil, @status_changed_at : Time = nil, @error_code : String = nil, @error_details : String = nil)
+    def initialize(@id : String? = nil, @resource_name : String? = nil, @resource_type : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @is_terminal : Bool? = nil, @operation_details : String? = nil, @operation_type : String? = nil, @status : String? = nil, @status_changed_at : Time? = nil, @error_code : String? = nil, @error_details : String? = nil)
     end
   end
 
@@ -2907,150 +3412,150 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
   class AccessDeniedException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
   class AccountSetupInProgressException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
   class InvalidInputException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
   class NotFoundException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
   class OperationFailureException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
   class ServiceException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
   class UnauthenticatedException
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "code", structure: false)]
     property code : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "docs", structure: false)]
     property docs : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
-    #
+    # 
     @[AWSSdk::Field(location: :body, name: "tip", structure: false)]
     property tip : String?
 
-    def initialize(@code : String = nil, @docs : String = nil, @message : String = nil, @tip : String = nil)
+    def initialize(@code : String? = nil, @docs : String? = nil, @message : String? = nil, @tip : String? = nil)
     end
   end
 
@@ -3089,7 +3594,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -3115,10 +3620,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3147,10 +3652,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3176,10 +3681,10 @@ module AmazonLightsail
     # request, the timestamp of the request, and the resources affected by the request.</p>
     # <p>These SSL/TLS certificates are only usable by Lightsail load balancers. You can't get
     # the certificate and use it for another purpose.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3202,10 +3707,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3220,9 +3725,15 @@ module AmazonLightsail
     # </p>
     # </li>
     # <li>
-    # <p>ICMP - The ICMP type. For example, specify <code>8</code> as the <code>fromPort</code>
-    # (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP code), to enable ICMP
-    # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # <p>ICMP - The ICMP type for IPv4 addresses. For example, specify <code>8</code> as the
+    # <code>fromPort</code> (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP
+    # code), to enable ICMP Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # </li>
+    # <li>
+    # <p>ICMPv6 - The ICMP type for IPv6 addresses. For example, specify <code>128</code> as
+    # the <code>fromPort</code> (ICMPv6 type), and <code>0</code> as <code>toPort</code> (ICMPv6
+    # code). For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6">Internet
+    # Control Message Protocol for IPv6</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "fromPort", structure: false)]
@@ -3235,9 +3746,15 @@ module AmazonLightsail
     # </p>
     # </li>
     # <li>
-    # <p>ICMP - The ICMP code. For example, specify <code>8</code> as the <code>fromPort</code>
-    # (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP code), to enable ICMP
-    # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # <p>ICMP - The ICMP code for IPv4 addresses. For example, specify <code>8</code> as the
+    # <code>fromPort</code> (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP
+    # code), to enable ICMP Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # </li>
+    # <li>
+    # <p>ICMPv6 - The ICMP code for IPv6 addresses. For example, specify <code>128</code> as
+    # the <code>fromPort</code> (ICMPv6 type), and <code>0</code> as <code>toPort</code> (ICMPv6
+    # code). For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6">Internet
+    # Control Message Protocol for IPv6</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "toPort", structure: false)]
@@ -3279,8 +3796,12 @@ module AmazonLightsail
     # </ul>
     @[AWSSdk::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
-    # <p>The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to
-    # an instance through the ports, and the protocol. Lightsail supports IPv4 addresses.</p>
+    # <p>The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are allowed to
+    # connect to an instance through the ports, and the protocol.</p>
+    # <note>
+    # <p>The <code>ipv6Cidrs</code> parameter lists the IPv6 addresses that are allowed to
+    # connect to an instance.</p>
+    # </note>
     # <p>Examples:</p>
     # <ul>
     # <li>
@@ -3296,6 +3817,17 @@ module AmazonLightsail
     # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
     @[AWSSdk::Field(location: :body, name: "cidrs", structure: false)]
     property cidrs : Array(String)?
+    # <p>The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are allowed to
+    # connect to an instance through the ports, and the protocol. Only devices with an IPv6 address
+    # can connect to an instance through IPv6; otherwise, IPv4 should be used.</p>
+    # <note>
+    # <p>The <code>cidrs</code> parameter lists the IPv4 addresses that are allowed to connect to
+    # an instance.</p>
+    # </note>
+    # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
+    # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipv6Cidrs", structure: false)]
+    property ipv6_cidrs : Array(String)?
     # <p>An alias that defines access for a preconfigured range of IP addresses.</p>
     # <p>The only alias currently supported is <code>lightsail-connect</code>, which allows IP
     # addresses of the browser-based RDP/SSH client in the Lightsail console to connect to your
@@ -3303,7 +3835,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cidrListAliases", structure: false)]
     property cidr_list_aliases : Array(String)?
 
-    def initialize(@from_port : Int32 = nil, @to_port : Int32 = nil, @protocol : String = nil, @cidrs : Array(String) = nil, @cidr_list_aliases : Array(String) = nil)
+    def initialize(@from_port : Int32? = nil, @to_port : Int32? = nil, @protocol : String? = nil, @cidrs : Array(String)? = nil, @ipv6_cidrs : Array(String)? = nil, @cidr_list_aliases : Array(String)? = nil)
     end
   end
 
@@ -3329,7 +3861,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -3352,7 +3884,7 @@ module AmazonLightsail
     # <ul>
     # <li>
     # <p>Define this parameter only when copying an automatic snapshot as a manual snapshot.
-    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "sourceResourceName", structure: false)]
@@ -3371,7 +3903,7 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when copying an automatic snapshot as a manual snapshot.
-    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "restoreDate", structure: false)]
@@ -3387,7 +3919,7 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when copying an automatic snapshot as a manual snapshot.
-    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-keeping-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "useLatestRestorableAutoSnapshot", structure: false)]
@@ -3395,11 +3927,12 @@ module AmazonLightsail
     # <p>The name of the new manual snapshot to be created as a copy.</p>
     @[AWSSdk::Field(location: :body, name: "targetSnapshotName", structure: false)]
     property target_snapshot_name : String
-    # <p>The AWS Region where the source manual or automatic snapshot is located.</p>
+    # <p>The Amazon Web Services Region where the source manual or automatic snapshot is
+    # located.</p>
     @[AWSSdk::Field(location: :body, name: "sourceRegion", structure: false)]
     property source_region : String
 
-    def initialize(@target_snapshot_name : String, @source_region : String, @source_snapshot_name : String = nil, @source_resource_name : String = nil, @restore_date : String = nil, @use_latest_restorable_auto_snapshot : Bool = nil)
+    def initialize(@target_snapshot_name : String, @source_region : String, @source_snapshot_name : String? = nil, @source_resource_name : String? = nil, @restore_date : String? = nil, @use_latest_restorable_auto_snapshot : Bool? = nil)
     end
   end
 
@@ -3408,10 +3941,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3429,7 +3962,358 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "value", structure: false)]
     property value : String?
 
-    def initialize(@key : String = nil, @value : String = nil)
+    def initialize(@key : String? = nil, @value : String? = nil)
+    end
+  end
+
+  class CreateBucketRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name for the bucket.</p>
+    # 
+    # <p>For more information about bucket names, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/bucket-naming-rules-in-amazon-lightsail">Bucket naming rules in Amazon Lightsail</a> in the <i>Amazon Lightsail Developer
+    # Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>The ID of the bundle to use for the bucket.</p>
+    # 
+    # <p>A bucket bundle specifies the monthly cost, storage space, and data transfer quota for a
+    # bucket.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketBundles.html">GetBucketBundles</a> action to get a list of
+    # bundle IDs that you can specify.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html">UpdateBucketBundle</a> action to change the
+    # bundle after the bucket is created.</p>
+    @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
+    property bundle_id : String
+    # <p>The tag keys and optional values to add to the bucket during creation.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_TagResource.html">TagResource</a> action to tag the bucket after it's
+    # created.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
+    property tags : Array(TagStruct)?
+    # <p>A Boolean value that indicates whether to enable versioning of objects in the
+    # bucket.</p>
+    # 
+    # <p>For more information about versioning, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-managing-bucket-object-versioning">Enabling and suspending object versioning in a bucket in Amazon Lightsail</a> in the
+    # <i>Amazon Lightsail Developer Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "enableObjectVersioning", structure: false)]
+    property enable_object_versioning : Bool?
+
+    def initialize(@bucket_name : String, @bundle_id : String, @tags : Array(TagStruct)? = nil, @enable_object_versioning : Bool? = nil)
+    end
+  end
+
+  class AccessRulesStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>Specifies the anonymous access to all objects in a bucket.</p>
+    # 
+    # <p>The following options can be specified:</p>
+    # 
+    # <ul>
+    # <li>
+    # <p>
+    # <code>public</code> - Sets all objects in the bucket to public (read-only), making
+    # them readable by anyone in the world.</p>
+    # 
+    # 
+    # <p>If the <code>getObject</code> value is set to <code>public</code>, then all objects in
+    # the bucket default to public regardless of the <code>allowPublicOverrides</code>
+    # value.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>private</code> - Sets all objects in the bucket to private, making them readable
+    # only by you or anyone you give access to.</p>
+    # 
+    # 
+    # <p>If the <code>getObject</code> value is set to <code>private</code>, and the
+    # <code>allowPublicOverrides</code> value is set to <code>true</code>, then all objects in
+    # the bucket default to private unless they are configured with a <code>public-read</code>
+    # ACL. Individual objects with a <code>public-read</code> ACL are readable by anyone in the
+    # world.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "getObject", structure: false)]
+    property get_object : String?
+    # <p>A Boolean value that indicates whether the access control list (ACL) permissions that are
+    # applied to individual objects override the <code>getObject</code> option that is currently
+    # specified.</p>
+    # 
+    # <p>When this is true, you can use the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectAcl.html">PutObjectAcl</a> Amazon S3 API action to set
+    # individual objects to public (read-only) using the <code>public-read</code> ACL, or to private
+    # using the <code>private</code> ACL.</p>
+    @[AWSSdk::Field(location: :body, name: "allowPublicOverrides", structure: false)]
+    property allow_public_overrides : Bool?
+
+    def initialize(@get_object : String? = nil, @allow_public_overrides : Bool? = nil)
+    end
+  end
+
+  class ResourceReceivingAccessStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the Lightsail instance.</p>
+    @[AWSSdk::Field(location: :body, name: "name", structure: false)]
+    property name : String?
+    # <p>The Lightsail resource type (for example, <code>Instance</code>).</p>
+    @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
+    property resource_type : String?
+
+    def initialize(@name : String? = nil, @resource_type : String? = nil)
+    end
+  end
+
+  class BucketStateStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The state code of the bucket.</p>
+    # 
+    # <p>The following codes are possible:</p>
+    # 
+    # <ul>
+    # <li>
+    # <p>
+    # <code>OK</code> - The bucket is in a running state.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Unknown</code> - Creation of the bucket might have timed-out. You might want to
+    # delete the bucket and create a new one.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "code", structure: false)]
+    property code : String?
+    # <p>A message that describes the state of the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "message", structure: false)]
+    property message : String?
+
+    def initialize(@code : String? = nil, @message : String? = nil)
+    end
+  end
+
+  class BucketAccessLogConfigStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>A Boolean value that indicates whether bucket access logging is enabled for the
+    # bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "enabled", structure: false)]
+    property enabled : Bool
+    # <p>The name of the bucket where the access logs are saved. The destination can be a
+    # Lightsail bucket in the same account, and in the same Amazon Web Services Region as the
+    # source bucket.</p>
+    # <note>
+    # <p>This parameter is required when enabling the access log for a bucket, and should be
+    # omitted when disabling the access log.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "destination", structure: false)]
+    property destination : String?
+    # <p>The optional object prefix for the bucket access log.</p>
+    # <p>The prefix is an optional addition to the object key that organizes your access log files
+    # in the destination bucket. For example, if you specify a <code>logs/</code> prefix, then each
+    # log object will begin with the <code>logs/</code> prefix in its key (for example,
+    # <code>logs/2021-11-01-21-32-16-E568B2907131C0C0</code>).</p>
+    # <note>
+    # <p>This parameter can be optionally specified when enabling the access log for a bucket,
+    # and should be omitted when disabling the access log.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "prefix", structure: false)]
+    property prefix : String?
+
+    def initialize(@enabled : Bool, @destination : String? = nil, @prefix : String? = nil)
+    end
+  end
+
+  class BucketStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The Lightsail resource type of the bucket (for example, <code>Bucket</code>).</p>
+    @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
+    property resource_type : String?
+    # <p>An object that describes the access rules of the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "accessRules", structure: true)]
+    property access_rules : AccessRulesStruct?
+    # <p>The Amazon Resource Name (ARN) of the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "arn", structure: false)]
+    property arn : String?
+    # <p>The ID of the bundle currently applied to the bucket.</p>
+    # 
+    # <p>A bucket bundle specifies the monthly cost, storage space, and data transfer quota for a
+    # bucket.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html">UpdateBucketBundle</a> action to change the
+    # bundle of a bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
+    property bundle_id : String?
+    # <p>The timestamp when the distribution was created.</p>
+    @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
+    property created_at : Time?
+    # <p>The URL of the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "url", structure: false)]
+    property url : String?
+    # <p>An object that describes the location of the bucket, such as the Amazon Web Services Region
+    # and Availability Zone.</p>
+    @[AWSSdk::Field(location: :body, name: "location", structure: true)]
+    property location : ResourceLocationStruct?
+    # <p>The name of the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "name", structure: false)]
+    property name : String?
+    # <p>The support code for a bucket. Include this code in your email to support when you have
+    # questions about a Lightsail bucket. This code enables our support team to look up your
+    # Lightsail information more easily.</p>
+    @[AWSSdk::Field(location: :body, name: "supportCode", structure: false)]
+    property support_code : String?
+    # <p>The tag keys and optional values for the bucket. For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Tags in
+    # Amazon Lightsail</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
+    property tags : Array(TagStruct)?
+    # <p>Indicates whether object versioning is enabled for the bucket.</p>
+    # 
+    # <p>The following options can be configured:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>Enabled</code> - Object versioning is enabled.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Suspended</code> - Object versioning was previously enabled but is currently
+    # suspended. Existing object versions are retained.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>NeverEnabled</code> - Object versioning has never been enabled.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "objectVersioning", structure: false)]
+    property object_versioning : String?
+    # <p>Indicates whether the bundle that is currently applied to a bucket can be changed to
+    # another bundle.</p>
+    # 
+    # <p>You can update a bucket's bundle only one time within a monthly Amazon Web Services billing
+    # cycle.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html">UpdateBucketBundle</a> action to change a
+    # bucket's bundle.</p>
+    @[AWSSdk::Field(location: :body, name: "ableToUpdateBundle", structure: false)]
+    property able_to_update_bundle : Bool?
+    # <p>An array of strings that specify the Amazon Web Services account IDs that have read-only
+    # access to the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "readonlyAccessAccounts", structure: false)]
+    property readonly_access_accounts : Array(String)?
+    # <p>An array of objects that describe Lightsail instances that have access to the
+    # bucket.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_SetResourceAccessForBucket.html">SetResourceAccessForBucket</a>
+    # action to update the instances that have access to a bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "resourcesReceivingAccess", structure: true)]
+    property resources_receiving_access : Array(ResourceReceivingAccessStruct)?
+    # <p>An object that describes the state of the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "state", structure: true)]
+    property state : BucketStateStruct?
+    # <p>An object that describes the access log configuration for the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "accessLogConfig", structure: true)]
+    property access_log_config : BucketAccessLogConfigStruct?
+
+    def initialize(@resource_type : String? = nil, @access_rules : AccessRulesStruct? = nil, @arn : String? = nil, @bundle_id : String? = nil, @created_at : Time? = nil, @url : String? = nil, @location : ResourceLocationStruct? = nil, @name : String? = nil, @support_code : String? = nil, @tags : Array(TagStruct)? = nil, @object_versioning : String? = nil, @able_to_update_bundle : Bool? = nil, @readonly_access_accounts : Array(String)? = nil, @resources_receiving_access : Array(ResourceReceivingAccessStruct)? = nil, @state : BucketStateStruct? = nil, @access_log_config : BucketAccessLogConfigStruct? = nil)
+    end
+  end
+
+  class CreateBucketResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object that describes the bucket that is created.</p>
+    @[AWSSdk::Field(location: :body, name: "bucket", structure: true)]
+    property bucket : BucketStruct?
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@bucket : BucketStruct? = nil, @operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class CreateBucketAccessKeyRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket that the new access key will belong to, and grant access to.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+
+    def initialize(@bucket_name : String)
+    end
+  end
+
+  class AccessKeyLastUsedStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The date and time when the access key was most recently used.</p>
+    # <p>This value is null if the access key has not been used.</p>
+    @[AWSSdk::Field(location: :body, name: "lastUsedDate", structure: false)]
+    property last_used_date : Time?
+    # <p>The AWS Region where this access key was most recently used.</p>
+    # <p>This value is <code>N/A</code> if the access key has not been used.</p>
+    @[AWSSdk::Field(location: :body, name: "region", structure: false)]
+    property region : String?
+    # <p>The name of the AWS service with which this access key was most recently used.</p>
+    # <p>This value is <code>N/A</code> if the access key has not been used.</p>
+    @[AWSSdk::Field(location: :body, name: "serviceName", structure: false)]
+    property service_name : String?
+
+    def initialize(@last_used_date : Time? = nil, @region : String? = nil, @service_name : String? = nil)
+    end
+  end
+
+  class AccessKeyStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The ID of the access key.</p>
+    @[AWSSdk::Field(location: :body, name: "accessKeyId", structure: false)]
+    property access_key_id : String?
+    # <p>The secret access key used to sign requests.</p>
+    # 
+    # <p>You should store the secret access key in a safe location. We recommend that you delete
+    # the access key if the secret access key is compromised.</p>
+    @[AWSSdk::Field(location: :body, name: "secretAccessKey", structure: false)]
+    property secret_access_key : String?
+    # <p>The status of the access key.</p>
+    # 
+    # <p>A status of <code>Active</code> means that the key is valid, while <code>Inactive</code>
+    # means it is not.</p>
+    @[AWSSdk::Field(location: :body, name: "status", structure: false)]
+    property status : String?
+    # <p>The timestamp when the access key was created.</p>
+    @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
+    property created_at : Time?
+    # <p>An object that describes the last time the access key was used.</p>
+    # 
+    # <note>
+    # <p>This object does not include data in the response of a <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateBucketAccessKey.html">CreateBucketAccessKey</a> action. If the access key has not been used, the
+    # <code>region</code> and <code>serviceName</code> values are <code>N/A</code>, and the
+    # <code>lastUsedDate</code> value is null.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "lastUsed", structure: true)]
+    property last_used : AccessKeyLastUsedStruct?
+
+    def initialize(@access_key_id : String? = nil, @secret_access_key : String? = nil, @status : String? = nil, @created_at : Time? = nil, @last_used : AccessKeyLastUsedStruct? = nil)
+    end
+  end
+
+  class CreateBucketAccessKeyResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object that describes the access key that is created.</p>
+    @[AWSSdk::Field(location: :body, name: "accessKey", structure: true)]
+    property access_key : AccessKeyStruct?
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@access_key : AccessKeyStruct? = nil, @operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3451,10 +4335,10 @@ module AmazonLightsail
     property subject_alternative_names : Array(String)?
     # <p>The tag keys and optional values to add to the certificate during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@certificate_name : String, @domain_name : String, @subject_alternative_names : Array(String) = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@certificate_name : String, @domain_name : String, @subject_alternative_names : Array(String)? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -3471,7 +4355,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "value", structure: false)]
     property value : String?
 
-    def initialize(@name : String = nil, @type : String = nil, @value : String = nil)
+    def initialize(@name : String? = nil, @type : String? = nil, @value : String? = nil)
     end
   end
 
@@ -3487,7 +4371,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceRecord", structure: true)]
     property resource_record : ResourceRecordStruct?
 
-    def initialize(@domain_name : String = nil, @resource_record : ResourceRecordStruct = nil)
+    def initialize(@domain_name : String? = nil, @resource_record : ResourceRecordStruct? = nil)
     end
   end
 
@@ -3495,7 +4379,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe the domain validation records of the certificate.</p>
-    @[AWSSdk::Field(location: :body, name: "domainValidationRecords", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "domainValidationRecords", structure: true)]
     property domain_validation_records : Array(DomainValidationRecordStruct)?
     # <p>The renewal status of the certificate.</p>
     # <p>The following renewal status are possible:</p>
@@ -3545,7 +4429,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "updatedAt", structure: false)]
     property updated_at : Time?
 
-    def initialize(@domain_validation_records : Array(DomainValidationRecordStruct) = nil, @renewal_status : String = nil, @renewal_status_reason : String = nil, @updated_at : Time = nil)
+    def initialize(@domain_validation_records : Array(DomainValidationRecordStruct)? = nil, @renewal_status : String? = nil, @renewal_status_reason : String? = nil, @updated_at : Time? = nil)
     end
   end
 
@@ -3572,7 +4456,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "subjectAlternativeNames", structure: false)]
     property subject_alternative_names : Array(String)?
     # <p>An array of objects that describe the domain validation records of the certificate.</p>
-    @[AWSSdk::Field(location: :body, name: "domainValidationRecords", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "domainValidationRecords", structure: true)]
     property domain_validation_records : Array(DomainValidationRecordStruct)?
     # <p>The validation failure reason, if any, of the certificate.</p>
     # <p>The following failure reasons are possible:</p>
@@ -3605,8 +4489,8 @@ module AmazonLightsail
     # </b> - One or more of the
     # domain names in the certificate request was reported as an unsafe domain by <a href="https://www.virustotal.com/gui/home/url">VirusTotal</a>. To correct the
     # problem, search for your domain name on the <a href="https://www.virustotal.com/gui/home/url">VirusTotal</a> website. If your domain
-    # is reported as suspicious, see <a href="https://www.google.com/webmasters/hacked/?hl=en">Google Help for Hacked
-    # Websites</a> to learn what you can do.</p>
+    # is reported as suspicious, see <a href="https://developers.google.com/web/fundamentals/security/hacked">Google Help for
+    # Hacked Websites</a> to learn what you can do.</p>
     # <p>If you believe that the result is a false positive, notify the organization that is
     # reporting the domain. VirusTotal is an aggregate of several antivirus and URL scanners and
     # cannot remove your domain from a block list itself. After you correct the problem and the
@@ -3677,9 +4561,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "revocationReason", structure: false)]
     property revocation_reason : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The support code. Include this code in your email to support when you have questions about
     # your Lightsail certificate. This code enables our support team to look up your Lightsail
@@ -3687,7 +4570,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
 
-    def initialize(@arn : String = nil, @tags : Array(TagStruct) = nil, @revocation_reason : String = nil, @revoked_at : Time = nil, @renewal_summary : RenewalSummaryStruct = nil, @eligible_to_renew : String = nil, @not_after : Time = nil, @not_before : Time = nil, @issuer_ca : String = nil, @issued_at : Time = nil, @created_at : Time = nil, @key_algorithm : String = nil, @in_use_resource_count : Int32 = nil, @request_failure_reason : String = nil, @domain_validation_records : Array(DomainValidationRecordStruct) = nil, @subject_alternative_names : Array(String) = nil, @serial_number : String = nil, @status : String = nil, @domain_name : String = nil, @name : String = nil, @support_code : String = nil)
+    def initialize(@arn : String? = nil, @name : String? = nil, @domain_name : String? = nil, @status : String? = nil, @serial_number : String? = nil, @subject_alternative_names : Array(String)? = nil, @domain_validation_records : Array(DomainValidationRecordStruct)? = nil, @request_failure_reason : String? = nil, @in_use_resource_count : Int32? = nil, @key_algorithm : String? = nil, @created_at : Time? = nil, @issued_at : Time? = nil, @issuer_ca : String? = nil, @not_before : Time? = nil, @not_after : Time? = nil, @eligible_to_renew : String? = nil, @renewal_summary : RenewalSummaryStruct? = nil, @revoked_at : Time? = nil, @revocation_reason : String? = nil, @tags : Array(TagStruct)? = nil, @support_code : String? = nil)
     end
   end
 
@@ -3707,12 +4590,11 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "certificateDetail", structure: true)]
     property certificate_detail : CertificateStruct?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@certificate_arn : String = nil, @certificate_name : String = nil, @domain_name : String = nil, @certificate_detail : CertificateStruct = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@certificate_arn : String? = nil, @certificate_name : String? = nil, @domain_name : String? = nil, @certificate_detail : CertificateStruct? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -3724,10 +4606,10 @@ module AmazonLightsail
     property certificate : CertificateSummaryStruct?
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@certificate : CertificateSummaryStruct = nil, @operations : Array(OperationStruct) = nil)
+    def initialize(@certificate : CertificateSummaryStruct? = nil, @operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3744,25 +4626,34 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "instanceType", structure: false)]
     property instance_type : String
     # <p>The port configuration to use for the new Amazon EC2 instance.</p>
+    # 
     # <p>The following configuration options are available:</p>
     # <ul>
     # <li>
     # <p>
     # <code>DEFAULT</code> - Use the default firewall settings from the Lightsail instance
-    # blueprint.</p>
+    # blueprint. If this is specified, then IPv4 and IPv6 will be configured for the new
+    # instance that is created in Amazon EC2.</p>
     # </li>
     # <li>
     # <p>
     # <code>INSTANCE</code> - Use the configured firewall settings from the source
-    # Lightsail instance.</p>
+    # Lightsail instance. If this is specified, the new instance that is created in Amazon EC2 will
+    # be configured to match the configuration of the source Lightsail instance. For example,
+    # if the source instance is configured for dual-stack (IPv4 and IPv6), then IPv4 and IPv6
+    # will be configured for the new instance that is created in Amazon EC2. If the source instance
+    # is configured for IPv4 only, then only IPv4 will be configured for the new instance that
+    # is created in Amazon EC2.</p>
     # </li>
     # <li>
     # <p>
-    # <code>NONE</code> - Use the default Amazon EC2 security group.</p>
+    # <code>NONE</code> - Use the default Amazon EC2 security group. If this is specified, then
+    # only IPv4 will be configured for the new instance that is created in Amazon EC2.</p>
     # </li>
     # <li>
     # <p>
-    # <code>CLOSED</code> - All ports closed.</p>
+    # <code>CLOSED</code> - All ports closed. If this is specified, then only IPv4 will be
+    # configured for the new instance that is created in Amazon EC2.</p>
     # </li>
     # </ul>
     # <note>
@@ -3786,7 +4677,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "availabilityZone", structure: false)]
     property availability_zone : String
 
-    def initialize(@source_name : String, @instance_type : String, @port_info_source : String, @availability_zone : String, @user_data : String = nil)
+    def initialize(@source_name : String, @instance_type : String, @port_info_source : String, @availability_zone : String, @user_data : String? = nil)
     end
   end
 
@@ -3796,7 +4687,7 @@ module AmazonLightsail
     # <p>An array of parameters that will be used to create the new Amazon EC2 instance. You can only
     # pass one instance entry at a time in this array. You will get an invalid parameter error if
     # you pass more than one instance entry in this array.</p>
-    @[AWSSdk::Field(location: :body, name: "instances", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "instances", structure: true)]
     property instances : Array(InstanceEntryStruct)
 
     def initialize(@instances : Array(InstanceEntryStruct))
@@ -3808,10 +4699,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3820,7 +4711,8 @@ module AmazonLightsail
 
     # <p>The protocol of the contact method, such as <code>Email</code> or <code>SMS</code> (text
     # messaging).</p>
-    # <p>The <code>SMS</code> protocol is supported only in the following AWS Regions.</p>
+    # <p>The <code>SMS</code> protocol is supported only in the following Amazon Web Services
+    # Regions.</p>
     # <ul>
     # <li>
     # <p>US East (N. Virginia) (<code>us-east-1</code>)</p>
@@ -3841,8 +4733,8 @@ module AmazonLightsail
     # <p>Asia Pacific (Sydney) (<code>ap-southeast-2</code>)</p>
     # </li>
     # </ul>
-    # <p>For a list of countries/regions where SMS text messages can be sent, and the latest AWS
-    # Regions where SMS text messaging is supported, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html">Supported Regions and Countries</a> in the <i>Amazon SNS Developer
+    # <p>For a list of countries/regions where SMS text messages can be sent, and the latest
+    # Amazon Web Services Regions where SMS text messaging is supported, see <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html">Supported Regions and Countries</a> in the <i>Amazon SNS Developer
     # Guide</i>.</p>
     # <p>For more information about notifications in Amazon Lightsail, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications">Notifications in Amazon Lightsail</a>.</p>
     @[AWSSdk::Field(location: :body, name: "protocol", structure: false)]
@@ -3866,10 +4758,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -3877,12 +4769,19 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>The name of the image used for the container.</p>
-    #
+    # 
     # <p>Container images sourced from your Lightsail container service, that are registered and
-    # stored on your service, start with a colon (<code>:</code>). For example,
-    # <code>:container-service-1.mystaticwebsite.1</code>. Container images sourced from a public
-    # registry like Docker Hub don't start with a colon. For example, <code>nginx:latest</code> or
-    # <code>nginx</code>.</p>
+    # stored on your service, start with a colon (<code>:</code>). For example, if your container
+    # service name is <code>container-service-1</code>, the container image label is
+    # <code>mystaticsite</code>, and you want to use the third (<code>3</code>) version of the
+    # registered container image, then you should specify
+    # <code>:container-service-1.mystaticsite.3</code>. To use the latest version of a container
+    # image, specify <code>latest</code> instead of a version number (for example,
+    # <code>:container-service-1.mystaticsite.latest</code>). Lightsail will automatically use
+    # the highest numbered version of the registered container image.</p>
+    # 
+    # <p>Container images sourced from a public registry like Docker Hub don't start with a colon.
+    # For example, <code>nginx:latest</code> or <code>nginx</code>.</p>
     @[AWSSdk::Field(location: :body, name: "image", structure: false)]
     property image : String?
     # <p>The launch command for the container.</p>
@@ -3895,7 +4794,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "ports", structure: false)]
     property ports : Hash(String, String)?
 
-    def initialize(@image : String = nil, @command : Array(String) = nil, @environment : Hash(String, String) = nil, @ports : Hash(String, String) = nil)
+    def initialize(@image : String? = nil, @command : Array(String)? = nil, @environment : Hash(String, String)? = nil, @ports : Hash(String, String)? = nil)
     end
   end
 
@@ -3903,30 +4802,33 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>The number of consecutive health checks successes required before moving the container to
-    # the <code>Healthy</code> state.</p>
+    # the <code>Healthy</code> state. The default value is <code>2</code>.</p>
     @[AWSSdk::Field(location: :body, name: "healthyThreshold", structure: false)]
     property healthy_threshold : Int32?
     # <p>The number of consecutive health check failures required before moving the container to
-    # the <code>Unhealthy</code> state.</p>
+    # the <code>Unhealthy</code> state. The default value is <code>2</code>.</p>
     @[AWSSdk::Field(location: :body, name: "unhealthyThreshold", structure: false)]
     property unhealthy_threshold : Int32?
     # <p>The amount of time, in seconds, during which no response means a failed health check. You
-    # may specify between 2 and 60 seconds.</p>
+    # can specify between 2 and 60 seconds. The default value is <code>2</code>.</p>
     @[AWSSdk::Field(location: :body, name: "timeoutSeconds", structure: false)]
     property timeout_seconds : Int32?
     # <p>The approximate interval, in seconds, between health checks of an individual container.
-    # You may specify between 5 and 300 seconds.</p>
+    # You can specify between 5 and 300 seconds. The default value is <code>5</code>.</p>
     @[AWSSdk::Field(location: :body, name: "intervalSeconds", structure: false)]
     property interval_seconds : Int32?
-    # <p>The path on the container on which to perform the health check.</p>
+    # <p>The path on the container on which to perform the health check. The default value is
+    # <code>/</code>.</p>
     @[AWSSdk::Field(location: :body, name: "path", structure: false)]
     property path : String?
     # <p>The HTTP codes to use when checking for a successful response from a container. You can
-    # specify values between 200 and 499.</p>
+    # specify values between <code>200</code> and <code>499</code>. You can specify multiple values
+    # (for example, <code>200,202</code>) or a range of values (for example,
+    # <code>200-299</code>).</p>
     @[AWSSdk::Field(location: :body, name: "successCodes", structure: false)]
     property success_codes : String?
 
-    def initialize(@healthy_threshold : Int32 = nil, @unhealthy_threshold : Int32 = nil, @timeout_seconds : Int32 = nil, @interval_seconds : Int32 = nil, @path : String = nil, @success_codes : String = nil)
+    def initialize(@healthy_threshold : Int32? = nil, @unhealthy_threshold : Int32? = nil, @timeout_seconds : Int32? = nil, @interval_seconds : Int32? = nil, @path : String? = nil, @success_codes : String? = nil)
     end
   end
 
@@ -3943,7 +4845,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "healthCheck", structure: true)]
     property health_check : ContainerServiceHealthCheckConfigStruct?
 
-    def initialize(@container_name : String, @container_port : Int32, @health_check : ContainerServiceHealthCheckConfigStruct = nil)
+    def initialize(@container_name : String, @container_port : Int32, @health_check : ContainerServiceHealthCheckConfigStruct? = nil)
     end
   end
 
@@ -3957,7 +4859,31 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "publicEndpoint", structure: true)]
     property public_endpoint : EndpointRequest?
 
-    def initialize(@containers : Hash(String, ContainerStruct) = nil, @public_endpoint : EndpointRequest = nil)
+    def initialize(@containers : Hash(String, ContainerStruct)? = nil, @public_endpoint : EndpointRequest? = nil)
+    end
+  end
+
+  class ContainerServiceECRImagePullerRoleRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>A Boolean value that indicates whether to activate the role.</p>
+    @[AWSSdk::Field(location: :body, name: "isActive", structure: false)]
+    property is_active : Bool?
+
+    def initialize(@is_active : Bool? = nil)
+    end
+  end
+
+  class PrivateRegistryAccessRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object to describe a request to activate or deactivate the role that you can use to
+    # grant an Amazon Lightsail container service access to Amazon Elastic Container Registry
+    # (Amazon ECR) private repositories.</p>
+    @[AWSSdk::Field(location: :body, name: "ecrImagePullerRole", structure: true)]
+    property ecr_image_puller_role : ContainerServiceECRImagePullerRoleRequest?
+
+    def initialize(@ecr_image_puller_role : ContainerServiceECRImagePullerRoleRequest? = nil)
     end
   end
 
@@ -3965,7 +4891,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>The name for the container service.</p>
-    #
+    # 
     # <p>The name that you specify for your container service will make up part of its default
     # domain. The default domain of a container service is typically
     # <code>https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com</code>.
@@ -3974,12 +4900,13 @@ module AmazonLightsail
     # service will be like the following example:
     # <code>https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com</code>
     # </p>
-    #
+    # 
     # <p>The following are the requirements for container service names:</p>
-    #
+    # 
     # <ul>
     # <li>
-    # <p>Must be unique within each AWS Region in your Lightsail account.</p>
+    # <p>Must be unique within each Amazon Web Services Region in your Lightsail
+    # account.</p>
     # </li>
     # <li>
     # <p>Must contain 1 to 63 characters.</p>
@@ -3994,19 +4921,19 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The power specification for the container service.</p>
-    #
+    # 
     # <p>The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the
     # container service. The <code>power</code> and <code>scale</code> of a container service makes
     # up its configured capacity. To determine the monthly price of your container service, multiply
     # the base price of the <code>power</code> with the <code>scale</code> (the number of nodes) of
     # the service.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerServicePowers</code> action to get a list of power options that
     # you can specify using this parameter, and their base monthly cost.</p>
     @[AWSSdk::Field(location: :body, name: "power", structure: false)]
     property power : String
     # <p>The scale specification for the container service.</p>
-    #
+    # 
     # <p>The scale specifies the allocated compute nodes of the container service. The
     # <code>power</code> and <code>scale</code> of a container service makes up its configured
     # capacity. To determine the monthly price of your container service, multiply the base price of
@@ -4014,34 +4941,33 @@ module AmazonLightsail
     # service.</p>
     @[AWSSdk::Field(location: :body, name: "scale", structure: false)]
     property scale : Int32
-    # <p>The tag keys and optional values for the container service.</p>
-    #
-    # <p>For more information about tags in Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # <p>The tag keys and optional values to add to the container service during create.</p>
+    # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
+    # <p>For more information about tags in Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The public domain names to use with the container service, such as
     # <code>example.com</code> and <code>www.example.com</code>.</p>
-    #
+    # 
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    #
+    # 
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    #
+    # 
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    #
+    # 
     # <p>You can specify public domain names using a string to array map as shown in the example
     # later on this page.</p>
     @[AWSSdk::Field(location: :body, name: "publicDomainNames", structure: false)]
     property public_domain_names : Hash(String, Array(String))?
     # <p>An object that describes a deployment for the container service.</p>
-    #
+    # 
     # <p>A deployment specifies the containers that will be launched on the container service and
     # their settings, such as the ports to open, the environment variables to apply, and the launch
     # command to run. It also specifies the container that will serve as the public endpoint of the
@@ -4049,8 +4975,93 @@ module AmazonLightsail
     # configuration.</p>
     @[AWSSdk::Field(location: :body, name: "deployment", structure: true)]
     property deployment : ContainerServiceDeploymentRequest?
+    # <p>An object to describe the configuration for the container service to access private
+    # container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private
+    # repositories.</p>
+    # 
+    # <p>For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access">Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "privateRegistryAccess", structure: true)]
+    property private_registry_access : PrivateRegistryAccessRequest?
 
-    def initialize(@service_name : String, @power : String, @scale : Int32, @tags : Array(TagStruct) = nil, @public_domain_names : Hash(String, Array(String)) = nil, @deployment : ContainerServiceDeploymentRequest = nil)
+    def initialize(@service_name : String, @power : String, @scale : Int32, @tags : Array(TagStruct)? = nil, @public_domain_names : Hash(String, Array(String))? = nil, @deployment : ContainerServiceDeploymentRequest? = nil, @private_registry_access : PrivateRegistryAccessRequest? = nil)
+    end
+  end
+
+  class ContainerServiceStateDetailStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The state code of the container service.</p>
+    # <p>The following state codes are possible:</p>
+    # <ul>
+    # <li>
+    # <p>The following state codes are possible if your container service is in a
+    # <code>DEPLOYING</code> or <code>UPDATING</code> state:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>CREATING_SYSTEM_RESOURCES</code> - The system resources for your container
+    # service are being created.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>CREATING_NETWORK_INFRASTRUCTURE</code> - The network infrastructure for your
+    # container service are being created.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>PROVISIONING_CERTIFICATE</code> - The SSL/TLS certificate for your container
+    # service is being created.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>PROVISIONING_SERVICE</code> - Your container service is being
+    # provisioned.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>CREATING_DEPLOYMENT</code> - Your deployment is being created on your
+    # container service.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>EVALUATING_HEALTH_CHECK</code> - The health of your deployment is being
+    # evaluated.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>ACTIVATING_DEPLOYMENT</code> - Your deployment is being activated.</p>
+    # </li>
+    # </ul>
+    # </li>
+    # <li>
+    # <p>The following state codes are possible if your container service is in a
+    # <code>PENDING</code> state:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>CERTIFICATE_LIMIT_EXCEEDED</code> - The SSL/TLS certificate required for
+    # your container service exceeds the maximum number of certificates allowed for your
+    # account.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>UNKNOWN_ERROR</code> - An error was experienced when your container service
+    # was being created.</p>
+    # </li>
+    # </ul>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "code", structure: false)]
+    property code : String?
+    # <p>A message that provides more information for the state code.</p>
+    # <note>
+    # <p>The state detail is populated only when a container service is in a
+    # <code>PENDING</code>, <code>DEPLOYING</code>, or <code>UPDATING</code> state.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "message", structure: false)]
+    property message : String?
+
+    def initialize(@code : String? = nil, @message : String? = nil)
     end
   end
 
@@ -4068,7 +5079,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "healthCheck", structure: true)]
     property health_check : ContainerServiceHealthCheckConfigStruct?
 
-    def initialize(@container_name : String = nil, @container_port : Int32 = nil, @health_check : ContainerServiceHealthCheckConfigStruct = nil)
+    def initialize(@container_name : String? = nil, @container_port : Int32? = nil, @health_check : ContainerServiceHealthCheckConfigStruct? = nil)
     end
   end
 
@@ -4079,7 +5090,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "version", structure: false)]
     property version : Int32?
     # <p>The state of the deployment.</p>
-    #
+    # 
     # <p>A deployment can be in one of the following states:</p>
     # <ul>
     # <li>
@@ -4116,7 +5127,35 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
 
-    def initialize(@version : Int32 = nil, @state : String = nil, @containers : Hash(String, ContainerStruct) = nil, @public_endpoint : ContainerServiceEndpointStruct = nil, @created_at : Time = nil)
+    def initialize(@version : Int32? = nil, @state : String? = nil, @containers : Hash(String, ContainerStruct)? = nil, @public_endpoint : ContainerServiceEndpointStruct? = nil, @created_at : Time? = nil)
+    end
+  end
+
+  class ContainerServiceECRImagePullerRoleStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>A Boolean value that indicates whether the role is activated.</p>
+    @[AWSSdk::Field(location: :body, name: "isActive", structure: false)]
+    property is_active : Bool?
+    # <p>The Amazon Resource Name (ARN) of the role, if it is activated.</p>
+    @[AWSSdk::Field(location: :body, name: "principalArn", structure: false)]
+    property principal_arn : String?
+
+    def initialize(@is_active : Bool? = nil, @principal_arn : String? = nil)
+    end
+  end
+
+  class PrivateRegistryAccessStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object that describes the activation status of the role that you can use to grant a
+    # Lightsail container service access to Amazon ECR private
+    # repositories. If the role is activated, the Amazon Resource Name (ARN) of the role is also
+    # listed.</p>
+    @[AWSSdk::Field(location: :body, name: "ecrImagePullerRole", structure: true)]
+    property ecr_image_puller_role : ContainerServiceECRImagePullerRoleStruct?
+
+    def initialize(@ecr_image_puller_role : ContainerServiceECRImagePullerRoleStruct? = nil)
     end
   end
 
@@ -4132,8 +5171,7 @@ module AmazonLightsail
     # <p>The timestamp when the container service was created.</p>
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
-    # <p>An object that describes the location of the container service, such as the AWS Region
-    # and Availability Zone.</p>
+    # <p>An object that describes the location of the container service, such as the Amazon Web Services Region and Availability Zone.</p>
     @[AWSSdk::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type of the container service (i.e.,
@@ -4141,12 +5179,11 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The power specification of the container service.</p>
-    #
+    # 
     # <p>The power specifies the amount of RAM, the number of vCPUs, and the base price of the
     # container service.</p>
     @[AWSSdk::Field(location: :body, name: "power", structure: false)]
@@ -4155,41 +5192,53 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "powerId", structure: false)]
     property power_id : String?
     # <p>The current state of the container service.</p>
-    # <p>The state can be:</p>
+    # <p>The following container service states are possible:</p>
     # <ul>
     # <li>
     # <p>
-    # <code>Pending</code> - The container service is being created.</p>
+    # <code>PENDING</code> - The container service is being created.</p>
     # </li>
     # <li>
     # <p>
-    # <code>Ready</code> - The container service is created but does not have a container
+    # <code>READY</code> - The container service is running but it does not have an active
+    # container deployment.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>DEPLOYING</code> - The container service is launching a container
     # deployment.</p>
     # </li>
     # <li>
     # <p>
-    # <code>Disabled</code> - The container service is disabled.</p>
+    # <code>RUNNING</code> - The container service is running and it has an active container
+    # deployment.</p>
     # </li>
     # <li>
     # <p>
-    # <code>Updating</code> - The container service capacity or other setting is being
+    # <code>UPDATING</code> - The container service capacity or its custom domains are being
     # updated.</p>
     # </li>
     # <li>
     # <p>
-    # <code>Deploying</code> - The container service is launching a container
-    # deployment.</p>
+    # <code>DELETING</code> - The container service is being deleted.</p>
     # </li>
     # <li>
     # <p>
-    # <code>Running</code> - The container service is created and it has a container
-    # deployment.</p>
+    # <code>DISABLED</code> - The container service is disabled, and its active deployment
+    # and containers, if any, are shut down.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "state", structure: false)]
     property state : String?
+    # <p>An object that describes the current state of the container service.</p>
+    # <note>
+    # <p>The state detail is populated only when a container service is in a
+    # <code>PENDING</code>, <code>DEPLOYING</code>, or <code>UPDATING</code> state.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "stateDetail", structure: true)]
+    property state_detail : ContainerServiceStateDetailStruct?
     # <p>The scale specification of the container service.</p>
-    #
+    # 
     # <p>The scale specifies the allocated compute nodes of the container service.</p>
     @[AWSSdk::Field(location: :body, name: "scale", structure: false)]
     property scale : Int32?
@@ -4197,7 +5246,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "currentDeployment", structure: true)]
     property current_deployment : ContainerServiceDeploymentStruct?
     # <p>An object that describes the next deployment of the container service.</p>
-    #
+    # 
     # <p>This value is <code>null</code> when there is no deployment in a <code>pending</code>
     # state.</p>
     @[AWSSdk::Field(location: :body, name: "nextDeployment", structure: true)]
@@ -4206,47 +5255,53 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isDisabled", structure: false)]
     property is_disabled : Bool?
     # <p>The principal ARN of the container service.</p>
-    #
-    # <p>The principal ARN can be used to create a trust relationship between your standard AWS
-    # account and your Lightsail container service. This allows you to give your service
-    # permission to access resources in your standard AWS account.</p>
+    # 
+    # <p>The principal ARN can be used to create a trust relationship between your standard Amazon Web Services account and your Lightsail container service. This allows you to give your
+    # service permission to access resources in your standard Amazon Web Services account.</p>
     @[AWSSdk::Field(location: :body, name: "principalArn", structure: false)]
     property principal_arn : String?
     # <p>The private domain name of the container service.</p>
-    #
+    # 
     # <p>The private domain name is accessible only by other resources within the default virtual
     # private cloud (VPC) of your Lightsail account.</p>
     @[AWSSdk::Field(location: :body, name: "privateDomainName", structure: false)]
     property private_domain_name : String?
     # <p>The public domain name of the container service, such as <code>example.com</code> and
     # <code>www.example.com</code>.</p>
-    #
+    # 
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    #
+    # 
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    #
+    # 
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    #
+    # 
     # <p>See <code>CreateContainerService</code> or <code>UpdateContainerService</code> for
     # information about how to specify public domain names for your Lightsail container
     # service.</p>
     @[AWSSdk::Field(location: :body, name: "publicDomainNames", structure: false)]
     property public_domain_names : Hash(String, Array(String))?
     # <p>The publicly accessible URL of the container service.</p>
-    #
+    # 
     # <p>If no public endpoint is specified in the <code>currentDeployment</code>, this URL returns
     # a 404 response.</p>
     @[AWSSdk::Field(location: :body, name: "url", structure: false)]
     property url : String?
+    # <p>An object that describes the configuration for the container service to access private
+    # container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private
+    # repositories.</p>
+    # 
+    # <p>For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access">Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "privateRegistryAccess", structure: true)]
+    property private_registry_access : PrivateRegistryAccessStruct?
 
-    def initialize(@container_service_name : String = nil, @public_domain_names : Hash(String, Array(String)) = nil, @private_domain_name : String = nil, @principal_arn : String = nil, @is_disabled : Bool = nil, @next_deployment : ContainerServiceDeploymentStruct = nil, @current_deployment : ContainerServiceDeploymentStruct = nil, @scale : Int32 = nil, @state : String = nil, @power_id : String = nil, @power : String = nil, @tags : Array(TagStruct) = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @arn : String = nil, @url : String = nil)
+    def initialize(@container_service_name : String? = nil, @arn : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @power : String? = nil, @power_id : String? = nil, @state : String? = nil, @state_detail : ContainerServiceStateDetailStruct? = nil, @scale : Int32? = nil, @current_deployment : ContainerServiceDeploymentStruct? = nil, @next_deployment : ContainerServiceDeploymentStruct? = nil, @is_disabled : Bool? = nil, @principal_arn : String? = nil, @private_domain_name : String? = nil, @public_domain_names : Hash(String, Array(String))? = nil, @url : String? = nil, @private_registry_access : PrivateRegistryAccessStruct? = nil)
     end
   end
 
@@ -4257,7 +5312,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "containerService", structure: true)]
     property container_service : ContainerServiceStruct?
 
-    def initialize(@container_service : ContainerServiceStruct = nil)
+    def initialize(@container_service : ContainerServiceStruct? = nil)
     end
   end
 
@@ -4276,7 +5331,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "publicEndpoint", structure: true)]
     property public_endpoint : EndpointRequest?
 
-    def initialize(@service_name : String, @containers : Hash(String, ContainerStruct) = nil, @public_endpoint : EndpointRequest = nil)
+    def initialize(@service_name : String, @containers : Hash(String, ContainerStruct)? = nil, @public_endpoint : EndpointRequest? = nil)
     end
   end
 
@@ -4287,14 +5342,15 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "containerService", structure: true)]
     property container_service : ContainerServiceStruct?
 
-    def initialize(@container_service : ContainerServiceStruct = nil)
+    def initialize(@container_service : ContainerServiceStruct? = nil)
     end
   end
 
   class CreateContainerServiceRegistryLoginRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -4310,7 +5366,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "password", structure: false)]
     property password : String?
     # <p>The timestamp of when the container image registry username and password expire.</p>
-    #
+    # 
     # <p>The log in credentials expire 12 hours after they are created, at which point you will
     # need to create a new set of log in credentials using the
     # <code>CreateContainerServiceRegistryLogin</code> action.</p>
@@ -4321,7 +5377,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "registry", structure: false)]
     property registry : String?
 
-    def initialize(@username : String = nil, @password : String = nil, @expires_at : Time = nil, @registry : String = nil)
+    def initialize(@username : String? = nil, @password : String? = nil, @expires_at : Time? = nil, @registry : String? = nil)
     end
   end
 
@@ -4333,7 +5389,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "registryLogin", structure: true)]
     property registry_login : ContainerServiceRegistryLoginStruct?
 
-    def initialize(@registry_login : ContainerServiceRegistryLoginStruct = nil)
+    def initialize(@registry_login : ContainerServiceRegistryLoginStruct? = nil)
     end
   end
 
@@ -4357,7 +5413,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "snapshotTimeOfDay", structure: false)]
     property snapshot_time_of_day : String?
 
-    def initialize(@snapshot_time_of_day : String = nil)
+    def initialize(@snapshot_time_of_day : String? = nil)
     end
   end
 
@@ -4372,7 +5428,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "autoSnapshotAddOnRequest", structure: true)]
     property auto_snapshot_add_on_request : AutoSnapshotAddOnRequest?
 
-    def initialize(@add_on_type : String, @auto_snapshot_add_on_request : AutoSnapshotAddOnRequest = nil)
+    def initialize(@add_on_type : String, @auto_snapshot_add_on_request : AutoSnapshotAddOnRequest? = nil)
     end
   end
 
@@ -4394,13 +5450,13 @@ module AmazonLightsail
     property size_in_gb : Int32
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>An array of objects that represent the add-ons to enable for the new disk.</p>
-    @[AWSSdk::Field(location: :body, name: "addOns", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "addOns", structure: true)]
     property add_ons : Array(AddOnRequest)?
 
-    def initialize(@disk_name : String, @availability_zone : String, @size_in_gb : Int32, @tags : Array(TagStruct) = nil, @add_ons : Array(AddOnRequest) = nil)
+    def initialize(@disk_name : String, @availability_zone : String, @size_in_gb : Int32, @tags : Array(TagStruct)? = nil, @add_ons : Array(AddOnRequest)? = nil)
     end
   end
 
@@ -4409,10 +5465,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -4446,10 +5502,10 @@ module AmazonLightsail
     property size_in_gb : Int32
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>An array of objects that represent the add-ons to enable for the new disk.</p>
-    @[AWSSdk::Field(location: :body, name: "addOns", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "addOns", structure: true)]
     property add_ons : Array(AddOnRequest)?
     # <p>The name of the source disk from which the source automatic snapshot was created.</p>
     # <p>Constraints:</p>
@@ -4461,7 +5517,7 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when creating a new disk from an automatic snapshot. For
-    # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "sourceDiskName", structure: false)]
@@ -4481,7 +5537,7 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when creating a new disk from an automatic snapshot. For
-    # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "restoreDate", structure: false)]
@@ -4496,13 +5552,13 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when creating a new disk from an automatic snapshot. For
-    # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "useLatestRestorableAutoSnapshot", structure: false)]
     property use_latest_restorable_auto_snapshot : Bool?
 
-    def initialize(@disk_name : String, @availability_zone : String, @size_in_gb : Int32, @disk_snapshot_name : String = nil, @tags : Array(TagStruct) = nil, @add_ons : Array(AddOnRequest) = nil, @source_disk_name : String = nil, @restore_date : String = nil, @use_latest_restorable_auto_snapshot : Bool = nil)
+    def initialize(@disk_name : String, @availability_zone : String, @size_in_gb : Int32, @disk_snapshot_name : String? = nil, @tags : Array(TagStruct)? = nil, @add_ons : Array(AddOnRequest)? = nil, @source_disk_name : String? = nil, @restore_date : String? = nil, @use_latest_restorable_auto_snapshot : Bool? = nil)
     end
   end
 
@@ -4511,10 +5567,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -4544,10 +5600,10 @@ module AmazonLightsail
     property instance_name : String?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@disk_snapshot_name : String, @disk_name : String = nil, @instance_name : String = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@disk_snapshot_name : String, @disk_name : String? = nil, @instance_name : String? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -4556,10 +5612,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -4577,7 +5633,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "protocolPolicy", structure: false)]
     property protocol_policy : String?
 
-    def initialize(@name : String = nil, @region_name : String = nil, @protocol_policy : String = nil)
+    def initialize(@name : String? = nil, @region_name : String? = nil, @protocol_policy : String? = nil)
     end
   end
 
@@ -4612,7 +5668,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "behavior", structure: false)]
     property behavior : String?
 
-    def initialize(@behavior : String = nil)
+    def initialize(@behavior : String? = nil)
     end
   end
 
@@ -4628,7 +5684,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cookiesAllowList", structure: false)]
     property cookies_allow_list : Array(String)?
 
-    def initialize(@option : String = nil, @cookies_allow_list : Array(String) = nil)
+    def initialize(@option : String? = nil, @cookies_allow_list : Array(String)? = nil)
     end
   end
 
@@ -4667,7 +5723,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "headersAllowList", structure: false)]
     property headers_allow_list : Array(String)?
 
-    def initialize(@option : String = nil, @headers_allow_list : Array(String) = nil)
+    def initialize(@option : String? = nil, @headers_allow_list : Array(String)? = nil)
     end
   end
 
@@ -4685,7 +5741,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "queryStringsAllowList", structure: false)]
     property query_strings_allow_list : Array(String)?
 
-    def initialize(@option : Bool = nil, @query_strings_allow_list : Array(String) = nil)
+    def initialize(@option : Bool? = nil, @query_strings_allow_list : Array(String)? = nil)
     end
   end
 
@@ -4771,7 +5827,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "forwardedQueryStrings", structure: true)]
     property forwarded_query_strings : QueryStringObjectStruct?
 
-    def initialize(@default_ttl : Int64 = nil, @minimum_ttl : Int64 = nil, @maximum_ttl : Int64 = nil, @allowed_http_methods : String = nil, @cached_http_methods : String = nil, @forwarded_cookies : CookieObjectStruct = nil, @forwarded_headers : HeaderObjectStruct = nil, @forwarded_query_strings : QueryStringObjectStruct = nil)
+    def initialize(@default_ttl : Int64? = nil, @minimum_ttl : Int64? = nil, @maximum_ttl : Int64? = nil, @allowed_http_methods : String? = nil, @cached_http_methods : String? = nil, @forwarded_cookies : CookieObjectStruct? = nil, @forwarded_headers : HeaderObjectStruct? = nil, @forwarded_query_strings : QueryStringObjectStruct? = nil)
     end
   end
 
@@ -4833,22 +5889,20 @@ module AmazonLightsail
     # <b>
     # <code>cache</code>
     # </b> - This behavior caches the
-    # specified path.
-    # </p>
+    # specified path. </p>
     # </li>
     # <li>
     # <p>
     # <b>
     # <code>dont-cache</code>
     # </b> - This behavior doesn't cache
-    # the specified path.
-    # </p>
+    # the specified path. </p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "behavior", structure: false)]
     property behavior : String?
 
-    def initialize(@path : String = nil, @behavior : String = nil)
+    def initialize(@path : String? = nil, @behavior : String? = nil)
     end
   end
 
@@ -4859,7 +5913,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
     # <p>An object that describes the origin resource for the distribution, such as a Lightsail
-    # instance or load balancer.</p>
+    # instance, bucket, or load balancer.</p>
     # <p>The distribution pulls, caches, and serves content from the origin.</p>
     @[AWSSdk::Field(location: :body, name: "origin", structure: true)]
     property origin : InputOriginStruct
@@ -4870,7 +5924,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cacheBehaviorSettings", structure: true)]
     property cache_behavior_settings : CacheSettingsStruct?
     # <p>An array of objects that describe the per-path cache behavior for the distribution.</p>
-    @[AWSSdk::Field(location: :body, name: "cacheBehaviors", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "cacheBehaviors", structure: true)]
     property cache_behaviors : Array(CacheBehaviorPerPathStruct)?
     # <p>The bundle ID to use for the distribution.</p>
     # <p>A distribution bundle describes the specifications of your distribution, such as the
@@ -4879,12 +5933,20 @@ module AmazonLightsail
     # IDs that you can specify.</p>
     @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String
+    # <p>The IP address type for the distribution.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    # 
+    # <p>The default value is <code>dualstack</code>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
     # <p>The tag keys and optional values to add to the distribution during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@distribution_name : String, @origin : InputOriginStruct, @default_cache_behavior : CacheBehaviorStruct, @bundle_id : String, @cache_behavior_settings : CacheSettingsStruct = nil, @cache_behaviors : Array(CacheBehaviorPerPathStruct) = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@distribution_name : String, @origin : InputOriginStruct, @default_cache_behavior : CacheBehaviorStruct, @bundle_id : String, @cache_behavior_settings : CacheSettingsStruct? = nil, @cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, @ip_address_type : String? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -4905,7 +5967,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "protocolPolicy", structure: false)]
     property protocol_policy : String?
 
-    def initialize(@name : String = nil, @resource_type : String = nil, @region_name : String = nil, @protocol_policy : String = nil)
+    def initialize(@name : String? = nil, @resource_type : String? = nil, @region_name : String? = nil, @protocol_policy : String? = nil)
     end
   end
 
@@ -4926,12 +5988,12 @@ module AmazonLightsail
     # <p>The timestamp when the distribution was created.</p>
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
-    # <p>An object that describes the location of the distribution, such as the AWS Region and
-    # Availability Zone.</p>
+    # <p>An object that describes the location of the distribution, such as the Amazon Web Services
+    # Region and Availability Zone.</p>
     # <note>
-    # <p>Lightsail distributions are global resources that can reference an origin in any AWS
-    # Region, and distribute its content globally. However, all distributions are located in the
-    # <code>us-east-1</code> Region.</p>
+    # <p>Lightsail distributions are global resources that can reference an origin in any
+    # Amazon Web Services Region, and distribute its content globally. However, all distributions
+    # are located in the <code>us-east-1</code> Region.</p>
     # </note>
     @[AWSSdk::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
@@ -4957,7 +6019,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String?
     # <p>An object that describes the origin resource of the distribution, such as a Lightsail
-    # instance or load balancer.</p>
+    # instance, bucket, or load balancer.</p>
     # <p>The distribution pulls, caches, and serves content from the origin.</p>
     @[AWSSdk::Field(location: :body, name: "origin", structure: true)]
     property origin : OriginStruct?
@@ -4971,7 +6033,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cacheBehaviorSettings", structure: true)]
     property cache_behavior_settings : CacheSettingsStruct?
     # <p>An array of objects that describe the per-path cache behavior of the distribution.</p>
-    @[AWSSdk::Field(location: :body, name: "cacheBehaviors", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "cacheBehaviors", structure: true)]
     property cache_behaviors : Array(CacheBehaviorPerPathStruct)?
     # <p>Indicates whether the bundle that is currently applied to your distribution, specified
     # using the <code>distributionName</code> parameter, can be changed to another bundle.</p>
@@ -4979,13 +6041,18 @@ module AmazonLightsail
     # bundle.</p>
     @[AWSSdk::Field(location: :body, name: "ableToUpdateBundle", structure: false)]
     property able_to_update_bundle : Bool?
+    # <p>The IP address type of the distribution.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@name : String = nil, @able_to_update_bundle : Bool = nil, @cache_behaviors : Array(CacheBehaviorPerPathStruct) = nil, @cache_behavior_settings : CacheSettingsStruct = nil, @default_cache_behavior : CacheBehaviorStruct = nil, @origin_public_dns : String = nil, @origin : OriginStruct = nil, @certificate_name : String = nil, @bundle_id : String = nil, @domain_name : String = nil, @is_enabled : Bool = nil, @status : String = nil, @alternative_domain_names : Array(String) = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @support_code : String = nil, @arn : String = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @alternative_domain_names : Array(String)? = nil, @status : String? = nil, @is_enabled : Bool? = nil, @domain_name : String? = nil, @bundle_id : String? = nil, @certificate_name : String? = nil, @origin : OriginStruct? = nil, @origin_public_dns : String? = nil, @default_cache_behavior : CacheBehaviorStruct? = nil, @cache_behavior_settings : CacheSettingsStruct? = nil, @cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, @able_to_update_bundle : Bool? = nil, @ip_address_type : String? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5000,7 +6067,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@distribution : LightsailDistributionStruct = nil, @operation : OperationStruct = nil)
+    def initialize(@distribution : LightsailDistributionStruct? = nil, @operation : OperationStruct? = nil)
     end
   end
 
@@ -5011,17 +6078,17 @@ module AmazonLightsail
     # <note>
     # <p>You cannot register a new domain name using Lightsail. You must register a domain name
     # using Amazon Route 53 or another domain name registrar. If you have already registered your
-    # domain, you can enter its name in this parameter to manage the DNS records for that
-    # domain.</p>
+    # domain, you can enter its name in this parameter to manage the DNS records for that domain
+    # using Lightsail.</p>
     # </note>
     @[AWSSdk::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@domain_name : String, @tags : Array(TagStruct) = nil)
+    def initialize(@domain_name : String, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5033,7 +6100,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -5046,11 +6113,15 @@ module AmazonLightsail
     # <p>The name of the domain.</p>
     @[AWSSdk::Field(location: :body, name: "name", structure: false)]
     property name : String?
-    # <p>The target AWS name server (e.g., <code>ns-111.awsdns-22.com.</code>).</p>
+    # <p>The target IP address (e.g., <code>192.0.2.0</code>), or AWS name server (e.g.,
+    # <code>ns-111.awsdns-22.com.</code>).</p>
     # <p>For Lightsail load balancers, the value looks like
-    # <code>ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com</code>. Be sure
-    # to also set <code>isAlias</code> to <code>true</code> when setting up an A record for a load
-    # balancer.</p>
+    # <code>ab1234c56789c6b86aba6fb203d443bc-123456789.us-east-2.elb.amazonaws.com</code>. For
+    # Lightsail distributions, the value looks like <code>exampled1182ne.cloudfront.net</code>.
+    # For Lightsail container services, the value looks like
+    # <code>container-service-1.example23scljs.us-west-2.cs.amazonlightsail.com</code>. Be sure to
+    # also set <code>isAlias</code> to <code>true</code> when setting up an A record for a
+    # Lightsail load balancer, distribution, or container service.</p>
     @[AWSSdk::Field(location: :body, name: "target", structure: false)]
     property target : String?
     # <p>When <code>true</code>, specifies whether the domain entry is an alias used by the
@@ -5058,13 +6129,19 @@ module AmazonLightsail
     # points to a load balancer DNS name and routes traffic to your load balancer.</p>
     @[AWSSdk::Field(location: :body, name: "isAlias", structure: false)]
     property is_alias : Bool?
-    # <p>The type of domain entry, such as address (A), canonical name (CNAME), mail exchanger
-    # (MX), name server (NS), start of authority (SOA), service locator (SRV), or text (TXT).</p>
+    # <p>The type of domain entry, such as address for IPv4 (A), address for IPv6 (AAAA), canonical
+    # name (CNAME), mail exchanger (MX), name server (NS), start of authority (SOA), service locator
+    # (SRV), or text (TXT).</p>
     # <p>The following domain entry types can be used:</p>
     # <ul>
     # <li>
     # <p>
     # <code>A</code>
+    # </p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>AAAA</code>
     # </p>
     # </li>
     # <li>
@@ -5108,7 +6185,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "options", structure: false)]
     property options : Hash(String, String)?
 
-    def initialize(@id : String = nil, @name : String = nil, @target : String = nil, @is_alias : Bool = nil, @type : String = nil, @options : Hash(String, String) = nil)
+    def initialize(@id : String? = nil, @name : String? = nil, @target : String? = nil, @is_alias : Bool? = nil, @type : String? = nil, @options : Hash(String, String)? = nil)
     end
   end
 
@@ -5135,7 +6212,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -5184,7 +6261,7 @@ module AmazonLightsail
     # <p>Depending on the machine image you choose, the command to get software on your instance
     # varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
     # <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the
-    # <a href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev Guide</a>.</p>
+    # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image">Amazon Lightsail Developer Guide</a>.</p>
     # </note>
     @[AWSSdk::Field(location: :body, name: "userData", structure: false)]
     property user_data : String?
@@ -5193,13 +6270,21 @@ module AmazonLightsail
     property key_pair_name : String?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>An array of objects representing the add-ons to enable for the new instance.</p>
-    @[AWSSdk::Field(location: :body, name: "addOns", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "addOns", structure: true)]
     property add_ons : Array(AddOnRequest)?
+    # <p>The IP address type for the instance.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    # 
+    # <p>The default value is <code>dualstack</code>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
 
-    def initialize(@instance_names : Array(String), @availability_zone : String, @blueprint_id : String, @bundle_id : String, @custom_image_name : String = nil, @user_data : String = nil, @key_pair_name : String = nil, @tags : Array(TagStruct) = nil, @add_ons : Array(AddOnRequest) = nil)
+    def initialize(@instance_names : Array(String), @availability_zone : String, @blueprint_id : String, @bundle_id : String, @custom_image_name : String? = nil, @user_data : String? = nil, @key_pair_name : String? = nil, @tags : Array(TagStruct)? = nil, @add_ons : Array(AddOnRequest)? = nil, @ip_address_type : String? = nil)
     end
   end
 
@@ -5208,10 +6293,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5226,7 +6311,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "newDiskName", structure: false)]
     property new_disk_name : String?
 
-    def initialize(@original_disk_path : String = nil, @new_disk_name : String = nil)
+    def initialize(@original_disk_path : String? = nil, @new_disk_name : String? = nil)
     end
   end
 
@@ -5269,7 +6354,7 @@ module AmazonLightsail
     # <p>Depending on the machine image you choose, the command to get software on your instance
     # varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use
     # <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the
-    # <a href="https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image">Dev Guide</a>.</p>
+    # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image">Amazon Lightsail Developer Guide</a>.</p>
     # </note>
     @[AWSSdk::Field(location: :body, name: "userData", structure: false)]
     property user_data : String?
@@ -5278,11 +6363,19 @@ module AmazonLightsail
     property key_pair_name : String?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>An array of objects representing the add-ons to enable for the new instance.</p>
-    @[AWSSdk::Field(location: :body, name: "addOns", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "addOns", structure: true)]
     property add_ons : Array(AddOnRequest)?
+    # <p>The IP address type for the instance.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    # 
+    # <p>The default value is <code>dualstack</code>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
     # <p>The name of the source instance from which the source automatic snapshot was
     # created.</p>
     # <p>Constraints:</p>
@@ -5294,7 +6387,7 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when creating a new instance from an automatic snapshot.
-    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "sourceInstanceName", structure: false)]
@@ -5314,7 +6407,7 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when creating a new instance from an automatic snapshot.
-    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "restoreDate", structure: false)]
@@ -5329,13 +6422,13 @@ module AmazonLightsail
     # </li>
     # <li>
     # <p>Define this parameter only when creating a new instance from an automatic snapshot.
-    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Lightsail Dev Guide</a>.</p>
+    # For more information, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configuring-automatic-snapshots">Amazon Lightsail Developer Guide</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "useLatestRestorableAutoSnapshot", structure: false)]
     property use_latest_restorable_auto_snapshot : Bool?
 
-    def initialize(@instance_names : Array(String), @availability_zone : String, @bundle_id : String, @attached_disk_mapping : Hash(String, Array(DiskMapStruct)) = nil, @instance_snapshot_name : String = nil, @user_data : String = nil, @key_pair_name : String = nil, @tags : Array(TagStruct) = nil, @add_ons : Array(AddOnRequest) = nil, @source_instance_name : String = nil, @restore_date : String = nil, @use_latest_restorable_auto_snapshot : Bool = nil)
+    def initialize(@instance_names : Array(String), @availability_zone : String, @bundle_id : String, @attached_disk_mapping : Hash(String, Array(DiskMapStruct))? = nil, @instance_snapshot_name : String? = nil, @user_data : String? = nil, @key_pair_name : String? = nil, @tags : Array(TagStruct)? = nil, @add_ons : Array(AddOnRequest)? = nil, @ip_address_type : String? = nil, @source_instance_name : String? = nil, @restore_date : String? = nil, @use_latest_restorable_auto_snapshot : Bool? = nil)
     end
   end
 
@@ -5344,10 +6437,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5362,10 +6455,10 @@ module AmazonLightsail
     property instance_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@instance_snapshot_name : String, @instance_name : String, @tags : Array(TagStruct) = nil)
+    def initialize(@instance_snapshot_name : String, @instance_name : String, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5374,10 +6467,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5389,10 +6482,10 @@ module AmazonLightsail
     property key_pair_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@key_pair_name : String, @tags : Array(TagStruct) = nil)
+    def initialize(@key_pair_name : String, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5421,15 +6514,14 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The RSA fingerprint of the key pair.</p>
     @[AWSSdk::Field(location: :body, name: "fingerprint", structure: false)]
     property fingerprint : String?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @tags : Array(TagStruct) = nil, @fingerprint : String = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @fingerprint : String? = nil)
     end
   end
 
@@ -5451,7 +6543,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@key_pair : KeyPairStruct = nil, @public_key_base64 : String = nil, @private_key_base64 : String = nil, @operation : OperationStruct = nil)
+    def initialize(@key_pair : KeyPairStruct? = nil, @public_key_base64 : String? = nil, @private_key_base64 : String? = nil, @operation : OperationStruct? = nil)
     end
   end
 
@@ -5489,10 +6581,27 @@ module AmazonLightsail
     property certificate_alternative_names : Array(String)?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
+    # <p>The IP address type for the load balancer.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    # 
+    # <p>The default value is <code>dualstack</code>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
+    # <p>The name of the TLS policy to apply to the load balancer.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html">GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can
+    # specify.</p>
+    # 
+    # <p>For more information about load balancer TLS policies, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy">Configuring TLS security policies on your Amazon Lightsail load
+    # balancers</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "tlsPolicyName", structure: false)]
+    property tls_policy_name : String?
 
-    def initialize(@load_balancer_name : String, @instance_port : Int32, @health_check_path : String = nil, @certificate_name : String = nil, @certificate_domain_name : String = nil, @certificate_alternative_names : Array(String) = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@load_balancer_name : String, @instance_port : Int32, @health_check_path : String? = nil, @certificate_name : String? = nil, @certificate_domain_name : String? = nil, @certificate_alternative_names : Array(String)? = nil, @tags : Array(TagStruct)? = nil, @ip_address_type : String? = nil, @tls_policy_name : String? = nil)
     end
   end
 
@@ -5501,10 +6610,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5532,10 +6641,10 @@ module AmazonLightsail
     property certificate_alternative_names : Array(String)?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@load_balancer_name : String, @certificate_name : String, @certificate_domain_name : String, @certificate_alternative_names : Array(String) = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@load_balancer_name : String, @certificate_name : String, @certificate_domain_name : String, @certificate_alternative_names : Array(String)? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5544,17 +6653,17 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
   class CreateRelationalDatabaseRequest
     include AWSSdk::JSON1_1::Structure
 
-    # <p>The name to use for your new database.</p>
+    # <p>The name to use for your new Lightsail database resource.</p>
     # <p>Constraints:</p>
     # <ul>
     # <li>
@@ -5585,43 +6694,108 @@ module AmazonLightsail
     # bundles</code> operation.</p>
     @[AWSSdk::Field(location: :body, name: "relationalDatabaseBundleId", structure: false)]
     property relational_database_bundle_id : String
-    # <p>The name of the master database created when the Lightsail database resource is
-    # created.</p>
+    # <p>The meaning of this parameter differs according to the database engine you use.</p>
+    # <p>
+    # <b>MySQL</b>
+    # </p>
+    # <p>The name of the database to create when the Lightsail database resource is created. If
+    # this parameter isn't specified, no database is created in the database resource.</p>
     # <p>Constraints:</p>
     # <ul>
     # <li>
-    # <p>Must contain from 1 to 64 alphanumeric characters.</p>
+    # <p>Must contain 1 to 64 letters or numbers.</p>
     # </li>
     # <li>
-    # <p>Cannot be a word reserved by the specified database engine</p>
+    # <p>Must begin with a letter. Subsequent characters can be letters, underscores, or digits
+    # (0- 9).</p>
+    # </li>
+    # <li>
+    # <p>Can't be a word reserved by the specified database engine.</p>
+    # <p>For more information about reserved words in MySQL, see the Keywords and Reserved
+    # Words articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, and <a href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.</p>
+    # </li>
+    # </ul>
+    # <p>
+    # <b>PostgreSQL</b>
+    # </p>
+    # <p>The name of the database to create when the Lightsail database resource is created. If
+    # this parameter isn't specified, a database named <code>postgres</code> is created in the
+    # database resource.</p>
+    # <p>Constraints:</p>
+    # <ul>
+    # <li>
+    # <p>Must contain 1 to 63 letters or numbers.</p>
+    # </li>
+    # <li>
+    # <p>Must begin with a letter. Subsequent characters can be letters, underscores, or digits
+    # (0- 9).</p>
+    # </li>
+    # <li>
+    # <p>Can't be a word reserved by the specified database engine.</p>
+    # <p>For more information about reserved words in PostgreSQL, see the SQL Key Words
+    # articles for <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL 9.6</a>, <a href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL
+    # 10</a>, <a href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL 11</a>, and <a href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL
+    # 12</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "masterDatabaseName", structure: false)]
     property master_database_name : String
-    # <p>The master user name for your new database.</p>
+    # <p>The name for the master user.</p>
+    # <p>
+    # <b>MySQL</b>
+    # </p>
     # <p>Constraints:</p>
     # <ul>
     # <li>
-    # <p>Master user name is required.</p>
+    # <p>Required for MySQL.</p>
     # </li>
     # <li>
-    # <p>Must contain from 1 to 16 alphanumeric characters.</p>
+    # <p>Must be 1 to 16 letters or numbers. Can contain underscores.</p>
     # </li>
     # <li>
-    # <p>The first character must be a letter.</p>
+    # <p>First character must be a letter.</p>
     # </li>
     # <li>
-    # <p>Cannot be a reserved word for the database engine you choose.</p>
+    # <p>Can't be a reserved word for the chosen database engine.</p>
     # <p>For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and
-    # Reserved Words articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a> or <a href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>
-    # respectively.</p>
+    # Reserved Words articles for <a href="https://dev.mysql.com/doc/refman/5.6/en/keywords.html">MySQL 5.6</a>, <a href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html">MySQL 5.7</a>, or <a href="https://dev.mysql.com/doc/refman/8.0/en/keywords.html">MySQL 8.0</a>.</p>
+    # </li>
+    # </ul>
+    # <p>
+    # <b>PostgreSQL</b>
+    # </p>
+    # <p>Constraints:</p>
+    # <ul>
+    # <li>
+    # <p>Required for PostgreSQL.</p>
+    # </li>
+    # <li>
+    # <p>Must be 1 to 63 letters or numbers. Can contain underscores.</p>
+    # </li>
+    # <li>
+    # <p>First character must be a letter.</p>
+    # </li>
+    # <li>
+    # <p>Can't be a reserved word for the chosen database engine.</p>
+    # <p>For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and
+    # Reserved Words articles for <a href="https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html">PostgreSQL
+    # 9.6</a>, <a href="https://www.postgresql.org/docs/10/sql-keywords-appendix.html">PostgreSQL 10</a>, <a href="https://www.postgresql.org/docs/11/sql-keywords-appendix.html">PostgreSQL
+    # 11</a>, and <a href="https://www.postgresql.org/docs/12/sql-keywords-appendix.html">PostgreSQL
+    # 12</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "masterUsername", structure: false)]
     property master_username : String
-    # <p>The password for the master user of your new database. The password can include any
-    # printable ASCII character except "/", """, or "@".</p>
-    # <p>Constraints: Must contain 8 to 41 characters.</p>
+    # <p>The password for the master user. The password can include any printable ASCII character
+    # except "/", """, or "@". It cannot contain spaces.</p>
+    # <p>
+    # <b>MySQL</b>
+    # </p>
+    # <p>Constraints: Must contain from 8 to 41 characters.</p>
+    # <p>
+    # <b>PostgreSQL</b>
+    # </p>
+    # <p>Constraints: Must contain from 8 to 128 characters.</p>
     @[AWSSdk::Field(location: :body, name: "masterUserPassword", structure: false)]
     property master_user_password : String?
     # <p>The daily time range during which automated backups are created for your new database if
@@ -5681,10 +6855,10 @@ module AmazonLightsail
     property publicly_accessible : Bool?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@relational_database_name : String, @relational_database_blueprint_id : String, @relational_database_bundle_id : String, @master_database_name : String, @master_username : String, @availability_zone : String = nil, @master_user_password : String = nil, @preferred_backup_window : String = nil, @preferred_maintenance_window : String = nil, @publicly_accessible : Bool = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@relational_database_name : String, @relational_database_blueprint_id : String, @relational_database_bundle_id : String, @master_database_name : String, @master_username : String, @availability_zone : String? = nil, @master_user_password : String? = nil, @preferred_backup_window : String? = nil, @preferred_maintenance_window : String? = nil, @publicly_accessible : Bool? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5693,17 +6867,17 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
   class CreateRelationalDatabaseFromSnapshotRequest
     include AWSSdk::JSON1_1::Structure
 
-    # <p>The name to use for your new database.</p>
+    # <p>The name to use for your new Lightsail database resource.</p>
     # <p>Constraints:</p>
     # <ul>
     # <li>
@@ -5773,10 +6947,10 @@ module AmazonLightsail
     property use_latest_restorable_time : Bool?
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@relational_database_name : String, @availability_zone : String = nil, @publicly_accessible : Bool = nil, @relational_database_snapshot_name : String = nil, @relational_database_bundle_id : String = nil, @source_relational_database_name : String = nil, @restore_time : Time = nil, @use_latest_restorable_time : Bool = nil, @tags : Array(TagStruct) = nil)
+    def initialize(@relational_database_name : String, @availability_zone : String? = nil, @publicly_accessible : Bool? = nil, @relational_database_snapshot_name : String? = nil, @relational_database_bundle_id : String? = nil, @source_relational_database_name : String? = nil, @restore_time : Time? = nil, @use_latest_restorable_time : Bool? = nil, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5785,10 +6959,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5812,10 +6986,10 @@ module AmazonLightsail
     property relational_database_snapshot_name : String
     # <p>The tag keys and optional values to add to the resource during create.</p>
     # <p>Use the <code>TagResource</code> action to tag a resource after it's created.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
 
-    def initialize(@relational_database_name : String, @relational_database_snapshot_name : String, @tags : Array(TagStruct) = nil)
+    def initialize(@relational_database_name : String, @relational_database_snapshot_name : String, @tags : Array(TagStruct)? = nil)
     end
   end
 
@@ -5824,10 +6998,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5847,10 +7021,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5876,10 +7050,89 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class DeleteBucketRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket to delete.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBuckets.html">GetBuckets</a> action to get a list of bucket names
+    # that you can specify.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>A Boolean value that indicates whether to force delete the bucket.</p>
+    # 
+    # <p>You must force delete the bucket if it has one of the following conditions:</p>
+    # <ul>
+    # <li>
+    # <p>The bucket is the origin of a distribution.</p>
+    # </li>
+    # <li>
+    # <p>The bucket has instances that were granted access to it using the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_SetResourceAccessForBucket.html">SetResourceAccessForBucket</a> action.</p>
+    # </li>
+    # <li>
+    # <p>The bucket has objects.</p>
+    # </li>
+    # <li>
+    # <p>The bucket has access keys.</p>
+    # </li>
+    # </ul>
+    # 
+    # <important>
+    # <p>Force deleting a bucket might impact other resources that rely on the bucket, such as
+    # instances, distributions, or software that use the issued access keys.</p>
+    # </important>
+    @[AWSSdk::Field(location: :body, name: "forceDelete", structure: false)]
+    property force_delete : Bool?
+
+    def initialize(@bucket_name : String, @force_delete : Bool? = nil)
+    end
+  end
+
+  class DeleteBucketResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class DeleteBucketAccessKeyRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket that the access key belongs to.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>The ID of the access key to delete.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketAccessKeys.html">GetBucketAccessKeys</a> action to get a
+    # list of access key IDs that you can specify.</p>
+    @[AWSSdk::Field(location: :body, name: "accessKeyId", structure: false)]
+    property access_key_id : String
+
+    def initialize(@bucket_name : String, @access_key_id : String)
+    end
+  end
+
+  class DeleteBucketAccessKeyResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5901,10 +7154,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5930,10 +7183,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -5944,10 +7197,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The name of the container image to delete from the container service.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerImages</code> action to get the name of the container images
     # that are registered to a container service.</p>
-    #
+    # 
     # <note>
     # <p>Container images sourced from your Lightsail container service, that are registered
     # and stored on your service, start with a colon (<code>:</code>). For example,
@@ -5965,7 +7218,8 @@ module AmazonLightsail
   class DeleteContainerImageResultStruct
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -5983,7 +7237,8 @@ module AmazonLightsail
   class DeleteContainerServiceResultStruct
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -5997,7 +7252,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "forceDeleteAddOns", structure: false)]
     property force_delete_add_ons : Bool?
 
-    def initialize(@disk_name : String, @force_delete_add_ons : Bool = nil)
+    def initialize(@disk_name : String, @force_delete_add_ons : Bool? = nil)
     end
   end
 
@@ -6006,10 +7261,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6030,10 +7285,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6046,7 +7301,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
 
-    def initialize(@distribution_name : String = nil)
+    def initialize(@distribution_name : String? = nil)
     end
   end
 
@@ -6058,7 +7313,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -6081,7 +7336,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -6107,7 +7362,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -6121,7 +7376,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "forceDeleteAddOns", structure: false)]
     property force_delete_add_ons : Bool?
 
-    def initialize(@instance_name : String, @force_delete_add_ons : Bool = nil)
+    def initialize(@instance_name : String, @force_delete_add_ons : Bool? = nil)
     end
   end
 
@@ -6130,10 +7385,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6153,10 +7408,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6166,8 +7421,15 @@ module AmazonLightsail
     # <p>The name of the key pair to delete.</p>
     @[AWSSdk::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String
+    # <p>The RSA fingerprint of the Lightsail default key pair to delete.</p>
+    # <note>
+    # <p>The <code>expectedFingerprint</code> parameter is required only when specifying to
+    # delete a Lightsail default key pair.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "expectedFingerprint", structure: false)]
+    property expected_fingerprint : String?
 
-    def initialize(@key_pair_name : String)
+    def initialize(@key_pair_name : String, @expected_fingerprint : String? = nil)
     end
   end
 
@@ -6179,7 +7441,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -6199,10 +7461,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6222,10 +7484,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6245,7 +7507,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "force", structure: false)]
     property force : Bool?
 
-    def initialize(@load_balancer_name : String, @certificate_name : String, @force : Bool = nil)
+    def initialize(@load_balancer_name : String, @certificate_name : String, @force : Bool? = nil)
     end
   end
 
@@ -6254,10 +7516,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6294,7 +7556,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "finalRelationalDatabaseSnapshotName", structure: false)]
     property final_relational_database_snapshot_name : String?
 
-    def initialize(@relational_database_name : String, @skip_final_snapshot : Bool = nil, @final_relational_database_snapshot_name : String = nil)
+    def initialize(@relational_database_name : String, @skip_final_snapshot : Bool? = nil, @final_relational_database_snapshot_name : String? = nil)
     end
   end
 
@@ -6303,10 +7565,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6326,10 +7588,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6354,7 +7616,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -6375,10 +7637,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6402,10 +7664,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6425,10 +7687,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6451,17 +7713,18 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
   class DownloadDefaultKeyPairRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -6474,8 +7737,11 @@ module AmazonLightsail
     # <p>A base64-encoded RSA private key.</p>
     @[AWSSdk::Field(location: :body, name: "privateKeyBase64", structure: false)]
     property private_key_base64 : String?
+    # <p>The timestamp when the default key pair was created.</p>
+    @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
+    property created_at : Time?
 
-    def initialize(@public_key_base64 : String = nil, @private_key_base64 : String = nil)
+    def initialize(@public_key_base64 : String? = nil, @private_key_base64 : String? = nil, @created_at : Time? = nil)
     end
   end
 
@@ -6498,10 +7764,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6521,10 +7787,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -6538,7 +7804,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -6555,7 +7821,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@active_names : Array(String) = nil, @next_page_token : String = nil)
+    def initialize(@active_names : Array(String)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -6578,7 +7844,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "monitoredResourceName", structure: false)]
     property monitored_resource_name : String?
 
-    def initialize(@alarm_name : String = nil, @page_token : String = nil, @monitored_resource_name : String = nil)
+    def initialize(@alarm_name : String? = nil, @page_token : String? = nil, @monitored_resource_name : String? = nil)
     end
   end
 
@@ -6597,7 +7863,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
 
-    def initialize(@arn : String = nil, @name : String = nil, @resource_type : String = nil)
+    def initialize(@arn : String? = nil, @name : String? = nil, @resource_type : String? = nil)
     end
   end
 
@@ -6739,7 +8005,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "notificationEnabled", structure: false)]
     property notification_enabled : Bool?
 
-    def initialize(@name : String = nil, @notification_triggers : Array(String) = nil, @contact_protocols : Array(String) = nil, @unit : String = nil, @state : String = nil, @metric_name : String = nil, @statistic : String = nil, @treat_missing_data : String = nil, @datapoints_to_alarm : Int32 = nil, @threshold : Float64 = nil, @period : Int32 = nil, @evaluation_periods : Int32 = nil, @comparison_operator : String = nil, @monitored_resource_info : MonitoredResourceInfoStruct = nil, @support_code : String = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @arn : String = nil, @notification_enabled : Bool = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @support_code : String? = nil, @monitored_resource_info : MonitoredResourceInfoStruct? = nil, @comparison_operator : String? = nil, @evaluation_periods : Int32? = nil, @period : Int32? = nil, @threshold : Float64? = nil, @datapoints_to_alarm : Int32? = nil, @treat_missing_data : String? = nil, @statistic : String? = nil, @metric_name : String? = nil, @state : String? = nil, @unit : String? = nil, @contact_protocols : Array(String)? = nil, @notification_triggers : Array(String)? = nil, @notification_enabled : Bool? = nil)
     end
   end
 
@@ -6747,7 +8013,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe the alarms.</p>
-    @[AWSSdk::Field(location: :body, name: "alarms", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "alarms", structure: true)]
     property alarms : Array(AlarmStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -6756,7 +8022,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@alarms : Array(AlarmStruct) = nil, @next_page_token : String = nil)
+    def initialize(@alarms : Array(AlarmStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -6782,7 +8048,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
 
-    def initialize(@path : String = nil, @size_in_gb : Int32 = nil)
+    def initialize(@path : String? = nil, @size_in_gb : Int32? = nil)
     end
   end
 
@@ -6800,10 +8066,10 @@ module AmazonLightsail
     property status : String?
     # <p>An array of objects that describe the block storage disks attached to the instance when
     # the automatic snapshot was created.</p>
-    @[AWSSdk::Field(location: :body, name: "fromAttachedDisks", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "fromAttachedDisks", structure: true)]
     property from_attached_disks : Array(AttachedDiskStruct)?
 
-    def initialize(@date : String = nil, @created_at : Time = nil, @status : String = nil, @from_attached_disks : Array(AttachedDiskStruct) = nil)
+    def initialize(@date : String? = nil, @created_at : Time? = nil, @status : String? = nil, @from_attached_disks : Array(AttachedDiskStruct)? = nil)
     end
   end
 
@@ -6818,17 +8084,18 @@ module AmazonLightsail
     property resource_type : String?
     # <p>An array of objects that describe the automatic snapshots that are available for the
     # specified source instance or disk.</p>
-    @[AWSSdk::Field(location: :body, name: "autoSnapshots", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "autoSnapshots", structure: true)]
     property auto_snapshots : Array(AutoSnapshotDetailsStruct)?
 
-    def initialize(@resource_name : String = nil, @resource_type : String = nil, @auto_snapshots : Array(AutoSnapshotDetailsStruct) = nil)
+    def initialize(@resource_name : String? = nil, @resource_type : String? = nil, @auto_snapshots : Array(AutoSnapshotDetailsStruct)? = nil)
     end
   end
 
   class GetBlueprintsRequest
     include AWSSdk::JSON1_1::Structure
 
-    # <p>A Boolean value indicating whether to include inactive results in your request.</p>
+    # <p>A Boolean value that indicates whether to include inactive (unavailable) blueprints in the
+    # response of your request.</p>
     @[AWSSdk::Field(location: :body, name: "includeInactive", structure: false)]
     property include_inactive : Bool?
     # <p>The token to advance to the next page of results from your request.</p>
@@ -6838,7 +8105,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@include_inactive : Bool = nil, @page_token : String = nil)
+    def initialize(@include_inactive : Bool? = nil, @page_token : String? = nil)
     end
   end
 
@@ -6891,7 +8158,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "platform", structure: false)]
     property platform : String?
 
-    def initialize(@blueprint_id : String = nil, @name : String = nil, @group : String = nil, @type : String = nil, @description : String = nil, @is_active : Bool = nil, @min_power : Int32 = nil, @version : String = nil, @version_code : String = nil, @product_url : String = nil, @license_url : String = nil, @platform : String = nil)
+    def initialize(@blueprint_id : String? = nil, @name : String? = nil, @group : String? = nil, @type : String? = nil, @description : String? = nil, @is_active : Bool? = nil, @min_power : Int32? = nil, @version : String? = nil, @version_code : String? = nil, @product_url : String? = nil, @license_url : String? = nil, @platform : String? = nil)
     end
   end
 
@@ -6900,7 +8167,7 @@ module AmazonLightsail
 
     # <p>An array of key-value pairs that contains information about the available
     # blueprints.</p>
-    @[AWSSdk::Field(location: :body, name: "blueprints", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "blueprints", structure: true)]
     property blueprints : Array(BlueprintStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -6909,15 +8176,368 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@blueprints : Array(BlueprintStruct) = nil, @next_page_token : String = nil)
+    def initialize(@blueprints : Array(BlueprintStruct)? = nil, @next_page_token : String? = nil)
+    end
+  end
+
+  class GetBucketAccessKeysRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket for which to return access keys.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+
+    def initialize(@bucket_name : String)
+    end
+  end
+
+  class GetBucketAccessKeysResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object that describes the access keys for the specified bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "accessKeys", structure: true)]
+    property access_keys : Array(AccessKeyStruct)?
+
+    def initialize(@access_keys : Array(AccessKeyStruct)? = nil)
+    end
+  end
+
+  class GetBucketBundlesRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>A Boolean value that indicates whether to include inactive (unavailable) bundles in the
+    # response of your request.</p>
+    @[AWSSdk::Field(location: :body, name: "includeInactive", structure: false)]
+    property include_inactive : Bool?
+
+    def initialize(@include_inactive : Bool? = nil)
+    end
+  end
+
+  class BucketBundleStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The ID of the bundle.</p>
+    @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
+    property bundle_id : String?
+    # <p>The name of the bundle.</p>
+    @[AWSSdk::Field(location: :body, name: "name", structure: false)]
+    property name : String?
+    # <p>The monthly price of the bundle, in US dollars.</p>
+    @[AWSSdk::Field(location: :body, name: "price", structure: false)]
+    property price : Float32?
+    # <p>The storage size of the bundle, in GB.</p>
+    @[AWSSdk::Field(location: :body, name: "storagePerMonthInGb", structure: false)]
+    property storage_per_month_in_gb : Int32?
+    # <p>The monthly network transfer quota of the bundle.</p>
+    @[AWSSdk::Field(location: :body, name: "transferPerMonthInGb", structure: false)]
+    property transfer_per_month_in_gb : Int32?
+    # <p>Indicates whether the bundle is active. Use for a new or existing bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "isActive", structure: false)]
+    property is_active : Bool?
+
+    def initialize(@bundle_id : String? = nil, @name : String? = nil, @price : Float32? = nil, @storage_per_month_in_gb : Int32? = nil, @transfer_per_month_in_gb : Int32? = nil, @is_active : Bool? = nil)
+    end
+  end
+
+  class GetBucketBundlesResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object that describes bucket bundles.</p>
+    @[AWSSdk::Field(location: :body, name: "bundles", structure: true)]
+    property bundles : Array(BucketBundleStruct)?
+
+    def initialize(@bundles : Array(BucketBundleStruct)? = nil)
+    end
+  end
+
+  class GetBucketMetricDataRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket for which to get metric data.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>The metric for which you want to return information.</p>
+    # 
+    # <p>Valid bucket metric names are listed below, along with the most useful statistics to
+    # include in your request, and the published unit value.</p>
+    # 
+    # <note>
+    # <p>These bucket metrics are reported once per day.</p>
+    # </note>
+    # 
+    # <ul>
+    # <li>
+    # <p>
+    # <b>
+    # <code>BucketSizeBytes</code>
+    # </b> - The amount of data in
+    # bytes stored in a bucket. This value is calculated by summing the size of all objects in
+    # the bucket (including object versions), including the size of all parts for all incomplete
+    # multipart uploads to the bucket.</p>
+    # <p>Statistics: The most useful statistic is <code>Maximum</code>.</p>
+    # <p>Unit: The published unit is <code>Bytes</code>.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <b>
+    # <code>NumberOfObjects</code>
+    # </b> - The total number of
+    # objects stored in a bucket. This value is calculated by counting all objects in the bucket
+    # (including object versions) and the total number of parts for all incomplete multipart
+    # uploads to the bucket.</p>
+    # <p>Statistics: The most useful statistic is <code>Average</code>.</p>
+    # <p>Unit: The published unit is <code>Count</code>.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
+    property metric_name : String
+    # <p>The timestamp indicating the earliest data to be returned.</p>
+    @[AWSSdk::Field(location: :body, name: "startTime", structure: false)]
+    property start_time : Time
+    # <p>The timestamp indicating the latest data to be returned.</p>
+    @[AWSSdk::Field(location: :body, name: "endTime", structure: false)]
+    property end_time : Time
+    # <p>The granularity, in seconds, of the returned data points.</p>
+    # <note>
+    # <p>Bucket storage metrics are reported once per day. Therefore, you should specify a period
+    # of 86400 seconds, which is the number of seconds in a day.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "period", structure: false)]
+    property period : Int32
+    # <p>The statistic for the metric.</p>
+    # 
+    # <p>The following statistics are available:</p>
+    # 
+    # <ul>
+    # <li>
+    # <p>
+    # <code>Minimum</code> - The lowest value observed during the specified period. Use this
+    # value to determine low volumes of activity for your application.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Maximum</code> - The highest value observed during the specified period. Use
+    # this value to determine high volumes of activity for your application.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Sum</code> - The sum of all values submitted for the matching metric. You can
+    # use this statistic to determine the total volume of a metric.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Average</code> - The value of <code>Sum</code> / <code>SampleCount</code> during
+    # the specified period. By comparing this statistic with the <code>Minimum</code> and
+    # <code>Maximum</code> values, you can determine the full scope of a metric and how close
+    # the average use is to the <code>Minimum</code> and <code>Maximum</code> values. This
+    # comparison helps you to know when to increase or decrease your resources.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>SampleCount</code> - The count, or number, of data points used for the
+    # statistical calculation.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "statistics", structure: false)]
+    property statistics : Array(String)
+    # <p>The unit for the metric data request.</p>
+    # <p>Valid units depend on the metric data being requested. For the valid units with each
+    # available metric, see the <code>metricName</code> parameter.</p>
+    @[AWSSdk::Field(location: :body, name: "unit", structure: false)]
+    property unit : String
+
+    def initialize(@bucket_name : String, @metric_name : String, @start_time : Time, @end_time : Time, @period : Int32, @statistics : Array(String), @unit : String)
+    end
+  end
+
+  class MetricDatapointStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The average.</p>
+    @[AWSSdk::Field(location: :body, name: "average", structure: false)]
+    property average : Float64?
+    # <p>The maximum.</p>
+    @[AWSSdk::Field(location: :body, name: "maximum", structure: false)]
+    property maximum : Float64?
+    # <p>The minimum.</p>
+    @[AWSSdk::Field(location: :body, name: "minimum", structure: false)]
+    property minimum : Float64?
+    # <p>The sample count.</p>
+    @[AWSSdk::Field(location: :body, name: "sampleCount", structure: false)]
+    property sample_count : Float64?
+    # <p>The sum.</p>
+    @[AWSSdk::Field(location: :body, name: "sum", structure: false)]
+    property sum : Float64?
+    # <p>The timestamp (e.g., <code>1479816991.349</code>).</p>
+    @[AWSSdk::Field(location: :body, name: "timestamp", structure: false)]
+    property timestamp : Time?
+    # <p>The unit. </p>
+    @[AWSSdk::Field(location: :body, name: "unit", structure: false)]
+    property unit : String?
+
+    def initialize(@average : Float64? = nil, @maximum : Float64? = nil, @minimum : Float64? = nil, @sample_count : Float64? = nil, @sum : Float64? = nil, @timestamp : Time? = nil, @unit : String? = nil)
+    end
+  end
+
+  class GetBucketMetricDataResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the metric returned.</p>
+    @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
+    property metric_name : String?
+    # <p>An array of objects that describe the metric data returned.</p>
+    @[AWSSdk::Field(location: :body, name: "metricData", structure: true)]
+    property metric_data : Array(MetricDatapointStruct)?
+
+    def initialize(@metric_name : String? = nil, @metric_data : Array(MetricDatapointStruct)? = nil)
+    end
+  end
+
+  class GetBucketsRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket for which to return information.</p>
+    # 
+    # <p>When omitted, the response includes all of your buckets in the Amazon Web Services Region
+    # where the request is made.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String?
+    # <p>The token to advance to the next page of results from your request.</p>
+    # 
+    # <p>To get a page token, perform an initial <code>GetBuckets</code> request. If your results
+    # are paginated, the response will return a next page token that you can specify as the page
+    # token in a subsequent request.</p>
+    @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
+    property page_token : String?
+    # <p>A Boolean value that indicates whether to include Lightsail instances that were given
+    # access to the bucket using the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_SetResourceAccessForBucket.html">SetResourceAccessForBucket</a>
+    # action.</p>
+    @[AWSSdk::Field(location: :body, name: "includeConnectedResources", structure: false)]
+    property include_connected_resources : Bool?
+
+    def initialize(@bucket_name : String? = nil, @page_token : String? = nil, @include_connected_resources : Bool? = nil)
+    end
+  end
+
+  class AccountLevelBpaSyncStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The status of the account-level BPA synchronization.</p>
+    # 
+    # <p>The following statuses are possible:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>InSync</code> - Account-level BPA is synchronized. The Amazon S3
+    # account-level BPA configuration applies to your Lightsail buckets.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>NeverSynced</code> - Synchronization has not yet happened. The Amazon S3
+    # account-level BPA configuration does not apply to your Lightsail buckets.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Failed</code> - Synchronization failed. The Amazon S3 account-level BPA
+    # configuration does not apply to your Lightsail buckets.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Defaulted</code> - Synchronization failed and account-level BPA for your
+    # Lightsail buckets is defaulted to <i>active</i>.</p>
+    # </li>
+    # </ul>
+    # <note>
+    # <p>You might need to complete further actions if the status is <code>Failed</code> or
+    # <code>Defaulted</code>. The <code>message</code> parameter provides more information for
+    # those statuses.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "status", structure: false)]
+    property status : String?
+    # <p>The timestamp of when the account-level BPA configuration was last synchronized. This
+    # value is null when the account-level BPA configuration has not been synchronized.</p>
+    @[AWSSdk::Field(location: :body, name: "lastSyncedAt", structure: false)]
+    property last_synced_at : Time?
+    # <p>A message that provides a reason for a <code>Failed</code> or <code>Defaulted</code>
+    # synchronization status.</p>
+    # 
+    # <p>The following messages are possible:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>SYNC_ON_HOLD</code> - The synchronization has not yet happened. This status
+    # message occurs immediately after you create your first Lightsail bucket. This status
+    # message should change after the first synchronization happens, approximately 1 hour after
+    # the first bucket is created.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>DEFAULTED_FOR_SLR_MISSING</code> - The synchronization failed because the
+    # required service-linked role is missing from your Amazon Web Services account. The
+    # account-level BPA configuration for your Lightsail buckets is defaulted to
+    # <i>active</i> until the synchronization can occur. This means that all
+    # your buckets are private and not publicly accessible. For more information about how to
+    # create the required service-linked role to allow synchronization, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-using-service-linked-roles">Using Service-Linked Roles for Amazon Lightsail</a> in the
+    # <i>Amazon Lightsail Developer Guide</i>.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>DEFAULTED_FOR_SLR_MISSING_ON_HOLD</code> - The synchronization failed because
+    # the required service-linked role is missing from your Amazon Web Services account.
+    # Account-level BPA is not yet configured for your Lightsail buckets. Therefore, only the
+    # bucket access permissions and individual object access permissions apply to your
+    # Lightsail buckets. For more information about how to create the required service-linked
+    # role to allow synchronization, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-using-service-linked-roles">Using Service-Linked Roles for Amazon Lightsail</a> in the
+    # <i>Amazon Lightsail Developer Guide</i>.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Unknown</code> - The reason that synchronization failed is unknown. Contact
+    # Amazon Web Services Support for more information.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "message", structure: false)]
+    property message : String?
+    # <p>A Boolean value that indicates whether account-level block public access is affecting your
+    # Lightsail buckets.</p>
+    @[AWSSdk::Field(location: :body, name: "bpaImpactsLightsail", structure: false)]
+    property bpa_impacts_lightsail : Bool?
+
+    def initialize(@status : String? = nil, @last_synced_at : Time? = nil, @message : String? = nil, @bpa_impacts_lightsail : Bool? = nil)
+    end
+  end
+
+  class GetBucketsResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe buckets.</p>
+    @[AWSSdk::Field(location: :body, name: "buckets", structure: true)]
+    property buckets : Array(BucketStruct)?
+    # <p>The token to advance to the next page of results from your request.</p>
+    # 
+    # <p>A next page token is not returned if there are no more results to display.</p>
+    # 
+    # <p>To get the next page of results, perform another <code>GetBuckets</code> request and
+    # specify the next page token using the <code>pageToken</code> parameter.</p>
+    @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
+    property next_page_token : String?
+    # <p>An object that describes the synchronization status of the Amazon S3 account-level
+    # block public access feature for your Lightsail buckets.</p>
+    # 
+    # <p>For more information about this feature and how it affects Lightsail buckets, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-block-public-access-for-buckets">Block public access for buckets in Amazon Lightsail</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "accountLevelBpaSync", structure: true)]
+    property account_level_bpa_sync : AccountLevelBpaSyncStruct?
+
+    def initialize(@buckets : Array(BucketStruct)? = nil, @next_page_token : String? = nil, @account_level_bpa_sync : AccountLevelBpaSyncStruct? = nil)
     end
   end
 
   class GetBundlesRequest
     include AWSSdk::JSON1_1::Structure
 
-    # <p>A Boolean value that indicates whether to include inactive bundle results in your
-    # request.</p>
+    # <p>A Boolean value that indicates whether to include inactive (unavailable) bundles in the
+    # response of your request.</p>
     @[AWSSdk::Field(location: :body, name: "includeInactive", structure: false)]
     property include_inactive : Bool?
     # <p>The token to advance to the next page of results from your request.</p>
@@ -6927,7 +8547,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@include_inactive : Bool = nil, @page_token : String = nil)
+    def initialize(@include_inactive : Bool? = nil, @page_token : String? = nil)
     end
   end
 
@@ -6975,7 +8595,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "supportedPlatforms", structure: false)]
     property supported_platforms : Array(String)?
 
-    def initialize(@price : Float32 = nil, @cpu_count : Int32 = nil, @disk_size_in_gb : Int32 = nil, @bundle_id : String = nil, @instance_type : String = nil, @is_active : Bool = nil, @name : String = nil, @power : Int32 = nil, @ram_size_in_gb : Float32 = nil, @transfer_per_month_in_gb : Int32 = nil, @supported_platforms : Array(String) = nil)
+    def initialize(@price : Float32? = nil, @cpu_count : Int32? = nil, @disk_size_in_gb : Int32? = nil, @bundle_id : String? = nil, @instance_type : String? = nil, @is_active : Bool? = nil, @name : String? = nil, @power : Int32? = nil, @ram_size_in_gb : Float32? = nil, @transfer_per_month_in_gb : Int32? = nil, @supported_platforms : Array(String)? = nil)
     end
   end
 
@@ -6983,7 +8603,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of key-value pairs that contains information about the available bundles.</p>
-    @[AWSSdk::Field(location: :body, name: "bundles", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "bundles", structure: true)]
     property bundles : Array(BundleStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -6992,7 +8612,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@bundles : Array(BundleStruct) = nil, @next_page_token : String = nil)
+    def initialize(@bundles : Array(BundleStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -7002,8 +8622,8 @@ module AmazonLightsail
     # <p>The status of the certificates for which to return information.</p>
     # <p>For example, specify <code>ISSUED</code> to return only certificates with an
     # <code>ISSUED</code> status.</p>
-    # <p>When omitted, the response includes all of your certificates in the AWS Region where the
-    # request is made, regardless of their current status.</p>
+    # <p>When omitted, the response includes all of your certificates in the Amazon Web Services
+    # Region where the request is made, regardless of their current status.</p>
     @[AWSSdk::Field(location: :body, name: "certificateStatuses", structure: false)]
     property certificate_statuses : Array(String)?
     # <p>Indicates whether to include detailed information about the certificates in the
@@ -7013,12 +8633,12 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "includeCertificateDetails", structure: false)]
     property include_certificate_details : Bool?
     # <p>The name for the certificate for which to return information.</p>
-    # <p>When omitted, the response includes all of your certificates in the AWS Region where the
-    # request is made.</p>
+    # <p>When omitted, the response includes all of your certificates in the Amazon Web Services
+    # Region where the request is made.</p>
     @[AWSSdk::Field(location: :body, name: "certificateName", structure: false)]
     property certificate_name : String?
 
-    def initialize(@certificate_statuses : Array(String) = nil, @include_certificate_details : Bool = nil, @certificate_name : String = nil)
+    def initialize(@certificate_statuses : Array(String)? = nil, @include_certificate_details : Bool? = nil, @certificate_name : String? = nil)
     end
   end
 
@@ -7026,10 +8646,10 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object that describes certificates.</p>
-    @[AWSSdk::Field(location: :body, name: "certificates", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "certificates", structure: true)]
     property certificates : Array(CertificateSummaryStruct)?
 
-    def initialize(@certificates : Array(CertificateSummaryStruct) = nil)
+    def initialize(@certificates : Array(CertificateSummaryStruct)? = nil)
     end
   end
 
@@ -7043,7 +8663,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -7060,7 +8680,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "arn", structure: false)]
     property arn : String?
 
-    def initialize(@resource_type : String = nil, @name : String = nil, @arn : String = nil)
+    def initialize(@resource_type : String? = nil, @name : String? = nil, @arn : String? = nil)
     end
   end
 
@@ -7074,7 +8694,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "service", structure: false)]
     property service : String?
 
-    def initialize(@id : String = nil, @service : String = nil)
+    def initialize(@id : String? = nil, @service : String? = nil)
     end
   end
 
@@ -7091,8 +8711,8 @@ module AmazonLightsail
     # <p>The date when the CloudFormation stack record was created.</p>
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
-    # <p>A list of objects describing the Availability Zone and AWS Region of the CloudFormation
-    # stack record.</p>
+    # <p>A list of objects describing the Availability Zone and Amazon Web Services Region of the
+    # CloudFormation stack record.</p>
     @[AWSSdk::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).</p>
@@ -7102,14 +8722,14 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>A list of objects describing the source of the CloudFormation stack record.</p>
-    @[AWSSdk::Field(location: :body, name: "sourceInfo", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "sourceInfo", structure: true)]
     property source_info : Array(CloudFormationStackRecordSourceInfoStruct)?
     # <p>A list of objects describing the destination service, which is AWS CloudFormation, and the Amazon
     # Resource Name (ARN) of the AWS CloudFormation stack.</p>
     @[AWSSdk::Field(location: :body, name: "destinationInfo", structure: true)]
     property destination_info : DestinationInfoStruct?
 
-    def initialize(@name : String = nil, @arn : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @state : String = nil, @source_info : Array(CloudFormationStackRecordSourceInfoStruct) = nil, @destination_info : DestinationInfoStruct = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @state : String? = nil, @source_info : Array(CloudFormationStackRecordSourceInfoStruct)? = nil, @destination_info : DestinationInfoStruct? = nil)
     end
   end
 
@@ -7117,7 +8737,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>A list of objects describing the CloudFormation stack records.</p>
-    @[AWSSdk::Field(location: :body, name: "cloudFormationStackRecords", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "cloudFormationStackRecords", structure: true)]
     property cloud_formation_stack_records : Array(CloudFormationStackRecordStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -7127,7 +8747,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@cloud_formation_stack_records : Array(CloudFormationStackRecordStruct) = nil, @next_page_token : String = nil)
+    def initialize(@cloud_formation_stack_records : Array(CloudFormationStackRecordStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -7141,7 +8761,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "protocols", structure: false)]
     property protocols : Array(String)?
 
-    def initialize(@protocols : Array(String) = nil)
+    def initialize(@protocols : Array(String)? = nil)
     end
   end
 
@@ -7184,7 +8804,7 @@ module AmazonLightsail
     # <p>The timestamp when the contact method was created.</p>
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
-    #
+    # <p>An object that describes the location of the contact method, such as the Amazon Web Services Region and Availability Zone.</p>
     @[AWSSdk::Field(location: :body, name: "location", structure: true)]
     property location : ResourceLocationStruct?
     # <p>The Lightsail resource type (e.g., <code>ContactMethod</code>).</p>
@@ -7196,7 +8816,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "supportCode", structure: false)]
     property support_code : String?
 
-    def initialize(@contact_endpoint : String = nil, @status : String = nil, @protocol : String = nil, @name : String = nil, @arn : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @support_code : String = nil)
+    def initialize(@contact_endpoint : String? = nil, @status : String? = nil, @protocol : String? = nil, @name : String? = nil, @arn : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @support_code : String? = nil)
     end
   end
 
@@ -7204,17 +8824,18 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe the contact methods.</p>
-    @[AWSSdk::Field(location: :body, name: "contactMethods", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "contactMethods", structure: true)]
     property contact_methods : Array(ContactMethodStruct)?
 
-    def initialize(@contact_methods : Array(ContactMethodStruct) = nil)
+    def initialize(@contact_methods : Array(ContactMethodStruct)? = nil)
     end
   end
 
   class GetContainerAPIMetadataRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -7226,7 +8847,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "metadata", structure: false)]
     property metadata : Array(Hash(String, String))?
 
-    def initialize(@metadata : Array(Hash(String, String)) = nil)
+    def initialize(@metadata : Array(Hash(String, String))? = nil)
     end
   end
 
@@ -7254,7 +8875,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
 
-    def initialize(@image : String = nil, @digest : String = nil, @created_at : Time = nil)
+    def initialize(@image : String? = nil, @digest : String? = nil, @created_at : Time? = nil)
     end
   end
 
@@ -7263,10 +8884,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe container images that are registered to the container
     # service.</p>
-    @[AWSSdk::Field(location: :body, name: "containerImages", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "containerImages", structure: true)]
     property container_images : Array(ContainerImageStruct)?
 
-    def initialize(@container_images : Array(ContainerImageStruct) = nil)
+    def initialize(@container_images : Array(ContainerImageStruct)? = nil)
     end
   end
 
@@ -7281,45 +8902,45 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :uri, name: "containerName", structure: false)]
     property container_name : String
     # <p>The start of the time interval for which to get log data.</p>
-    #
+    # 
     # <p>Constraints:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>Specified in Coordinated Universal Time (UTC).</p>
     # </li>
     # <li>
     # <p>Specified in the Unix time format.</p>
-    #
+    # 
     # <p>For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify
     # <code>1538424000</code> as the start time.</p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
     @[AWSSdk::Field(location: :query, name: "startTime", structure: false)]
     property start_time : Time?
     # <p>The end of the time interval for which to get log data.</p>
-    #
+    # 
     # <p>Constraints:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>Specified in Coordinated Universal Time (UTC).</p>
     # </li>
     # <li>
     # <p>Specified in the Unix time format.</p>
-    #
+    # 
     # <p>For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify
     # <code>1538427600</code> as the end time.</p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>You can convert a human-friendly time to Unix time format using a converter like <a href="https://www.epochconverter.com/">Epoch converter</a>.</p>
     @[AWSSdk::Field(location: :query, name: "endTime", structure: false)]
     property end_time : Time?
     # <p>The pattern to use to filter the returned log events to a specific term.</p>
-    #
+    # 
     # <p>The following are a few examples of filter patterns that you can specify:</p>
     # <ul>
     # <li>
@@ -7347,14 +8968,14 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :query, name: "filterPattern", structure: false)]
     property filter_pattern : String?
     # <p>The token to advance to the next page of results from your request.</p>
-    #
+    # 
     # <p>To get a page token, perform an initial <code>GetContainerLog</code> request. If your
     # results are paginated, the response will return a next page token that you can specify as the
     # page token in a subsequent request.</p>
     @[AWSSdk::Field(location: :query, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@service_name : String, @container_name : String, @start_time : Time = nil, @end_time : Time = nil, @filter_pattern : String = nil, @page_token : String = nil)
+    def initialize(@service_name : String, @container_name : String, @start_time : Time? = nil, @end_time : Time? = nil, @filter_pattern : String? = nil, @page_token : String? = nil)
     end
   end
 
@@ -7368,7 +8989,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
 
-    def initialize(@created_at : Time = nil, @message : String = nil)
+    def initialize(@created_at : Time? = nil, @message : String? = nil)
     end
   end
 
@@ -7376,18 +8997,18 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe the log events of a container.</p>
-    @[AWSSdk::Field(location: :body, name: "logEvents", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "logEvents", structure: true)]
     property log_events : Array(ContainerServiceLogEventStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
-    #
+    # 
     # <p>A next page token is not returned if there are no more results to display.</p>
-    #
+    # 
     # <p>To get the next page of results, perform another <code>GetContainerLog</code> request and
     # specify the next page token using the <code>pageToken</code> parameter.</p>
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@log_events : Array(ContainerServiceLogEventStruct) = nil, @next_page_token : String = nil)
+    def initialize(@log_events : Array(ContainerServiceLogEventStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -7406,10 +9027,10 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe deployments for a container service.</p>
-    @[AWSSdk::Field(location: :body, name: "deployments", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "deployments", structure: true)]
     property deployments : Array(ContainerServiceDeploymentStruct)?
 
-    def initialize(@deployments : Array(ContainerServiceDeploymentStruct) = nil)
+    def initialize(@deployments : Array(ContainerServiceDeploymentStruct)? = nil)
     end
   end
 
@@ -7420,10 +9041,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The metric for which you want to return information.</p>
-    #
+    # 
     # <p>Valid container service metric names are listed below, along with the most useful
     # statistics to include in your request, and the published unit value.</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>
@@ -7453,15 +9074,15 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :query, name: "endTime", structure: false)]
     property end_time : Time
     # <p>The granularity, in seconds, of the returned data points.</p>
-    #
+    # 
     # <p>All container service metric data is available in 5-minute (300 seconds)
     # granularity.</p>
     @[AWSSdk::Field(location: :query, name: "period", structure: false)]
     property period : Int32
     # <p>The statistic for the metric.</p>
-    #
+    # 
     # <p>The following statistics are available:</p>
-    #
+    # 
     # <ul>
     # <li>
     # <p>
@@ -7499,35 +9120,6 @@ module AmazonLightsail
     end
   end
 
-  class MetricDatapointStruct
-    include AWSSdk::JSON1_1::Structure
-
-    # <p>The average.</p>
-    @[AWSSdk::Field(location: :body, name: "average", structure: false)]
-    property average : Float64?
-    # <p>The maximum.</p>
-    @[AWSSdk::Field(location: :body, name: "maximum", structure: false)]
-    property maximum : Float64?
-    # <p>The minimum.</p>
-    @[AWSSdk::Field(location: :body, name: "minimum", structure: false)]
-    property minimum : Float64?
-    # <p>The sample count.</p>
-    @[AWSSdk::Field(location: :body, name: "sampleCount", structure: false)]
-    property sample_count : Float64?
-    # <p>The sum.</p>
-    @[AWSSdk::Field(location: :body, name: "sum", structure: false)]
-    property sum : Float64?
-    # <p>The timestamp (e.g., <code>1479816991.349</code>).</p>
-    @[AWSSdk::Field(location: :body, name: "timestamp", structure: false)]
-    property timestamp : Time?
-    # <p>The unit. </p>
-    @[AWSSdk::Field(location: :body, name: "unit", structure: false)]
-    property unit : String?
-
-    def initialize(@average : Float64 = nil, @maximum : Float64 = nil, @minimum : Float64 = nil, @sample_count : Float64 = nil, @sum : Float64 = nil, @timestamp : Time = nil, @unit : String = nil)
-    end
-  end
-
   class GetContainerServiceMetricDataResultStruct
     include AWSSdk::JSON1_1::Structure
 
@@ -7535,17 +9127,18 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[AWSSdk::Field(location: :body, name: "metricData", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "metricData", structure: true)]
     property metric_data : Array(MetricDatapointStruct)?
 
-    def initialize(@metric_name : String = nil, @metric_data : Array(MetricDatapointStruct) = nil)
+    def initialize(@metric_name : String? = nil, @metric_data : Array(MetricDatapointStruct)? = nil)
     end
   end
 
   class GetContainerServicePowersRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -7572,7 +9165,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
 
-    def initialize(@power_id : String = nil, @price : Float32 = nil, @cpu_count : Float32 = nil, @ram_size_in_gb : Float32 = nil, @name : String = nil, @is_active : Bool = nil)
+    def initialize(@power_id : String? = nil, @price : Float32? = nil, @cpu_count : Float32? = nil, @ram_size_in_gb : Float32? = nil, @name : String? = nil, @is_active : Bool? = nil)
     end
   end
 
@@ -7581,10 +9174,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the powers that can be specified for a container
     # service.</p>
-    @[AWSSdk::Field(location: :body, name: "powers", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "powers", structure: true)]
     property powers : Array(ContainerServicePowerStruct)?
 
-    def initialize(@powers : Array(ContainerServicePowerStruct) = nil)
+    def initialize(@powers : Array(ContainerServicePowerStruct)? = nil)
     end
   end
 
@@ -7592,13 +9185,12 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>The name of the container service for which to return information.</p>
-    #
-    # <p>When omitted, the response includes all of your container services in the AWS Region
-    # where the request is made.</p>
+    # 
+    # <p>When omitted, the response includes all of your container services in the Amazon Web Services Region where the request is made.</p>
     @[AWSSdk::Field(location: :query, name: "serviceName", structure: false)]
     property service_name : String?
 
-    def initialize(@service_name : String = nil)
+    def initialize(@service_name : String? = nil)
     end
   end
 
@@ -7606,10 +9198,10 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe one or more container services.</p>
-    @[AWSSdk::Field(location: :body, name: "containerServices", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "containerServices", structure: true)]
     property container_services : Array(ContainerServiceStruct)?
 
-    def initialize(@container_services : Array(ContainerServiceStruct) = nil)
+    def initialize(@container_services : Array(ContainerServiceStruct)? = nil)
     end
   end
 
@@ -7648,7 +9240,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextSnapshotTimeOfDay", structure: false)]
     property next_snapshot_time_of_day : String?
 
-    def initialize(@name : String = nil, @status : String = nil, @snapshot_time_of_day : String = nil, @next_snapshot_time_of_day : String = nil)
+    def initialize(@name : String? = nil, @status : String? = nil, @snapshot_time_of_day : String? = nil, @next_snapshot_time_of_day : String? = nil)
     end
   end
 
@@ -7676,12 +9268,11 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>An array of objects representing the add-ons enabled on the disk.</p>
-    @[AWSSdk::Field(location: :body, name: "addOns", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "addOns", structure: true)]
     property add_ons : Array(AddOnStruct)?
     # <p>The size of the disk in GB.</p>
     @[AWSSdk::Field(location: :body, name: "sizeInGb", structure: false)]
@@ -7721,7 +9312,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "gbInUse", structure: false)]
     property gb_in_use : Int32?
 
-    def initialize(@name : String = nil, @attachment_state : String = nil, @is_attached : Bool = nil, @attached_to : String = nil, @state : String = nil, @path : String = nil, @iops : Int32 = nil, @is_system_disk : Bool = nil, @size_in_gb : Int32 = nil, @add_ons : Array(AddOnStruct) = nil, @tags : Array(TagStruct) = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @support_code : String = nil, @arn : String = nil, @gb_in_use : Int32 = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @add_ons : Array(AddOnStruct)? = nil, @size_in_gb : Int32? = nil, @is_system_disk : Bool? = nil, @iops : Int32? = nil, @path : String? = nil, @state : String? = nil, @attached_to : String? = nil, @is_attached : Bool? = nil, @attachment_state : String? = nil, @gb_in_use : Int32? = nil)
     end
   end
 
@@ -7732,7 +9323,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "disk", structure: true)]
     property disk : DiskStruct?
 
-    def initialize(@disk : DiskStruct = nil)
+    def initialize(@disk : DiskStruct? = nil)
     end
   end
 
@@ -7746,7 +9337,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -7754,7 +9345,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects containing information about all block storage disks.</p>
-    @[AWSSdk::Field(location: :body, name: "disks", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "disks", structure: true)]
     property disks : Array(DiskStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -7763,7 +9354,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@disks : Array(DiskStruct) = nil, @next_page_token : String = nil)
+    def initialize(@disks : Array(DiskStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -7802,9 +9393,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The size of the disk in GB.</p>
     @[AWSSdk::Field(location: :body, name: "sizeInGb", structure: false)]
@@ -7812,7 +9402,7 @@ module AmazonLightsail
     # <p>The status of the disk snapshot operation.</p>
     @[AWSSdk::Field(location: :body, name: "state", structure: false)]
     property state : String?
-    # <p>The progress of the disk snapshot operation.</p>
+    # <p>The progress of the snapshot.</p>
     @[AWSSdk::Field(location: :body, name: "progress", structure: false)]
     property progress : String?
     # <p>The unique name of the source disk from which the disk snapshot was created.</p>
@@ -7835,7 +9425,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isFromAutoSnapshot", structure: false)]
     property is_from_auto_snapshot : Bool?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @tags : Array(TagStruct) = nil, @size_in_gb : Int32 = nil, @state : String = nil, @progress : String = nil, @from_disk_name : String = nil, @from_disk_arn : String = nil, @from_instance_name : String = nil, @from_instance_arn : String = nil, @is_from_auto_snapshot : Bool = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @size_in_gb : Int32? = nil, @state : String? = nil, @progress : String? = nil, @from_disk_name : String? = nil, @from_disk_arn : String? = nil, @from_instance_name : String? = nil, @from_instance_arn : String? = nil, @is_from_auto_snapshot : Bool? = nil)
     end
   end
 
@@ -7846,7 +9436,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "diskSnapshot", structure: true)]
     property disk_snapshot : DiskSnapshotStruct?
 
-    def initialize(@disk_snapshot : DiskSnapshotStruct = nil)
+    def initialize(@disk_snapshot : DiskSnapshotStruct? = nil)
     end
   end
 
@@ -7860,7 +9450,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -7868,7 +9458,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects containing information about all block storage disk snapshots.</p>
-    @[AWSSdk::Field(location: :body, name: "diskSnapshots", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "diskSnapshots", structure: true)]
     property disk_snapshots : Array(DiskSnapshotStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -7877,14 +9467,15 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@disk_snapshots : Array(DiskSnapshotStruct) = nil, @next_page_token : String = nil)
+    def initialize(@disk_snapshots : Array(DiskSnapshotStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
   class GetDistributionBundlesRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -7903,12 +9494,12 @@ module AmazonLightsail
     # <p>The monthly network transfer quota of the bundle.</p>
     @[AWSSdk::Field(location: :body, name: "transferPerMonthInGb", structure: false)]
     property transfer_per_month_in_gb : Int32?
-    # <p>Indicates whether the bundle is active, and can be specified for a new
+    # <p>Indicates whether the bundle is active, and can be specified for a new or existing
     # distribution.</p>
     @[AWSSdk::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
 
-    def initialize(@bundle_id : String = nil, @name : String = nil, @price : Float32 = nil, @transfer_per_month_in_gb : Int32 = nil, @is_active : Bool = nil)
+    def initialize(@bundle_id : String? = nil, @name : String? = nil, @price : Float32? = nil, @transfer_per_month_in_gb : Int32? = nil, @is_active : Bool? = nil)
     end
   end
 
@@ -7916,10 +9507,10 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object that describes a distribution bundle.</p>
-    @[AWSSdk::Field(location: :body, name: "bundles", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "bundles", structure: true)]
     property bundles : Array(DistributionBundleStruct)?
 
-    def initialize(@bundles : Array(DistributionBundleStruct) = nil)
+    def initialize(@bundles : Array(DistributionBundleStruct)? = nil)
     end
   end
 
@@ -7935,7 +9526,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
 
-    def initialize(@distribution_name : String = nil)
+    def initialize(@distribution_name : String? = nil)
     end
   end
 
@@ -7950,7 +9541,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "createTime", structure: false)]
     property create_time : Time?
 
-    def initialize(@status : String = nil, @create_time : Time = nil)
+    def initialize(@status : String? = nil, @create_time : Time? = nil)
     end
   end
 
@@ -8125,10 +9716,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[AWSSdk::Field(location: :body, name: "metricData", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "metricData", structure: true)]
     property metric_data : Array(MetricDatapointStruct)?
 
-    def initialize(@metric_name : String = nil, @metric_data : Array(MetricDatapointStruct) = nil)
+    def initialize(@metric_name : String? = nil, @metric_data : Array(MetricDatapointStruct)? = nil)
     end
   end
 
@@ -8136,10 +9727,9 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>The name of the distribution for which to return information.</p>
-    # <p>Use the <code>GetDistributions</code> action to get a list of distribution names that you
-    # can specify.</p>
-    # <p>When omitted, the response includes all of your distributions in the AWS Region where
-    # the request is made.</p>
+    # 
+    # <p>When omitted, the response includes all of your distributions in the Amazon Web Services
+    # Region where the request is made.</p>
     @[AWSSdk::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
     # <p>The token to advance to the next page of results from your request.</p>
@@ -8149,7 +9739,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@distribution_name : String = nil, @page_token : String = nil)
+    def initialize(@distribution_name : String? = nil, @page_token : String? = nil)
     end
   end
 
@@ -8157,7 +9747,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects that describe your distributions.</p>
-    @[AWSSdk::Field(location: :body, name: "distributions", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "distributions", structure: true)]
     property distributions : Array(LightsailDistributionStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -8166,7 +9756,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@distributions : Array(LightsailDistributionStruct) = nil, @next_page_token : String = nil)
+    def initialize(@distributions : Array(LightsailDistributionStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -8206,15 +9796,14 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>An array of key-value pairs containing information about the domain entries.</p>
-    @[AWSSdk::Field(location: :body, name: "domainEntries", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "domainEntries", structure: true)]
     property domain_entries : Array(DomainEntryStruct)?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @tags : Array(TagStruct) = nil, @domain_entries : Array(DomainEntryStruct) = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @domain_entries : Array(DomainEntryStruct)? = nil)
     end
   end
 
@@ -8225,7 +9814,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "domain", structure: true)]
     property domain : DomainStruct?
 
-    def initialize(@domain : DomainStruct = nil)
+    def initialize(@domain : DomainStruct? = nil)
     end
   end
 
@@ -8239,7 +9828,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -8248,7 +9837,7 @@ module AmazonLightsail
 
     # <p>An array of key-value pairs containing information about each of the domain entries in the
     # user's account.</p>
-    @[AWSSdk::Field(location: :body, name: "domains", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "domains", structure: true)]
     property domains : Array(DomainStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -8257,7 +9846,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@domains : Array(DomainStruct) = nil, @next_page_token : String = nil)
+    def initialize(@domains : Array(DomainStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -8271,7 +9860,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -8292,7 +9881,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isSystemDisk", structure: false)]
     property is_system_disk : Bool?
 
-    def initialize(@name : String = nil, @path : String = nil, @size_in_gb : Int32 = nil, @is_system_disk : Bool = nil)
+    def initialize(@name : String? = nil, @path : String? = nil, @size_in_gb : Int32? = nil, @is_system_disk : Bool? = nil)
     end
   end
 
@@ -8307,10 +9896,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "fromBlueprintId", structure: false)]
     property from_blueprint_id : String?
     # <p>A list of objects describing the disks that were attached to the source instance.</p>
-    @[AWSSdk::Field(location: :body, name: "fromDiskInfo", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "fromDiskInfo", structure: true)]
     property from_disk_info : Array(DiskInfoStruct)?
 
-    def initialize(@from_bundle_id : String = nil, @from_blueprint_id : String = nil, @from_disk_info : Array(DiskInfoStruct) = nil)
+    def initialize(@from_bundle_id : String? = nil, @from_blueprint_id : String? = nil, @from_disk_info : Array(DiskInfoStruct)? = nil)
     end
   end
 
@@ -8321,7 +9910,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
 
-    def initialize(@size_in_gb : Int32 = nil)
+    def initialize(@size_in_gb : Int32? = nil)
     end
   end
 
@@ -8354,7 +9943,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "diskSnapshotInfo", structure: true)]
     property disk_snapshot_info : DiskSnapshotInfoStruct?
 
-    def initialize(@resource_type : String = nil, @created_at : Time = nil, @name : String = nil, @arn : String = nil, @from_resource_name : String = nil, @from_resource_arn : String = nil, @instance_snapshot_info : InstanceSnapshotInfoStruct = nil, @disk_snapshot_info : DiskSnapshotInfoStruct = nil)
+    def initialize(@resource_type : String? = nil, @created_at : Time? = nil, @name : String? = nil, @arn : String? = nil, @from_resource_name : String? = nil, @from_resource_arn : String? = nil, @instance_snapshot_info : InstanceSnapshotInfoStruct? = nil, @disk_snapshot_info : DiskSnapshotInfoStruct? = nil)
     end
   end
 
@@ -8386,7 +9975,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "destinationInfo", structure: true)]
     property destination_info : DestinationInfoStruct?
 
-    def initialize(@name : String = nil, @arn : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @state : String = nil, @source_info : ExportSnapshotRecordSourceInfoStruct = nil, @destination_info : DestinationInfoStruct = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @state : String? = nil, @source_info : ExportSnapshotRecordSourceInfoStruct? = nil, @destination_info : DestinationInfoStruct? = nil)
     end
   end
 
@@ -8394,7 +9983,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>A list of objects describing the export snapshot records.</p>
-    @[AWSSdk::Field(location: :body, name: "exportSnapshotRecords", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "exportSnapshotRecords", structure: true)]
     property export_snapshot_records : Array(ExportSnapshotRecordStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -8403,7 +9992,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@export_snapshot_records : Array(ExportSnapshotRecordStruct) = nil, @next_page_token : String = nil)
+    def initialize(@export_snapshot_records : Array(ExportSnapshotRecordStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -8425,13 +10014,13 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cpuCount", structure: false)]
     property cpu_count : Int32?
     # <p>The disks attached to the instance.</p>
-    @[AWSSdk::Field(location: :body, name: "disks", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "disks", structure: true)]
     property disks : Array(DiskStruct)?
     # <p>The amount of RAM in GB on the instance (e.g., <code>1.0</code>).</p>
     @[AWSSdk::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
 
-    def initialize(@cpu_count : Int32 = nil, @disks : Array(DiskStruct) = nil, @ram_size_in_gb : Float32 = nil)
+    def initialize(@cpu_count : Int32? = nil, @disks : Array(DiskStruct)? = nil, @ram_size_in_gb : Float32? = nil)
     end
   end
 
@@ -8442,7 +10031,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "gbPerMonthAllocated", structure: false)]
     property gb_per_month_allocated : Int32?
 
-    def initialize(@gb_per_month_allocated : Int32 = nil)
+    def initialize(@gb_per_month_allocated : Int32? = nil)
     end
   end
 
@@ -8457,9 +10046,15 @@ module AmazonLightsail
     # </p>
     # </li>
     # <li>
-    # <p>ICMP - The ICMP type. For example, specify <code>8</code> as the <code>fromPort</code>
-    # (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP code), to enable ICMP
-    # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # <p>ICMP - The ICMP type for IPv4 addresses. For example, specify <code>8</code> as the
+    # <code>fromPort</code> (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP
+    # code), to enable ICMP Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # </li>
+    # <li>
+    # <p>ICMPv6 - The ICMP type for IPv6 addresses. For example, specify <code>128</code> as
+    # the <code>fromPort</code> (ICMPv6 type), and <code>0</code> as <code>toPort</code> (ICMPv6
+    # code). For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6">Internet
+    # Control Message Protocol for IPv6</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "fromPort", structure: false)]
@@ -8472,9 +10067,15 @@ module AmazonLightsail
     # </p>
     # </li>
     # <li>
-    # <p>ICMP - The ICMP code. For example, specify <code>8</code> as the <code>fromPort</code>
-    # (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP code), to enable ICMP
-    # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # <p>ICMP - The ICMP code for IPv4 addresses. For example, specify <code>8</code> as the
+    # <code>fromPort</code> (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP
+    # code), to enable ICMP Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # </li>
+    # <li>
+    # <p>ICMPv6 - The ICMP code for IPv6 addresses. For example, specify <code>128</code> as
+    # the <code>fromPort</code> (ICMPv6 type), and <code>0</code> as <code>toPort</code> (ICMPv6
+    # code). For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6">Internet
+    # Control Message Protocol for IPv6</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "toPort", structure: false)]
@@ -8532,12 +10133,27 @@ module AmazonLightsail
     # </note>
     @[AWSSdk::Field(location: :body, name: "accessDirection", structure: false)]
     property access_direction : String?
-    # <p>The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to
-    # an instance through the ports, and the protocol. Lightsail supports IPv4 addresses.</p>
+    # <p>The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are allowed to
+    # connect to an instance through the ports, and the protocol.</p>
+    # <note>
+    # <p>The <code>ipv6Cidrs</code> parameter lists the IPv6 addresses that are allowed to
+    # connect to an instance.</p>
+    # </note>
     # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
     # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
     @[AWSSdk::Field(location: :body, name: "cidrs", structure: false)]
     property cidrs : Array(String)?
+    # <p>The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are allowed to
+    # connect to an instance through the ports, and the protocol. Only devices with an IPv6 address
+    # can connect to an instance through IPv6; otherwise, IPv4 should be used.</p>
+    # <note>
+    # <p>The <code>cidrs</code> parameter lists the IPv4 addresses that are allowed to connect to
+    # an instance.</p>
+    # </note>
+    # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
+    # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipv6Cidrs", structure: false)]
+    property ipv6_cidrs : Array(String)?
     # <p>An alias that defines access for a preconfigured range of IP addresses.</p>
     # <p>The only alias currently supported is <code>lightsail-connect</code>, which allows IP
     # addresses of the browser-based RDP/SSH client in the Lightsail console to connect to your
@@ -8545,7 +10161,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cidrListAliases", structure: false)]
     property cidr_list_aliases : Array(String)?
 
-    def initialize(@from_port : Int32 = nil, @to_port : Int32 = nil, @protocol : String = nil, @access_from : String = nil, @access_type : String = nil, @common_name : String = nil, @access_direction : String = nil, @cidrs : Array(String) = nil, @cidr_list_aliases : Array(String) = nil)
+    def initialize(@from_port : Int32? = nil, @to_port : Int32? = nil, @protocol : String? = nil, @access_from : String? = nil, @access_type : String? = nil, @common_name : String? = nil, @access_direction : String? = nil, @cidrs : Array(String)? = nil, @ipv6_cidrs : Array(String)? = nil, @cidr_list_aliases : Array(String)? = nil)
     end
   end
 
@@ -8556,10 +10172,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "monthlyTransfer", structure: true)]
     property monthly_transfer : MonthlyTransferStruct?
     # <p>An array of key-value pairs containing information about the ports on the instance.</p>
-    @[AWSSdk::Field(location: :body, name: "ports", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "ports", structure: true)]
     property ports : Array(InstancePortInfoStruct)?
 
-    def initialize(@monthly_transfer : MonthlyTransferStruct = nil, @ports : Array(InstancePortInfoStruct) = nil)
+    def initialize(@monthly_transfer : MonthlyTransferStruct? = nil, @ports : Array(InstancePortInfoStruct)? = nil)
     end
   end
 
@@ -8573,7 +10189,66 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "name", structure: false)]
     property name : String?
 
-    def initialize(@code : Int32 = nil, @name : String = nil)
+    def initialize(@code : Int32? = nil, @name : String? = nil)
+    end
+  end
+
+  class InstanceMetadataOptionsStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The state of the metadata option changes.</p>
+    # <p>The following states are possible:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>pending</code> - The metadata options are being updated. The instance is not yet
+    # ready to process metadata traffic with the new selection.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>applied</code> - The metadata options have been successfully applied to the
+    # instance.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "state", structure: false)]
+    property state : String?
+    # <p>The state of token usage for your instance metadata requests.</p>
+    # 
+    # <p>If the state is <code>optional</code>, you can choose whether to retrieve instance
+    # metadata with a signed token header on your request. If you retrieve the IAM role credentials
+    # without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role
+    # credentials by using a valid signed token, the version 2.0 role credentials are
+    # returned.</p>
+    # 
+    # <p>If the state is <code>required</code>, you must send a signed token header with all
+    # instance metadata retrieval requests. In this state, retrieving the IAM role credential always
+    # returns the version 2.0 credentials. The version 1.0 credentials are not available.</p>
+    # 
+    # 
+    # <important>
+    # <p>Not all instance blueprints in Lightsail support version 2.0 credentials.
+    # Use the <code>MetadataNoToken</code> instance metric to track the number of calls to the
+    # instance metadata service that are using version 1.0 credentials. For more information, see
+    # <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-viewing-instance-health-metrics">Viewing instance metrics in Amazon Lightsail</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+    # </important>
+    @[AWSSdk::Field(location: :body, name: "httpTokens", structure: false)]
+    property http_tokens : String?
+    # <p>Indicates whether the HTTP metadata endpoint on your instances is enabled or
+    # disabled.</p>
+    # 
+    # <p>If the value is <code>disabled</code>, you cannot access your instance metadata.</p>
+    @[AWSSdk::Field(location: :body, name: "httpEndpoint", structure: false)]
+    property http_endpoint : String?
+    # <p>The desired HTTP PUT response hop limit for instance metadata requests. A larger number
+    # means that the instance metadata requests can travel farther.</p>
+    @[AWSSdk::Field(location: :body, name: "httpPutResponseHopLimit", structure: false)]
+    property http_put_response_hop_limit : Int32?
+    # <p>Indicates whether the IPv6 endpoint for the instance metadata service is enabled or
+    # disabled.</p>
+    @[AWSSdk::Field(location: :body, name: "httpProtocolIpv6", structure: false)]
+    property http_protocol_ipv6 : String?
+
+    def initialize(@state : String? = nil, @http_tokens : String? = nil, @http_endpoint : String? = nil, @http_put_response_hop_limit : Int32? = nil, @http_protocol_ipv6 : String? = nil)
     end
   end
 
@@ -8603,9 +10278,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The blueprint ID (e.g., <code>os_amlinux_2016_03</code>).</p>
     @[AWSSdk::Field(location: :body, name: "blueprintId", structure: false)]
@@ -8617,7 +10291,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
     # <p>An array of objects representing the add-ons enabled on the instance.</p>
-    @[AWSSdk::Field(location: :body, name: "addOns", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "addOns", structure: true)]
     property add_ons : Array(AddOnStruct)?
     # <p>A Boolean value indicating whether this instance has a static IP assigned to it.</p>
     @[AWSSdk::Field(location: :body, name: "isStaticIp", structure: false)]
@@ -8628,9 +10302,15 @@ module AmazonLightsail
     # <p>The public IP address of the instance.</p>
     @[AWSSdk::Field(location: :body, name: "publicIpAddress", structure: false)]
     property public_ip_address : String?
-    # <p>The IPv6 address of the instance.</p>
-    @[AWSSdk::Field(location: :body, name: "ipv6Address", structure: false)]
-    property ipv6_address : String?
+    # <p>The IPv6 addresses of the instance.</p>
+    @[AWSSdk::Field(location: :body, name: "ipv6Addresses", structure: false)]
+    property ipv6_addresses : Array(String)?
+    # <p>The IP address type of the instance.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
     # <p>The size of the vCPU and the amount of RAM for the instance.</p>
     @[AWSSdk::Field(location: :body, name: "hardware", structure: true)]
     property hardware : InstanceHardwareStruct?
@@ -8648,8 +10328,11 @@ module AmazonLightsail
     # <code>LightsailDefaultKeyPair</code>).</p>
     @[AWSSdk::Field(location: :body, name: "sshKeyName", structure: false)]
     property ssh_key_name : String?
+    # <p>The metadata options for the Amazon Lightsail instance.</p>
+    @[AWSSdk::Field(location: :body, name: "metadataOptions", structure: true)]
+    property metadata_options : InstanceMetadataOptionsStruct?
 
-    def initialize(@name : String = nil, @username : String = nil, @state : InstanceStateStruct = nil, @networking : InstanceNetworkingStruct = nil, @hardware : InstanceHardwareStruct = nil, @ipv6_address : String = nil, @public_ip_address : String = nil, @private_ip_address : String = nil, @is_static_ip : Bool = nil, @add_ons : Array(AddOnStruct) = nil, @bundle_id : String = nil, @blueprint_name : String = nil, @blueprint_id : String = nil, @tags : Array(TagStruct) = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @support_code : String = nil, @arn : String = nil, @ssh_key_name : String = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @blueprint_id : String? = nil, @blueprint_name : String? = nil, @bundle_id : String? = nil, @add_ons : Array(AddOnStruct)? = nil, @is_static_ip : Bool? = nil, @private_ip_address : String? = nil, @public_ip_address : String? = nil, @ipv6_addresses : Array(String)? = nil, @ip_address_type : String? = nil, @hardware : InstanceHardwareStruct? = nil, @networking : InstanceNetworkingStruct? = nil, @state : InstanceStateStruct? = nil, @username : String? = nil, @ssh_key_name : String? = nil, @metadata_options : InstanceMetadataOptionsStruct? = nil)
     end
   end
 
@@ -8660,7 +10343,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "instance", structure: true)]
     property instance : InstanceStruct?
 
-    def initialize(@instance : InstanceStruct = nil)
+    def initialize(@instance : InstanceStruct? = nil)
     end
   end
 
@@ -8674,7 +10357,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "protocol", structure: false)]
     property protocol : String?
 
-    def initialize(@instance_name : String, @protocol : String = nil)
+    def initialize(@instance_name : String, @protocol : String? = nil)
     end
   end
 
@@ -8703,7 +10386,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "keyPairName", structure: false)]
     property key_pair_name : String?
 
-    def initialize(@ciphertext : String = nil, @key_pair_name : String = nil)
+    def initialize(@ciphertext : String? = nil, @key_pair_name : String? = nil)
     end
   end
 
@@ -8765,7 +10448,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "notValidAfter", structure: false)]
     property not_valid_after : Time?
 
-    def initialize(@algorithm : String = nil, @public_key : String = nil, @witnessed_at : Time = nil, @fingerprint_sha1 : String = nil, @fingerprint_sha256 : String = nil, @not_valid_before : Time = nil, @not_valid_after : Time = nil)
+    def initialize(@algorithm : String? = nil, @public_key : String? = nil, @witnessed_at : Time? = nil, @fingerprint_sha1 : String? = nil, @fingerprint_sha256 : String? = nil, @not_valid_before : Time? = nil, @not_valid_after : Time? = nil)
     end
   end
 
@@ -8815,10 +10498,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "username", structure: false)]
     property username : String?
     # <p>Describes the public SSH host keys or the RDP certificate.</p>
-    @[AWSSdk::Field(location: :body, name: "hostKeys", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "hostKeys", structure: true)]
     property host_keys : Array(HostKeyAttributesStruct)?
 
-    def initialize(@cert_key : String = nil, @expires_at : Time = nil, @ip_address : String = nil, @password : String = nil, @password_data : PasswordDataStruct = nil, @private_key : String = nil, @protocol : String = nil, @instance_name : String = nil, @username : String = nil, @host_keys : Array(HostKeyAttributesStruct) = nil)
+    def initialize(@cert_key : String? = nil, @expires_at : Time? = nil, @ip_address : String? = nil, @password : String? = nil, @password_data : PasswordDataStruct? = nil, @private_key : String? = nil, @protocol : String? = nil, @instance_name : String? = nil, @username : String? = nil, @host_keys : Array(HostKeyAttributesStruct)? = nil)
     end
   end
 
@@ -8830,7 +10513,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "accessDetails", structure: true)]
     property access_details : InstanceAccessDetailsStruct?
 
-    def initialize(@access_details : InstanceAccessDetailsStruct = nil)
+    def initialize(@access_details : InstanceAccessDetailsStruct? = nil)
     end
   end
 
@@ -8961,6 +10644,21 @@ module AmazonLightsail
     # <p>
     # <code>Unit</code>: The published unit is <code>Count</code>.</p>
     # </li>
+    # <li>
+    # 
+    # <p>
+    # <b>
+    # <code>MetadataNoToken</code>
+    # </b> - Reports the number of
+    # times that the instance metadata service was successfully accessed without a token. This
+    # metric determines if there are any processes accessing instance metadata by using Instance
+    # Metadata Service Version 1, which doesn't use a token. If all requests use token-backed
+    # sessions, such as Instance Metadata Service Version 2, then the value is 0.</p>
+    # <p>
+    # <code>Statistics</code>: The most useful statistic is <code>Sum</code>.</p>
+    # <p>
+    # <code>Unit</code>: The published unit is <code>Count</code>.</p>
+    # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String
@@ -9027,10 +10725,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[AWSSdk::Field(location: :body, name: "metricData", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "metricData", structure: true)]
     property metric_data : Array(MetricDatapointStruct)?
 
-    def initialize(@metric_name : String = nil, @metric_data : Array(MetricDatapointStruct) = nil)
+    def initialize(@metric_name : String? = nil, @metric_data : Array(MetricDatapointStruct)? = nil)
     end
   end
 
@@ -9056,9 +10754,15 @@ module AmazonLightsail
     # </p>
     # </li>
     # <li>
-    # <p>ICMP - The ICMP type. For example, specify <code>8</code> as the <code>fromPort</code>
-    # (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP code), to enable ICMP
-    # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # <p>ICMP - The ICMP type for IPv4 addresses. For example, specify <code>8</code> as the
+    # <code>fromPort</code> (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP
+    # code), to enable ICMP Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # </li>
+    # <li>
+    # <p>ICMPv6 - The ICMP type for IPv6 addresses. For example, specify <code>128</code> as
+    # the <code>fromPort</code> (ICMPv6 type), and <code>0</code> as <code>toPort</code> (ICMPv6
+    # code). For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6">Internet
+    # Control Message Protocol for IPv6</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "fromPort", structure: false)]
@@ -9071,9 +10775,15 @@ module AmazonLightsail
     # </p>
     # </li>
     # <li>
-    # <p>ICMP - The ICMP code. For example, specify <code>8</code> as the <code>fromPort</code>
-    # (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP code), to enable ICMP
-    # Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # <p>ICMP - The ICMP code for IPv4 addresses. For example, specify <code>8</code> as the
+    # <code>fromPort</code> (ICMP type), and <code>-1</code> as the <code>toPort</code> (ICMP
+    # code), to enable ICMP Ping. For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages">Control Messages</a> on <i>Wikipedia</i>.</p>
+    # </li>
+    # <li>
+    # <p>ICMPv6 - The ICMP code for IPv6 addresses. For example, specify <code>128</code> as
+    # the <code>fromPort</code> (ICMPv6 type), and <code>0</code> as <code>toPort</code> (ICMPv6
+    # code). For more information, see <a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6">Internet
+    # Control Message Protocol for IPv6</a>.</p>
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "toPort", structure: false)]
@@ -9121,12 +10831,27 @@ module AmazonLightsail
     # </note>
     @[AWSSdk::Field(location: :body, name: "state", structure: false)]
     property state : String?
-    # <p>The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to
-    # an instance through the ports, and the protocol. Lightsail supports IPv4 addresses.</p>
+    # <p>The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are allowed to
+    # connect to an instance through the ports, and the protocol.</p>
+    # <note>
+    # <p>The <code>ipv6Cidrs</code> parameter lists the IPv6 addresses that are allowed to
+    # connect to an instance.</p>
+    # </note>
     # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
     # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
     @[AWSSdk::Field(location: :body, name: "cidrs", structure: false)]
     property cidrs : Array(String)?
+    # <p>The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are allowed to
+    # connect to an instance through the ports, and the protocol. Only devices with an IPv6 address
+    # can connect to an instance through IPv6; otherwise, IPv4 should be used.</p>
+    # <note>
+    # <p>The <code>cidrs</code> parameter lists the IPv4 addresses that are allowed to connect to
+    # an instance.</p>
+    # </note>
+    # <p>For more information about CIDR block notation, see <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation">Classless
+    # Inter-Domain Routing</a> on <i>Wikipedia</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "ipv6Cidrs", structure: false)]
+    property ipv6_cidrs : Array(String)?
     # <p>An alias that defines access for a preconfigured range of IP addresses.</p>
     # <p>The only alias currently supported is <code>lightsail-connect</code>, which allows IP
     # addresses of the browser-based RDP/SSH client in the Lightsail console to connect to your
@@ -9134,7 +10859,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cidrListAliases", structure: false)]
     property cidr_list_aliases : Array(String)?
 
-    def initialize(@from_port : Int32 = nil, @to_port : Int32 = nil, @protocol : String = nil, @state : String = nil, @cidrs : Array(String) = nil, @cidr_list_aliases : Array(String) = nil)
+    def initialize(@from_port : Int32? = nil, @to_port : Int32? = nil, @protocol : String? = nil, @state : String? = nil, @cidrs : Array(String)? = nil, @ipv6_cidrs : Array(String)? = nil, @cidr_list_aliases : Array(String)? = nil)
     end
   end
 
@@ -9143,10 +10868,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the firewall port states for the specified
     # instance.</p>
-    @[AWSSdk::Field(location: :body, name: "portStates", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "portStates", structure: true)]
     property port_states : Array(InstancePortStateStruct)?
 
-    def initialize(@port_states : Array(InstancePortStateStruct) = nil)
+    def initialize(@port_states : Array(InstancePortStateStruct)? = nil)
     end
   end
 
@@ -9160,7 +10885,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -9168,7 +10893,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about your instances.</p>
-    @[AWSSdk::Field(location: :body, name: "instances", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "instances", structure: true)]
     property instances : Array(InstanceStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -9177,7 +10902,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@instances : Array(InstanceStruct) = nil, @next_page_token : String = nil)
+    def initialize(@instances : Array(InstanceStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -9217,18 +10942,21 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The state the snapshot is in.</p>
     @[AWSSdk::Field(location: :body, name: "state", structure: false)]
     property state : String?
     # <p>The progress of the snapshot.</p>
+    # <note>
+    # <p>This is populated only for disk snapshots, and is <code>null</code> for instance
+    # snapshots.</p>
+    # </note>
     @[AWSSdk::Field(location: :body, name: "progress", structure: false)]
     property progress : String?
     # <p>An array of disk objects containing information about all block storage disks.</p>
-    @[AWSSdk::Field(location: :body, name: "fromAttachedDisks", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "fromAttachedDisks", structure: true)]
     property from_attached_disks : Array(DiskStruct)?
     # <p>The instance from which the snapshot was created.</p>
     @[AWSSdk::Field(location: :body, name: "fromInstanceName", structure: false)]
@@ -9253,7 +10981,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "sizeInGb", structure: false)]
     property size_in_gb : Int32?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @tags : Array(TagStruct) = nil, @state : String = nil, @progress : String = nil, @from_attached_disks : Array(DiskStruct) = nil, @from_instance_name : String = nil, @from_instance_arn : String = nil, @from_blueprint_id : String = nil, @from_bundle_id : String = nil, @is_from_auto_snapshot : Bool = nil, @size_in_gb : Int32 = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @state : String? = nil, @progress : String? = nil, @from_attached_disks : Array(DiskStruct)? = nil, @from_instance_name : String? = nil, @from_instance_arn : String? = nil, @from_blueprint_id : String? = nil, @from_bundle_id : String? = nil, @is_from_auto_snapshot : Bool? = nil, @size_in_gb : Int32? = nil)
     end
   end
 
@@ -9265,7 +10993,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "instanceSnapshot", structure: true)]
     property instance_snapshot : InstanceSnapshotStruct?
 
-    def initialize(@instance_snapshot : InstanceSnapshotStruct = nil)
+    def initialize(@instance_snapshot : InstanceSnapshotStruct? = nil)
     end
   end
 
@@ -9279,7 +11007,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -9288,7 +11016,7 @@ module AmazonLightsail
 
     # <p>An array of key-value pairs containing information about the results of your get instance
     # snapshots request.</p>
-    @[AWSSdk::Field(location: :body, name: "instanceSnapshots", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "instanceSnapshots", structure: true)]
     property instance_snapshots : Array(InstanceSnapshotStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -9297,7 +11025,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@instance_snapshots : Array(InstanceSnapshotStruct) = nil, @next_page_token : String = nil)
+    def initialize(@instance_snapshots : Array(InstanceSnapshotStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -9319,7 +11047,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "state", structure: true)]
     property state : InstanceStateStruct?
 
-    def initialize(@state : InstanceStateStruct = nil)
+    def initialize(@state : InstanceStateStruct? = nil)
     end
   end
 
@@ -9341,7 +11069,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "keyPair", structure: true)]
     property key_pair : KeyPairStruct?
 
-    def initialize(@key_pair : KeyPairStruct = nil)
+    def initialize(@key_pair : KeyPairStruct? = nil)
     end
   end
 
@@ -9354,8 +11082,12 @@ module AmazonLightsail
     # token in a subsequent request.</p>
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+    # <p>A Boolean value that indicates whether to include the default key pair in the response of
+    # your request.</p>
+    @[AWSSdk::Field(location: :body, name: "includeDefaultKeyPair", structure: false)]
+    property include_default_key_pair : Bool?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil, @include_default_key_pair : Bool? = nil)
     end
   end
 
@@ -9363,7 +11095,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about the key pairs.</p>
-    @[AWSSdk::Field(location: :body, name: "keyPairs", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "keyPairs", structure: true)]
     property key_pairs : Array(KeyPairStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -9372,7 +11104,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@key_pairs : Array(KeyPairStruct) = nil, @next_page_token : String = nil)
+    def initialize(@key_pairs : Array(KeyPairStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -9521,7 +11253,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "instanceHealthReason", structure: false)]
     property instance_health_reason : String?
 
-    def initialize(@instance_name : String = nil, @instance_health : String = nil, @instance_health_reason : String = nil)
+    def initialize(@instance_name : String? = nil, @instance_health : String? = nil, @instance_health_reason : String? = nil)
     end
   end
 
@@ -9536,7 +11268,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isAttached", structure: false)]
     property is_attached : Bool?
 
-    def initialize(@name : String = nil, @is_attached : Bool = nil)
+    def initialize(@name : String? = nil, @is_attached : Bool? = nil)
     end
   end
 
@@ -9565,9 +11297,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The DNS name of your Lightsail load balancer.</p>
     @[AWSSdk::Field(location: :body, name: "dnsName", structure: false)]
@@ -9594,19 +11325,32 @@ module AmazonLightsail
     property instance_port : Int32?
     # <p>An array of InstanceHealthSummary objects describing the health of the load
     # balancer.</p>
-    @[AWSSdk::Field(location: :body, name: "instanceHealthSummary", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "instanceHealthSummary", structure: true)]
     property instance_health_summary : Array(InstanceHealthSummaryStruct)?
     # <p>An array of LoadBalancerTlsCertificateSummary objects that provide additional information
     # about the SSL/TLS certificates. For example, if <code>true</code>, the certificate is attached
     # to the load balancer.</p>
-    @[AWSSdk::Field(location: :body, name: "tlsCertificateSummaries", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tlsCertificateSummaries", structure: true)]
     property tls_certificate_summaries : Array(LoadBalancerTlsCertificateSummaryStruct)?
     # <p>A string to string map of the configuration options for your load balancer. Valid values
     # are listed below.</p>
     @[AWSSdk::Field(location: :body, name: "configurationOptions", structure: false)]
     property configuration_options : Hash(String, String)?
+    # <p>The IP address type of the load balancer.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String?
+    # <p>A Boolean value that indicates whether HTTPS redirection is enabled for the load
+    # balancer.</p>
+    @[AWSSdk::Field(location: :body, name: "httpsRedirectionEnabled", structure: false)]
+    property https_redirection_enabled : Bool?
+    # <p>The name of the TLS security policy for the load balancer.</p>
+    @[AWSSdk::Field(location: :body, name: "tlsPolicyName", structure: false)]
+    property tls_policy_name : String?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @tags : Array(TagStruct) = nil, @dns_name : String = nil, @state : String = nil, @protocol : String = nil, @public_ports : Array(Int32) = nil, @health_check_path : String = nil, @instance_port : Int32 = nil, @instance_health_summary : Array(InstanceHealthSummaryStruct) = nil, @tls_certificate_summaries : Array(LoadBalancerTlsCertificateSummaryStruct) = nil, @configuration_options : Hash(String, String) = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @dns_name : String? = nil, @state : String? = nil, @protocol : String? = nil, @public_ports : Array(Int32)? = nil, @health_check_path : String? = nil, @instance_port : Int32? = nil, @instance_health_summary : Array(InstanceHealthSummaryStruct)? = nil, @tls_certificate_summaries : Array(LoadBalancerTlsCertificateSummaryStruct)? = nil, @configuration_options : Hash(String, String)? = nil, @ip_address_type : String? = nil, @https_redirection_enabled : Bool? = nil, @tls_policy_name : String? = nil)
     end
   end
 
@@ -9617,7 +11361,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "loadBalancer", structure: true)]
     property load_balancer : LoadBalancerStruct?
 
-    def initialize(@load_balancer : LoadBalancerStruct = nil)
+    def initialize(@load_balancer : LoadBalancerStruct? = nil)
     end
   end
 
@@ -9857,10 +11601,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[AWSSdk::Field(location: :body, name: "metricData", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "metricData", structure: true)]
     property metric_data : Array(MetricDatapointStruct)?
 
-    def initialize(@metric_name : String = nil, @metric_data : Array(MetricDatapointStruct) = nil)
+    def initialize(@metric_name : String? = nil, @metric_data : Array(MetricDatapointStruct)? = nil)
     end
   end
 
@@ -9874,7 +11618,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -9882,7 +11626,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of LoadBalancer objects describing your load balancers.</p>
-    @[AWSSdk::Field(location: :body, name: "loadBalancers", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "loadBalancers", structure: true)]
     property load_balancers : Array(LoadBalancerStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -9891,7 +11635,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@load_balancers : Array(LoadBalancerStruct) = nil, @next_page_token : String = nil)
+    def initialize(@load_balancers : Array(LoadBalancerStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -9927,7 +11671,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "domainName", structure: false)]
     property domain_name : String?
 
-    def initialize(@name : String = nil, @type : String = nil, @value : String = nil, @validation_status : String = nil, @domain_name : String = nil)
+    def initialize(@name : String? = nil, @type : String? = nil, @value : String? = nil, @validation_status : String? = nil, @domain_name : String? = nil)
     end
   end
 
@@ -9941,7 +11685,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "validationStatus", structure: false)]
     property validation_status : String?
 
-    def initialize(@domain_name : String = nil, @validation_status : String = nil)
+    def initialize(@domain_name : String? = nil, @validation_status : String? = nil)
     end
   end
 
@@ -9992,10 +11736,10 @@ module AmazonLightsail
     # <p>Contains information about the validation of each domain name in the certificate, as it
     # pertains to Lightsail's managed renewal. This is different from the initial validation that
     # occurs as a result of the RequestCertificate request.</p>
-    @[AWSSdk::Field(location: :body, name: "domainValidationOptions", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "domainValidationOptions", structure: true)]
     property domain_validation_options : Array(LoadBalancerTlsCertificateDomainValidationOptionStruct)?
 
-    def initialize(@renewal_status : String = nil, @domain_validation_options : Array(LoadBalancerTlsCertificateDomainValidationOptionStruct) = nil)
+    def initialize(@renewal_status : String? = nil, @domain_validation_options : Array(LoadBalancerTlsCertificateDomainValidationOptionStruct)? = nil)
     end
   end
 
@@ -10092,9 +11836,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The load balancer name where your SSL/TLS certificate is attached.</p>
     @[AWSSdk::Field(location: :body, name: "loadBalancerName", structure: false)]
@@ -10111,10 +11854,10 @@ module AmazonLightsail
     property domain_name : String?
     # <p>An array of LoadBalancerTlsCertificateDomainValidationRecord objects describing the
     # records.</p>
-    @[AWSSdk::Field(location: :body, name: "domainValidationRecords", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "domainValidationRecords", structure: true)]
     property domain_validation_records : Array(LoadBalancerTlsCertificateDomainValidationRecordStruct)?
     # <p>The validation failure reason, if any, of the certificate.</p>
-    #
+    # 
     # <p>The following failure reasons are possible:</p>
     # <ul>
     # <li>
@@ -10145,8 +11888,8 @@ module AmazonLightsail
     # </b> - One or more of the
     # domain names in the certificate request was reported as an unsafe domain by <a href="https://www.virustotal.com/gui/home/url">VirusTotal</a>. To correct the
     # problem, search for your domain name on the <a href="https://www.virustotal.com/gui/home/url">VirusTotal</a> website. If your domain
-    # is reported as suspicious, see <a href="https://www.google.com/webmasters/hacked/?hl=en">Google Help for Hacked
-    # Websites</a> to learn what you can do.</p>
+    # is reported as suspicious, see <a href="https://developers.google.com/web/fundamentals/security/hacked">Google Help for
+    # Hacked Websites</a> to learn what you can do.</p>
     # <p>If you believe that the result is a false positive, notify the organization that is
     # reporting the domain. VirusTotal is an aggregate of several antivirus and URL scanners and
     # cannot remove your domain from a block list itself. After you correct the problem and the
@@ -10221,7 +11964,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "subjectAlternativeNames", structure: false)]
     property subject_alternative_names : Array(String)?
 
-    def initialize(@name : String = nil, @subject : String = nil, @signature_algorithm : String = nil, @serial : String = nil, @revoked_at : Time = nil, @revocation_reason : String = nil, @renewal_summary : LoadBalancerTlsCertificateRenewalSummaryStruct = nil, @not_before : Time = nil, @not_after : Time = nil, @key_algorithm : String = nil, @issuer : String = nil, @issued_at : Time = nil, @failure_reason : String = nil, @domain_validation_records : Array(LoadBalancerTlsCertificateDomainValidationRecordStruct) = nil, @domain_name : String = nil, @status : String = nil, @is_attached : Bool = nil, @load_balancer_name : String = nil, @tags : Array(TagStruct) = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @support_code : String = nil, @arn : String = nil, @subject_alternative_names : Array(String) = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @load_balancer_name : String? = nil, @is_attached : Bool? = nil, @status : String? = nil, @domain_name : String? = nil, @domain_validation_records : Array(LoadBalancerTlsCertificateDomainValidationRecordStruct)? = nil, @failure_reason : String? = nil, @issued_at : Time? = nil, @issuer : String? = nil, @key_algorithm : String? = nil, @not_after : Time? = nil, @not_before : Time? = nil, @renewal_summary : LoadBalancerTlsCertificateRenewalSummaryStruct? = nil, @revocation_reason : String? = nil, @revoked_at : Time? = nil, @serial : String? = nil, @signature_algorithm : String? = nil, @subject : String? = nil, @subject_alternative_names : Array(String)? = nil)
     end
   end
 
@@ -10230,10 +11973,68 @@ module AmazonLightsail
 
     # <p>An array of LoadBalancerTlsCertificate objects describing your SSL/TLS
     # certificates.</p>
-    @[AWSSdk::Field(location: :body, name: "tlsCertificates", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tlsCertificates", structure: true)]
     property tls_certificates : Array(LoadBalancerTlsCertificateStruct)?
 
-    def initialize(@tls_certificates : Array(LoadBalancerTlsCertificateStruct) = nil)
+    def initialize(@tls_certificates : Array(LoadBalancerTlsCertificateStruct)? = nil)
+    end
+  end
+
+  class GetLoadBalancerTlsPoliciesRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The token to advance to the next page of results from your request.</p>
+    # 
+    # <p>To get a page token, perform an initial <code>GetLoadBalancerTlsPolicies</code> request.
+    # If your results are paginated, the response will return a next page token that you can specify
+    # as the page token in a subsequent request.</p>
+    @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
+    property page_token : String?
+
+    def initialize(@page_token : String? = nil)
+    end
+  end
+
+  class LoadBalancerTlsPolicyStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the TLS security policy.</p>
+    @[AWSSdk::Field(location: :body, name: "name", structure: false)]
+    property name : String?
+    # <p>A Boolean value that indicates whether the TLS security policy is the default.</p>
+    @[AWSSdk::Field(location: :body, name: "isDefault", structure: false)]
+    property is_default : Bool?
+    # <p>The description of the TLS security policy.</p>
+    @[AWSSdk::Field(location: :body, name: "description", structure: false)]
+    property description : String?
+    # <p>The protocols used in a given TLS security policy.</p>
+    @[AWSSdk::Field(location: :body, name: "protocols", structure: false)]
+    property protocols : Array(String)?
+    # <p>The ciphers used by the TLS security policy.</p>
+    # <p>The ciphers are listed in order of preference.</p>
+    @[AWSSdk::Field(location: :body, name: "ciphers", structure: false)]
+    property ciphers : Array(String)?
+
+    def initialize(@name : String? = nil, @is_default : Bool? = nil, @description : String? = nil, @protocols : Array(String)? = nil, @ciphers : Array(String)? = nil)
+    end
+  end
+
+  class GetLoadBalancerTlsPoliciesResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe the TLS security policies that are available.</p>
+    @[AWSSdk::Field(location: :body, name: "tlsPolicies", structure: true)]
+    property tls_policies : Array(LoadBalancerTlsPolicyStruct)?
+    # <p>The token to advance to the next page of results from your request.</p>
+    # 
+    # <p>A next page token is not returned if there are no more results to display.</p>
+    # 
+    # <p>To get the next page of results, perform another <code>GetLoadBalancerTlsPolicies</code>
+    # request and specify the next page token using the <code>pageToken</code> parameter.</p>
+    @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
+    property next_page_token : String?
+
+    def initialize(@tls_policies : Array(LoadBalancerTlsPolicyStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -10256,7 +12057,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -10270,7 +12071,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -10279,7 +12080,7 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -10288,7 +12089,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@operations : Array(OperationStruct) = nil, @next_page_token : String = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -10305,7 +12106,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@resource_name : String, @page_token : String = nil)
+    def initialize(@resource_name : String, @page_token : String? = nil)
     end
   end
 
@@ -10314,7 +12115,7 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
     # <p>(Deprecated) Returns the number of pages of results that remain.</p>
     # <note>
@@ -10331,7 +12132,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@operations : Array(OperationStruct) = nil, @next_page_count : String = nil, @next_page_token : String = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil, @next_page_count : String? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -10348,7 +12149,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "includeRelationalDatabaseAvailabilityZones", structure: false)]
     property include_relational_database_availability_zones : Bool?
 
-    def initialize(@include_availability_zones : Bool = nil, @include_relational_database_availability_zones : Bool = nil)
+    def initialize(@include_availability_zones : Bool? = nil, @include_relational_database_availability_zones : Bool? = nil)
     end
   end
 
@@ -10363,7 +12164,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "state", structure: false)]
     property state : String?
 
-    def initialize(@zone_name : String = nil, @state : String = nil)
+    def initialize(@zone_name : String? = nil, @state : String? = nil)
     end
   end
 
@@ -10385,14 +12186,14 @@ module AmazonLightsail
     property name : String?
     # <p>The Availability Zones. Follows the format <code>us-east-2a</code>
     # (case-sensitive).</p>
-    @[AWSSdk::Field(location: :body, name: "availabilityZones", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "availabilityZones", structure: true)]
     property availability_zones : Array(AvailabilityZoneStruct)?
     # <p>The Availability Zones for databases. Follows the format <code>us-east-2a</code>
     # (case-sensitive).</p>
-    @[AWSSdk::Field(location: :body, name: "relationalDatabaseAvailabilityZones", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "relationalDatabaseAvailabilityZones", structure: true)]
     property relational_database_availability_zones : Array(AvailabilityZoneStruct)?
 
-    def initialize(@continent_code : String = nil, @description : String = nil, @display_name : String = nil, @name : String = nil, @availability_zones : Array(AvailabilityZoneStruct) = nil, @relational_database_availability_zones : Array(AvailabilityZoneStruct) = nil)
+    def initialize(@continent_code : String? = nil, @description : String? = nil, @display_name : String? = nil, @name : String? = nil, @availability_zones : Array(AvailabilityZoneStruct)? = nil, @relational_database_availability_zones : Array(AvailabilityZoneStruct)? = nil)
     end
   end
 
@@ -10400,10 +12201,10 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of key-value pairs containing information about your get regions request.</p>
-    @[AWSSdk::Field(location: :body, name: "regions", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "regions", structure: true)]
     property regions : Array(RegionStruct)?
 
-    def initialize(@regions : Array(RegionStruct) = nil)
+    def initialize(@regions : Array(RegionStruct)? = nil)
     end
   end
 
@@ -10431,7 +12232,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "ramSizeInGb", structure: false)]
     property ram_size_in_gb : Float32?
 
-    def initialize(@cpu_count : Int32 = nil, @disk_size_in_gb : Int32 = nil, @ram_size_in_gb : Float32 = nil)
+    def initialize(@cpu_count : Int32? = nil, @disk_size_in_gb : Int32? = nil, @ram_size_in_gb : Float32? = nil)
     end
   end
 
@@ -10448,7 +12249,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "backupRetentionEnabled", structure: false)]
     property backup_retention_enabled : Bool?
 
-    def initialize(@master_user_password : String = nil, @engine_version : String = nil, @backup_retention_enabled : Bool = nil)
+    def initialize(@master_user_password : String? = nil, @engine_version : String? = nil, @backup_retention_enabled : Bool? = nil)
     end
   end
 
@@ -10462,7 +12263,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "address", structure: false)]
     property address : String?
 
-    def initialize(@port : Int32 = nil, @address : String = nil)
+    def initialize(@port : Int32? = nil, @address : String? = nil)
     end
   end
 
@@ -10479,7 +12280,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "currentApplyDate", structure: false)]
     property current_apply_date : Time?
 
-    def initialize(@action : String = nil, @description : String = nil, @current_apply_date : Time = nil)
+    def initialize(@action : String? = nil, @description : String? = nil, @current_apply_date : Time? = nil)
     end
   end
 
@@ -10508,9 +12309,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The blueprint ID for the database. A blueprint describes the major engine version of a
     # database.</p>
@@ -10574,13 +12374,13 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "masterEndpoint", structure: true)]
     property master_endpoint : RelationalDatabaseEndpointStruct?
     # <p>Describes the pending maintenance actions for the database.</p>
-    @[AWSSdk::Field(location: :body, name: "pendingMaintenanceActions", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "pendingMaintenanceActions", structure: true)]
     property pending_maintenance_actions : Array(PendingMaintenanceActionStruct)?
     # <p>The certificate associated with the database.</p>
     @[AWSSdk::Field(location: :body, name: "caCertificateIdentifier", structure: false)]
     property ca_certificate_identifier : String?
 
-    def initialize(@name : String = nil, @pending_maintenance_actions : Array(PendingMaintenanceActionStruct) = nil, @master_endpoint : RelationalDatabaseEndpointStruct = nil, @publicly_accessible : Bool = nil, @preferred_maintenance_window : String = nil, @preferred_backup_window : String = nil, @parameter_apply_status : String = nil, @master_username : String = nil, @latest_restorable_time : Time = nil, @engine_version : String = nil, @engine : String = nil, @pending_modified_values : PendingModifiedRelationalDatabaseValuesStruct = nil, @backup_retention_enabled : Bool = nil, @secondary_availability_zone : String = nil, @state : String = nil, @hardware : RelationalDatabaseHardwareStruct = nil, @master_database_name : String = nil, @relational_database_bundle_id : String = nil, @relational_database_blueprint_id : String = nil, @tags : Array(TagStruct) = nil, @resource_type : String = nil, @location : ResourceLocationStruct = nil, @created_at : Time = nil, @support_code : String = nil, @arn : String = nil, @ca_certificate_identifier : String = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @relational_database_blueprint_id : String? = nil, @relational_database_bundle_id : String? = nil, @master_database_name : String? = nil, @hardware : RelationalDatabaseHardwareStruct? = nil, @state : String? = nil, @secondary_availability_zone : String? = nil, @backup_retention_enabled : Bool? = nil, @pending_modified_values : PendingModifiedRelationalDatabaseValuesStruct? = nil, @engine : String? = nil, @engine_version : String? = nil, @latest_restorable_time : Time? = nil, @master_username : String? = nil, @parameter_apply_status : String? = nil, @preferred_backup_window : String? = nil, @preferred_maintenance_window : String? = nil, @publicly_accessible : Bool? = nil, @master_endpoint : RelationalDatabaseEndpointStruct? = nil, @pending_maintenance_actions : Array(PendingMaintenanceActionStruct)? = nil, @ca_certificate_identifier : String? = nil)
     end
   end
 
@@ -10591,7 +12391,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "relationalDatabase", structure: true)]
     property relational_database : RelationalDatabaseStruct?
 
-    def initialize(@relational_database : RelationalDatabaseStruct = nil)
+    def initialize(@relational_database : RelationalDatabaseStruct? = nil)
     end
   end
 
@@ -10605,7 +12405,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -10633,7 +12433,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isEngineDefault", structure: false)]
     property is_engine_default : Bool?
 
-    def initialize(@blueprint_id : String = nil, @engine : String = nil, @engine_version : String = nil, @engine_description : String = nil, @engine_version_description : String = nil, @is_engine_default : Bool = nil)
+    def initialize(@blueprint_id : String? = nil, @engine : String? = nil, @engine_version : String? = nil, @engine_description : String? = nil, @engine_version_description : String? = nil, @is_engine_default : Bool? = nil)
     end
   end
 
@@ -10641,7 +12441,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database blueprints request.</p>
-    @[AWSSdk::Field(location: :body, name: "blueprints", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "blueprints", structure: true)]
     property blueprints : Array(RelationalDatabaseBlueprintStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -10651,7 +12451,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@blueprints : Array(RelationalDatabaseBlueprintStruct) = nil, @next_page_token : String = nil)
+    def initialize(@blueprints : Array(RelationalDatabaseBlueprintStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -10664,8 +12464,12 @@ module AmazonLightsail
     # as the page token in a subsequent request.</p>
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
+    # <p>A Boolean value that indicates whether to include inactive (unavailable) bundles in the
+    # response of your request.</p>
+    @[AWSSdk::Field(location: :body, name: "includeInactive", structure: false)]
+    property include_inactive : Bool?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil, @include_inactive : Bool? = nil)
     end
   end
 
@@ -10700,7 +12504,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isActive", structure: false)]
     property is_active : Bool?
 
-    def initialize(@bundle_id : String = nil, @name : String = nil, @price : Float32 = nil, @ram_size_in_gb : Float32 = nil, @disk_size_in_gb : Int32 = nil, @transfer_per_month_in_gb : Int32 = nil, @cpu_count : Int32 = nil, @is_encrypted : Bool = nil, @is_active : Bool = nil)
+    def initialize(@bundle_id : String? = nil, @name : String? = nil, @price : Float32? = nil, @ram_size_in_gb : Float32? = nil, @disk_size_in_gb : Int32? = nil, @transfer_per_month_in_gb : Int32? = nil, @cpu_count : Int32? = nil, @is_encrypted : Bool? = nil, @is_active : Bool? = nil)
     end
   end
 
@@ -10708,7 +12512,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database bundles request.</p>
-    @[AWSSdk::Field(location: :body, name: "bundles", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "bundles", structure: true)]
     property bundles : Array(RelationalDatabaseBundleStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -10717,7 +12521,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@bundles : Array(RelationalDatabaseBundleStruct) = nil, @next_page_token : String = nil)
+    def initialize(@bundles : Array(RelationalDatabaseBundleStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -10741,7 +12545,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@relational_database_name : String, @duration_in_minutes : Int32 = nil, @page_token : String = nil)
+    def initialize(@relational_database_name : String, @duration_in_minutes : Int32? = nil, @page_token : String? = nil)
     end
   end
 
@@ -10761,7 +12565,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "eventCategories", structure: false)]
     property event_categories : Array(String)?
 
-    def initialize(@resource : String = nil, @created_at : Time = nil, @message : String = nil, @event_categories : Array(String) = nil)
+    def initialize(@resource : String? = nil, @created_at : Time? = nil, @message : String? = nil, @event_categories : Array(String)? = nil)
     end
   end
 
@@ -10769,7 +12573,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database events request.</p>
-    @[AWSSdk::Field(location: :body, name: "relationalDatabaseEvents", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "relationalDatabaseEvents", structure: true)]
     property relational_database_events : Array(RelationalDatabaseEventStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -10778,7 +12582,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@relational_database_events : Array(RelationalDatabaseEventStruct) = nil, @next_page_token : String = nil)
+    def initialize(@relational_database_events : Array(RelationalDatabaseEventStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -10817,7 +12621,7 @@ module AmazonLightsail
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the end time.</p>
-    #
+    # 
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "endTime", structure: false)]
@@ -10838,7 +12642,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@relational_database_name : String, @log_stream_name : String, @start_time : Time = nil, @end_time : Time = nil, @start_from_head : Bool = nil, @page_token : String = nil)
+    def initialize(@relational_database_name : String, @log_stream_name : String, @start_time : Time? = nil, @end_time : Time? = nil, @start_from_head : Bool? = nil, @page_token : String? = nil)
     end
   end
 
@@ -10852,7 +12656,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "message", structure: false)]
     property message : String?
 
-    def initialize(@created_at : Time = nil, @message : String = nil)
+    def initialize(@created_at : Time? = nil, @message : String? = nil)
     end
   end
 
@@ -10860,7 +12664,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database log events request.</p>
-    @[AWSSdk::Field(location: :body, name: "resourceLogEvents", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "resourceLogEvents", structure: true)]
     property resource_log_events : Array(LogEventStruct)?
     # <p>A token used for advancing to the previous page of results from your get relational
     # database log events request.</p>
@@ -10871,7 +12675,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextForwardToken", structure: false)]
     property next_forward_token : String?
 
-    def initialize(@resource_log_events : Array(LogEventStruct) = nil, @next_backward_token : String = nil, @next_forward_token : String = nil)
+    def initialize(@resource_log_events : Array(LogEventStruct)? = nil, @next_backward_token : String? = nil, @next_forward_token : String? = nil)
     end
   end
 
@@ -10894,7 +12698,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "logStreams", structure: false)]
     property log_streams : Array(String)?
 
-    def initialize(@log_streams : Array(String) = nil)
+    def initialize(@log_streams : Array(String)? = nil)
     end
   end
 
@@ -10915,7 +12719,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "passwordVersion", structure: false)]
     property password_version : String?
 
-    def initialize(@relational_database_name : String, @password_version : String = nil)
+    def initialize(@relational_database_name : String, @password_version : String? = nil)
     end
   end
 
@@ -10929,7 +12733,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "createdAt", structure: false)]
     property created_at : Time?
 
-    def initialize(@master_user_password : String = nil, @created_at : Time = nil)
+    def initialize(@master_user_password : String? = nil, @created_at : Time? = nil)
     end
   end
 
@@ -11033,7 +12837,7 @@ module AmazonLightsail
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the start time.</p>
-    #
+    # 
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "startTime", structure: false)]
@@ -11048,7 +12852,7 @@ module AmazonLightsail
     # <p>Specified in the Unix time format.</p>
     # <p>For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you
     # input <code>1538424000</code> as the end time.</p>
-    #
+    # 
     # </li>
     # </ul>
     @[AWSSdk::Field(location: :body, name: "endTime", structure: false)]
@@ -11103,10 +12907,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "metricName", structure: false)]
     property metric_name : String?
     # <p>An array of objects that describe the metric data returned.</p>
-    @[AWSSdk::Field(location: :body, name: "metricData", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "metricData", structure: true)]
     property metric_data : Array(MetricDatapointStruct)?
 
-    def initialize(@metric_name : String = nil, @metric_data : Array(MetricDatapointStruct) = nil)
+    def initialize(@metric_name : String? = nil, @metric_data : Array(MetricDatapointStruct)? = nil)
     end
   end
 
@@ -11123,7 +12927,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@relational_database_name : String, @page_token : String = nil)
+    def initialize(@relational_database_name : String, @page_token : String? = nil)
     end
   end
 
@@ -11156,7 +12960,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "parameterValue", structure: false)]
     property parameter_value : String?
 
-    def initialize(@allowed_values : String = nil, @apply_method : String = nil, @apply_type : String = nil, @data_type : String = nil, @description : String = nil, @is_modifiable : Bool = nil, @parameter_name : String = nil, @parameter_value : String = nil)
+    def initialize(@allowed_values : String? = nil, @apply_method : String? = nil, @apply_type : String? = nil, @data_type : String? = nil, @description : String? = nil, @is_modifiable : Bool? = nil, @parameter_name : String? = nil, @parameter_value : String? = nil)
     end
   end
 
@@ -11164,7 +12968,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database parameters request.</p>
-    @[AWSSdk::Field(location: :body, name: "parameters", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "parameters", structure: true)]
     property parameters : Array(RelationalDatabaseParameterStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -11174,7 +12978,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@parameters : Array(RelationalDatabaseParameterStruct) = nil, @next_page_token : String = nil)
+    def initialize(@parameters : Array(RelationalDatabaseParameterStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -11188,7 +12992,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -11196,7 +13000,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational databases request.</p>
-    @[AWSSdk::Field(location: :body, name: "relationalDatabases", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "relationalDatabases", structure: true)]
     property relational_databases : Array(RelationalDatabaseStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -11205,7 +13009,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@relational_databases : Array(RelationalDatabaseStruct) = nil, @next_page_token : String = nil)
+    def initialize(@relational_databases : Array(RelationalDatabaseStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -11244,9 +13048,8 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
     property resource_type : String?
     # <p>The tag keys and optional values for the resource. For more information about tags in
-    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail
-    # Dev Guide</a>.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    # Lightsail, see the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer Guide</a>.</p>
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)?
     # <p>The software of the database snapshot (for example, <code>MySQL</code>)</p>
     @[AWSSdk::Field(location: :body, name: "engine", structure: false)]
@@ -11277,7 +13080,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "fromRelationalDatabaseBlueprintId", structure: false)]
     property from_relational_database_blueprint_id : String?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @tags : Array(TagStruct) = nil, @engine : String = nil, @engine_version : String = nil, @size_in_gb : Int32 = nil, @state : String = nil, @from_relational_database_name : String = nil, @from_relational_database_arn : String = nil, @from_relational_database_bundle_id : String = nil, @from_relational_database_blueprint_id : String = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @tags : Array(TagStruct)? = nil, @engine : String? = nil, @engine_version : String? = nil, @size_in_gb : Int32? = nil, @state : String? = nil, @from_relational_database_name : String? = nil, @from_relational_database_arn : String? = nil, @from_relational_database_bundle_id : String? = nil, @from_relational_database_blueprint_id : String? = nil)
     end
   end
 
@@ -11288,7 +13091,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "relationalDatabaseSnapshot", structure: true)]
     property relational_database_snapshot : RelationalDatabaseSnapshotStruct?
 
-    def initialize(@relational_database_snapshot : RelationalDatabaseSnapshotStruct = nil)
+    def initialize(@relational_database_snapshot : RelationalDatabaseSnapshotStruct? = nil)
     end
   end
 
@@ -11302,7 +13105,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -11310,7 +13113,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An object describing the result of your get relational database snapshots request.</p>
-    @[AWSSdk::Field(location: :body, name: "relationalDatabaseSnapshots", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "relationalDatabaseSnapshots", structure: true)]
     property relational_database_snapshots : Array(RelationalDatabaseSnapshotStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -11320,7 +13123,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@relational_database_snapshots : Array(RelationalDatabaseSnapshotStruct) = nil, @next_page_token : String = nil)
+    def initialize(@relational_database_snapshots : Array(RelationalDatabaseSnapshotStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -11370,7 +13173,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isAttached", structure: false)]
     property is_attached : Bool?
 
-    def initialize(@name : String = nil, @arn : String = nil, @support_code : String = nil, @created_at : Time = nil, @location : ResourceLocationStruct = nil, @resource_type : String = nil, @ip_address : String = nil, @attached_to : String = nil, @is_attached : Bool = nil)
+    def initialize(@name : String? = nil, @arn : String? = nil, @support_code : String? = nil, @created_at : Time? = nil, @location : ResourceLocationStruct? = nil, @resource_type : String? = nil, @ip_address : String? = nil, @attached_to : String? = nil, @is_attached : Bool? = nil)
     end
   end
 
@@ -11381,7 +13184,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "staticIp", structure: true)]
     property static_ip : StaticIpStruct?
 
-    def initialize(@static_ip : StaticIpStruct = nil)
+    def initialize(@static_ip : StaticIpStruct? = nil)
     end
   end
 
@@ -11395,7 +13198,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "pageToken", structure: false)]
     property page_token : String?
 
-    def initialize(@page_token : String = nil)
+    def initialize(@page_token : String? = nil)
     end
   end
 
@@ -11404,7 +13207,7 @@ module AmazonLightsail
 
     # <p>An array of key-value pairs containing information about your get static IPs
     # request.</p>
-    @[AWSSdk::Field(location: :body, name: "staticIps", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "staticIps", structure: true)]
     property static_ips : Array(StaticIpStruct)?
     # <p>The token to advance to the next page of results from your request.</p>
     # <p>A next page token is not returned if there are no more results to display.</p>
@@ -11413,7 +13216,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "nextPageToken", structure: false)]
     property next_page_token : String?
 
-    def initialize(@static_ips : Array(StaticIpStruct) = nil, @next_page_token : String = nil)
+    def initialize(@static_ips : Array(StaticIpStruct)? = nil, @next_page_token : String? = nil)
     end
   end
 
@@ -11439,14 +13242,15 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
   class IsVpcPeeredRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -11458,7 +13262,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "isPeered", structure: false)]
     property is_peered : Bool?
 
-    def initialize(@is_peered : Bool = nil)
+    def initialize(@is_peered : Bool? = nil)
     end
   end
 
@@ -11484,14 +13288,15 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
   class PeerVpcRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -11503,7 +13308,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -11609,10 +13414,10 @@ module AmazonLightsail
     # <p>A notification is sent via the specified contact protocol if notifications are enabled for
     # the alarm, and when the alarm is triggered.</p>
     # <p>A notification is not sent if a contact protocol is not specified, if the specified
-    # contact protocol is not configured in the AWS Region, or if notifications are not enabled
-    # for the alarm using the <code>notificationEnabled</code> paramater.</p>
+    # contact protocol is not configured in the Amazon Web Services Region, or if notifications are
+    # not enabled for the alarm using the <code>notificationEnabled</code> paramater.</p>
     # <p>Use the <code>CreateContactMethod</code> action to configure a contact protocol in an
-    # AWS Region.</p>
+    # Amazon Web Services Region.</p>
     @[AWSSdk::Field(location: :body, name: "contactProtocols", structure: false)]
     property contact_protocols : Array(String)?
     # <p>The alarm states that trigger a notification.</p>
@@ -11658,7 +13463,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "notificationEnabled", structure: false)]
     property notification_enabled : Bool?
 
-    def initialize(@alarm_name : String, @metric_name : String, @monitored_resource_name : String, @comparison_operator : String, @threshold : Float64, @evaluation_periods : Int32, @datapoints_to_alarm : Int32 = nil, @treat_missing_data : String = nil, @contact_protocols : Array(String) = nil, @notification_triggers : Array(String) = nil, @notification_enabled : Bool = nil)
+    def initialize(@alarm_name : String, @metric_name : String, @monitored_resource_name : String, @comparison_operator : String, @threshold : Float64, @evaluation_periods : Int32, @datapoints_to_alarm : Int32? = nil, @treat_missing_data : String? = nil, @contact_protocols : Array(String)? = nil, @notification_triggers : Array(String)? = nil, @notification_enabled : Bool? = nil)
     end
   end
 
@@ -11667,10 +13472,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11678,7 +13483,7 @@ module AmazonLightsail
     include AWSSdk::JSON1_1::Structure
 
     # <p>An array of objects to describe the ports to open for the specified instance.</p>
-    @[AWSSdk::Field(location: :body, name: "portInfos", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "portInfos", structure: true)]
     property port_infos : Array(PortInfoStruct)
     # <p>The name of the instance for which to open ports.</p>
     @[AWSSdk::Field(location: :body, name: "instanceName", structure: false)]
@@ -11696,7 +13501,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -11716,10 +13521,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11739,10 +13544,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11753,10 +13558,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The label for the container image when it's registered to the container service.</p>
-    #
+    # 
     # <p>Use a descriptive label that you can use to track the different versions of your
     # registered container images.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerImages</code> action to return the container images registered
     # to a Lightsail container service. The label is the <code><imagelabel></code> portion
     # of the following image name example:</p>
@@ -11767,11 +13572,11 @@ module AmazonLightsail
     # </p>
     # </li>
     # </ul>
-    #
+    # 
     # <p>If the name of your container service is <code>mycontainerservice</code>, and the label
     # that you specify is <code>mystaticwebsite</code>, then the name of the registered container
     # image will be <code>:mycontainerservice.mystaticwebsite.1</code>.</p>
-    #
+    # 
     # <p>The number at the end of these image name examples represents the version of the
     # registered container image. If you push and register another container image to the same
     # Lightsail container service, with the same label, then the version number for the new
@@ -11790,11 +13595,12 @@ module AmazonLightsail
   class RegisterContainerImageResultStruct
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # <p>An object that describes a container image that is registered to a Lightsail container
+    # service</p>
     @[AWSSdk::Field(location: :body, name: "containerImage", structure: true)]
     property container_image : ContainerImageStruct?
 
-    def initialize(@container_image : ContainerImageStruct = nil)
+    def initialize(@container_image : ContainerImageStruct? = nil)
     end
   end
 
@@ -11814,10 +13620,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11830,7 +13636,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String?
 
-    def initialize(@distribution_name : String = nil)
+    def initialize(@distribution_name : String? = nil)
     end
   end
 
@@ -11849,7 +13655,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@status : String = nil, @create_time : Time = nil, @operation : OperationStruct = nil)
+    def initialize(@status : String? = nil, @create_time : Time? = nil, @operation : OperationStruct? = nil)
     end
   end
 
@@ -11870,10 +13676,93 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class SetIpAddressTypeRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The resource type.</p>
+    # <p>The possible values are <code>Distribution</code>, <code>Instance</code>, and
+    # <code>LoadBalancer</code>.</p>
+    # <note>
+    # <p>Distribution-related APIs are available only in the N. Virginia (<code>us-east-1</code>)
+    # Amazon Web Services Region. Set your Amazon Web Services Region configuration to
+    # <code>us-east-1</code> to create, view, or edit distributions.</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "resourceType", structure: false)]
+    property resource_type : String
+    # <p>The name of the resource for which to set the IP address type.</p>
+    @[AWSSdk::Field(location: :body, name: "resourceName", structure: false)]
+    property resource_name : String
+    # <p>The IP address type to set for the specified resource.</p>
+    # 
+    # <p>The possible values are <code>ipv4</code> for IPv4 only, and <code>dualstack</code> for
+    # IPv4 and IPv6.</p>
+    @[AWSSdk::Field(location: :body, name: "ipAddressType", structure: false)]
+    property ip_address_type : String
+
+    def initialize(@resource_type : String, @resource_name : String, @ip_address_type : String)
+    end
+  end
+
+  class SetIpAddressTypeResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class SetResourceAccessForBucketRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the Lightsail instance for which to set bucket access. The instance must be
+    # in a running or stopped state.</p>
+    @[AWSSdk::Field(location: :body, name: "resourceName", structure: false)]
+    property resource_name : String
+    # <p>The name of the bucket for which to set access to another Lightsail resource.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>The access setting.</p>
+    # 
+    # <p>The following access settings are available:</p>
+    # 
+    # <ul>
+    # <li>
+    # <p>
+    # <code>allow</code> - Allows access to the bucket and its objects.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>deny</code> - Denies access to the bucket and its objects. Use this setting to
+    # remove access for a resource previously set to <code>allow</code>.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "access", structure: false)]
+    property access : String
+
+    def initialize(@resource_name : String, @bucket_name : String, @access : String)
+    end
+  end
+
+  class SetResourceAccessForBucketResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11893,10 +13782,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11916,10 +13805,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11939,7 +13828,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "force", structure: false)]
     property force : Bool?
 
-    def initialize(@instance_name : String, @force : Bool = nil)
+    def initialize(@instance_name : String, @force : Bool? = nil)
     end
   end
 
@@ -11948,10 +13837,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11965,7 +13854,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "relationalDatabaseSnapshotName", structure: false)]
     property relational_database_snapshot_name : String?
 
-    def initialize(@relational_database_name : String, @relational_database_snapshot_name : String = nil)
+    def initialize(@relational_database_name : String, @relational_database_snapshot_name : String? = nil)
     end
   end
 
@@ -11974,10 +13863,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -11991,10 +13880,10 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "resourceArn", structure: false)]
     property resource_arn : String?
     # <p>The tag key and optional value.</p>
-    @[AWSSdk::Field(location: :body, name: "tags", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "tags", structure: true)]
     property tags : Array(TagStruct)
 
-    def initialize(@resource_name : String, @tags : Array(TagStruct), @resource_arn : String = nil)
+    def initialize(@resource_name : String, @tags : Array(TagStruct), @resource_arn : String? = nil)
     end
   end
 
@@ -12003,10 +13892,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -12046,17 +13935,18 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
   class UnpeerVpcRequest
     include AWSSdk::JSON1_1::Structure
 
-    def initialize
+
+    def initialize()
     end
   end
 
@@ -12068,7 +13958,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -12085,7 +13975,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "tagKeys", structure: false)]
     property tag_keys : Array(String)
 
-    def initialize(@resource_name : String, @tag_keys : Array(String), @resource_arn : String = nil)
+    def initialize(@resource_name : String, @tag_keys : Array(String), @resource_arn : String? = nil)
     end
   end
 
@@ -12094,10 +13984,93 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class UpdateBucketRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket to update.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>An object that sets the public accessibility of objects in the specified bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "accessRules", structure: true)]
+    property access_rules : AccessRulesStruct?
+    # <p>Specifies whether to enable or suspend versioning of objects in the bucket.</p>
+    # 
+    # <p>The following options can be specified:</p>
+    # <ul>
+    # <li>
+    # <p>
+    # <code>Enabled</code> - Enables versioning of objects in the specified bucket.</p>
+    # </li>
+    # <li>
+    # <p>
+    # <code>Suspended</code> - Suspends versioning of objects in the specified bucket.
+    # Existing object versions are retained.</p>
+    # </li>
+    # </ul>
+    @[AWSSdk::Field(location: :body, name: "versioning", structure: false)]
+    property versioning : String?
+    # <p>An array of strings to specify the Amazon Web Services account IDs that can access the
+    # bucket.</p>
+    # 
+    # <p>You can give a maximum of 10 Amazon Web Services accounts access to a bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "readonlyAccessAccounts", structure: false)]
+    property readonly_access_accounts : Array(String)?
+    # <p>An object that describes the access log configuration for the bucket.</p>
+    @[AWSSdk::Field(location: :body, name: "accessLogConfig", structure: true)]
+    property access_log_config : BucketAccessLogConfigStruct?
+
+    def initialize(@bucket_name : String, @access_rules : AccessRulesStruct? = nil, @versioning : String? = nil, @readonly_access_accounts : Array(String)? = nil, @access_log_config : BucketAccessLogConfigStruct? = nil)
+    end
+  end
+
+  class UpdateBucketResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An object that describes the bucket that is updated.</p>
+    @[AWSSdk::Field(location: :body, name: "bucket", structure: true)]
+    property bucket : BucketStruct?
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@bucket : BucketStruct? = nil, @operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class UpdateBucketBundleRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the bucket for which to update the bundle.</p>
+    @[AWSSdk::Field(location: :body, name: "bucketName", structure: false)]
+    property bucket_name : String
+    # <p>The ID of the new bundle to apply to the bucket.</p>
+    # 
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketBundles.html">GetBucketBundles</a> action to get a list of
+    # bundle IDs that you can specify.</p>
+    @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
+    property bundle_id : String
+
+    def initialize(@bucket_name : String, @bundle_id : String)
+    end
+  end
+
+  class UpdateBucketBundleResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>An array of objects that describe the result of the action, such as the status of the
+    # request, the timestamp of the request, and the resources affected by the request.</p>
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
+    property operations : Array(OperationStruct)?
+
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -12108,19 +14081,19 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :uri, name: "serviceName", structure: false)]
     property service_name : String
     # <p>The power for the container service.</p>
-    #
+    # 
     # <p>The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the
     # container service. The <code>power</code> and <code>scale</code> of a container service makes
     # up its configured capacity. To determine the monthly price of your container service, multiply
     # the base price of the <code>power</code> with the <code>scale</code> (the number of nodes) of
     # the service.</p>
-    #
+    # 
     # <p>Use the <code>GetContainerServicePowers</code> action to view the specifications of each
     # power option.</p>
     @[AWSSdk::Field(location: :body, name: "power", structure: false)]
     property power : String?
     # <p>The scale for the container service.</p>
-    #
+    # 
     # <p>The scale specifies the allocated compute nodes of the container service. The
     # <code>power</code> and <code>scale</code> of a container service makes up its configured
     # capacity. To determine the monthly price of your container service, multiply the base price of
@@ -12133,26 +14106,33 @@ module AmazonLightsail
     property is_disabled : Bool?
     # <p>The public domain names to use with the container service, such as
     # <code>example.com</code> and <code>www.example.com</code>.</p>
-    #
+    # 
     # <p>You can specify up to four public domain names for a container service. The domain names
     # that you specify are used when you create a deployment with a container configured as the
     # public endpoint of your container service.</p>
-    #
+    # 
     # <p>If you don't specify public domain names, then you can use the default domain of the
     # container service.</p>
-    #
+    # 
     # <important>
     # <p>You must create and validate an SSL/TLS certificate before you can use public domain
     # names with your container service. Use the <code>CreateCertificate</code> action to create a
     # certificate for the public domain names you want to use with your container service.</p>
     # </important>
-    #
+    # 
     # <p>You can specify public domain names using a string to array map as shown in the example
     # later on this page.</p>
     @[AWSSdk::Field(location: :body, name: "publicDomainNames", structure: false)]
     property public_domain_names : Hash(String, Array(String))?
+    # <p>An object to describe the configuration for the container service to access private
+    # container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private
+    # repositories.</p>
+    # 
+    # <p>For more information, see <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access">Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service</a> in the <i>Amazon Lightsail Developer Guide</i>.</p>
+    @[AWSSdk::Field(location: :body, name: "privateRegistryAccess", structure: true)]
+    property private_registry_access : PrivateRegistryAccessRequest?
 
-    def initialize(@service_name : String, @power : String = nil, @scale : Int32 = nil, @is_disabled : Bool = nil, @public_domain_names : Hash(String, Array(String)) = nil)
+    def initialize(@service_name : String, @power : String? = nil, @scale : Int32? = nil, @is_disabled : Bool? = nil, @public_domain_names : Hash(String, Array(String))? = nil, @private_registry_access : PrivateRegistryAccessRequest? = nil)
     end
   end
 
@@ -12163,7 +14143,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "containerService", structure: true)]
     property container_service : ContainerServiceStruct?
 
-    def initialize(@container_service : ContainerServiceStruct = nil)
+    def initialize(@container_service : ContainerServiceStruct? = nil)
     end
   end
 
@@ -12176,7 +14156,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "distributionName", structure: false)]
     property distribution_name : String
     # <p>An object that describes the origin resource for the distribution, such as a Lightsail
-    # instance or load balancer.</p>
+    # instance, bucket, or load balancer.</p>
     # <p>The distribution pulls, caches, and serves content from the origin.</p>
     @[AWSSdk::Field(location: :body, name: "origin", structure: true)]
     property origin : InputOriginStruct?
@@ -12192,13 +14172,13 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "cacheBehaviorSettings", structure: true)]
     property cache_behavior_settings : CacheSettingsStruct?
     # <p>An array of objects that describe the per-path cache behavior for the distribution.</p>
-    @[AWSSdk::Field(location: :body, name: "cacheBehaviors", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "cacheBehaviors", structure: true)]
     property cache_behaviors : Array(CacheBehaviorPerPathStruct)?
     # <p>Indicates whether to enable the distribution.</p>
     @[AWSSdk::Field(location: :body, name: "isEnabled", structure: false)]
     property is_enabled : Bool?
 
-    def initialize(@distribution_name : String, @origin : InputOriginStruct = nil, @default_cache_behavior : CacheBehaviorStruct = nil, @cache_behavior_settings : CacheSettingsStruct = nil, @cache_behaviors : Array(CacheBehaviorPerPathStruct) = nil, @is_enabled : Bool = nil)
+    def initialize(@distribution_name : String, @origin : InputOriginStruct? = nil, @default_cache_behavior : CacheBehaviorStruct? = nil, @cache_behavior_settings : CacheSettingsStruct? = nil, @cache_behaviors : Array(CacheBehaviorPerPathStruct)? = nil, @is_enabled : Bool? = nil)
     end
   end
 
@@ -12210,7 +14190,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -12228,18 +14208,19 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "bundleId", structure: false)]
     property bundle_id : String?
 
-    def initialize(@distribution_name : String = nil, @bundle_id : String = nil)
+    def initialize(@distribution_name : String? = nil, @bundle_id : String? = nil)
     end
   end
 
   class UpdateDistributionBundleResultStruct
     include AWSSdk::JSON1_1::Structure
 
-    #
+    # <p>An object that describes the result of the action, such as the status of the request, the
+    # timestamp of the request, and the resources affected by the request.</p>
     @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
     property operation : OperationStruct?
 
-    def initialize(@operation : OperationStruct = nil)
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -12262,10 +14243,66 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
+    end
+  end
+
+  class UpdateInstanceMetadataOptionsRequest
+    include AWSSdk::JSON1_1::Structure
+
+    # <p>The name of the instance for which to update metadata parameters.</p>
+    @[AWSSdk::Field(location: :body, name: "instanceName", structure: false)]
+    property instance_name : String
+    # <p>The state of token usage for your instance metadata requests. If the parameter is not
+    # specified in the request, the default state is <code>optional</code>.</p>
+    # 
+    # <p>If the state is <code>optional</code>, you can choose whether to retrieve instance
+    # metadata with a signed token header on your request. If you retrieve the IAM role credentials
+    # without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role
+    # credentials by using a valid signed token, the version 2.0 role credentials are
+    # returned.</p>
+    # 
+    # <p>If the state is <code>required</code>, you must send a signed token header with all
+    # instance metadata retrieval requests. In this state, retrieving the IAM role credential always
+    # returns the version 2.0 credentials. The version 1.0 credentials are not available.</p>
+    @[AWSSdk::Field(location: :body, name: "httpTokens", structure: false)]
+    property http_tokens : String?
+    # <p>Enables or disables the HTTP metadata endpoint on your instances. If this parameter is not
+    # specified, the existing state is maintained.</p>
+    # 
+    # <p>If you specify a value of <code>disabled</code>, you cannot access your instance
+    # metadata.</p>
+    @[AWSSdk::Field(location: :body, name: "httpEndpoint", structure: false)]
+    property http_endpoint : String?
+    # <p>The desired HTTP PUT response hop limit for instance metadata requests. A larger number
+    # means that the instance metadata requests can travel farther. If no parameter is specified,
+    # the existing state is maintained.</p>
+    @[AWSSdk::Field(location: :body, name: "httpPutResponseHopLimit", structure: false)]
+    property http_put_response_hop_limit : Int32?
+    # <p>Enables or disables the IPv6 endpoint for the instance metadata service. This setting
+    # applies only when the HTTP metadata endpoint is enabled.</p>
+    # 
+    # <note>
+    # <p>This parameter is available only for instances in the Europe (Stockholm) Amazon Web Services Region (<code>eu-north-1</code>).</p>
+    # </note>
+    @[AWSSdk::Field(location: :body, name: "httpProtocolIpv6", structure: false)]
+    property http_protocol_ipv6 : String?
+
+    def initialize(@instance_name : String, @http_tokens : String? = nil, @http_endpoint : String? = nil, @http_put_response_hop_limit : Int32? = nil, @http_protocol_ipv6 : String? = nil)
+    end
+  end
+
+  class UpdateInstanceMetadataOptionsResultStruct
+    include AWSSdk::JSON1_1::Structure
+
+    # 
+    @[AWSSdk::Field(location: :body, name: "operation", structure: true)]
+    property operation : OperationStruct?
+
+    def initialize(@operation : OperationStruct? = nil)
     end
   end
 
@@ -12276,10 +14313,44 @@ module AmazonLightsail
     # <code>my-load-balancer</code>.</p>
     @[AWSSdk::Field(location: :body, name: "loadBalancerName", structure: false)]
     property load_balancer_name : String
-    # <p>The name of the attribute you want to update. Valid values are below.</p>
+    # <p>The name of the attribute you want to update.</p>
     @[AWSSdk::Field(location: :body, name: "attributeName", structure: false)]
     property attribute_name : String
     # <p>The value that you want to specify for the attribute name.</p>
+    # <p>The following values are supported depending on what you specify for the
+    # <code>attributeName</code> request parameter:</p>
+    # <ul>
+    # <li>
+    # <p>If you specify <code>HealthCheckPath</code> for the <code>attributeName</code> request
+    # parameter, then the <code>attributeValue</code> request parameter must be the path to ping
+    # on the target (for example, <code>/weather/us/wa/seattle</code>).</p>
+    # </li>
+    # <li>
+    # <p>If you specify <code>SessionStickinessEnabled</code> for the
+    # <code>attributeName</code> request parameter, then the <code>attributeValue</code>
+    # request parameter must be <code>true</code> to activate session stickiness or
+    # <code>false</code> to deactivate session stickiness.</p>
+    # </li>
+    # <li>
+    # <p>If you specify <code>SessionStickiness_LB_CookieDurationSeconds</code> for the
+    # <code>attributeName</code> request parameter, then the <code>attributeValue</code>
+    # request parameter must be an interger that represents the cookie duration in
+    # seconds.</p>
+    # </li>
+    # <li>
+    # <p>If you specify <code>HttpsRedirectionEnabled</code> for the <code>attributeName</code>
+    # request parameter, then the <code>attributeValue</code> request parameter must be
+    # <code>true</code> to activate HTTP to HTTPS redirection or <code>false</code> to
+    # deactivate HTTP to HTTPS redirection.</p>
+    # </li>
+    # <li>
+    # <p>If you specify <code>TlsPolicyName</code> for the <code>attributeName</code> request
+    # parameter, then the <code>attributeValue</code> request parameter must be the name of the
+    # TLS policy.</p>
+    # <p>Use the <a href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html">GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you
+    # can specify.</p>
+    # </li>
+    # </ul>
     @[AWSSdk::Field(location: :body, name: "attributeValue", structure: false)]
     property attribute_value : String
 
@@ -12292,22 +14363,28 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
   class UpdateRelationalDatabaseRequest
     include AWSSdk::JSON1_1::Structure
 
-    # <p>The name of your database to update.</p>
+    # <p>The name of your Lightsail database resource to update.</p>
     @[AWSSdk::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
-    # <p>The password for the master user of your database. The password can include any printable
-    # ASCII character except "/", """, or "@".</p>
-    # <p>Constraints: Must contain 8 to 41 characters.</p>
+    # <p>The password for the master user. The password can include any printable ASCII character
+    # except "/", """, or "@".</p>
+    # <p>My<b>SQL</b>
+    # </p>
+    # <p>Constraints: Must contain from 8 to 41 characters.</p>
+    # <p>
+    # <b>PostgreSQL</b>
+    # </p>
+    # <p>Constraints: Must contain from 8 to 128 characters.</p>
     @[AWSSdk::Field(location: :body, name: "masterUserPassword", structure: false)]
     property master_user_password : String?
     # <p>When <code>true</code>, the master user password is changed to a new strong password
@@ -12390,7 +14467,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "caCertificateIdentifier", structure: false)]
     property ca_certificate_identifier : String?
 
-    def initialize(@relational_database_name : String, @master_user_password : String = nil, @rotate_master_user_password : Bool = nil, @preferred_backup_window : String = nil, @preferred_maintenance_window : String = nil, @enable_backup_retention : Bool = nil, @disable_backup_retention : Bool = nil, @publicly_accessible : Bool = nil, @apply_immediately : Bool = nil, @ca_certificate_identifier : String = nil)
+    def initialize(@relational_database_name : String, @master_user_password : String? = nil, @rotate_master_user_password : Bool? = nil, @preferred_backup_window : String? = nil, @preferred_maintenance_window : String? = nil, @enable_backup_retention : Bool? = nil, @disable_backup_retention : Bool? = nil, @publicly_accessible : Bool? = nil, @apply_immediately : Bool? = nil, @ca_certificate_identifier : String? = nil)
     end
   end
 
@@ -12399,10 +14476,10 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
 
@@ -12413,7 +14490,7 @@ module AmazonLightsail
     @[AWSSdk::Field(location: :body, name: "relationalDatabaseName", structure: false)]
     property relational_database_name : String
     # <p>The database parameters to update.</p>
-    @[AWSSdk::Field(location: :body, name: "parameters", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "parameters", structure: true)]
     property parameters : Array(RelationalDatabaseParameterStruct)
 
     def initialize(@relational_database_name : String, @parameters : Array(RelationalDatabaseParameterStruct))
@@ -12425,10 +14502,1134 @@ module AmazonLightsail
 
     # <p>An array of objects that describe the result of the action, such as the status of the
     # request, the timestamp of the request, and the resources affected by the request.</p>
-    @[AWSSdk::Field(location: :body, name: "operations", structure: false)]
+    @[AWSSdk::Field(location: :body, name: "operations", structure: true)]
     property operations : Array(OperationStruct)?
 
-    def initialize(@operations : Array(OperationStruct) = nil)
+    def initialize(@operations : Array(OperationStruct)? = nil)
     end
   end
+
+
+
+  module ResourceType
+
+  getter containerservice = "ContainerService"
+
+  getter instance = "Instance"
+
+  getter staticip = "StaticIp"
+
+  getter keypair = "KeyPair"
+
+  getter instancesnapshot = "InstanceSnapshot"
+
+  getter domain = "Domain"
+
+  getter peeredvpc = "PeeredVpc"
+
+  getter loadbalancer = "LoadBalancer"
+
+  getter loadbalancertlscertificate = "LoadBalancerTlsCertificate"
+
+  getter disk = "Disk"
+
+  getter disksnapshot = "DiskSnapshot"
+
+  getter relationaldatabase = "RelationalDatabase"
+
+  getter relationaldatabasesnapshot = "RelationalDatabaseSnapshot"
+
+  getter exportsnapshotrecord = "ExportSnapshotRecord"
+
+  getter cloudformationstackrecord = "CloudFormationStackRecord"
+
+  getter alarm = "Alarm"
+
+  getter contactmethod = "ContactMethod"
+
+  getter distribution = "Distribution"
+
+  getter certificate = "Certificate"
+
+  getter bucket = "Bucket"
+
+end
+
+  module RegionName
+
+  getter us_east_1 = "us-east-1"
+
+  getter us_east_2 = "us-east-2"
+
+  getter us_west_1 = "us-west-1"
+
+  getter us_west_2 = "us-west-2"
+
+  getter eu_west_1 = "eu-west-1"
+
+  getter eu_west_2 = "eu-west-2"
+
+  getter eu_west_3 = "eu-west-3"
+
+  getter eu_central_1 = "eu-central-1"
+
+  getter ca_central_1 = "ca-central-1"
+
+  getter ap_south_1 = "ap-south-1"
+
+  getter ap_southeast_1 = "ap-southeast-1"
+
+  getter ap_southeast_2 = "ap-southeast-2"
+
+  getter ap_northeast_1 = "ap-northeast-1"
+
+  getter ap_northeast_2 = "ap-northeast-2"
+
+  getter eu_north_1 = "eu-north-1"
+
+end
+
+  module OperationType
+
+  getter deleteknownhostkeys = "DeleteKnownHostKeys"
+
+  getter deleteinstance = "DeleteInstance"
+
+  getter createinstance = "CreateInstance"
+
+  getter stopinstance = "StopInstance"
+
+  getter startinstance = "StartInstance"
+
+  getter rebootinstance = "RebootInstance"
+
+  getter openinstancepublicports = "OpenInstancePublicPorts"
+
+  getter putinstancepublicports = "PutInstancePublicPorts"
+
+  getter closeinstancepublicports = "CloseInstancePublicPorts"
+
+  getter allocatestaticip = "AllocateStaticIp"
+
+  getter releasestaticip = "ReleaseStaticIp"
+
+  getter attachstaticip = "AttachStaticIp"
+
+  getter detachstaticip = "DetachStaticIp"
+
+  getter updatedomainentry = "UpdateDomainEntry"
+
+  getter deletedomainentry = "DeleteDomainEntry"
+
+  getter createdomain = "CreateDomain"
+
+  getter deletedomain = "DeleteDomain"
+
+  getter createinstancesnapshot = "CreateInstanceSnapshot"
+
+  getter deleteinstancesnapshot = "DeleteInstanceSnapshot"
+
+  getter createinstancesfromsnapshot = "CreateInstancesFromSnapshot"
+
+  getter createloadbalancer = "CreateLoadBalancer"
+
+  getter deleteloadbalancer = "DeleteLoadBalancer"
+
+  getter attachinstancestoloadbalancer = "AttachInstancesToLoadBalancer"
+
+  getter detachinstancesfromloadbalancer = "DetachInstancesFromLoadBalancer"
+
+  getter updateloadbalancerattribute = "UpdateLoadBalancerAttribute"
+
+  getter createloadbalancertlscertificate = "CreateLoadBalancerTlsCertificate"
+
+  getter deleteloadbalancertlscertificate = "DeleteLoadBalancerTlsCertificate"
+
+  getter attachloadbalancertlscertificate = "AttachLoadBalancerTlsCertificate"
+
+  getter createdisk = "CreateDisk"
+
+  getter deletedisk = "DeleteDisk"
+
+  getter attachdisk = "AttachDisk"
+
+  getter detachdisk = "DetachDisk"
+
+  getter createdisksnapshot = "CreateDiskSnapshot"
+
+  getter deletedisksnapshot = "DeleteDiskSnapshot"
+
+  getter creatediskfromsnapshot = "CreateDiskFromSnapshot"
+
+  getter createrelationaldatabase = "CreateRelationalDatabase"
+
+  getter updaterelationaldatabase = "UpdateRelationalDatabase"
+
+  getter deleterelationaldatabase = "DeleteRelationalDatabase"
+
+  getter createrelationaldatabasefromsnapshot = "CreateRelationalDatabaseFromSnapshot"
+
+  getter createrelationaldatabasesnapshot = "CreateRelationalDatabaseSnapshot"
+
+  getter deleterelationaldatabasesnapshot = "DeleteRelationalDatabaseSnapshot"
+
+  getter updaterelationaldatabaseparameters = "UpdateRelationalDatabaseParameters"
+
+  getter startrelationaldatabase = "StartRelationalDatabase"
+
+  getter rebootrelationaldatabase = "RebootRelationalDatabase"
+
+  getter stoprelationaldatabase = "StopRelationalDatabase"
+
+  getter enableaddon = "EnableAddOn"
+
+  getter disableaddon = "DisableAddOn"
+
+  getter putalarm = "PutAlarm"
+
+  getter getalarms = "GetAlarms"
+
+  getter deletealarm = "DeleteAlarm"
+
+  getter testalarm = "TestAlarm"
+
+  getter createcontactmethod = "CreateContactMethod"
+
+  getter getcontactmethods = "GetContactMethods"
+
+  getter sendcontactmethodverification = "SendContactMethodVerification"
+
+  getter deletecontactmethod = "DeleteContactMethod"
+
+  getter createdistribution = "CreateDistribution"
+
+  getter updatedistribution = "UpdateDistribution"
+
+  getter deletedistribution = "DeleteDistribution"
+
+  getter resetdistributioncache = "ResetDistributionCache"
+
+  getter attachcertificatetodistribution = "AttachCertificateToDistribution"
+
+  getter detachcertificatefromdistribution = "DetachCertificateFromDistribution"
+
+  getter updatedistributionbundle = "UpdateDistributionBundle"
+
+  getter setipaddresstype = "SetIpAddressType"
+
+  getter createcertificate = "CreateCertificate"
+
+  getter deletecertificate = "DeleteCertificate"
+
+  getter createcontainerservice = "CreateContainerService"
+
+  getter updatecontainerservice = "UpdateContainerService"
+
+  getter deletecontainerservice = "DeleteContainerService"
+
+  getter createcontainerservicedeployment = "CreateContainerServiceDeployment"
+
+  getter createcontainerserviceregistrylogin = "CreateContainerServiceRegistryLogin"
+
+  getter registercontainerimage = "RegisterContainerImage"
+
+  getter deletecontainerimage = "DeleteContainerImage"
+
+  getter createbucket = "CreateBucket"
+
+  getter deletebucket = "DeleteBucket"
+
+  getter createbucketaccesskey = "CreateBucketAccessKey"
+
+  getter deletebucketaccesskey = "DeleteBucketAccessKey"
+
+  getter updatebucketbundle = "UpdateBucketBundle"
+
+  getter updatebucket = "UpdateBucket"
+
+  getter setresourceaccessforbucket = "SetResourceAccessForBucket"
+
+  getter updateinstancemetadataoptions = "UpdateInstanceMetadataOptions"
+
+end
+
+  module OperationStatus
+
+  getter notstarted = "NotStarted"
+
+  getter started = "Started"
+
+  getter failed = "Failed"
+
+  getter completed = "Completed"
+
+  getter succeeded = "Succeeded"
+
+end
+
+  module NetworkProtocol
+
+  getter tcp = "tcp"
+
+  getter all = "all"
+
+  getter udp = "udp"
+
+  getter icmp = "icmp"
+
+end
+
+  module AccessType
+
+  getter public = "public"
+
+  getter priv = "private"
+
+end
+
+  module StatusType
+
+  getter active = "Active"
+
+  getter inactive = "Inactive"
+
+end
+
+  module CertificateStatus
+
+  getter pendingvalidation = "PENDING_VALIDATION"
+
+  getter issued = "ISSUED"
+
+  getter inactive = "INACTIVE"
+
+  getter expired = "EXPIRED"
+
+  getter validationtimedout = "VALIDATION_TIMED_OUT"
+
+  getter revoked = "REVOKED"
+
+  getter failed = "FAILED"
+
+end
+
+  module RenewalStatus
+
+  getter pendingautorenewal = "PendingAutoRenewal"
+
+  getter pendingvalidation = "PendingValidation"
+
+  getter success = "Success"
+
+  getter failed = "Failed"
+
+end
+
+  module PortInfoSourceType
+
+  getter default = "DEFAULT"
+
+  getter instance = "INSTANCE"
+
+  getter none = "NONE"
+
+  getter closed = "CLOSED"
+
+end
+
+  module ContactProtocol
+
+  getter email = "Email"
+
+  getter sms = "SMS"
+
+end
+
+  module ContainerServicePowerName
+
+  getter nano = "nano"
+
+  getter micro = "micro"
+
+  getter small = "small"
+
+  getter medium = "medium"
+
+  getter large = "large"
+
+  getter xlarge = "xlarge"
+
+end
+
+  module ContainerServiceProtocol
+
+  getter http = "HTTP"
+
+  getter https = "HTTPS"
+
+  getter tcp = "TCP"
+
+  getter udp = "UDP"
+
+end
+
+  module ContainerServiceState
+
+  getter pending = "PENDING"
+
+  getter ready = "READY"
+
+  getter running = "RUNNING"
+
+  getter updating = "UPDATING"
+
+  getter deleting = "DELETING"
+
+  getter disabled = "DISABLED"
+
+  getter deploying = "DEPLOYING"
+
+end
+
+  module ContainerServiceStateDetailCode
+
+  getter creating_system_resources = "CREATING_SYSTEM_RESOURCES"
+
+  getter creating_network_infrastructure = "CREATING_NETWORK_INFRASTRUCTURE"
+
+  getter provisioning_certificate = "PROVISIONING_CERTIFICATE"
+
+  getter provisioning_service = "PROVISIONING_SERVICE"
+
+  getter creating_deployment = "CREATING_DEPLOYMENT"
+
+  getter evaluating_health_check = "EVALUATING_HEALTH_CHECK"
+
+  getter activating_deployment = "ACTIVATING_DEPLOYMENT"
+
+  getter certificate_limit_exceeded = "CERTIFICATE_LIMIT_EXCEEDED"
+
+  getter unknown_error = "UNKNOWN_ERROR"
+
+end
+
+  module ContainerServiceDeploymentState
+
+  getter activating = "ACTIVATING"
+
+  getter active = "ACTIVE"
+
+  getter inactive = "INACTIVE"
+
+  getter failed = "FAILED"
+
+end
+
+  module AddOnType
+
+  getter autosnapshot = "AutoSnapshot"
+
+end
+
+  module OriginProtocolPolicyEnum
+
+  getter httponly = "http-only"
+
+  getter httpsonly = "https-only"
+
+end
+
+  module BehaviorEnum
+
+  getter dontcachesetting = "dont-cache"
+
+  getter cachesetting = "cache"
+
+end
+
+  module ForwardValues
+
+  getter none = "none"
+
+  getter allowlist = "allow-list"
+
+  getter all = "all"
+
+end
+
+  module HeaderEnum
+
+  getter accept = "Accept"
+
+  getter acceptcharset = "Accept-Charset"
+
+  getter acceptdatetime = "Accept-Datetime"
+
+  getter acceptencoding = "Accept-Encoding"
+
+  getter acceptlanguage = "Accept-Language"
+
+  getter authorization = "Authorization"
+
+  getter cloudfrontforwardedproto = "CloudFront-Forwarded-Proto"
+
+  getter cloudfrontisdesktopviewer = "CloudFront-Is-Desktop-Viewer"
+
+  getter cloudfrontismobileviewer = "CloudFront-Is-Mobile-Viewer"
+
+  getter cloudfrontissmarttvviewer = "CloudFront-Is-SmartTV-Viewer"
+
+  getter cloudfrontistabletviewer = "CloudFront-Is-Tablet-Viewer"
+
+  getter cloudfrontviewercountry = "CloudFront-Viewer-Country"
+
+  getter host = "Host"
+
+  getter origin = "Origin"
+
+  getter referer = "Referer"
+
+end
+
+  module IpAddressType
+
+  getter dualstack = "dualstack"
+
+  getter ipv4 = "ipv4"
+
+end
+
+  module ComparisonOperator
+
+  getter greaterthanorequaltothreshold = "GreaterThanOrEqualToThreshold"
+
+  getter greaterthanthreshold = "GreaterThanThreshold"
+
+  getter lessthanthreshold = "LessThanThreshold"
+
+  getter lessthanorequaltothreshold = "LessThanOrEqualToThreshold"
+
+end
+
+  module TreatMissingData
+
+  getter breaching = "breaching"
+
+  getter notbreaching = "notBreaching"
+
+  getter ignore = "ignore"
+
+  getter missing = "missing"
+
+end
+
+  module MetricStatistic
+
+  getter minimum = "Minimum"
+
+  getter maximum = "Maximum"
+
+  getter sum = "Sum"
+
+  getter average = "Average"
+
+  getter samplecount = "SampleCount"
+
+end
+
+  module MetricName
+
+  getter cpuutilization = "CPUUtilization"
+
+  getter networkin = "NetworkIn"
+
+  getter networkout = "NetworkOut"
+
+  getter statuscheckfailed = "StatusCheckFailed"
+
+  getter statuscheckfailed_instance = "StatusCheckFailed_Instance"
+
+  getter statuscheckfailed_system = "StatusCheckFailed_System"
+
+  getter clienttlsnegotiationerrorcount = "ClientTLSNegotiationErrorCount"
+
+  getter healthyhostcount = "HealthyHostCount"
+
+  getter unhealthyhostcount = "UnhealthyHostCount"
+
+  getter httpcode_lb_4xx_count = "HTTPCode_LB_4XX_Count"
+
+  getter httpcode_lb_5xx_count = "HTTPCode_LB_5XX_Count"
+
+  getter httpcode_instance_2xx_count = "HTTPCode_Instance_2XX_Count"
+
+  getter httpcode_instance_3xx_count = "HTTPCode_Instance_3XX_Count"
+
+  getter httpcode_instance_4xx_count = "HTTPCode_Instance_4XX_Count"
+
+  getter httpcode_instance_5xx_count = "HTTPCode_Instance_5XX_Count"
+
+  getter instanceresponsetime = "InstanceResponseTime"
+
+  getter rejectedconnectioncount = "RejectedConnectionCount"
+
+  getter requestcount = "RequestCount"
+
+  getter databaseconnections = "DatabaseConnections"
+
+  getter diskqueuedepth = "DiskQueueDepth"
+
+  getter freestoragespace = "FreeStorageSpace"
+
+  getter networkreceivethroughput = "NetworkReceiveThroughput"
+
+  getter networktransmitthroughput = "NetworkTransmitThroughput"
+
+  getter burstcapacitytime = "BurstCapacityTime"
+
+  getter burstcapacitypercentage = "BurstCapacityPercentage"
+
+end
+
+  module AlarmState
+
+  getter ok = "OK"
+
+  getter alarm = "ALARM"
+
+  getter insufficient_data = "INSUFFICIENT_DATA"
+
+end
+
+  module MetricUnit
+
+  getter seconds = "Seconds"
+
+  getter microseconds = "Microseconds"
+
+  getter milliseconds = "Milliseconds"
+
+  getter bytes = "Bytes"
+
+  getter kilobytes = "Kilobytes"
+
+  getter megabytes = "Megabytes"
+
+  getter gigabytes = "Gigabytes"
+
+  getter terabytes = "Terabytes"
+
+  getter bits = "Bits"
+
+  getter kilobits = "Kilobits"
+
+  getter megabits = "Megabits"
+
+  getter gigabits = "Gigabits"
+
+  getter terabits = "Terabits"
+
+  getter percent = "Percent"
+
+  getter count = "Count"
+
+  getter bytessecond = "Bytes/Second"
+
+  getter kilobytessecond = "Kilobytes/Second"
+
+  getter megabytessecond = "Megabytes/Second"
+
+  getter gigabytessecond = "Gigabytes/Second"
+
+  getter terabytessecond = "Terabytes/Second"
+
+  getter bitssecond = "Bits/Second"
+
+  getter kilobitssecond = "Kilobits/Second"
+
+  getter megabitssecond = "Megabits/Second"
+
+  getter gigabitssecond = "Gigabits/Second"
+
+  getter terabitssecond = "Terabits/Second"
+
+  getter countsecond = "Count/Second"
+
+  getter none = "None"
+
+end
+
+  module AutoSnapshotStatus
+
+  getter success = "Success"
+
+  getter failed = "Failed"
+
+  getter in_progress = "InProgress"
+
+  getter not_found = "NotFound"
+
+end
+
+  module BlueprintType
+
+  getter os = "os"
+
+  getter app = "app"
+
+end
+
+  module InstancePlatform
+
+  getter linuxunix = "LINUX_UNIX"
+
+  getter windows = "WINDOWS"
+
+end
+
+  module BucketMetricName
+
+  getter bucketsizebytes = "BucketSizeBytes"
+
+  getter numberofobjects = "NumberOfObjects"
+
+end
+
+  module AccountLevelBpaSyncStatus
+
+  getter insync = "InSync"
+
+  getter failed = "Failed"
+
+  getter neversynced = "NeverSynced"
+
+  getter defaulted = "Defaulted"
+
+end
+
+  module BPAStatusMessage
+
+  getter defaulted_for_slr_missing = "DEFAULTED_FOR_SLR_MISSING"
+
+  getter sync_on_hold = "SYNC_ON_HOLD"
+
+  getter defaulted_for_slr_missing_on_hold = "DEFAULTED_FOR_SLR_MISSING_ON_HOLD"
+
+  getter unknown = "Unknown"
+
+end
+
+  module RecordState
+
+  getter started = "Started"
+
+  getter succeeded = "Succeeded"
+
+  getter failed = "Failed"
+
+end
+
+  module CloudFormationStackRecordSourceType
+
+  getter exportsnapshotrecord = "ExportSnapshotRecord"
+
+end
+
+  module ContactMethodStatus
+
+  getter pendingverification = "PendingVerification"
+
+  getter valid = "Valid"
+
+  getter invalid = "Invalid"
+
+end
+
+  module ContainerServiceMetricName
+
+  getter cpuutilization = "CPUUtilization"
+
+  getter memoryutilization = "MemoryUtilization"
+
+end
+
+  module DiskState
+
+  getter pending = "pending"
+
+  getter error = "error"
+
+  getter available = "available"
+
+  getter inuse = "in-use"
+
+  getter unknown = "unknown"
+
+end
+
+  module DiskSnapshotState
+
+  getter pending = "pending"
+
+  getter completed = "completed"
+
+  getter error = "error"
+
+  getter unknown = "unknown"
+
+end
+
+  module DistributionMetricName
+
+  getter requests = "Requests"
+
+  getter bytesdownloaded = "BytesDownloaded"
+
+  getter bytesuploaded = "BytesUploaded"
+
+  getter totalerrorrate = "TotalErrorRate"
+
+  getter http4xxerrorrate = "Http4xxErrorRate"
+
+  getter http5xxerrorrate = "Http5xxErrorRate"
+
+end
+
+  module ExportSnapshotRecordSourceType
+
+  getter instancesnapshot = "InstanceSnapshot"
+
+  getter disksnapshot = "DiskSnapshot"
+
+end
+
+  module PortAccessType
+
+  getter public = "Public"
+
+  getter priv = "Private"
+
+end
+
+  module AccessDirection
+
+  getter inbound = "inbound"
+
+  getter outbound = "outbound"
+
+end
+
+  module InstanceMetadataState
+
+  getter pending = "pending"
+
+  getter applied = "applied"
+
+end
+
+  module HttpTokens
+
+  getter optional = "optional"
+
+  getter required = "required"
+
+end
+
+  module HttpEndpoint
+
+  getter disabled = "disabled"
+
+  getter enabled = "enabled"
+
+end
+
+  module HttpProtocolIpv6
+
+  getter disabled = "disabled"
+
+  getter enabled = "enabled"
+
+end
+
+  module InstanceAccessProtocol
+
+  getter ssh = "ssh"
+
+  getter rdp = "rdp"
+
+end
+
+  module InstanceMetricName
+
+  getter cpuutilization = "CPUUtilization"
+
+  getter networkin = "NetworkIn"
+
+  getter networkout = "NetworkOut"
+
+  getter statuscheckfailed = "StatusCheckFailed"
+
+  getter statuscheckfailed_instance = "StatusCheckFailed_Instance"
+
+  getter statuscheckfailed_system = "StatusCheckFailed_System"
+
+  getter burstcapacitytime = "BurstCapacityTime"
+
+  getter burstcapacitypercentage = "BurstCapacityPercentage"
+
+  getter metadatanotoken = "MetadataNoToken"
+
+end
+
+  module PortState
+
+  getter open = "open"
+
+  getter closed = "closed"
+
+end
+
+  module InstanceSnapshotState
+
+  getter pending = "pending"
+
+  getter error = "error"
+
+  getter available = "available"
+
+end
+
+  module LoadBalancerState
+
+  getter active = "active"
+
+  getter provisioning = "provisioning"
+
+  getter activeimpaired = "active_impaired"
+
+  getter failed = "failed"
+
+  getter unknown = "unknown"
+
+end
+
+  module LoadBalancerProtocol
+
+  getter http_https = "HTTP_HTTPS"
+
+  getter http = "HTTP"
+
+end
+
+  module InstanceHealthState
+
+  getter initial = "initial"
+
+  getter healthy = "healthy"
+
+  getter unhealthy = "unhealthy"
+
+  getter unused = "unused"
+
+  getter draining = "draining"
+
+  getter unavailable = "unavailable"
+
+end
+
+  module InstanceHealthReason
+
+  getter lbregistrationinprogress = "Lb.RegistrationInProgress"
+
+  getter lbinitialhealthchecking = "Lb.InitialHealthChecking"
+
+  getter lbinternalerror = "Lb.InternalError"
+
+  getter instanceresponsecodemismatch = "Instance.ResponseCodeMismatch"
+
+  getter instancetimeout = "Instance.Timeout"
+
+  getter instancefailedhealthchecks = "Instance.FailedHealthChecks"
+
+  getter instancenotregistered = "Instance.NotRegistered"
+
+  getter instancenotinuse = "Instance.NotInUse"
+
+  getter instancederegistrationinprogress = "Instance.DeregistrationInProgress"
+
+  getter instanceinvalidstate = "Instance.InvalidState"
+
+  getter instanceipunusable = "Instance.IpUnusable"
+
+end
+
+  module LoadBalancerAttributeName
+
+  getter healthcheckpath = "HealthCheckPath"
+
+  getter sessionstickinessenabled = "SessionStickinessEnabled"
+
+  getter sessionstickiness_lb_cookiedurationseconds = "SessionStickiness_LB_CookieDurationSeconds"
+
+  getter httpsredirectionenabled = "HttpsRedirectionEnabled"
+
+  getter tlspolicyname = "TlsPolicyName"
+
+end
+
+  module LoadBalancerMetricName
+
+  getter clienttlsnegotiationerrorcount = "ClientTLSNegotiationErrorCount"
+
+  getter healthyhostcount = "HealthyHostCount"
+
+  getter unhealthyhostcount = "UnhealthyHostCount"
+
+  getter httpcode_lb_4xx_count = "HTTPCode_LB_4XX_Count"
+
+  getter httpcode_lb_5xx_count = "HTTPCode_LB_5XX_Count"
+
+  getter httpcode_instance_2xx_count = "HTTPCode_Instance_2XX_Count"
+
+  getter httpcode_instance_3xx_count = "HTTPCode_Instance_3XX_Count"
+
+  getter httpcode_instance_4xx_count = "HTTPCode_Instance_4XX_Count"
+
+  getter httpcode_instance_5xx_count = "HTTPCode_Instance_5XX_Count"
+
+  getter instanceresponsetime = "InstanceResponseTime"
+
+  getter rejectedconnectioncount = "RejectedConnectionCount"
+
+  getter requestcount = "RequestCount"
+
+end
+
+  module LoadBalancerTlsCertificateStatus
+
+  getter pendingvalidation = "PENDING_VALIDATION"
+
+  getter issued = "ISSUED"
+
+  getter inactive = "INACTIVE"
+
+  getter expired = "EXPIRED"
+
+  getter validationtimedout = "VALIDATION_TIMED_OUT"
+
+  getter revoked = "REVOKED"
+
+  getter failed = "FAILED"
+
+  getter unknown = "UNKNOWN"
+
+end
+
+  module LoadBalancerTlsCertificateDomainStatus
+
+  getter pendingvalidation = "PENDING_VALIDATION"
+
+  getter failed = "FAILED"
+
+  getter success = "SUCCESS"
+
+end
+
+  module LoadBalancerTlsCertificateFailureReason
+
+  getter noavailablecontacts = "NO_AVAILABLE_CONTACTS"
+
+  getter additionalverificationrequired = "ADDITIONAL_VERIFICATION_REQUIRED"
+
+  getter domainnotallowed = "DOMAIN_NOT_ALLOWED"
+
+  getter invalidpublicdomain = "INVALID_PUBLIC_DOMAIN"
+
+  getter other = "OTHER"
+
+end
+
+  module LoadBalancerTlsCertificateRenewalStatus
+
+  getter pendingautorenewal = "PENDING_AUTO_RENEWAL"
+
+  getter pendingvalidation = "PENDING_VALIDATION"
+
+  getter success = "SUCCESS"
+
+  getter failed = "FAILED"
+
+end
+
+  module LoadBalancerTlsCertificateRevocationReason
+
+  getter unspecified = "UNSPECIFIED"
+
+  getter keycompromise = "KEY_COMPROMISE"
+
+  getter cacompromise = "CA_COMPROMISE"
+
+  getter affiliationchanged = "AFFILIATION_CHANGED"
+
+  getter superceded = "SUPERCEDED"
+
+  getter cessationofoperation = "CESSATION_OF_OPERATION"
+
+  getter certificatehold = "CERTIFICATE_HOLD"
+
+  getter removefromcrl = "REMOVE_FROM_CRL"
+
+  getter privilegewithdrawn = "PRIVILEGE_WITHDRAWN"
+
+  getter aacompromise = "A_A_COMPROMISE"
+
+end
+
+  module RelationalDatabaseEngine
+
+  getter mysql = "mysql"
+
+end
+
+  module RelationalDatabasePasswordVersion
+
+  getter current = "CURRENT"
+
+  getter previous = "PREVIOUS"
+
+  getter pending = "PENDING"
+
+end
+
+  module RelationalDatabaseMetricName
+
+  getter cpuutilization = "CPUUtilization"
+
+  getter databaseconnections = "DatabaseConnections"
+
+  getter diskqueuedepth = "DiskQueueDepth"
+
+  getter freestoragespace = "FreeStorageSpace"
+
+  getter networkreceivethroughput = "NetworkReceiveThroughput"
+
+  getter networktransmitthroughput = "NetworkTransmitThroughput"
+
+end
+
+  module ContactMethodVerificationProtocol
+
+  getter email = "Email"
+
+end
+
+  module ResourceBucketAccess
+
+  getter allow = "allow"
+
+  getter deny = "deny"
+
+end
+
+
 end
